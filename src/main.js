@@ -32,12 +32,31 @@ Vue.component("GovLink", () => import("@/components/Gov/GovLink"));
 Vue.component("GovMainWrapper", () =>
   import("@/components/Gov/GovMainWrapper")
 );
+Vue.component("GovSectionBreak", () =>
+  import("@/components/Gov/GovSectionBreak")
+);
 Vue.component("GovSkipLink", () => import("@/components/Gov/GovSkipLink"));
 Vue.component("GovTable", () => import("@/components/Gov/GovTable"));
 Vue.component("GovTextarea", () => import("@/components/Gov/GovTextarea"));
 Vue.component("GovWidthContainer", () =>
   import("@/components/Gov/GovWidthContainer")
 );
+
+// Vue Helpers
+Vue.mixin({
+  methods: {
+    slugify(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, "-") // Replace spaces with -
+        .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+        .replace(/\-\-+/g, "-") // Replace multiple - with single -
+        .replace(/^-+/, "") // Trim - from start of text
+        .replace(/-+$/, ""); // Trim - from end of text
+    }
+  }
+});
 
 Vue.config.productionTip = false;
 

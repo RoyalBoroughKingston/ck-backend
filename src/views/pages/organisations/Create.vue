@@ -12,7 +12,7 @@
             <gov-input v-model="form.name" id="name" name="name" type="text" />
           </gov-form-group>
           <gov-form-group>
-            <gov-label for="description" class="govuk-!-font-weight-bold">Organisation name</gov-label>
+            <gov-label for="description" class="govuk-!-font-weight-bold">Please provide a one-line summary of organisation</gov-label>
             <gov-hint for="description">This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page (max 150 characters).</gov-hint>
             <gov-textarea v-model="form.description" id="description" name="description" />
           </gov-form-group>
@@ -30,8 +30,10 @@
           </gov-form-group>
           <gov-form-group>
             <gov-label for="file" class="govuk-!-font-weight-bold">Organisation logo</gov-label>
-            <gov-file-upload @change="onLogoChange" id="file" name="file" />
+            <gov-file-upload @change="onLogoChange" id="file" name="file" accept="image/x-png" />
           </gov-form-group>
+          <gov-section-break size="l" />
+          <gov-button @click="onSubmit" type="submit">Next</gov-button>
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -47,6 +49,7 @@ export default {
     return {
       form: new Form({
         name: "",
+        slug: "",
         description: "",
         url: "",
         email: "",
@@ -57,9 +60,28 @@ export default {
       })
     };
   },
+  watch: {
+    ["form.name"](newName) {
+      this.form.slug = this.slugify(newName);
+    }
+  },
   methods: {
     onLogoChange(fileContents) {
       this.logoForm.file = fileContents;
+    },
+    onSubmit() {
+      this.form.post('/organisations')
+        .then(({ data }) => {
+          const organisationId = data.id;
+
+          if (this.logoForm.file === null) {
+            this.$router.push({ name: "organisations-show", params: { organisation: organisationId } });
+            return;
+          }
+
+          this.logoForm.post(`/organisations/${organisationId}/logo`)
+            .then(() => this.$router.push({ name: "organisations-show", params: { organisation: organisationId } }));
+        });
     }
   }
 }
