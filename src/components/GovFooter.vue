@@ -69,29 +69,28 @@
 
 <script>
 export default {
-    name: 'GovFooter',
-    props: {
-        containerClasses: {
-            type: Array,
-            required: false,
-            default() {
-                return []
-            }
-        },
-        navigation: {
-            type: Array,
-            required: false
-        },
-        meta: {
-            type: Object,
-            required: false
-        }
+  name: "GovFooter",
+  props: {
+    containerClasses: {
+      type: Array,
+      required: false,
+      default() {
+        return [];
+      }
     },
-    methods: {
-        listClasses(item) {
-            return item.items ? `govuk-footer__list--columns-${item.columns}` : null;
-        }
+    navigation: {
+      type: Array,
+      required: false
+    },
+    meta: {
+      type: Object,
+      required: false
     }
-}
+  },
+  methods: {
+    listClasses(item) {
+      return item.items ? `govuk-footer__list--columns-${item.columns}` : null;
+    }
+  }
+};
 </script>
-

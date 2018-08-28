@@ -1,5 +1,5 @@
 <template>
-  <button :type="type" class="govuk-button">
+  <button @click="onClick" :type="type" class="govuk-button">
     <slot />
   </button>
 </template>
@@ -13,7 +13,11 @@ export default {
       required: false,
       default: "submit"
     }
+  },
+  methods: {
+    onClick() {
+      this.$emit("click");
+    }
   }
-}
+};
 </script>
-

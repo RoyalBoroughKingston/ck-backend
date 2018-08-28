@@ -17,7 +17,7 @@
             <gov-input v-model="form.password" id="password" name="password" type="password" />
             <gov-link to="/forgotten-password">Forgotten password</gov-link>
           </gov-form-group>
-          <gov-button>Send code</gov-button>
+          <gov-button @click="onSendCode">Send code</gov-button>
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -36,6 +36,12 @@ export default {
         password: ""
       })
     };
+  },
+  methods: {
+    onSendCode() {
+      // TODO
+      this.$router.push({ name: "login-code" });
+    }
   }
 };
 </script>

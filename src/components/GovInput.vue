@@ -1,5 +1,5 @@
 <template>
-  <input v-model="proxy" class="govuk-input" :id="id" :name="name" :type="type" :aria-describedby="ariaDescribedBy">
+  <input v-model="proxy" class="govuk-input" :class="computedClass" :id="id" :name="name" :type="type" :aria-describedby="ariaDescribedBy">
 </template>
 
 <script>
@@ -22,6 +22,10 @@ export default {
       type: String,
       required: false,
       default: "text"
+    },
+    width: {
+      type: Number,
+      required: false
     }
   },
   data() {
@@ -30,6 +34,9 @@ export default {
     };
   },
   computed: {
+    computedClass() {
+      return this.width ? `govuk-input--width-${this.width}` : null;
+    },
     ariaDescribedBy() {
       return `${this.name}-hint`;
     }
@@ -39,5 +46,5 @@ export default {
       this.$emit("input", newValue);
     }
   }
-}
+};
 </script>

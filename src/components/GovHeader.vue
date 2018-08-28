@@ -35,31 +35,31 @@
 
 <script>
 export default {
-    name: 'GovHeader',
-    props: {
-        serviceName: {
-            type: String,
-            required: true
-        },
-        navigationClasses: {
-            type: Array,
-            required: false,
-            default() {
-                return []
-            }
-        },
-        navigation: {
-            type: Array,
-            required: false,
-            default() {
-                return []
-            }
-        }
+  name: "GovHeader",
+  props: {
+    serviceName: {
+      type: String,
+      required: true
     },
-    methods: {
-        itemActiveClass(item) {
-            return item.active ? 'govuk-header__navigation-item--active' : null;
-        }
+    navigationClasses: {
+      type: Array,
+      required: false,
+      default() {
+        return [];
+      }
+    },
+    navigation: {
+      type: Array,
+      required: false,
+      default() {
+        return [];
+      }
     }
+  },
+  methods: {
+    itemActiveClass(item) {
+      return item.active ? "govuk-header__navigation-item--active" : null;
+    }
+  }
 };
 </script>

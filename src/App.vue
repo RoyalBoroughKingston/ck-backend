@@ -1,32 +1,32 @@
 <template>
-    <div id="app">
-        <vue-headful title="Connected Kingston" :head="headAttributes" :html="htmlAttributes" />
+  <div id="app">
+    <vue-headful title="Connected Kingston" :head="headAttributes" :html="htmlAttributes" />
 
-        <slot name="bodyStart" />
+    <slot name="bodyStart" />
 
-        <slot name="skipLink">
-            <gov-skip-link href="#main-content">Skip to main content</gov-skip-link>
-        </slot>
+    <slot name="skipLink">
+      <gov-skip-link href="#main-content">Skip to main content</gov-skip-link>
+    </slot>
 
-        <slot name="header">
-            <gov-header service-name="Connected Kingston" :navigation="headerNav" />
-        </slot>
+    <slot name="header">
+      <gov-header service-name="Connected Kingston" :navigation="headerNav" />
+    </slot>
 
-        <slot name="main">
-            <div class="govuk-width-container">
-                <slot name="beforeContent" />
-                <main class="govuk-main-wrapper" :class="mainClasses" id="main-content" role="main">
-                    <router-view />
-                </main>
-            </div>
-        </slot>
+    <slot name="main">
+      <div class="govuk-width-container">
+        <slot name="beforeContent" />
+        <main class="govuk-main-wrapper" :class="mainClasses" id="main-content" role="main">
+          <router-view />
+        </main>
+      </div>
+    </slot>
 
-        <slot name="footer">
-            <gov-footer :navigation="footerNav" :meta="footerMeta" />
-        </slot>
+    <slot name="footer">
+      <gov-footer :navigation="footerNav" :meta="footerMeta" />
+    </slot>
 
-        <slot name="bodyEnd" />
-    </div>
+    <slot name="bodyEnd" />
+  </div>
 </template>
 
 <script>
