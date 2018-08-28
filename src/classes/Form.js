@@ -50,7 +50,7 @@ export default class Form {
    * @param {callback|null} callback
    */
   put(url, callback = null) {
-    return this.submit("put", url);
+    return this.submit("put", url, callback);
   }
 
   /**
@@ -60,7 +60,7 @@ export default class Form {
    * @param {callback|null} callback
    */
   patch(url, callback = null) {
-    return this.submit("patch", url);
+    return this.submit("patch", url, callback);
   }
 
   /**
