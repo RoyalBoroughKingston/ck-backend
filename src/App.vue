@@ -1,11 +1,11 @@
 <template>
     <div id="app">
-        <vue-headful :head="headAttributes" :html="htmlAttributes" />
+        <vue-headful title="Connected Kingston" :head="headAttributes" :html="htmlAttributes" />
 
         <slot name="bodyStart" />
 
         <slot name="skipLink">
-            <gov-skip-link href="#main-content" />
+            <gov-skip-link href="#main-content">Skip to main content</gov-skip-link>
         </slot>
 
         <slot name="header">
@@ -15,7 +15,7 @@
         <slot name="main">
             <div class="govuk-width-container">
                 <slot name="beforeContent" />
-                <main class="govuk-main-wrapper" :class="mainClassesString" id="main-content" role="main">
+                <main class="govuk-main-wrapper" :class="mainClasses" id="main-content" role="main">
                     <router-view />
                 </main>
             </div>
@@ -31,13 +31,10 @@
 
 <script>
 import VueHeadful from "vue-headful";
-import GovFooter from "@/components/GovFooter";
-import GovHeader from "@/components/GovHeader";
-import GovSkipLink from "@/components/GovSkipLink";
 
 export default {
   name: "App",
-  components: { VueHeadful, GovFooter, GovHeader, GovSkipLink },
+  components: { VueHeadful },
   data() {
     return {
       themeColor: "#0b0c0c",
@@ -52,11 +49,11 @@ export default {
         { text: "Reports", href: "#" },
         { text: "Admin", href: "#" },
         { text: "Update requests", href: "#" },
-        { text: "Logout", href: "#" }
+        { text: "Login", href: "/login" }
       ],
       footerNav: [
-        { 
-          title: "Something Here", 
+        {
+          title: "Something Here",
           items: [
             { text: "Google", href: "https://google.com" },
             { text: "Google", href: "https://google.com" },
@@ -77,7 +74,7 @@ export default {
     headAttributes() {
       return {
         "meta[name=theme-color]": { content: this.themeColor }
-      }
+      };
     },
     htmlAttributes() {
       return {
@@ -85,9 +82,6 @@ export default {
           class: [document.body.className, ...this.bodyClasses].join(" ")
         }
       };
-    },
-    mainClassesString() {
-      return this.mainClasses.join(" ")
     }
   }
 };
