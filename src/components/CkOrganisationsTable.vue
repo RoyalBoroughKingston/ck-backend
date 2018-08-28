@@ -16,7 +16,7 @@
         <td class="govuk-table__cell">{{ organisation.phone }}</td>
         <td class="govuk-table__cell">{{ organisation.email }}</td>
         <td class="govuk-table__cell text-right">
-          <gov-link :to="{ name: 'organisations-show', params: { organisation: organisation.id } }">View</gov-link>
+          <gov-link :to="{ name: 'organisations-show', params: { organisation: organisation.slug } }">View</gov-link>
         </td>
       </tr>
     </template>

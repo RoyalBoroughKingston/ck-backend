@@ -78,15 +78,15 @@ export default {
     onSubmit() {
       this.form.post('/organisations')
         .then(({ data }) => {
-          const organisationId = data.id;
+          const organisationSlug = data.slug;
 
           if (this.logoForm.file === null) {
-            this.$router.push({ name: "organisations-show", params: { organisation: organisationId } });
+            this.$router.push({ name: "organisations-show", params: { organisation: organisationSlug } });
             return;
           }
 
-          this.logoForm.post(`/organisations/${organisationId}/logo`)
-            .then(() => this.$router.push({ name: "organisations-show", params: { organisation: organisationId } }));
+          this.logoForm.post(`/organisations/${organisationSlug}/logo`)
+            .then(() => this.$router.push({ name: "organisations-show", params: { organisation: organisationSlug } }));
         });
     }
   }
