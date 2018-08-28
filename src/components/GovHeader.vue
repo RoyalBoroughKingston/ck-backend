@@ -19,7 +19,15 @@
                     {{ serviceName }}
                 </a>
                 <button role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
-                <nav></nav>
+                <nav>
+                    <ul id="navigation" class="govuk-header__navigation" :class="navigationClassesString" aria-label="Top Level Navigation">
+                        <li v-for="(item, key) in navigation" :key="key" v-if="item.href && item.text" class="govuk-header__navigation-item" :class="itemActiveClass(item)">
+                            <a class="govuk-header__link" :href="item.href">
+                                {{ item.text }}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
@@ -32,7 +40,31 @@ export default {
         serviceName: {
             type: String,
             required: true
+        },
+        navigationClasses: {
+            type: Array,
+            required: false,
+            default() {
+                return []
+            }
+        },
+        navigation: {
+            type: Array,
+            required: false,
+            default() {
+                return []
+            }
+        }
+    },
+    computed: {
+        navigationClassesString() {
+            return this.navigationClasses.join(" ");
+        }
+    },
+    methods: {
+        itemActiveClass(item) {
+            return item.active ? 'govuk-header__navigation-item--active' : null;
         }
     }
-}
+};
 </script>

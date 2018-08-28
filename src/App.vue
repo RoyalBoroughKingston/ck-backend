@@ -9,7 +9,7 @@
         </slot>
 
         <slot name="header">
-            <gov-header service-name="Connected Kingston" />
+            <gov-header service-name="Connected Kingston" :navigation="headerNav" />
         </slot>
 
         <slot name="main">
@@ -22,7 +22,7 @@
         </slot>
 
         <slot name="footer">
-            <gov-footer />
+            <gov-footer :navigation="footerNav" :meta="footerMeta" />
         </slot>
 
         <slot name="bodyEnd" />
@@ -42,7 +42,35 @@ export default {
     return {
       themeColor: "#0b0c0c",
       bodyClasses: ["js-enabled"],
-      mainClasses: []
+      mainClasses: [],
+      headerNav: [
+        { text: "Services", href: "#" },
+        { text: "Locations", href: "#" },
+        { text: "Referrals", href: "#" },
+        { text: "Organisations", href: "#" },
+        { text: "Users", href: "#" },
+        { text: "Reports", href: "#" },
+        { text: "Admin", href: "#" },
+        { text: "Update requests", href: "#" },
+        { text: "Logout", href: "#" }
+      ],
+      footerNav: [
+        { 
+          title: "Something Here", 
+          items: [
+            { text: "Google", href: "https://google.com" },
+            { text: "Google", href: "https://google.com" },
+            { text: "Google", href: "https://google.com" }
+          ]
+        }
+      ],
+      footerMeta: {
+        items: [
+          { text: "Clear data", href: "#clear-data" },
+          { text: "Cookies", href: "#cookies" },
+          { text: "Privacy policy", href: "#privacy-policy" }
+        ]
+      }
     };
   },
   computed: {
