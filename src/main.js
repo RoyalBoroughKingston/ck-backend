@@ -8,24 +8,32 @@ import Vue from "vue";
 import App from "@/App.vue";
 import router from "@/router";
 
-// Vue Components
+// Custom Vue Components
 Vue.component("CkLoader", () => import("@/components/CkLoader"));
-Vue.component("GovBackLink", () => import("@/components/GovBackLink"));
-Vue.component("GovBody", () => import("@/components/GovBody"));
-Vue.component("GovButton", () => import("@/components/GovButton"));
-Vue.component("GovFooter", () => import("@/components/GovFooter"));
-Vue.component("GovFormGroup", () => import("@/components/GovFormGroup"));
-Vue.component("GovGridColumn", () => import("@/components/GovGridColumn"));
-Vue.component("GovGridRow", () => import("@/components/GovGridRow"));
-Vue.component("GovHeader", () => import("@/components/GovHeader"));
-Vue.component("GovHeading", () => import("@/components/GovHeading"));
-Vue.component("GovInput", () => import("@/components/GovInput"));
-Vue.component("GovLabel", () => import("@/components/GovLabel"));
-Vue.component("GovLink", () => import("@/components/GovLink"));
-Vue.component("GovMainWrapper", () => import("@/components/GovMainWrapper"));
-Vue.component("GovSkipLink", () => import("@/components/GovSkipLink"));
+Vue.component("CkOrganisationsTable", () =>
+  import("@/components/CkOrganisationsTable")
+);
+
+// Gov.UK Vue Components
+Vue.component("GovBackLink", () => import("@/components/Gov/GovBackLink"));
+Vue.component("GovBody", () => import("@/components/Gov/GovBody"));
+Vue.component("GovButton", () => import("@/components/Gov/GovButton"));
+Vue.component("GovFooter", () => import("@/components/Gov/GovFooter"));
+Vue.component("GovFormGroup", () => import("@/components/Gov/GovFormGroup"));
+Vue.component("GovGridColumn", () => import("@/components/Gov/GovGridColumn"));
+Vue.component("GovGridRow", () => import("@/components/Gov/GovGridRow"));
+Vue.component("GovHeader", () => import("@/components/Gov/GovHeader"));
+Vue.component("GovHeading", () => import("@/components/Gov/GovHeading"));
+Vue.component("GovInput", () => import("@/components/Gov/GovInput"));
+Vue.component("GovLabel", () => import("@/components/Gov/GovLabel"));
+Vue.component("GovLink", () => import("@/components/Gov/GovLink"));
+Vue.component("GovMainWrapper", () =>
+  import("@/components/Gov/GovMainWrapper")
+);
+Vue.component("GovSkipLink", () => import("@/components/Gov/GovSkipLink"));
+Vue.component("GovTable", () => import("@/components/Gov/GovTable"));
 Vue.component("GovWidthContainer", () =>
-  import("@/components/GovWidthContainer")
+  import("@/components/Gov/GovWidthContainer")
 );
 
 Vue.config.productionTip = false;

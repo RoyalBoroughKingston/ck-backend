@@ -44,12 +44,12 @@ export default {
         { text: "Services", href: "#" },
         { text: "Locations", href: "#" },
         { text: "Referrals", href: "#" },
-        { text: "Organisations", href: "#" },
+        { text: "Organisations", href: { name: "organisations-index" } },
         { text: "Users", href: "#" },
         { text: "Reports", href: "#" },
         { text: "Admin", href: "#" },
         { text: "Update requests", href: "#" },
-        { text: "Login", href: "/login" }
+        { text: "Login", href: { name: "login" } }
       ],
       footerNav: [
         {

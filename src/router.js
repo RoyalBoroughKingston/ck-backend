@@ -9,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "dashboard",
       component: () => import("@/views/pages/Dashboard")
     },
     {
@@ -31,6 +31,11 @@ export default new Router({
       path: "/reset-password",
       name: "reset-password",
       component: () => import("@/views/pages/auth/NewPassword")
+    },
+    {
+      path: "/organisations",
+      name: "organisations-index",
+      component: () => import("@/views/pages/organisations/Index")
     }
   ]
 });

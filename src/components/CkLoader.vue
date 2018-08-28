@@ -1,5 +1,5 @@
 <template>
-  <p></p>
+  <gov-body>Loading...</gov-body>
 </template>
 
 <script>

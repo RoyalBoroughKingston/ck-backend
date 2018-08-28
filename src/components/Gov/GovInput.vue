@@ -1,5 +1,14 @@
 <template>
-  <input v-model="proxy" class="govuk-input" :class="computedClass" :id="id" :name="name" :type="type" :aria-describedby="ariaDescribedBy">
+  <input
+    @keyup.enter="onEnter"
+    v-model="proxy"
+    class="govuk-input"
+    :class="computedClass"
+    :id="id"
+    :name="name"
+    :type="type"
+    :aria-describedby="ariaDescribedBy"
+  >
 </template>
 
 <script>
@@ -44,6 +53,11 @@ export default {
   watch: {
     proxy(newValue) {
       this.$emit("input", newValue);
+    }
+  },
+  methods: {
+    onEnter() {
+      this.$emit("enter");
     }
   }
 };

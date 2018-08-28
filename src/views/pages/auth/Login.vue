@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <gov-back-link to="/">Back to main site</gov-back-link>
+    <gov-back-link :to="{ name: 'dashboard' }">Back to main site</gov-back-link>
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="two-thirds">
@@ -15,7 +15,7 @@
           <gov-form-group>
             <gov-label for="email">Password</gov-label>
             <gov-input v-model="form.password" id="password" name="password" type="password" />
-            <gov-link to="/forgotten-password">Forgotten password</gov-link>
+            <gov-link :to="{ name: 'forgotten-password' }">Forgotten password</gov-link>
           </gov-form-group>
           <gov-button @click="onSendCode">Send code</gov-button>
         </gov-grid-column>

@@ -1,7 +1,10 @@
 <template>
+  <!-- For paragraph tags -->
   <p v-if="tag === 'p'" :class="computedClass">
     <slot />
   </p>
+
+  <!-- For div tags -->
   <div v-else-if="tag === 'div'" :class="computedClass">
     <slot />
   </div>
@@ -13,7 +16,7 @@ export default {
   props: {
     size: {
       type: String,
-      required: true
+      required: false
     },
     tag: {
       type: String,
@@ -23,7 +26,7 @@ export default {
   },
   computed: {
     computedClass() {
-      return `govuk-body-${this.size}`;
+      return this.size ? ["govuk-body", this.size].join("-") : "govuk-body";
     }
   }
 };
