@@ -41,7 +41,8 @@ export default {
   methods: {
     onSendCode() {
       // TODO: This currently skips the code screen.
-      auth.login(this.form.email, this.form.password)
+      auth
+        .login(this.form.email, this.form.password)
         .then(() => this.$router.push({ name: "dashboard" }));
     }
   }

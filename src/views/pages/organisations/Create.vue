@@ -76,19 +76,25 @@ export default {
       this.logoForm.file = fileContents;
     },
     onSubmit() {
-      this.form.post('/organisations')
-        .then(({ data }) => {
-          const organisationId = data.id;
+      this.form.post("/organisations").then(({ data }) => {
+        const organisationId = data.id;
 
-          if (this.logoForm.file === null) {
-            this.$router.push({ name: "organisations-show", params: { organisation: organisationId } });
-            return;
-          }
+        if (this.logoForm.file === null) {
+          this.$router.push({
+            name: "organisations-show",
+            params: { organisation: organisationId }
+          });
+          return;
+        }
 
-          this.logoForm.post(`/organisations/${organisationId}/logo`)
-            .then(() => this.$router.push({ name: "organisations-show", params: { organisation: organisationId } }));
-        });
+        this.logoForm.post(`/organisations/${organisationId}/logo`).then(() =>
+          this.$router.push({
+            name: "organisations-show",
+            params: { organisation: organisationId }
+          })
+        );
+      });
     }
   }
-}
+};
 </script>

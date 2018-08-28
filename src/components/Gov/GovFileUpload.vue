@@ -43,8 +43,9 @@ export default {
       }
 
       const file = files[0];
-      this.fileReader.onloadend = () => this.$emit("change", this.fileReader.result);
-      const fileContent = this.fileReader.readAsDataURL(file);
+      this.fileReader.onloadend = () =>
+        this.$emit("change", this.fileReader.result);
+      this.fileReader.readAsDataURL(file);
     }
   }
 };

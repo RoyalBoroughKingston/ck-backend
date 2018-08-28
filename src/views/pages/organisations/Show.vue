@@ -35,7 +35,8 @@ export default {
   methods: {
     fetchOrganisation() {
       this.loading = true;
-      http.get(`/organisations/${this.$route.params.organisation}`)
+      http
+        .get(`/organisations/${this.$route.params.organisation}`)
         .then(({ data }) => {
           this.organisation = data.data;
           this.loading = false;

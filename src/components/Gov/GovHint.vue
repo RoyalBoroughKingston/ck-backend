@@ -18,5 +18,5 @@ export default {
       return [this.for, "hint"].join("-");
     }
   }
-}
+};
 </script>

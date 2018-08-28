@@ -35,7 +35,6 @@
 
 <script>
 import http from "@/http";
-import Form from "@/classes/Form";
 
 export default {
   name: "ListOrganisations",
@@ -63,13 +62,12 @@ export default {
     fetchOrganisations() {
       this.loading = true;
 
-      http.get('/organisations', { params: this.params })
-        .then(({ data }) => {
-          this.organisations = data.data;
-          this.currentPage = data.meta.current_page;
-          this.lastPage = data.meta.last_page;
-          this.loading = false;
-        })
+      http.get("/organisations", { params: this.params }).then(({ data }) => {
+        this.organisations = data.data;
+        this.currentPage = data.meta.current_page;
+        this.lastPage = data.meta.last_page;
+        this.loading = false;
+      });
     },
     onNext() {
       this.currentPage++;
