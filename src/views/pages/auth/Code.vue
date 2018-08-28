@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     code() {
-      return `${this.code1}${this.code2}${this.code3}${this.code4}`;
+      return `${this.form.code1}${this.form.code2}${this.form.code3}${this.form.code4}`;
     }
   }
 };
