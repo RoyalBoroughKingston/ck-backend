@@ -49,6 +49,12 @@ let router = new Router({
       name: "organisations-create",
       component: () => import("@/views/pages/organisations/Create"),
       meta: { auth: true }
+    },
+    {
+      path: "/organisations/:organisation",
+      name: "organisations-show",
+      component: () => import("@/views/pages/organisations/Show"),
+      meta: { auth: true }
     }
   ]
 });

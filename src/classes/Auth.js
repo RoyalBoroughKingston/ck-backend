@@ -26,7 +26,7 @@ class Auth {
    */
   async refreshAccessToken() {
     const { data } = await http.post("/oauth/token", {
-      grant_type: "refresh",
+      grant_type: "refresh_token",
       refresh_token: this.refreshToken,
       client_id: process.env.VUE_APP_API_CLIENT_ID,
       client_secret: process.env.VUE_APP_API_CLIENT_SECRET

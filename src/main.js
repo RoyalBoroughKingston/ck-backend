@@ -45,6 +45,9 @@ Vue.component("GovWidthContainer", () =>
 // Vue Helpers
 Vue.mixin({
   methods: {
+    apiUrl(path) {
+      return process.env.VUE_APP_API_URI + path;
+    },
     slugify(text) {
       return text
         .toString()
