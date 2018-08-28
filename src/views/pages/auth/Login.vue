@@ -26,6 +26,7 @@
 
 <script>
 import Form from "@/classes/Form";
+import auth from "@/classes/Auth";
 
 export default {
   name: "Login",
@@ -39,8 +40,9 @@ export default {
   },
   methods: {
     onSendCode() {
-      // TODO
-      this.$router.push({ name: "login-code" });
+      // TODO: This currently skips the code screen.
+      auth.login(this.form.email, this.form.password)
+        .then(() => this.$router.push({ name: "dashboard" }));
     }
   }
 };
