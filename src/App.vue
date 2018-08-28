@@ -1,31 +1,66 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <vue-headful :head="headAttributes" :html="htmlAttributes" />
+
+        <slot name="bodyStart" />
+
+        <slot name="skipLink">
+            <gov-skip-link href="#main-content" />
+        </slot>
+
+        <slot name="header">
+            <gov-header service-name="Connected Kingston" />
+        </slot>
+
+        <slot name="main">
+            <div class="govuk-width-container">
+                <slot name="beforeContent" />
+                <main class="govuk-main-wrapper" :class="mainClassesString" id="main-content" role="main">
+                    <router-view />
+                </main>
+            </div>
+        </slot>
+
+        <slot name="footer">
+            <gov-footer />
+        </slot>
+
+        <slot name="bodyEnd" />
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<script>
+import VueHeadful from "vue-headful";
+import GovFooter from "@/components/GovFooter";
+import GovHeader from "@/components/GovHeader";
+import GovSkipLink from "@/components/GovSkipLink";
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+export default {
+  name: "App",
+  components: { VueHeadful, GovFooter, GovHeader, GovSkipLink },
+  data() {
+    return {
+      themeColor: "#0b0c0c",
+      bodyClasses: ["js-enabled"],
+      mainClasses: []
+    };
+  },
+  computed: {
+    headAttributes() {
+      return {
+        "meta[name=theme-color]": { content: this.themeColor }
+      }
+    },
+    htmlAttributes() {
+      return {
+        body: {
+          class: [document.body.className, ...this.bodyClasses].join(" ")
+        }
+      };
+    },
+    mainClassesString() {
+      return this.mainClasses.join(" ")
+    }
+  }
+};
+</script>

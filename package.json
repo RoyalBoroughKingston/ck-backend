@@ -10,7 +10,11 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
+    "govuk-frontend": "^1.3.0",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
     "vue": "^2.5.17",
+    "vue-headful": "^2.0.1",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
