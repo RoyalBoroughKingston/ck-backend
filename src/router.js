@@ -36,6 +36,11 @@ export default new Router({
       path: "/organisations",
       name: "organisations-index",
       component: () => import("@/views/pages/organisations/Index")
+    },
+    {
+      path: "/organisations/create",
+      name: "organisations-create",
+      component: () => import("@/views/pages/organisations/Create")
     }
   ]
 });
