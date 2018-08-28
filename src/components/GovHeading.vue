@@ -38,5 +38,5 @@ export default {
       return `govuk-heading-${this.size}`;
     }
   }
-}
+};
 </script>

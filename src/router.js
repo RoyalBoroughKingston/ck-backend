@@ -21,6 +21,16 @@ export default new Router({
       path: "/login/code",
       name: "login-code",
       component: () => import("@/views/pages/auth/Code")
+    },
+    {
+      path: "/forgotten-password",
+      name: "forgotten-password",
+      component: () => import("@/views/pages/auth/ForgottenPassword")
+    },
+    {
+      path: "/reset-password",
+      name: "reset-password",
+      component: () => import("@/views/pages/auth/NewPassword")
     }
   ]
 });

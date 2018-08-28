@@ -18,6 +18,5 @@ export default {
       return `govuk-grid-column-${this.width}`;
     }
   }
-}
+};
 </script>
-
