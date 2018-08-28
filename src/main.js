@@ -18,6 +18,9 @@ Vue.component("CkOrganisationsTable", () =>
 Vue.component("GovBackLink", () => import("@/components/Gov/GovBackLink"));
 Vue.component("GovBody", () => import("@/components/Gov/GovBody"));
 Vue.component("GovButton", () => import("@/components/Gov/GovButton"));
+Vue.component("GovErrorMessage", () =>
+  import("@/components/Gov/GovErrorMessage")
+);
 Vue.component("GovFileUpload", () => import("@/components/Gov/GovFileUpload"));
 Vue.component("GovFooter", () => import("@/components/Gov/GovFooter"));
 Vue.component("GovFormGroup", () => import("@/components/Gov/GovFormGroup"));
