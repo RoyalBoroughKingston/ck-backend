@@ -33,7 +33,8 @@
             <gov-file-upload @change="onLogoChange" id="file" name="file" accept="image/x-png" />
           </gov-form-group>
           <gov-section-break size="l" />
-          <gov-button @click="onSubmit" type="submit">Next</gov-button>
+          <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
+          <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -63,6 +64,11 @@ export default {
   watch: {
     ["form.name"](newName) {
       this.form.slug = this.slugify(newName);
+    }
+  },
+  computed: {
+    submitting() {
+      return this.form.$submitting || this.logoForm.$submitting;
     }
   },
   methods: {
