@@ -6,12 +6,6 @@
 
 <script>
 export default {
-  name: "GovLabel",
-  props: {
-    for: {
-      type: String,
-      required: true
-    }
-  }
+  name: "GovLabel"
 };
 </script>

@@ -9,7 +9,28 @@
           <gov-body>General details about the organisation. To be found when searching or linked from a service page.</gov-body>
           <gov-form-group>
             <gov-label for="name" class="govuk-!-font-weight-bold">Organisation name</gov-label>
-            <gov-input v-model="form.name" id="name" name="name" />
+            <gov-input v-model="form.name" id="name" name="name" type="text" />
+          </gov-form-group>
+          <gov-form-group>
+            <gov-label for="description" class="govuk-!-font-weight-bold">Organisation name</gov-label>
+            <gov-hint for="description">This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page (max 150 characters).</gov-hint>
+            <gov-textarea v-model="form.description" id="description" name="description" />
+          </gov-form-group>
+          <gov-form-group>
+            <gov-label for="url" class="govuk-!-font-weight-bold">Organisation website address</gov-label>
+            <gov-input v-model="form.url" id="url" name="url" type="url" />
+          </gov-form-group>
+          <gov-form-group>
+            <gov-label for="phone" class="govuk-!-font-weight-bold">Public phone</gov-label>
+            <gov-input v-model="form.phone" id="phone" name="phone" type="tel" />
+          </gov-form-group>
+          <gov-form-group>
+            <gov-label for="email" class="govuk-!-font-weight-bold">Public email address</gov-label>
+            <gov-input v-model="form.email" id="email" name="email" type="email" />
+          </gov-form-group>
+          <gov-form-group>
+            <gov-label for="file" class="govuk-!-font-weight-bold">Organisation logo</gov-label>
+            <gov-file-upload @change="onLogoChange" id="file" name="file" />
           </gov-form-group>
         </gov-grid-column>
       </gov-grid-row>
@@ -25,9 +46,21 @@ export default {
   data() {
     return {
       form: new Form({
-        name: ""
+        name: "",
+        description: "",
+        url: "",
+        email: "",
+        phone: ""
+      }),
+      logoForm: new Form({
+        file: null
       })
     };
+  },
+  methods: {
+    onLogoChange(fileContents) {
+      this.logoForm.file = fileContents;
+    }
   }
 }
 </script>
