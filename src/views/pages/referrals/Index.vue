@@ -51,7 +51,7 @@ export default {
       };
 
       if (this.query.length > 0) {
-        params["filter[name]"] = this.query;
+        params["filter[reference]"] = this.query;
       }
 
       return params;
