@@ -12,42 +12,69 @@
         </gov-grid-row>
         <gov-section-break size="l" />
         <ck-loader v-if="loadingStatusUpdates" />
-        <gov-grid-row v-else width="two-thirds">
-          <gov-grid-column width="two-thirds">
-            <gov-heading size="m">Add new comment</gov-heading>
-            <gov-form-group :invalid="form.$errors.has('status')">
-              <gov-label for="status">Status</gov-label>
-              <gov-select
-                v-model="form.status"
-                @input="form.$errors.clear('status')"
-                id="status"
-                name="status"
-                :options="statusOptions"
-              />
-              <gov-error-message
-                v-if="form.$errors.has('status')"
-                v-text="form.$errors.get('status')"
-                for="status"
-              />
-            </gov-form-group>
-            <gov-form-group :invalid="form.$errors.has('comments')">
-              <gov-label for="comments">Notes</gov-label>
-              <gov-textarea
-                v-model="form.comments"
-                @input="form.$errors.clear('comments')"
-                id="comments"
-                name="comments"
-              />
-              <gov-error-message
-                v-if="form.$errors.has('comments')"
-                v-text="form.$errors.get('comments')"
-                for="comments"
-              />
-            </gov-form-group>
-            <gov-button v-if="form.$submitting" disabled type="submit">Adding notes...</gov-button>
-          <gov-button v-else @click="onSubmit" type="submit">Add note</gov-button>
-          </gov-grid-column>
-        </gov-grid-row>
+        <template v-else>
+          <gov-grid-row width="two-thirds">
+            <gov-grid-column width="two-thirds">
+              <gov-heading size="m">Add new comment</gov-heading>
+              <gov-form-group :invalid="form.$errors.has('status')">
+                <gov-label for="status">Status</gov-label>
+                <gov-select
+                  v-model="form.status"
+                  @input="form.$errors.clear('status')"
+                  id="status"
+                  name="status"
+                  :options="statusOptions"
+                />
+                <gov-error-message
+                  v-if="form.$errors.has('status')"
+                  v-text="form.$errors.get('status')"
+                  for="status"
+                />
+              </gov-form-group>
+              <gov-form-group :invalid="form.$errors.has('comments')">
+                <gov-label for="comments">Comments</gov-label>
+                <gov-textarea
+                  v-model="form.comments"
+                  @input="form.$errors.clear('comments')"
+                  id="comments"
+                  name="comments"
+                />
+                <gov-error-message
+                  v-if="form.$errors.has('comments')"
+                  v-text="form.$errors.get('comments')"
+                  for="comments"
+                />
+              </gov-form-group>
+              <gov-button v-if="form.$submitting" disabled type="submit">Adding comment...</gov-button>
+            <gov-button v-else @click="onSubmit" type="submit">Add comment</gov-button>
+            </gov-grid-column>
+          </gov-grid-row>
+          <gov-section-break size="l" />
+          <gov-grid-row>
+            <gov-grid-column width="full">
+              <gov-heading size="m">Previous comments</gov-heading>
+                <gov-grid-row v-for="(statusUpdate, key) in statusUpdates" :key="key">
+                  <gov-grid-column width="full">
+                    <gov-grid-row>
+                      <gov-grid-column width="two-thirds">
+                        <gov-body>{{ statusUpdate.user.first_name }} {{ statusUpdate.user.last_name }}</gov-body>
+                        <gov-body>{{ formatDateTime(statusUpdate.created_at) }}</gov-body>
+                      </gov-grid-column>
+                      <gov-grid-column width="one-third" class="text-right">
+                        <gov-tag>{{ humanReadableStatus(statusUpdate.to) }}</gov-tag>
+                      </gov-grid-column>
+                    </gov-grid-row>
+                    <gov-grid-row v-if="statusUpdate.comments">
+                      <gov-grid-column width="full">
+                        <gov-body>{{ statusUpdate.comments }}</gov-body>
+                      </gov-grid-column>
+                    </gov-grid-row>
+                    <gov-section-break size="l" visible />
+                  </gov-grid-column>
+                </gov-grid-row>
+            </gov-grid-column>
+          </gov-grid-row>
+        </template>
       </template>
     </gov-main-wrapper>
   </gov-width-container>
@@ -81,7 +108,7 @@ export default {
     fetchReferral() {
       this.loadingReferral = true;
 
-      http.get(`/referrals/${this.$route.params.referral}`)
+      http.get(`/referrals/${this.$route.params.referral}`, { params: { inclde: "service" } })
         .then(({ data }) => {
           this.referral = data.data;
           this.form.status = this.referral.status;
@@ -94,7 +121,7 @@ export default {
       const config = {
         params: {
           "filter[referral_id]": this.$route.params.referral,
-          include: "service"
+          include: "user"
         }
       };
 
@@ -110,6 +137,10 @@ export default {
           this.fetchReferral();
           this.fetchStatusUpdates();
         })
+    },
+    humanReadableStatus(status) {
+      const string = status.replace("_", " ");
+      return string.charAt(0).toUpperCase() + string.substr(1);
     }
   },
   created() {

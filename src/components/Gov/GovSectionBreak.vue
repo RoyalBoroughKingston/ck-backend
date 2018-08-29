@@ -1,5 +1,5 @@
 <template>
-  <hr class="govuk-section-break" :class="computedClass">
+  <hr class="govuk-section-break" :class="computedClasses">
 </template>
 
 <script>
@@ -9,11 +9,24 @@ export default {
     size: {
       type: String,
       required: false
+    },
+    visible: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
-    computedClass() {
-      return this.size ? `govuk-section-break--${this.size}` : null;
+    computedClasses() {
+      let classes = {
+        "govuk-section-break--visible": this.visible
+      };
+
+      if (this.size) {
+        classes[`govuk-section-break--${this.size}`] = true
+      }
+
+      return classes;
     }
   }
 };
