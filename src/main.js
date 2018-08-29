@@ -33,8 +33,13 @@ Vue.component("CkReferralsTable", () =>
 Vue.component("GovBackLink", () => import("@/components/Gov/GovBackLink"));
 Vue.component("GovBody", () => import("@/components/Gov/GovBody"));
 Vue.component("GovButton", () => import("@/components/Gov/GovButton"));
+Vue.component("GovCheckboxes", () => import("@/components/Gov/GovCheckboxes"));
+Vue.component("GovCheckbox", () => import("@/components/Gov/GovCheckbox"));
 Vue.component("GovErrorMessage", () =>
   import("@/components/Gov/GovErrorMessage")
+);
+Vue.component("GovFieldsetLegend", () =>
+  import("@/components/Gov/GovFieldsetLegend")
 );
 Vue.component("GovFileUpload", () => import("@/components/Gov/GovFileUpload"));
 Vue.component("GovFooter", () => import("@/components/Gov/GovFooter"));

@@ -112,6 +112,27 @@
               for="country"
             />
           </gov-form-group>
+          <gov-section-break size="l" />
+          <gov-fieldset-legend size="xl">
+            <gov-heading size="m">Accessibility information</gov-heading>
+          </gov-fieldset-legend>
+          <gov-body>Select which accessibility requirements the building meets</gov-body>
+          <gov-checkboxes>
+            <gov-checkbox
+              v-model="form.has_induction_loop"
+              @input="form.$errors.clear('has_induction_loop')"
+              id="has_induction_loop"
+              name="has_induction_loop"
+              label="Induction loop"
+            />
+            <gov-checkbox
+              v-model="form.has_wheelchair_access"
+              @input="form.$errors.clear('has_wheelchair_access')"
+              id="has_wheelchair_access"
+              name="has_wheelchair_access"
+              label="Wheelchair accessible"
+            />
+          </gov-checkboxes>
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
