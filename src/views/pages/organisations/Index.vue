@@ -8,7 +8,7 @@
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
               <gov-form-group>
-                <gov-label for="search">Search for an organisation</gov-label>
+                <gov-label for="search">Search for an organisation by name</gov-label>
                 <gov-input @enter="onSearch" v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
              --><gov-button @click="onSearch" type="submit">Search</gov-button>
               </gov-form-group>
