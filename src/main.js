@@ -53,6 +53,7 @@ Vue.component("GovHeader", () => import("@/components/Gov/GovHeader"));
 Vue.component("GovHeading", () => import("@/components/Gov/GovHeading"));
 Vue.component("GovHint", () => import("@/components/Gov/GovHint"));
 Vue.component("GovInput", () => import("@/components/Gov/GovInput"));
+Vue.component("GovInsetText", () => import("@/components/Gov/GovInsetText"));
 Vue.component("GovLabel", () => import("@/components/Gov/GovLabel"));
 Vue.component("GovLink", () => import("@/components/Gov/GovLink"));
 Vue.component("GovMainWrapper", () =>

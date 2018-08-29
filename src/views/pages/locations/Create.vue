@@ -178,8 +178,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.form.post('/locations')
-        .then(({ data }) => this.$router.push({ name: 'locations-show', params: { location: data.id } }));
+      this.form.post("/locations").then(({ data }) =>
+        this.$router.push({
+          name: "locations-show",
+          params: { location: data.id }
+        })
+      );
     }
   }
 };

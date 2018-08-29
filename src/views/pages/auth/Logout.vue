@@ -1,5 +1,5 @@
 <template>
-
+  <ck-loader />
 </template>
 
 
@@ -13,5 +13,5 @@ export default {
     this.$root.$emit("logout");
     this.$router.push({ name: "dashboard" });
   }
-}
+};
 </script>

@@ -63,7 +63,7 @@ export default {
     },
     consented() {
       return this.referral.referral_consented_at === null ? "No" : "Yes";
-    },
+    }
   },
   methods: {
     humanReadableStatus(status) {

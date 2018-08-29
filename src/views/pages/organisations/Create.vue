@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     onLogoChange(fileContents) {
-      this.logoForm.$errors.clear('file');
+      this.logoForm.$errors.clear("file");
       this.logoForm.file = fileContents;
     },
     onSubmit() {

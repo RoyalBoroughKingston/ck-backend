@@ -115,7 +115,10 @@ export default {
     fetchReferral() {
       this.loadingReferral = true;
 
-      http.get(`/referrals/${this.$route.params.referral}`, { params: { include: "service" } })
+      http
+        .get(`/referrals/${this.$route.params.referral}`, {
+          params: { include: "service" }
+        })
         .then(({ data }) => {
           this.referral = data.data;
           this.form.status = this.referral.status;
@@ -132,13 +135,12 @@ export default {
         }
       };
 
-      http.get("/status-updates", config)
-        .then(({ data }) => {
-          this.statusUpdates = data.data;
-          this.currentPage = data.meta.current_page;
-          this.lastPage = data.meta.last_page;
-          this.loadingStatusUpdates = false;
-        });
+      http.get("/status-updates", config).then(({ data }) => {
+        this.statusUpdates = data.data;
+        this.currentPage = data.meta.current_page;
+        this.lastPage = data.meta.last_page;
+        this.loadingStatusUpdates = false;
+      });
     },
     onNext() {
       this.currentPage++;
@@ -149,12 +151,11 @@ export default {
       this.fetchStatusUpdates();
     },
     onSubmit() {
-      this.form.put(`/referrals/${this.referral.id}`)
-        .then(() => {
-          this.form.comments = "";
-          this.fetchReferral();
-          this.fetchStatusUpdates();
-        })
+      this.form.put(`/referrals/${this.referral.id}`).then(() => {
+        this.form.comments = "";
+        this.fetchReferral();
+        this.fetchStatusUpdates();
+      });
     },
     humanReadableStatus(status) {
       const string = status.replace("_", " ");

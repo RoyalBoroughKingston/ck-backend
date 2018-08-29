@@ -41,12 +41,10 @@ export default {
   methods: {
     onSendCode() {
       // TODO: This currently skips the code screen.
-      auth
-        .login(this.form.email, this.form.password)
-        .then(() => {
-          this.$root.$emit("login");
-          this.$router.push({ name: "dashboard" })
-        });
+      auth.login(this.form.email, this.form.password).then(() => {
+        this.$root.$emit("login");
+        this.$router.push({ name: "dashboard" });
+      });
     }
   }
 };

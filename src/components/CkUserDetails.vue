@@ -88,9 +88,15 @@ export default {
           this.globalAdmin = true;
         } else if (role.hasOwnProperty("organisation")) {
           this.organisationAdmin.push(role);
-        } else if (role.hasOwnProperty("service") && role.role === "Service Admin") {
+        } else if (
+          role.hasOwnProperty("service") &&
+          role.role === "Service Admin"
+        ) {
           this.serviceAdmin.push(role);
-        } else if (role.hasOwnProperty("service") && role.role === "Service Worker") {
+        } else if (
+          role.hasOwnProperty("service") &&
+          role.role === "Service Worker"
+        ) {
           this.serviceWorker.push(role);
         }
       });

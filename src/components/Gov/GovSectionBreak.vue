@@ -23,7 +23,7 @@ export default {
       };
 
       if (this.size) {
-        classes[`govuk-section-break--${this.size}`] = true
+        classes[`govuk-section-break--${this.size}`] = true;
       }
 
       return classes;

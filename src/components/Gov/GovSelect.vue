@@ -8,7 +8,14 @@
   >
     <slot />
     <template v-if="options">
-      <option v-for="(option, key) in options" :key="key" :value="option.value">{{ option.text }}</option>
+      <option
+        v-for="(option, key) in options"
+        :key="key"
+        :value="option.value"
+        :disabled="option.disabled"
+      >
+        {{ option.text }}
+      </option>
     </template>
   </select>
 </template>
@@ -18,7 +25,6 @@ export default {
   name: "GovSelect",
   props: {
     value: {
-      type: String,
       required: true
     },
     id: {
@@ -49,5 +55,5 @@ export default {
       this.$emit("input", newValue);
     }
   }
-}
+};
 </script>
