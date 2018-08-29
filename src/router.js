@@ -73,6 +73,18 @@ let router = new Router({
       name: "referrals-show",
       component: () => import("@/views/pages/referrals/Show"),
       meta: { auth: true }
+    },
+    {
+      path: "/locations",
+      name: "locations-index",
+      component: () => import("@/views/pages/locations/Index"),
+      meta: { auth: true }
+    },
+    {
+      path: "/locations/create",
+      name: "locations-create",
+      component: () => import("@/views/pages/locations/Create"),
+      meta: { auth: true }
     }
   ]
 });

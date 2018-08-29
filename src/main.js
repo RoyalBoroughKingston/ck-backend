@@ -13,6 +13,9 @@ import router from "@/router";
 
 // Custom Vue Components
 Vue.component("CkLoader", () => import("@/components/CkLoader"));
+Vue.component("CkLocationsTable", () =>
+  import("@/components/CkLocationsTable")
+);
 Vue.component("CkOrganisationDetails", () =>
   import("@/components/CkOrganisationDetails")
 );

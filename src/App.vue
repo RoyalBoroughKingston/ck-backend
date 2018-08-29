@@ -42,7 +42,7 @@ export default {
       mainClasses: [],
       headerNav: [
         { text: "Services", href: "#" },
-        { text: "Locations", href: "#" },
+        { text: "Locations", href: { name: "locations-index" } },
         { text: "Referrals", href: { name: "referrals-index" } },
         { text: "Organisations", href: { name: "organisations-index" } },
         { text: "Users", href: "#" },
