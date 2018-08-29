@@ -16,7 +16,7 @@
         <td class="govuk-table__cell">{{ referral.service.name }}</td>
         <td class="govuk-table__cell">{{ referral.name }}</td>
         <td class="govuk-table__cell">{{ humanReadableStatus(referral.status) }}</td>
-        <td class="govuk-table__cell">{{ referral.created_at }}</td>
+        <td class="govuk-table__cell">{{ formatDateTime(referral.created_at) }}</td>
         <td class="govuk-table__cell text-right">
           <gov-link :to="{ name: 'referrals-show', params: { referral: referral.id } }">View</gov-link>
         </td>

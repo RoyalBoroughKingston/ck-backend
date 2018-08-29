@@ -3,6 +3,9 @@ import "@/scss/app.scss";
 import { initAll } from "govuk-frontend";
 initAll();
 
+// Moment (date/time library).
+import moment from "moment";
+
 // Vue
 import Vue from "vue";
 import App from "@/App.vue";
@@ -66,6 +69,12 @@ Vue.mixin({
         .replace(/--+/g, "-") // Replace multiple - with single -
         .replace(/^-+/, "") // Trim - from start of text
         .replace(/-+$/, ""); // Trim - from end of text
+    },
+    formatDate(date) {
+      return moment(date, moment.ISO_8601).format("D/M/YY");
+    },
+    formatDateTime(dateTime) {
+      return moment(dateTime, moment.ISO_8601).format("D/M/YY HH:mm");
     }
   }
 });
