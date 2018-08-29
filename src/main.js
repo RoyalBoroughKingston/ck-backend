@@ -10,8 +10,14 @@ import router from "@/router";
 
 // Custom Vue Components
 Vue.component("CkLoader", () => import("@/components/CkLoader"));
+Vue.component("CkOrganisationDetails", () =>
+  import("@/components/CkOrganisationDetails")
+);
 Vue.component("CkOrganisationsTable", () =>
   import("@/components/CkOrganisationsTable")
+);
+Vue.component("CkReferralsTable", () =>
+  import("@/components/CkReferralsTable")
 );
 
 // Gov.UK Vue Components

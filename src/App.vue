@@ -43,7 +43,7 @@ export default {
       headerNav: [
         { text: "Services", href: "#" },
         { text: "Locations", href: "#" },
-        { text: "Referrals", href: "#" },
+        { text: "Referrals", href: { name: "referrals-index" } },
         { text: "Organisations", href: { name: "organisations-index" } },
         { text: "Users", href: "#" },
         { text: "Reports", href: "#" },

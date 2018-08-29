@@ -21,7 +21,6 @@
 
 <script>
 import http from "@/http";
-import CkOrganisationDetails from "@/components/CkOrganisationDetails";
 
 export default {
   name: "ShowOrganisation",
