@@ -9,7 +9,7 @@
     </slot>
 
     <slot name="header">
-      <gov-header service-name="Connected Kingston" :navigation="headerNav" />
+      <gov-header service-name="Connected Kingston" :navigation="computedHeaverNav" />
     </slot>
 
     <slot name="main">
@@ -31,6 +31,7 @@
 
 <script>
 import VueHeadful from "vue-headful";
+import auth from "@/classes/Auth";
 
 export default {
   name: "App",
@@ -48,9 +49,11 @@ export default {
         { text: "Users", href: { name: "users-index" }},
         { text: "Reports", href: "#" },
         { text: "Admin", href: "#" },
-        { text: "Update requests", href: "#" },
-        { text: "Login", href: { name: "login" } }
+        { text: "Update requests", href: "#" }
       ],
+      authNavItem: auth.isLoggedIn
+        ? { text: "Logout", href: { name: "logout" } }
+        : { text: "Login", href: { name: "login" } },
       footerNav: [
         {
           title: "Something Here",
@@ -82,7 +85,17 @@ export default {
           class: [document.body.className, ...this.bodyClasses].join(" ")
         }
       };
+    },
+    computedHeaverNav() {
+      return [...this.headerNav, this.authNavItem];
     }
+  },
+  created() {
+    this.$root.$on(["login", "logout"], () => {
+      this.authNavItem = auth.isLoggedIn
+        ? { text: "Logout", href: { name: "logout" } }
+        : { text: "Login", href: { name: "login" } };
+    });
   }
 };
 </script>

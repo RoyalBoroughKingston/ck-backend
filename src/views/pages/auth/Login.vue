@@ -43,7 +43,10 @@ export default {
       // TODO: This currently skips the code screen.
       auth
         .login(this.form.email, this.form.password)
-        .then(() => this.$router.push({ name: "dashboard" }));
+        .then(() => {
+          this.$root.$emit("login");
+          this.$router.push({ name: "dashboard" })
+        });
     }
   }
 };

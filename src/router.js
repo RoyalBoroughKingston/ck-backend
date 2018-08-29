@@ -39,6 +39,12 @@ let router = new Router({
       meta: { guest: true }
     },
     {
+      path: "/logout",
+      name: "logout",
+      component: () => import("@/views/pages/auth/Logout"),
+      meta: { auth: true }
+    },
+    {
       path: "/organisations",
       name: "organisations-index",
       component: () => import("@/views/pages/organisations/Index"),
@@ -96,6 +102,12 @@ let router = new Router({
       path: "/users",
       name: "users-index",
       component: () => import("@/views/pages/users/Index"),
+      meta: { auth: true }
+    },
+    {
+      path: "/user/:users",
+      name: "users-show",
+      component: () => import("@/views/pages/users/Show"),
       meta: { auth: true }
     }
   ]
