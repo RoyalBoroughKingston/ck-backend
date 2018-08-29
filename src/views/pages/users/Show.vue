@@ -34,7 +34,9 @@ export default {
     fetchUser() {
       this.loading = true;
       http
-        .get(`/users/${this.$route.params.user}`)
+        .get(`/users/${this.$route.params.user}`, { params: {
+          include: "user-roles.organisation,user-roles.service"
+        } })
         .then(({ data }) => {
           this.user = data.data;
           this.loading = false;

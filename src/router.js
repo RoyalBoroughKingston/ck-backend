@@ -105,7 +105,7 @@ let router = new Router({
       meta: { auth: true }
     },
     {
-      path: "/user/:users",
+      path: "/user/:user",
       name: "users-show",
       component: () => import("@/views/pages/users/Show"),
       meta: { auth: true }

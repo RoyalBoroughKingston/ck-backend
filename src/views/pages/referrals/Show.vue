@@ -115,7 +115,7 @@ export default {
     fetchReferral() {
       this.loadingReferral = true;
 
-      http.get(`/referrals/${this.$route.params.referral}`, { params: { inclde: "service" } })
+      http.get(`/referrals/${this.$route.params.referral}`, { params: { include: "service" } })
         .then(({ data }) => {
           this.referral = data.data;
           this.form.status = this.referral.status;

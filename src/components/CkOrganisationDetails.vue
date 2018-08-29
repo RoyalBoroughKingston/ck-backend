@@ -22,7 +22,7 @@
         <td class="govuk-table__cell">{{ organisation.email }}</td>
       </tr>
       <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Logo</th>
+        <th class="govuk-table__header align-top" scope="row">Logo</th>
         <td class="govuk-table__cell">
           <img :src="apiUrl(`/organisations/${organisation.id}/logo`)" alt="Organisation logo">
         </td>
