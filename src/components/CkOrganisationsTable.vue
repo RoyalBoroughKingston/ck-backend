@@ -19,6 +19,9 @@
           <gov-link :to="{ name: 'organisations-show', params: { organisation: organisation.id } }">View</gov-link>
         </td>
       </tr>
+      <tr v-if="organisations.length === 0" class="govuk-table__row">
+        <td class="text-center" colspan="5">No organisations</td>
+      </tr>
     </template>
   </gov-table>
 </template>
