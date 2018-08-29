@@ -121,12 +121,8 @@
                   form.roles[key].role === 'Service Worker'
                 "
               >
-                <ck-loader
-                  v-if="
-                    !services.hasOwnProperty(form.roles[key].organisation_id) ||
-                    services[form.roles[key].organisation_id].loading
-                  "
-                />
+                <gov-body v-if="!services.hasOwnProperty(form.roles[key].organisation_id)">Select an organisation</gov-body>
+                <ck-loader v-else-if="services[form.roles[key].organisation_id].loading" />
                 <gov-form-group
                   v-else
                   :invalid="form.$errors.has(`roles.${key}.service_id`)"
