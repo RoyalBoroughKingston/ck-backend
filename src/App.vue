@@ -45,7 +45,7 @@ export default {
         { text: "Locations", href: { name: "locations-index" } },
         { text: "Referrals", href: { name: "referrals-index" } },
         { text: "Organisations", href: { name: "organisations-index" } },
-        { text: "Users", href: "#" },
+        { text: "Users", href: { name: "users-index" }},
         { text: "Reports", href: "#" },
         { text: "Admin", href: "#" },
         { text: "Update requests", href: "#" },

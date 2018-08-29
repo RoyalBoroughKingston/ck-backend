@@ -28,6 +28,7 @@ Vue.component("CkReferralDetails", () =>
 Vue.component("CkReferralsTable", () =>
   import("@/components/CkReferralsTable")
 );
+Vue.component("CkUsersTable", () => import("@/components/CkUsersTable"));
 
 // Gov.UK Vue Components
 Vue.component("GovBackLink", () => import("@/components/Gov/GovBackLink"));
