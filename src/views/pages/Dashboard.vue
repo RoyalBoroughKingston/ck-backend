@@ -1,6 +1,5 @@
 <template>
   <gov-width-container>
-    <gov-back-link :to="{ name: 'dashboard' }">Back to main site</gov-back-link>
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="two-thirds">

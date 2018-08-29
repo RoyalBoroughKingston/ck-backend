@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <gov-back-link :to="{ name: 'dashboard' }">Back to main site</gov-back-link>
+    <gov-back-link :to="{ name: 'referrals-index' }">Back to referrals</gov-back-link>
     <gov-main-wrapper>
       <ck-loader v-if="loadingReferral" />
       <template v-else>
