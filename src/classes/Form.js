@@ -98,7 +98,7 @@ export default class Form {
           resolve(response.data);
         })
         .catch(error => {
-          this.onFail(error.response.data.errors);
+          this.onFail(error.response.data);
 
           reject(error.response.data);
         })
@@ -109,12 +109,12 @@ export default class Form {
   /**
    * Handle a failed form submission.
    *
-   * @param {object} errors
+   * @param {object} data
    */
-  onFail(errors) {
+  onFail(data) {
     // Only records errors if there is an error bag returned.
-    if (errors && errors.hasOwnProperty("error")) {
-      this.$errors.record(errors);
+    if (data.hasOwnProperty("errors")) {
+      this.$errors.record(data.errors);
     }
   }
 

@@ -23,7 +23,7 @@
           <gov-body>Super admin: {{ superAdmin ? 'Yes' : 'No' }}</gov-body>
           <gov-body>Global admin: {{ globalAdmin ? 'Yes' : 'No' }}</gov-body>
           <gov-body v-if="organisationAdmin.length === 0">Organisation admin: No</gov-body>
-          <gov-details v-else summary="Organisation admin for:">
+          <gov-details v-else summary="Organisation admin: Yes">
             <div v-for="(role, key) in organisationAdmin" :key="key">
               <gov-link
                 :to="{ name: 'organisations-show', params: { organisation: role.organisation_id } }"
@@ -32,7 +32,7 @@
             </div>
           </gov-details>
           <gov-body v-if="serviceAdmin.length === 0">Service admin: No</gov-body>
-          <gov-details v-else summary="Service admin for:">
+          <gov-details v-else summary="Service admin: Yes">
             <div v-for="(role, key) in serviceAdmin" :key="key">
               <gov-link
                 :to="{ name: 'services-show', params: { service: role.service_id } }"
@@ -41,8 +41,8 @@
             </div>
           </gov-details>
           <gov-body v-if="serviceWorker.length === 0">Service worker: No</gov-body>
-          <gov-details v-else summary="Service worker for:">
-            <div v-for="(role, key) in serviceAdmin" :key="key">
+          <gov-details v-else summary="Service worker: Yes">
+            <div v-for="(role, key) in serviceWorker" :key="key">
               <gov-link
                 :to="{ name: 'services-show', params: { service: role.service_id } }"
                 v-text="role.service.name"

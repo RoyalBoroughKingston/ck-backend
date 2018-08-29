@@ -67,6 +67,21 @@
               for="phone"
             />
           </gov-form-group>
+          <gov-form-group :invalid="form.$errors.has('password')">
+            <gov-label for="password" class="govuk-!-font-weight-bold">Password</gov-label>
+            <gov-input
+              v-model="form.password"
+              @input="form.$errors.clear('password')"
+              id="password"
+              name="password"
+              type="password"
+            />
+            <gov-error-message
+              v-if="form.$errors.has('password')"
+              v-text="form.$errors.get('password')"
+              for="password"
+            />
+          </gov-form-group>
           <gov-section-break size="l" />
           <gov-heading size="m">Permissions</gov-heading>
           <gov-inset-text v-for="(role, key) in form.roles" :key="role.index">
@@ -195,7 +210,7 @@ export default {
       this.form.post("/users").then(({ data }) => {
         this.$router.push({
           name: "users-show",
-          params: { user: data.data.id }
+          params: { user: data.id }
         });
       });
     },
