@@ -19,6 +19,9 @@ Vue.component("CkOrganisationDetails", () =>
 Vue.component("CkOrganisationsTable", () =>
   import("@/components/CkOrganisationsTable")
 );
+Vue.component("CkReferralDetails", () =>
+  import("@/components/CkReferralDetails")
+);
 Vue.component("CkReferralsTable", () =>
   import("@/components/CkReferralsTable")
 );
@@ -47,8 +50,10 @@ Vue.component("GovMainWrapper", () =>
 Vue.component("GovSectionBreak", () =>
   import("@/components/Gov/GovSectionBreak")
 );
+Vue.component("GovSelect", () => import("@/components/Gov/GovSelect"));
 Vue.component("GovSkipLink", () => import("@/components/Gov/GovSkipLink"));
 Vue.component("GovTable", () => import("@/components/Gov/GovTable"));
+Vue.component("GovTag", () => import("@/components/Gov/GovTag"));
 Vue.component("GovTextarea", () => import("@/components/Gov/GovTextarea"));
 Vue.component("GovWidthContainer", () =>
   import("@/components/Gov/GovWidthContainer")

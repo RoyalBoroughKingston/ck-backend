@@ -67,6 +67,12 @@ let router = new Router({
       name: "referrals-confirmation",
       component: () => import("@/views/pages/referrals/Confirmation"),
       meta: { auth: true }
+    },
+    {
+      path: "/referrals/:referral",
+      name: "referrals-show",
+      component: () => import("@/views/pages/referrals/Show"),
+      meta: { auth: true }
     }
   ]
 });

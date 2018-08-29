@@ -24,7 +24,6 @@ import http from "@/http";
 
 export default {
   name: "ShowOrganisation",
-  components: { CkOrganisationDetails },
   data() {
     return {
       loading: false,
