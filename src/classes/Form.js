@@ -113,7 +113,7 @@ export default class Form {
    */
   onFail(errors) {
     // Only records errors if there is an error bag returned.
-    if (!errors.hasOwnProperty("error")) {
+    if (errors && errors.hasOwnProperty("error")) {
       this.$errors.record(errors);
     }
   }
