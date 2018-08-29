@@ -85,6 +85,12 @@ let router = new Router({
       name: "locations-create",
       component: () => import("@/views/pages/locations/Create"),
       meta: { auth: true }
+    },
+    {
+      path: "/locations/:location",
+      name: "locations-show",
+      component: () => import("@/views/pages/locations/Show"),
+      meta: { auth: true }
     }
   ]
 });
