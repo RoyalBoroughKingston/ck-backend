@@ -1,27 +1,27 @@
 <template>
   <gov-table>
     <template slot="header">
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="col">Organisation name</th>
-        <th class="govuk-table__header" scope="col">Url</th>
-        <th class="govuk-table__header" scope="col">Phone</th>
-        <th class="govuk-table__header" scope="col">Email</th>
-        <th class="govuk-table__header text-right" scope="col"></th>
-      </tr>
+      <gov-table-row>
+        <gov-table-header scope="col">Organisation name</gov-table-header>
+        <gov-table-header scope="col">Url</gov-table-header>
+        <gov-table-header scope="col">Phone</gov-table-header>
+        <gov-table-header scope="col">Email</gov-table-header>
+        <gov-table-header scope="col" class="text-right"></gov-table-header>
+      </gov-table-row>
     </template>
     <template slot="body">
-      <tr v-for="(organisation, key) in organisations" :key="key" class="govuk-table__row">
-        <td class="govuk-table__cell" scope="row">{{ organisation.name }}</td>
-        <td class="govuk-table__cell">{{ organisation.url }}</td>
-        <td class="govuk-table__cell">{{ organisation.phone }}</td>
-        <td class="govuk-table__cell">{{ organisation.email }}</td>
-        <td class="govuk-table__cell text-right">
+      <gov-table-row v-for="organisation in organisations" :key="organisation.id">
+        <gov-table-cell scope="row">{{ organisation.name }}</gov-table-cell>
+        <gov-table-cell>{{ organisation.url }}</gov-table-cell>
+        <gov-table-cell>{{ organisation.phone }}</gov-table-cell>
+        <gov-table-cell>{{ organisation.email }}</gov-table-cell>
+        <gov-table-cell class="text-right">
           <gov-link :to="{ name: 'organisations-show', params: { organisation: organisation.id } }">View</gov-link>
-        </td>
-      </tr>
-      <tr v-if="organisations.length === 0" class="govuk-table__row">
-        <td class="text-center" colspan="5">No organisations</td>
-      </tr>
+        </gov-table-cell>
+      </gov-table-row>
+      <gov-table-row v-if="organisations.length === 0">
+        <gov-table-cell class="text-center" colspan="5">No organisations</gov-table-cell>
+      </gov-table-row>
     </template>
   </gov-table>
 </template>
