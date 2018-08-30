@@ -1,25 +1,25 @@
 <template>
   <gov-table>
     <template slot="header">
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="col">Service name</th>
-        <th class="govuk-table__header" scope="col">Organisation</th>
-        <th class="govuk-table__header" scope="col">Status</th>
-        <th class="govuk-table__header text-right" scope="col"></th>
-      </tr>
+      <gov-table-row>
+        <gov-table-header scope="col">Service name</gov-table-header>
+        <gov-table-header scope="col">Organisation</gov-table-header>
+        <gov-table-header scope="col">Status</gov-table-header>
+        <gov-table-header class="text-right" scope="col"></gov-table-header>
+      </gov-table-row>
     </template>
     <template slot="body">
-      <tr v-for="(service, key) in services" :key="key" class="govuk-table__row">
-        <td class="govuk-table__cell" scope="row">{{ service.name }}</td>
-        <td class="govuk-table__cell">{{ service.organisation.name }}</td>
-        <td class="govuk-table__cell">{{ humanReadableStatus(service.status) }}</td>
-        <td class="govuk-table__cell text-right">
+      <gov-table-row v-for="service in services" :key="service.id">
+        <gov-table-cell scope="row">{{ service.name }}</gov-table-cell>
+        <gov-table-cell>{{ service.organisation.name }}</gov-table-cell>
+        <gov-table-cell>{{ humanReadableStatus(service.status) }}</gov-table-cell>
+        <gov-table-cell class="text-right">
           <gov-link :to="{ name: 'services-show', params: { service: service.id } }">View</gov-link>
-        </td>
-      </tr>
-      <tr v-if="services.length === 0" class="govuk-table__row">
-        <td class="text-center" colspan="4">No services</td>
-      </tr>
+        </gov-table-cell>
+      </gov-table-row>
+      <gov-table-row v-if="services.length === 0">
+        <gov-table-cell class="text-center" colspan="4">No services</gov-table-cell>
+      </gov-table-row>
     </template>
   </gov-table>
 </template>
