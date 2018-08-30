@@ -1,5 +1,5 @@
 <template>
-  <p>TODO</p>
+  <ck-wysiwyg />
 </template>
 
 <script>
