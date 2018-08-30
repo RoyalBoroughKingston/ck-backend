@@ -4,8 +4,12 @@
     <gov-table>
       <template slot="body">
         <gov-table-row>
-          <gov-table-header scope="row" top>Heading</gov-table-header>
-          <gov-table-cell>Value</gov-table-cell>
+          <gov-table-header scope="row" top>Display disclaimer</gov-table-header>
+          <gov-table-cell>{{ displayDisclaimer }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header scope="row" top>Referral method</gov-table-header>
+          <gov-table-cell>{{ referralMethod }}</gov-table-cell>
         </gov-table-row>
       </template>
     </gov-table>
@@ -19,6 +23,14 @@ export default {
     service: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    displayDisclaimer() {
+      return this.service.show_referral_disclaimer ? "Yes" : "No";
+    },
+    referralMethod() {
+      return this.service.referral_method.charAt(0).toUpperCase() + this.service.referral_method.substr(1);
     }
   }
 }
