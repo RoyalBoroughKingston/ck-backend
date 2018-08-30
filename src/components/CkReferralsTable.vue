@@ -7,7 +7,7 @@
         <gov-table-header scope="col">Name</gov-table-header>
         <gov-table-header scope="col">Status</gov-table-header>
         <gov-table-header scope="col">Date/time</gov-table-header>
-        <gov-table-header class="text-right" scope="col"></gov-table-header>
+        <gov-table-header scope="col" right></gov-table-header>
       </gov-table-row>
     </template>
     <template slot="body">
@@ -22,7 +22,7 @@
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row v-if="referrals.length === 0">
-        <gov-table-cell class="text-center" colspan="6">No referrals</gov-table-cell>
+        <gov-table-cell center colspan="6">No referrals</gov-table-cell>
       </gov-table-row>
     </template>
   </gov-table>

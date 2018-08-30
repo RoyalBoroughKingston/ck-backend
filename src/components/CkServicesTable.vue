@@ -5,7 +5,7 @@
         <gov-table-header scope="col">Service name</gov-table-header>
         <gov-table-header scope="col">Organisation</gov-table-header>
         <gov-table-header scope="col">Status</gov-table-header>
-        <gov-table-header class="text-right" scope="col"></gov-table-header>
+        <gov-table-header scope="col" right></gov-table-header>
       </gov-table-row>
     </template>
     <template slot="body">
@@ -13,12 +13,12 @@
         <gov-table-cell scope="row">{{ service.name }}</gov-table-cell>
         <gov-table-cell>{{ service.organisation.name }}</gov-table-cell>
         <gov-table-cell>{{ humanReadableStatus(service.status) }}</gov-table-cell>
-        <gov-table-cell class="text-right">
+        <gov-table-cell right>
           <gov-link :to="{ name: 'services-show', params: { service: service.id } }">View</gov-link>
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row v-if="services.length === 0">
-        <gov-table-cell class="text-center" colspan="4">No services</gov-table-cell>
+        <gov-table-cell center colspan="4">No services</gov-table-cell>
       </gov-table-row>
     </template>
   </gov-table>

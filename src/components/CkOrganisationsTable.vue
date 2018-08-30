@@ -6,7 +6,7 @@
         <gov-table-header scope="col">Url</gov-table-header>
         <gov-table-header scope="col">Phone</gov-table-header>
         <gov-table-header scope="col">Email</gov-table-header>
-        <gov-table-header scope="col" class="text-right"></gov-table-header>
+        <gov-table-header scope="col" right></gov-table-header>
       </gov-table-row>
     </template>
     <template slot="body">
@@ -15,12 +15,12 @@
         <gov-table-cell>{{ organisation.url }}</gov-table-cell>
         <gov-table-cell>{{ organisation.phone }}</gov-table-cell>
         <gov-table-cell>{{ organisation.email }}</gov-table-cell>
-        <gov-table-cell class="text-right">
+        <gov-table-cell right>
           <gov-link :to="{ name: 'organisations-show', params: { organisation: organisation.id } }">View</gov-link>
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row v-if="organisations.length === 0">
-        <gov-table-cell class="text-center" colspan="5">No organisations</gov-table-cell>
+        <gov-table-cell center colspan="5">No organisations</gov-table-cell>
       </gov-table-row>
     </template>
   </gov-table>

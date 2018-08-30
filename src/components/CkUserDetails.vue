@@ -2,23 +2,23 @@
   <gov-table>
     <template slot="body">
       <gov-table-row>
-        <gov-table-header scope="row">First name</gov-table-header>
+        <gov-table-header top scope="row">First name</gov-table-header>
         <gov-table-cell>{{ user.first_name }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
-        <gov-table-header scope="row">Last name</gov-table-header>
+        <gov-table-header top scope="row">Last name</gov-table-header>
         <gov-table-cell>{{ user.last_name }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
-        <gov-table-header scope="row">Email</gov-table-header>
+        <gov-table-header top scope="row">Email</gov-table-header>
         <gov-table-cell>{{ user.email }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
-        <gov-table-header scope="row">Phone number</gov-table-header>
+        <gov-table-header top scope="row">Phone number</gov-table-header>
         <gov-table-cell>{{ user.phone }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
-        <gov-table-header class="align-top" scope="row">Permissions</gov-table-header>
+        <gov-table-header top scope="row">Permissions</gov-table-header>
         <gov-table-cell>
           <gov-body>Super admin: {{ superAdmin ? 'Yes' : 'No' }}</gov-body>
           <gov-body>Global admin: {{ globalAdmin ? 'Yes' : 'No' }}</gov-body>

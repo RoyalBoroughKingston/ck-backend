@@ -12,12 +12,18 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    right: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
     computedClasses() {
       return {
-        "align-top": this.top
+        "align-top": this.top,
+        "text-right": this.right
       };
     }
   }

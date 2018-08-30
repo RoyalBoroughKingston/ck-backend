@@ -5,7 +5,7 @@
         <gov-table-header scope="col">Address Line 1</gov-table-header>
         <gov-table-header scope="col">City</gov-table-header>
         <gov-table-header scope="col">Postcode</gov-table-header>
-        <gov-table-header scope="col" class="text-right"></gov-table-header>
+        <gov-table-header scope="col" right></gov-table-header>
       </gov-table-row>
     </template>
     <template slot="body">
@@ -13,12 +13,12 @@
         <gov-table-cell>{{ location.address_line_1 }}</gov-table-cell>
         <gov-table-cell>{{ location.city }}</gov-table-cell>
         <gov-table-cell>{{ location.postcode }}</gov-table-cell>
-        <gov-table-cell class="text-right">
+        <gov-table-cell right>
           <gov-link :to="{ name: 'locations-show', params: { location: location.id } }">View</gov-link>
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row v-if="locations.length === 0">
-        <gov-tavble-cell class="text-center" colspan="4">No locations</gov-tavble-cell>
+        <gov-tavble-cell center colspan="4">No locations</gov-tavble-cell>
       </gov-table-row>
     </template>
   </gov-table>
