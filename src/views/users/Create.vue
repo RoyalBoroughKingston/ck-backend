@@ -291,10 +291,23 @@ export default {
     "form.roles": {
       handler: function (newRoles) {
         newRoles.forEach(role => {
+          // If the role uses a service, then lazy load the services and cache them.
           if (role.role === "Service Admin" || role.role === "Service Worker") {
             if (role.organisation_id !== null) {
               this.cacheServices(role.organisation_id);
             }
+          }
+
+          // Reset the organisation adn service ID when no longer applies to role.
+          switch (role.role) {
+            case "Super Admin":
+            case "Global Aadmin":
+              role.organisation_id = null;
+              role.service_id = null;
+              break;
+            case "Organisation Admin":
+              role.service_id = null;
+              break;
           }
         });
       },
