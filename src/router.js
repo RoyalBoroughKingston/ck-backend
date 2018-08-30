@@ -121,6 +121,12 @@ let router = new Router({
       name: "services-index",
       component: () => import("@/views/services/Index"),
       meta: { auth: true }
+    },
+    {
+      path: "/services/:service",
+      name: "services-show",
+      component: () => import("@/views/services/Show"),
+      meta: { auth: true }
     }
   ]
 });
