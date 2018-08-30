@@ -1,25 +1,25 @@
 <template>
   <gov-table>
     <template slot="body">
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">First name</th>
-        <td class="govuk-table__cell">{{ user.first_name }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Last name</th>
-        <td class="govuk-table__cell">{{ user.last_name }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Email</th>
-        <td class="govuk-table__cell">{{ user.email }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Phone number</th>
-        <td class="govuk-table__cell">{{ user.phone }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header align-top" scope="row">Permissions</th>
-        <td class="govuk-table__cell">
+      <gov-table-row>
+        <gov-table-header scope="row">First name</gov-table-header>
+        <gov-table-cell>{{ user.first_name }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Last name</gov-table-header>
+        <gov-table-cell>{{ user.last_name }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Email</gov-table-header>
+        <gov-table-cell>{{ user.email }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Phone number</gov-table-header>
+        <gov-table-cell>{{ user.phone }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header class="align-top" scope="row">Permissions</gov-table-header>
+        <gov-table-cell>
           <gov-body>Super admin: {{ superAdmin ? 'Yes' : 'No' }}</gov-body>
           <gov-body>Global admin: {{ globalAdmin ? 'Yes' : 'No' }}</gov-body>
           <gov-body v-if="organisationAdmin.length === 0">Organisation admin: No</gov-body>
@@ -49,8 +49,8 @@
               />
             </div>
           </gov-details>
-        </td>
-      </tr>
+        </gov-table-cell>
+      </gov-table-row>
     </template>
   </gov-table>
 </template>
