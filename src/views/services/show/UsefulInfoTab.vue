@@ -8,7 +8,7 @@
           <gov-table-cell>{{ usefulInfo.description }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row v-if="usefulInfos.length === 0">
-          <gov-table-cell colspan="2" center>No useful info specified for this service</gov-table-cell>
+          <gov-table-cell colspan="2">No useful info specified for this service</gov-table-cell>
         </gov-table-row>
       </template>
     </gov-table>
