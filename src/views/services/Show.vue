@@ -1,9 +1,14 @@
 <template>
-  <ck-wysiwyg />
+  <ck-wysiwyg v-model="text" />
 </template>
 
 <script>
 export default {
-  name: "ShowService"
+  name: "ShowService",
+  data() {
+    return {
+      text: ""
+    };
+  }
 };
 </script>

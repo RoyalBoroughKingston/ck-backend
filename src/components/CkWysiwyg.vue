@@ -1,7 +1,7 @@
 <template>
   <medium-editor
-    class="govuk-body ck-wysiwyg"
-    :text="text"
+    class="ck-wysiwyg"
+    :text="initialText"
     :options="mergedOptions"
     @edit="onEdit"
   />
@@ -10,12 +10,13 @@
 <script>
 import MediumEditor from "vue2-medium-editor";
 import TurndownService from "turndown";
+import Showdown from "showdown";
 
 export default {
   name: "CkWysiwyg",
   components: { MediumEditor },
   props: {
-    text: {
+    value: {
       type: String,
       required: false,
       default: ""
@@ -26,16 +27,15 @@ export default {
       default() {
         return {};
       }
-    },
-    placeholder: {
-      type: String,
-      required: false,
-      default: ""
     }
   },
   data() {
     return {
+      initialValue: null,
       defaultOptions: {
+        placeholder: {
+          text: ""
+        },
         toolbar: {
           allowMultiParagraphSelection: true,
           buttons: ["bold", "anchor", "h2", "h3"],
@@ -46,16 +46,20 @@ export default {
           relativeContainer: null,
           standardizeSelectionStart: false,
           static: false
-        },
-
-        placeholder: {
-          text: this.placeholder
         }
       },
-      turndownService: new TurndownService()
+      turndownService: new TurndownService(),
+      markdownToHtmlConverter: new Showdown.Converter()
     };
   },
   computed: {
+    initialText() {
+      if (this.initialValue === null) {
+        this.initialValue = this.toHtml(this.value);
+      }
+
+      return this.initialValue;
+    },
     mergedOptions() {
       return {...this.defaultOptions, ...this.options};
     }
@@ -63,9 +67,15 @@ export default {
   methods: {
     onEdit(payload) {
       const html = payload.api.getContent();
-      const markdown = this.turndownService.turndown(html);
+      const markdown = this.toMarkdown(html);
 
       this.$emit("input", markdown);
+    },
+    toMarkdown(html) {
+      return this.turndownService.turndown(html);
+    },
+    toHtml(markdown) {
+      return this.markdownToHtmlConverter.makeHtml(markdown);
     }
   }
 };
@@ -76,8 +86,15 @@ export default {
 @import "@/scss/app.scss";
 
 .ck-wysiwyg {
-  padding: 5px;
-  border: 2px solid #0b0c0c;
+  @extend .govuk-textarea;
+
+  p {
+    @extend .govuk-body;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 
   b {
     @extend .govuk-\!-font-weight-bold;
