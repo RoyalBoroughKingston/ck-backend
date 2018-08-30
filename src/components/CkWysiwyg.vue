@@ -9,6 +9,7 @@
 
 <script>
 import MediumEditor from "vue2-medium-editor";
+import TurndownService from "turndown";
 
 export default {
   name: "CkWysiwyg",
@@ -50,7 +51,8 @@ export default {
         placeholder: {
           text: this.placeholder
         }
-      }
+      },
+      turndownService: new TurndownService()
     };
   },
   computed: {
@@ -60,7 +62,10 @@ export default {
   },
   methods: {
     onEdit(payload) {
-      console.log(payload.api.getContent());
+      const html = payload.api.getContent();
+      const markdown = this.turndownService.turndown(html);
+
+      this.$emit("input", markdown);
     }
   }
 };
