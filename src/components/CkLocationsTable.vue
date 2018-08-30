@@ -1,25 +1,25 @@
 <template>
   <gov-table>
     <template slot="header">
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="col">Address Line 1</th>
-        <th class="govuk-table__header" scope="col">City</th>
-        <th class="govuk-table__header" scope="col">Postcode</th>
-        <th class="govuk-table__header text-right" scope="col"></th>
-      </tr>
+      <gov-table-row>
+        <gov-table-header scope="col">Address Line 1</gov-table-header>
+        <gov-table-header scope="col">City</gov-table-header>
+        <gov-table-header scope="col">Postcode</gov-table-header>
+        <gov-table-header scope="col" class="text-right"></gov-table-header>
+      </gov-table-row>
     </template>
     <template slot="body">
-      <tr v-for="(location, key) in locations" :key="key" class="govuk-table__row">
-        <td class="govuk-table__cell" scope="row">{{ location.address_line_1 }}</td>
-        <td class="govuk-table__cell">{{ location.city }}</td>
-        <td class="govuk-table__cell">{{ location.postcode }}</td>
-        <td class="govuk-table__cell text-right">
+      <gov-table-row v-for="location in locations" :key="location.id">
+        <gov-table-cell>{{ location.address_line_1 }}</gov-table-cell>
+        <gov-table-cell>{{ location.city }}</gov-table-cell>
+        <gov-table-cell>{{ location.postcode }}</gov-table-cell>
+        <gov-table-cell class="text-right">
           <gov-link :to="{ name: 'locations-show', params: { location: location.id } }">View</gov-link>
-        </td>
-      </tr>
-      <tr v-if="locations.length === 0" class="govuk-table__row">
-        <td class="text-center" colspan="4">No locations</td>
-      </tr>
+        </gov-table-cell>
+      </gov-table-row>
+      <gov-table-row v-if="locations.length === 0">
+        <gov-tavble-cell class="text-center" colspan="4">No locations</gov-tavble-cell>
+      </gov-table-row>
     </template>
   </gov-table>
 </template>
