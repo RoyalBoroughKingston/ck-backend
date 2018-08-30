@@ -124,9 +124,20 @@ let router = new Router({
     },
     {
       path: "/services/:service",
-      name: "services-show",
       component: () => import("@/views/services/Show"),
-      meta: { auth: true }
+      meta: { auth: true },
+      children: [
+        {
+          path: "",
+          name: "services-show",
+          component: () => import("@/views/services/show/DetailsTab")
+        },
+        {
+          path: "additional-info",
+          name: "services-show-additional-info",
+          component: () => import("@/views/services/show/AdditionalInfoTab")
+        }
+      ]
     }
   ]
 });

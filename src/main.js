@@ -48,6 +48,9 @@ Vue.component("CkReferralDetails", () =>
 Vue.component("CkReferralsTable", () =>
   import("@/components/CkReferralsTable")
 );
+Vue.component("CkServiceDetails", () =>
+  import("@/components/CkServiceDetails")
+);
 Vue.component("CkServicesTable", () => import("@/components/CkServicesTable"));
 Vue.component("CkUserDetails", () => import("@/components/CkUserDetails"));
 Vue.component("CkUsersTable", () => import("@/components/CkUsersTable"));
@@ -92,6 +95,7 @@ Vue.component("GovTableHeader", () =>
   import("@/components/Gov/GovTableHeader")
 );
 Vue.component("GovTableRow", () => import("@/components/Gov/GovTableRow"));
+Vue.component("GovTabs", () => import("@/components/Gov/GovTabs"));
 Vue.component("GovTag", () => import("@/components/Gov/GovTag"));
 Vue.component("GovTextarea", () => import("@/components/Gov/GovTextarea"));
 Vue.component("GovWidthContainer", () =>

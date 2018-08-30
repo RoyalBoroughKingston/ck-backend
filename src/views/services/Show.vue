@@ -1,14 +1,69 @@
 <template>
-  <ck-wysiwyg v-model="text" />
+  <gov-width-container>
+    <gov-back-link :to="{ name: 'services-index' }">Back to services</gov-back-link>
+    <gov-main-wrapper>
+      <ck-loader v-if="loading" />
+      <gov-grid-row v-else>
+        <gov-grid-column width="full">
+          <gov-heading size="m">View service</gov-heading>
+          <gov-tabs :tabs="tabs">
+            <router-view :service="service" />
+          </gov-tabs>
+          <gov-grid-row>
+            <gov-grid-column width="two-thirds">
+              <gov-body>Please be certain of the action before deleting a service</gov-body>
+              <gov-section-break size="l" />
+              <gov-button @click="onDelete" class="bg-error">Delete service</gov-button>
+            </gov-grid-column>
+            <gov-grid-column width="one-third" class="text-right">
+              <gov-button @click="onEdit">Edit service</gov-button>
+            </gov-grid-column>
+          </gov-grid-row>
+        </gov-grid-column>
+      </gov-grid-row>
+    </gov-main-wrapper>
+  </gov-width-container>
 </template>
 
 <script>
+import http from "@/http";
+
 export default {
   name: "ShowService",
   data() {
     return {
-      text: ""
+      loading: false,
+      service: null,
+      tabs: [
+        { heading: "Details", to: { name: "services-show" } },
+        { heading: "Additional info", to: { name: "services-show-additional-info" } },
+        { heading: "Useful info", to: { name: "services-show-useful-info" } },
+        { heading: "Contact info", to: { name: "services-show-contact-info" } },
+        { heading: "Who is it for?", to: { name: "services-show-who-for" } },
+        { heading: "Locations", to: { name: "services-show-locations" } },
+        { heading: "Referral", to: { name: "services-show-referral" } }
+      ]
     };
+  },
+  methods: {
+    fetchService() {
+      this.loading = true;
+      http
+        .get(`/services/${this.$route.params.service}`)
+        .then(({ data }) => {
+          this.service = data.data;
+          this.loading = false;
+        });
+    },
+    onEdit() {
+      alert("Edit");
+    },
+    onDelete() {
+      alert("Delete");
+    }
+  },
+  created() {
+    this.fetchService();
   }
 };
 </script>
