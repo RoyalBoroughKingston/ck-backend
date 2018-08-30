@@ -252,7 +252,7 @@ export default {
       let page = 1;
 
       do {
-        const { data } = await http.get('/organisations', { params: { page } });
+        const { data } = await http.get('/organisations', { params: { page, per_page: 100 } });
         const fetchedOrganisations = data.data.map(organisation => {
           return {
             value: organisation.id,
@@ -284,6 +284,7 @@ export default {
       do {
         const { data } = await http.get('/services', { params: {
           page,
+          per_page: 100,
           "filter[organisation_id]": organisationId
         } });
         const fetchedServices = data.data.map(service => {
