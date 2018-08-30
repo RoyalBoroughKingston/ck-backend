@@ -9,7 +9,7 @@
           <ck-organisation-details :organisation="organisation" />
           <gov-body>Please be certain of the action before deleting an organisation</gov-body>
           <gov-section-break size="l" />
-          <gov-button @click="onDelete" class="bg-error">Delete organisation</gov-button>
+          <gov-button @click="onDelete" error>Delete organisation</gov-button>
         </gov-grid-column>
         <gov-grid-column width="one-third" class="text-right">
           <gov-button @click="onEdit">Edit organisation</gov-button>

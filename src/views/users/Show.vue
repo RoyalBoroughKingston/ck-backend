@@ -9,7 +9,7 @@
           <ck-user-details :user="user" />
           <gov-body>Please be certain of the action before deleting a user</gov-body>
           <gov-section-break size="l" />
-          <gov-button @click="onDelete" class="bg-error">Delete user</gov-button>
+          <gov-button @click="onDelete" error>Delete user</gov-button>
         </gov-grid-column>
         <gov-grid-column width="one-third" class="text-right">
           <gov-button @click="onEdit">Edit user</gov-button>

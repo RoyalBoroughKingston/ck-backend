@@ -16,7 +16,7 @@
             <gov-grid-column width="two-thirds">
               <gov-body>Please be certain of the action before deleting a service</gov-body>
               <gov-section-break size="l" />
-              <gov-button @click="onDelete" class="bg-error">Delete service</gov-button>
+              <gov-button @click="onDelete" error>Delete service</gov-button>
             </gov-grid-column>
             <gov-grid-column width="one-third" class="text-right">
               <gov-button @click="onEdit">Edit service</gov-button>

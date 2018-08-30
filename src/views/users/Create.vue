@@ -160,7 +160,7 @@
 
             </template>
 
-            <gov-button @click="onRemovePermission(key)" class="bg-error">Remove</gov-button>
+            <gov-button @click="onRemovePermission(key)" error>Remove</gov-button>
           </gov-inset-text>
           <gov-inset-text v-if="form.roles.length === 0">
             <gov-body>No permissions</gov-body>
