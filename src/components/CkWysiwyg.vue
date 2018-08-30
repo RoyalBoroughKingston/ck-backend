@@ -67,9 +67,10 @@ export default {
 
 /* Taken from the flat theme */
 $medium-editor-bgcolor: #000;
+$medium-editor-active-bgcolor: #ffbf47;
 $medium-editor-border-color: #fff;
 $medium-editor-button-size: 60px;
-$medium-editor-button-active-text-color: #fff;
+$medium-editor-button-active-text-color: #000;
 $medium-editor-link-color: #fff;
 $medium-editor-placeholder-color: #fff;
 
@@ -97,15 +98,13 @@ $medium-editor-placeholder-color: #fff;
       border-right: 1px solid lighten($medium-editor-bgcolor, 20);
       background-color: transparent;
       color: $medium-editor-link-color;
-      transition: background-color .2s ease-in, color .2s ease-in;
       &:hover {
-        background-color: darken($medium-editor-bgcolor, 20);
-        color: $medium-editor-button-active-text-color;
+        text-decoration: underline;
       }
     }
 
     .medium-editor-button-active {
-      background-color: darken($medium-editor-bgcolor, 30);
+      background-color: $medium-editor-active-bgcolor;
       color: $medium-editor-button-active-text-color;
     }
 
