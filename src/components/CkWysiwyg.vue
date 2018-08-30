@@ -9,8 +9,6 @@
 
 <script>
 import MediumEditor from "vue2-medium-editor";
-import TurndownService from "turndown";
-import Showdown from "showdown";
 
 export default {
   name: "CkWysiwyg",
@@ -47,9 +45,7 @@ export default {
           standardizeSelectionStart: false,
           static: false
         }
-      },
-      turndownService: new TurndownService(),
-      markdownToHtmlConverter: new Showdown.Converter()
+      }
     };
   },
   computed: {
@@ -70,12 +66,6 @@ export default {
       const markdown = this.toMarkdown(html);
 
       this.$emit("input", markdown);
-    },
-    toMarkdown(html) {
-      return this.turndownService.turndown(html);
-    },
-    toHtml(markdown) {
-      return this.markdownToHtmlConverter.makeHtml(markdown);
     }
   }
 };
@@ -87,6 +77,7 @@ export default {
 
 .ck-wysiwyg {
   @extend .govuk-textarea;
+  min-height: 10rem;
 
   p {
     @extend .govuk-body;
@@ -114,13 +105,13 @@ export default {
 }
 
 /* Taken from the flat theme */
-$medium-editor-bgcolor: #000;
-$medium-editor-active-bgcolor: #ffbf47;
-$medium-editor-border-color: #fff;
-$medium-editor-button-size: 60px;
-$medium-editor-button-active-text-color: #000;
-$medium-editor-link-color: #fff;
-$medium-editor-placeholder-color: #fff;
+$medium-editor-bgcolor: govuk-colour("black");
+$medium-editor-active-bgcolor: $govuk-focus-colour;
+$medium-editor-border-color: govuk-colour("white");
+$medium-editor-button-size: 3rem;
+$medium-editor-button-active-text-color: govuk-colour("white");
+$medium-editor-link-color: govuk-colour("white");
+$medium-editor-placeholder-color: $govuk-secondary-text-colour;
 
 // theme rules
 .medium-toolbar-arrow-under:after {
