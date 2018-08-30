@@ -136,6 +136,31 @@ let router = new Router({
           path: "additional-info",
           name: "services-show-additional-info",
           component: () => import("@/views/services/show/AdditionalInfoTab")
+        },
+        {
+          path: "useful-info",
+          name: "services-show-useful-info",
+          component: () => import("@/views/services/show/UsefulInfoTab")
+        },
+        {
+          path: "contact-info",
+          name: "services-show-contact-info",
+          component: () => import("@/views/services/show/ContactInfoTab")
+        },
+        {
+          path: "who-for",
+          name: "services-show-who-for",
+          component: () => import("@/views/services/show/WhoForTab")
+        },
+        {
+          path: "locations",
+          name: "services-show-locations",
+          component: () => import("@/views/services/show/LocationsTab")
+        },
+        {
+          path: "referral",
+          name: "services-show-referral",
+          component: () => import("@/views/services/show/ReferralTab")
         }
       ]
     }

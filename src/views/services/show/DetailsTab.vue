@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: "ServiceDetailsTab",
+  name: "DetailsTab",
   props: {
     service: {
       type: Object,

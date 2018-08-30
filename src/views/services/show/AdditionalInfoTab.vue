@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: "ServiceAdditionalInfoTab",
+  name: "AdditionalInfoTab",
   props: {
     service: {
       type: Object,
