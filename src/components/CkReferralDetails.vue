@@ -1,44 +1,44 @@
 <template>
   <gov-table>
     <template slot="body">
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Reference no.</th>
-        <td class="govuk-table__cell">{{ referral.reference }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Type</th>
-        <td class="govuk-table__cell">{{ type }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Service</th>
-        <td class="govuk-table__cell">{{ referral.service.name }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Name</th>
-        <td class="govuk-table__cell">{{ referral.name }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Email</th>
-        <td class="govuk-table__cell">{{ referral.email || "-" }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Phone</th>
-        <td class="govuk-table__cell">{{ referral.phone || "-" }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Consent</th>
-        <td class="govuk-table__cell">{{ consented }}</td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Status</th>
-        <td class="govuk-table__cell">
+      <gov-table-row>
+        <gov-table-header scope="row">Reference no.</gov-table-header>
+        <gov-table-cell>{{ referral.reference }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Type</gov-table-header>
+        <gov-table-cell>{{ type }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Service</gov-table-header>
+        <gov-table-cell>{{ referral.service.name }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Name</gov-table-header>
+        <gov-table-cell>{{ referral.name }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Email</gov-table-header>
+        <gov-table-cell>{{ referral.email || "-" }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Phone</gov-table-header>
+        <gov-table-cell>{{ referral.phone || "-" }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Consent</gov-table-header>
+        <gov-table-cell>{{ consented }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Status</gov-table-header>
+        <gov-table-cell>
           <gov-tag>{{ humanReadableStatus(referral.status) }}</gov-tag>
-        </td>
-      </tr>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Date/Time</th>
-        <td class="govuk-table__cell">{{ formatDateTime(referral.created_at) }}</td>
-      </tr>
+        </gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
+        <gov-table-header scope="row">Date/Time</gov-table-header>
+        <gov-table-cell>{{ formatDateTime(referral.created_at) }}</gov-table-cell>
+      </gov-table-row>
     </template>
   </gov-table>
 </template>
