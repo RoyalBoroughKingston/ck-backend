@@ -18,9 +18,9 @@
                 <router-link :to="{ name: 'dashboard' }" class="govuk-header__link govuk-header__link--service-name">
                     {{ serviceName }}
                 </router-link>
-                <button role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+                <button @click="onToggleMenu" role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
                 <nav>
-                    <ul id="navigation" class="govuk-header__navigation" :class="navigationClasses" aria-label="Top Level Navigation">
+                    <ul id="navigation" class="govuk-header__navigation" :class="{ 'govuk-header__navigation--open': navExpanded }" aria-label="Top Level Navigation">
                         <li v-for="(item, key) in navigation" :key="key" v-if="item.href && item.text" class="govuk-header__navigation-item" :class="itemActiveClass(item)">
                             <router-link class="govuk-header__link" :to="item.href">
                                 {{ item.text }}
@@ -41,13 +41,6 @@ export default {
       type: String,
       required: true
     },
-    navigationClasses: {
-      type: Array,
-      required: false,
-      default() {
-        return [];
-      }
-    },
     navigation: {
       type: Array,
       required: false,
@@ -56,9 +49,17 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      navExpanded: false
+    };
+  },
   methods: {
     itemActiveClass(item) {
       return item.active ? "govuk-header__navigation-item--active" : null;
+    },
+    onToggleMenu() {
+      this.navExpanded = !this.navExpanded;
     }
   }
 };

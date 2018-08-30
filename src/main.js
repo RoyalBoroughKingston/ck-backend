@@ -1,7 +1,5 @@
-// GOV.UK Frontend Toolkit
+// Import styling.
 import "@/scss/app.scss";
-import { initAll } from "govuk-frontend";
-initAll();
 
 // Moment (date/time library).
 import moment from "moment";
@@ -28,6 +26,7 @@ Vue.component("CkReferralDetails", () =>
 Vue.component("CkReferralsTable", () =>
   import("@/components/CkReferralsTable")
 );
+Vue.component("CkServicesTable", () => import("@/components/CkServicesTable"));
 Vue.component("CkUserDetails", () => import("@/components/CkUserDetails"));
 Vue.component("CkUsersTable", () => import("@/components/CkUsersTable"));
 

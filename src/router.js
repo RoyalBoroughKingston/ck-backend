@@ -105,15 +105,21 @@ let router = new Router({
       meta: { auth: true }
     },
     {
-      path: "/user/create",
+      path: "/users/create",
       name: "users-create",
       component: () => import("@/views/users/Create"),
       meta: { auth: true }
     },
     {
-      path: "/user/:user",
+      path: "/users/:user",
       name: "users-show",
       component: () => import("@/views/users/Show"),
+      meta: { auth: true }
+    },
+    {
+      path: "/services",
+      name: "services-index",
+      component: () => import("@/views/services/Index"),
       meta: { auth: true }
     }
   ]

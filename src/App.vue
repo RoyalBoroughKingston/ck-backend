@@ -42,7 +42,7 @@ export default {
       bodyClasses: ["js-enabled"],
       mainClasses: [],
       headerNav: [
-        { text: "Services", href: "#" },
+        { text: "Services", href: { name: "services-index" } },
         { text: "Locations", href: { name: "locations-index" } },
         { text: "Referrals", href: { name: "referrals-index" } },
         { text: "Organisations", href: { name: "organisations-index" } },
