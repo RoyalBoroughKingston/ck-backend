@@ -57,6 +57,7 @@ Vue.component("CkWysiwyg", () => import("@/components/CkWysiwyg"));
 Vue.component("GovBackLink", () => import("@/components/Gov/GovBackLink"));
 Vue.component("GovBody", () => import("@/components/Gov/GovBody"));
 Vue.component("GovButton", () => import("@/components/Gov/GovButton"));
+Vue.component("GovCaption", () => import("@/components/Gov/GovCaption"));
 Vue.component("GovCheckbox", () => import("@/components/Gov/GovCheckbox"));
 Vue.component("GovCheckboxes", () => import("@/components/Gov/GovCheckboxes"));
 Vue.component("GovDetails", () => import("@/components/Gov/GovDetails"));

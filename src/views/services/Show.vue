@@ -5,7 +5,10 @@
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
         <gov-grid-column width="full">
-          <gov-heading size="m">View service</gov-heading>
+          <gov-heading size="m">
+            <gov-caption size="m">{{ service.name }}</gov-caption>
+            View service
+          </gov-heading>
           <gov-tabs :tabs="tabs">
             <router-view :service="service" />
           </gov-tabs>

@@ -1,6 +1,6 @@
 <template>
   <!-- For links to internal pages -->
-  <router-link v-if="to" :to="to" class="govuk-link">
+  <router-link v-if="to" :to="to" class="govuk-link govuk-link--no-visited-state">
     <slot />
   </router-link>
 
