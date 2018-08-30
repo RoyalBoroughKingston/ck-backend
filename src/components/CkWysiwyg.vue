@@ -25,6 +25,11 @@ export default {
       default() {
         return {};
       }
+    },
+    placeholder: {
+      type: String,
+      required: false,
+      default: ""
     }
   },
   data() {
@@ -32,7 +37,7 @@ export default {
       defaultOptions: {
         toolbar: {
           allowMultiParagraphSelection: true,
-          buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote'],
+          buttons: ["bold", "anchor", "h2", "h3"],
           diffLeft: 0,
           diffTop: -10,
           firstButtonClass: 'medium-editor-button-first',
@@ -40,6 +45,10 @@ export default {
           relativeContainer: null,
           standardizeSelectionStart: false,
           static: false
+        },
+
+        placeholder: {
+          text: this.placeholder
         }
       }
     };
@@ -59,10 +68,27 @@ export default {
 
 <style lang="scss">
 @import "node_modules/medium-editor/src/sass/medium-editor";
+@import "@/scss/app.scss";
 
 .ck-wysiwyg {
   padding: 5px;
   border: 2px solid #0b0c0c;
+
+  b {
+    @extend .govuk-\!-font-weight-bold;
+  }
+
+  a {
+    @extend .govuk-link;
+  }
+
+  h2 {
+    @extend .govuk-heading-l;
+  }
+
+  h3 {
+    @extend .govuk-heading-m;
+  }
 }
 
 /* Taken from the flat theme */
