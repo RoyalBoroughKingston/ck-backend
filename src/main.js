@@ -4,6 +4,28 @@ import "@/scss/app.scss";
 // Moment (date/time library).
 import moment from "moment";
 
+// Markdown conversion.
+import TurndownService from "turndown";
+import Showdown from "showdown";
+const turndownService = new TurndownService();
+const classMap = {
+  p: "govuk-body",
+  b: "govuk-!-font-weight-bold",
+  a: "govuk-link",
+  strong: "govuk-!-font-weight-bold",
+  h2: "govuk-heading-l",
+  h3: "govuk-heading-m"
+};
+const bindings = Object.keys(classMap).map(key => ({
+  type: "output",
+  regex: new RegExp(`<${key}>`, "g"),
+  replace: `<${key} class="${classMap[key]}">`
+}));
+const markdownToHtmlConverter = new Showdown.Converter({
+  extensions: [...bindings],
+  noHeaderId: true
+});
+
 // Vue
 import Vue from "vue";
 import App from "@/App.vue";
@@ -29,6 +51,7 @@ Vue.component("CkReferralsTable", () =>
 Vue.component("CkServicesTable", () => import("@/components/CkServicesTable"));
 Vue.component("CkUserDetails", () => import("@/components/CkUserDetails"));
 Vue.component("CkUsersTable", () => import("@/components/CkUsersTable"));
+Vue.component("CkWysiwyg", () => import("@/components/CkWysiwyg"));
 
 // Gov.UK Vue Components
 Vue.component("GovBackLink", () => import("@/components/Gov/GovBackLink"));
@@ -96,6 +119,12 @@ Vue.mixin({
     },
     formatDateTime(dateTime) {
       return moment(dateTime, moment.ISO_8601).format("D/M/YY HH:mm");
+    },
+    toMarkdown(html) {
+      return turndownService.turndown(html);
+    },
+    toHtml(markdown) {
+      return markdownToHtmlConverter.makeHtml(markdown);
     }
   }
 });

@@ -6,8 +6,8 @@
         <gov-table-cell>{{ organisation.name }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
-        <gov-table-header scope="row">Description</gov-table-header>
-        <gov-table-cell>{{ organisation.description }}</gov-table-cell>
+        <gov-table-header class="align-top" scope="row">Description</gov-table-header>
+        <gov-table-cell v-html="toHtml(organisation.description)" />
       </gov-table-row>
       <gov-table-row>
         <gov-table-header scope="row">Website Address</gov-table-header>

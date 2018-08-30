@@ -1,9 +1,14 @@
 <template>
-  <p>TODO</p>
+  <ck-wysiwyg v-model="text" />
 </template>
 
 <script>
 export default {
-  name: "ShowService"
+  name: "ShowService",
+  data() {
+    return {
+      text: ""
+    };
+  }
 };
 </script>

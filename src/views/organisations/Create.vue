@@ -21,11 +21,10 @@
           <gov-form-group :invalid="form.$errors.has('description')">
             <gov-label for="description" class="govuk-!-font-weight-bold">Please provide a one-line summary of organisation</gov-label>
             <gov-hint for="description">This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page (max 150 characters).</gov-hint>
-            <gov-textarea
+            <ck-wysiwyg
               v-model="form.description"
               @input="form.$errors.clear('description')"
               id="description"
-              name="description"
             />
             <gov-error-message v-if="form.$errors.has('description')" v-text="form.$errors.get('description')" for="description" />
           </gov-form-group>
