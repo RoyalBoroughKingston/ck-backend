@@ -207,7 +207,21 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.form.post("/users").then(({ data }) => {
+      this.form.post("/users", (config, data) => {
+        data.roles.forEach(role => {
+          switch (role.role) {
+            // Delete the organisation and service IDs instead of sending null values.
+            case "Super Admin":
+            case "Global Admin":
+              delete role.organisation_id;
+              delete role.service_id;
+              break;
+            case "Organisation Admin":
+              delete role.service_id;
+              break;
+          }
+        });
+      }).then(({ data }) => {
         this.$router.push({
           name: "users-show",
           params: { user: data.id }
