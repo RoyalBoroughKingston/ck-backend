@@ -93,8 +93,9 @@ export default {
           return `${this.dayOfMonth(openingHour.day_of_month)} of each month - ${this.timePeriod(openingHour)}`;
         case "fortnightly":
           return `Every other ${this.weekdayFromDate(openingHour.starts_at)} (${this.fortnightWeek(openingHour.starts_at)}) - ${this.timePeriod(openingHour)}`;
+        case "nth_occurrence_of_month":
+          return `${this.dayOfMonth(openingHour.occurrence_of_month)} ${this.weekday(openingHour.weekday)} of each month`;
       }
-      return "TEST - " + openingHour.frequency;
     },
     timePeriod(openingHour) {
       return `${this.formatTime(openingHour.opens_at)} to ${this.formatTime(openingHour.closes_at)}`;
