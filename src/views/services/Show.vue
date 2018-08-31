@@ -5,23 +5,23 @@
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
         <gov-grid-column width="full">
-          <gov-heading size="m">
-            <gov-caption size="m">{{ service.name }}</gov-caption>
-            View service
-          </gov-heading>
-          <gov-tabs :tabs="tabs">
-            <router-view :service="service" />
-          </gov-tabs>
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-body>Please be certain of the action before deleting a service</gov-body>
-              <gov-section-break size="l" />
-              <gov-button @click="onDelete" error>Delete service</gov-button>
+              <gov-heading size="m">
+                <gov-caption size="m">{{ service.name }}</gov-caption>
+                View service
+              </gov-heading>
             </gov-grid-column>
             <gov-grid-column width="one-third" class="text-right">
               <gov-button @click="onEdit">Edit service</gov-button>
             </gov-grid-column>
           </gov-grid-row>
+          <gov-tabs :tabs="tabs">
+            <router-view :service="service" />
+          </gov-tabs>
+          <gov-body>Please be certain of the action before deleting a service</gov-body>
+          <gov-section-break size="l" />
+          <gov-button @click="onDelete" error>Delete service</gov-button>
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
