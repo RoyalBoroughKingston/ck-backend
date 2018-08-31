@@ -177,7 +177,6 @@
 
 <script>
 import Form from "@/classes/Form";
-import http from "@/http";
 
 export default {
   name: "CreateUser",
@@ -207,26 +206,28 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.form.post("/users", (config, data) => {
-        data.roles.forEach(role => {
-          switch (role.role) {
-            // Delete the organisation and service IDs instead of sending null values.
-            case "Super Admin":
-            case "Global Admin":
-              delete role.organisation_id;
-              delete role.service_id;
-              break;
-            case "Organisation Admin":
-              delete role.service_id;
-              break;
-          }
+      this.form
+        .post("/users", (config, data) => {
+          data.roles.forEach(role => {
+            switch (role.role) {
+              // Delete the organisation and service IDs instead of sending null values.
+              case "Super Admin":
+              case "Global Admin":
+                delete role.organisation_id;
+                delete role.service_id;
+                break;
+              case "Organisation Admin":
+                delete role.service_id;
+                break;
+            }
+          });
+        })
+        .then(({ data }) => {
+          this.$router.push({
+            name: "users-show",
+            params: { user: data.id }
+          });
         });
-      }).then(({ data }) => {
-        this.$router.push({
-          name: "users-show",
-          params: { user: data.id }
-        });
-      });
     },
     onAddPermission() {
       // The role index is purely used for Vue to keep track when looping.
@@ -246,14 +247,16 @@ export default {
     },
     async cacheOrganisations() {
       this.loadingOrganisations = true;
-      this.organisations = [{ value: null, text: "Please select", disabled: true}];
+      this.organisations = [
+        { value: null, text: "Please select", disabled: true }
+      ];
 
-      let organisations = await this.fetchAll('/organisations');
+      let organisations = await this.fetchAll("/organisations");
       organisations = organisations.map(organisation => {
         return {
-            value: organisation.id,
-            text: organisation.name
-          };
+          value: organisation.id,
+          text: organisation.name
+        };
       });
       this.organisations = [...this.organisations, ...organisations];
 
@@ -267,18 +270,23 @@ export default {
 
       // Set the initial object.
       this.services[organisationId] = {
-        items: [{ value: null, text: "Please select", disabled: true}],
+        items: [{ value: null, text: "Please select", disabled: true }],
         loading: true
       };
 
-      let services = await this.fetchAll('/services', { "filter[organisation_id]": organisationId });
+      let services = await this.fetchAll("/services", {
+        "filter[organisation_id]": organisationId
+      });
       services = services.map(service => {
         return {
-            value: service.id,
-            text: service.name
-          };
+          value: service.id,
+          text: service.name
+        };
       });
-      this.services[organisationId].items = [...this.services[organisationId].items, ...services];
+      this.services[organisationId].items = [
+        ...this.services[organisationId].items,
+        ...services
+      ];
 
       this.services[organisationId].loading = false;
       this.$forceUpdate();
@@ -286,7 +294,7 @@ export default {
   },
   watch: {
     "form.roles": {
-      handler: function (newRoles) {
+      handler: function(newRoles) {
         newRoles.forEach(role => {
           // If the role uses a service, then lazy load the services and cache them.
           if (role.role === "Service Admin" || role.role === "Service Worker") {

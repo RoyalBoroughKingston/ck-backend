@@ -41,7 +41,10 @@ export default {
         case "one_week":
         case "two_weeks":
         case "three_weeks":
-          return this.service.wait_time.charAt(0).toUpperCase() + this.service.wait_time.replace("_", " ").substr(1);
+          return (
+            this.service.wait_time.charAt(0).toUpperCase() +
+            this.service.wait_time.replace("_", " ").substr(1)
+          );
         case "month":
           return "One month";
         case "longer":
@@ -49,8 +52,8 @@ export default {
       }
     },
     isFree() {
-      return this.service.is_free ? 'Yes' : "No";
+      return this.service.is_free ? "Yes" : "No";
     }
   }
-}
+};
 </script>

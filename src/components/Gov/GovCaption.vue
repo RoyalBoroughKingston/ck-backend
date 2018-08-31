@@ -18,5 +18,5 @@ export default {
       return `govuk-caption-${this.size}`;
     }
   }
-}
+};
 </script>

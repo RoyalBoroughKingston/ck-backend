@@ -39,7 +39,10 @@ export default {
       service: null,
       tabs: [
         { heading: "Details", to: { name: "services-show" } },
-        { heading: "Additional info", to: { name: "services-show-additional-info" } },
+        {
+          heading: "Additional info",
+          to: { name: "services-show-additional-info" }
+        },
         { heading: "Useful info", to: { name: "services-show-useful-info" } },
         { heading: "Contact info", to: { name: "services-show-contact-info" } },
         { heading: "Who is it for?", to: { name: "services-show-who-for" } },
@@ -53,7 +56,9 @@ export default {
       this.loading = true;
 
       // Fetch the services.
-      const servicesResponse = await http.get(`/services/${this.$route.params.service}`);
+      const servicesResponse = await http.get(
+        `/services/${this.$route.params.service}`
+      );
       this.service = servicesResponse.data.data;
 
       // Fetch the service locations.

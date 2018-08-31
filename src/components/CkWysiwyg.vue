@@ -1,7 +1,7 @@
 <template>
   <medium-editor
     class="ck-wysiwyg"
-    :text="initialText"
+    :text="initialValue"
     :options="mergedOptions"
     @edit="onEdit"
   />
@@ -39,8 +39,8 @@ export default {
           buttons: ["bold", "anchor", "h2", "h3"],
           diffLeft: 0,
           diffTop: -10,
-          firstButtonClass: 'medium-editor-button-first',
-          lastButtonClass: 'medium-editor-button-last',
+          firstButtonClass: "medium-editor-button-first",
+          lastButtonClass: "medium-editor-button-last",
           relativeContainer: null,
           standardizeSelectionStart: false,
           static: false
@@ -49,16 +49,12 @@ export default {
     };
   },
   computed: {
-    initialText() {
-      if (this.initialValue === null) {
-        this.initialValue = this.toHtml(this.value);
-      }
-
-      return this.initialValue;
-    },
     mergedOptions() {
-      return {...this.defaultOptions, ...this.options};
+      return { ...this.defaultOptions, ...this.options };
     }
+  },
+  created() {
+    this.initialValue = this.toHtml(this.value);
   },
   methods: {
     onEdit(payload) {
@@ -115,13 +111,13 @@ $medium-editor-placeholder-color: $govuk-secondary-text-colour;
 
 // theme rules
 .medium-toolbar-arrow-under:after {
-    top: $medium-editor-button-size;
-    border-color: $medium-editor-bgcolor transparent transparent transparent;
+  top: $medium-editor-button-size;
+  border-color: $medium-editor-bgcolor transparent transparent transparent;
 }
 
 .medium-toolbar-arrow-over:before {
-    top: -8px;
-    border-color: transparent transparent $medium-editor-bgcolor transparent;
+  top: -8px;
+  border-color: transparent transparent $medium-editor-bgcolor transparent;
 }
 
 .medium-editor-toolbar {
@@ -161,22 +157,24 @@ $medium-editor-placeholder-color: $govuk-secondary-text-colour;
 
     &::-webkit-input-placeholder {
       color: $medium-editor-placeholder-color;
-      color: rgba($medium-editor-placeholder-color, .8);
+      color: rgba($medium-editor-placeholder-color, 0.8);
     }
 
-    &:-moz-placeholder { /* Firefox 18- */
+    &:-moz-placeholder {
+      /* Firefox 18- */
       color: $medium-editor-placeholder-color;
-      color: rgba($medium-editor-placeholder-color, .8);
+      color: rgba($medium-editor-placeholder-color, 0.8);
     }
 
-    &::-moz-placeholder {  /* Firefox 19+ */
+    &::-moz-placeholder {
+      /* Firefox 19+ */
       color: $medium-editor-placeholder-color;
-      color: rgba($medium-editor-placeholder-color, .8);
+      color: rgba($medium-editor-placeholder-color, 0.8);
     }
 
     &:-ms-input-placeholder {
       color: $medium-editor-placeholder-color;
-      color: rgba($medium-editor-placeholder-color, .8);
+      color: rgba($medium-editor-placeholder-color, 0.8);
     }
   }
 

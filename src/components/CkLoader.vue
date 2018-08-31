@@ -13,7 +13,7 @@ export default {
   },
   mounted() {
     this.interval = setInterval(() => {
-      this.dots === 3 ? this.dots = 0 : this.dots++;
+      this.dots === 3 ? (this.dots = 0) : this.dots++;
     }, 300);
   },
   beforeDestroy() {
