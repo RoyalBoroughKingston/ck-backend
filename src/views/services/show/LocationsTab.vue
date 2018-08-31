@@ -43,7 +43,7 @@
                 <li
                   v-for="(regularOpeningHour, index) in serviceLocation.regular_opening_hours"
                   :key="index"
-                  v-text="humanReadableRegularOpeningHour(regularOpeningHour)"
+                  v-text="formatRegularOpeningHour(regularOpeningHour)"
                 />
                 <li v-if="serviceLocation.regular_opening_hours.length === 0">
                   No regular opening hours have been specifeid for this service
@@ -58,7 +58,7 @@
                 <li
                   v-for="(holidayOpeningHour, index) in serviceLocation.holiday_opening_hours"
                   :key="index"
-                  v-text="holidayOpeningHour.starts_at"
+                  v-text="formatHolidayOpeningHour(holidayOpeningHour)"
                 />
                 <li v-if="serviceLocation.holiday_opening_hours.length === 0">
                   No holiday opening hours have been specifeid for this service
@@ -85,7 +85,7 @@ export default {
     }
   },
   methods: {
-    humanReadableRegularOpeningHour(openingHour) {
+    formatRegularOpeningHour(openingHour) {
       switch (openingHour.frequency) {
         case "weekly":
           return `${this.weekday(openingHour.weekday)} - ${this.timePeriod(openingHour)}`;
@@ -96,6 +96,17 @@ export default {
         case "nth_occurrence_of_month":
           return `${this.dayOfMonth(openingHour.occurrence_of_month)} ${this.weekday(openingHour.weekday)} of each month`;
       }
+    },
+    formatHolidayOpeningHour(openingHour) {
+      const open = openingHour.is_closed ? "Closed" : "Open";
+      const dateRange = `${this.formatDate(openingHour.starts_at)} to ${this.formatDate(openingHour.ends_at)}`;
+      let string = `${open} from ${dateRange}`;
+
+      if (!openingHour.is_closed) {
+        string += ` - ${this.timePeriod(openingHour)}`;
+      }
+
+      return string;
     },
     timePeriod(openingHour) {
       return `${this.formatTime(openingHour.opens_at)} to ${this.formatTime(openingHour.closes_at)}`;
