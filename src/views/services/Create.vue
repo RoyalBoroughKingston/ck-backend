@@ -7,7 +7,7 @@
           <gov-heading size="xl">Services</gov-heading>
           <gov-heading size="m">Add service</gov-heading>
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
-            <gov-body v-for="(tab, index) in tabs" :key="index" v-if="tab.active">
+            <gov-body v-for="(tab, index) in tabs" :key="index" v-show="tab.active">
               {{ tab.heading }}
             </gov-body>
           </gov-tabs>
