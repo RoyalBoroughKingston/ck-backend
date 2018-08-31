@@ -74,6 +74,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "LocationsTab",
   props: {
@@ -89,6 +91,8 @@ export default {
           return `${this.weekday(openingHour.weekday)} - ${this.timePeriod(openingHour)}`;
         case "monthly":
           return `${this.dayOfMonth(openingHour.day_of_month)} of each month - ${this.timePeriod(openingHour)}`;
+        case "fortnightly":
+          return `Every other ${this.weekdayFromDate(openingHour.starts_at)} (${this.fortnightWeek(openingHour.starts_at)}) - ${this.timePeriod(openingHour)}`;
       }
       return "TEST - " + openingHour.frequency;
     },
@@ -96,10 +100,21 @@ export default {
       return `${this.formatTime(openingHour.opens_at)} to ${this.formatTime(openingHour.closes_at)}`;
     },
     weekday(weekday) {
-      return this.moment(weekday, "E").format("dddd");
+      return moment(weekday, "E").format("dddd");
+    },
+    weekdayFromDate(date) {
+      return moment(date, moment.HTML5_FMT.DATE).format("dddd");
     },
     dayOfMonth(dayOfMonth) {
-      return this.moment(dayOfMonth, "D").format("Do");
+      return moment(dayOfMonth, "D").format("Do");
+    },
+    fortnightWeek(date) {
+      const daysInFortnight = 14;
+      const thisSunday = moment().day(7);
+      const diffInDays = moment(date, moment.HTML5_FMT.DATE).diff(thisSunday, "days");
+      const remainingDays = Math.abs(diffInDays % daysInFortnight);
+
+      return remainingDays > 6 ? "next calendar week" : "this calendar week";
     }
   }
 };
