@@ -123,6 +123,12 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/services/create",
+      name: "services-create",
+      component: () => import("@/views/services/Create"),
+      meta: { auth: true }
+    },
+    {
       path: "/services/:service",
       component: () => import("@/views/services/Show"),
       meta: { auth: true },

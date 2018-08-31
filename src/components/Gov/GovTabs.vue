@@ -3,9 +3,18 @@
     <h2 class="govuk-tabs__title">{{ title }}</h2>
     <ul class="govuk-tabs__list">
       <li v-for="(tab, index) in tabs" :key="index" class="govuk-tabs__list-item">
+        <a
+          @click="onTabClick(tab, index)"
+          v-if="noRouter"
+          class="govuk-tabs__tab"
+          :class="{ 'govuk-tabs__tab--active': tab.active }"
+          href="javascript:;"
+          v-text="tab.heading"
+        />
         <router-link
+          v-else
           :to="tab.to"
-          class="govuk-tabs__tab govuk-tabs__tab--no-visited-state"
+          class="govuk-tabs__tab"
           active-class="govuk-tabs__tab--active"
           v-text="tab.heading"
           exact
@@ -30,6 +39,16 @@ export default {
       type: String,
       required: false,
       default: "Contents"
+    },
+    noRouter: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  methods: {
+    onTabClick(tab, index) {
+      this.$emit("tab-changed", { index, tab });
     }
   }
 };
@@ -41,10 +60,6 @@ export default {
 .govuk-tabs__tab {
   &.govuk-tabs__tab--active {
     @extend .govuk-tabs__tab[aria-selected="true"];
-  }
-
-  &.govuk-tabs__tab--no-visited-state {
-    @extend .govuk-link--no-visited-state;
   }
 }
 </style>
