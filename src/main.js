@@ -123,8 +123,16 @@ Vue.mixin({
     formatDate(date) {
       return moment(date, moment.ISO_8601).format("D/M/YY");
     },
+    formatTime(time) {
+      return moment(time, moment.HTML5_FMT.TIME_SECONDS).format(
+        moment.HTML5_FMT.TIME
+      );
+    },
     formatDateTime(dateTime) {
       return moment(dateTime, moment.ISO_8601).format("D/M/YY HH:mm");
+    },
+    moment(...args) {
+      return moment(...args);
     },
     toMarkdown(html) {
       return turndownService.turndown(html);
