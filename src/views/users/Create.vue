@@ -248,21 +248,14 @@ export default {
       this.loadingOrganisations = true;
       this.organisations = [{ value: null, text: "Please select", disabled: true}];
 
-      let allFetched = false;
-      let page = 1;
-
-      do {
-        const { data } = await http.get('/organisations', { params: { page, per_page: 100 } });
-        const fetchedOrganisations = data.data.map(organisation => {
-          return {
+      let organisations = await this.fetchAll('/organisations');
+      organisations = organisations.map(organisation => {
+        return {
             value: organisation.id,
             text: organisation.name
           };
-        });
-        this.organisations = [...this.organisations, ...fetchedOrganisations];
-        allFetched = data.meta.current_page === data.meta.last_page;
-        page++;
-      } while (!allFetched);
+      });
+      this.organisations = [...this.organisations, ...organisations];
 
       this.loadingOrganisations = false;
     },
@@ -278,25 +271,14 @@ export default {
         loading: true
       };
 
-      let allFetched = false;
-      let page = 1;
-
-      do {
-        const { data } = await http.get('/services', { params: {
-          page,
-          per_page: 100,
-          "filter[organisation_id]": organisationId
-        } });
-        const fetchedServices = data.data.map(service => {
-          return {
+      let services = await this.fetchAll('/services', { "filter[organisation_id]": organisationId });
+      services = services.map(service => {
+        return {
             value: service.id,
             text: service.name
           };
-        });
-        this.services[organisationId].items = [...this.services[organisationId].items, ...fetchedServices];
-        allFetched = data.meta.current_page === data.meta.last_page;
-        page++;
-      } while (!allFetched);
+      });
+      this.services[organisationId].items = [...this.services[organisationId].items, ...services];
 
       this.services[organisationId].loading = false;
       this.$forceUpdate();

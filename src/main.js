@@ -4,6 +4,9 @@ import "@/scss/app.scss";
 // Moment (date/time library).
 import moment from "moment";
 
+// Axios.
+import http from "@/http";
+
 // Markdown conversion.
 import TurndownService from "turndown";
 import Showdown from "showdown";
@@ -128,6 +131,22 @@ Vue.mixin({
     },
     toHtml(markdown) {
       return markdownToHtmlConverter.makeHtml(markdown);
+    },
+    async fetchAll(uri, params = {}) {
+      let page = 1;
+      let perPage = 100;
+      let mergedParams = { ...params, page, per_page: perPage };
+      let allFetched = false;
+      let resources = [];
+
+      do {
+        const { data } = await http.get(uri, { params: mergedParams });
+        resources = [...resources, ...data.data];
+        allFetched = data.meta.current_page === data.meta.last_page;
+        mergedParams.page++;
+      } while (!allFetched);
+
+      return resources;
     }
   }
 });
