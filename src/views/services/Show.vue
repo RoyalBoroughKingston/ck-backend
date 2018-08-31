@@ -49,14 +49,21 @@ export default {
     };
   },
   methods: {
-    fetchService() {
+    async fetchService() {
       this.loading = true;
-      http
-        .get(`/services/${this.$route.params.service}`)
-        .then(({ data }) => {
-          this.service = data.data;
-          this.loading = false;
-        });
+
+      // Fetch the services.
+      const servicesResponse = await http.get(`/services/${this.$route.params.service}`);
+      this.service = servicesResponse.data.data;
+
+      // Fetch the service locations.
+      const serviceLocations = await this.fetchAll("/service-locations", {
+        "filter[service_id]": this.$route.params.service,
+        include: "location"
+      });
+      this.service.service_locations = serviceLocations;
+
+      this.loading = false;
     },
     onEdit() {
       alert("Edit");
