@@ -1,5 +1,5 @@
 <template>
-  <button @click="onClick" :type="type" class="govuk-button" :class="{ 'govuk-button--error': error }">
+  <button @click="onClick" :type="type" class="govuk-button" :class="{ expand: expand, 'govuk-button--error': error }">
     <slot />
   </button>
 </template>
@@ -35,12 +35,14 @@ export default {
 <style lang="scss">
 @import "@/scss/app.scss";
 
-.govuk-button--error {
-  background-color: $govuk-error-colour;
+.govuk-button {
+  &.govuk-button--error {
+    background-color: $govuk-error-colour;
 
-  &:hover,
-  &:focus {
-    background-color: darken($govuk-error-colour, 5%);
+    &:hover,
+    &:focus {
+      background-color: darken($govuk-error-colour, 5%);
+    }
   }
 }
 </style>

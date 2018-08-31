@@ -79,6 +79,7 @@ Vue.component("GovInput", () => import("@/components/Gov/GovInput"));
 Vue.component("GovInsetText", () => import("@/components/Gov/GovInsetText"));
 Vue.component("GovLabel", () => import("@/components/Gov/GovLabel"));
 Vue.component("GovLink", () => import("@/components/Gov/GovLink"));
+Vue.component("GovList", () => import("@/components/Gov/GovList"));
 Vue.component("GovMainWrapper", () =>
   import("@/components/Gov/GovMainWrapper")
 );

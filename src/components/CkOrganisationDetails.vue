@@ -24,7 +24,7 @@
       <gov-table-row>
         <gov-table-header top scope="row">Logo</gov-table-header>
         <gov-table-cell>
-          <img :src="apiUrl(`/organisations/${organisation.id}/logo`)" alt="Organisation logo">
+          <img :src="apiUrl(`/organisations/${organisation.id}/logo`)" alt="Organisation logo" class="ck-logo">
         </gov-table-cell>
       </gov-table-row>
     </template>

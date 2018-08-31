@@ -18,13 +18,12 @@
         <gov-table-row>
           <gov-table-header scope="row" top>Social links</gov-table-header>
           <gov-table-cell>
-            <gov-body
-              v-for="(socialMedia, index) in service.social_medias"
-              :key="index"
-            >
-              ({{ humanReadableSocialMedia(socialMedia.type) }}) {{ socialMedia.url }}
-            </gov-body>
-            <template v-if="service.social_medias.length === 0">-</template>
+            <gov-list>
+              <li v-for="(socialMedia, index) in service.social_medias" :key="index">
+                ({{ humanReadableSocialMedia(socialMedia.type) }}) {{ socialMedia.url }}
+              </li>
+              <li v-if="service.social_medias.length === 0">-</li>
+            </gov-list>
           </gov-table-cell>
         </gov-table-row>
       </template>

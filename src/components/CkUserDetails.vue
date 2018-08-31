@@ -20,35 +20,43 @@
       <gov-table-row>
         <gov-table-header top scope="row">Permissions</gov-table-header>
         <gov-table-cell>
-          <gov-body>Super admin: {{ superAdmin ? 'Yes' : 'No' }}</gov-body>
-          <gov-body>Global admin: {{ globalAdmin ? 'Yes' : 'No' }}</gov-body>
-          <gov-body v-if="organisationAdmin.length === 0">Organisation admin: No</gov-body>
-          <gov-details v-else summary="Organisation admin: Yes">
-            <div v-for="(role, key) in organisationAdmin" :key="key">
-              <gov-link
-                :to="{ name: 'organisations-show', params: { organisation: role.organisation_id } }"
-                v-text="role.organisation.name"
-              />
-            </div>
-          </gov-details>
-          <gov-body v-if="serviceAdmin.length === 0">Service admin: No</gov-body>
-          <gov-details v-else summary="Service admin: Yes">
-            <div v-for="(role, key) in serviceAdmin" :key="key">
-              <gov-link
-                :to="{ name: 'services-show', params: { service: role.service_id } }"
-                v-text="role.service.name"
-              />
-            </div>
-          </gov-details>
-          <gov-body v-if="serviceWorker.length === 0">Service worker: No</gov-body>
-          <gov-details v-else summary="Service worker: Yes">
-            <div v-for="(role, key) in serviceWorker" :key="key">
-              <gov-link
-                :to="{ name: 'services-show', params: { service: role.service_id } }"
-                v-text="role.service.name"
-              />
-            </div>
-          </gov-details>
+          <gov-list>
+            <li>Super admin: {{ superAdmin ? 'Yes' : 'No' }}</li>
+            <li>Global admin: {{ globalAdmin ? 'Yes' : 'No' }}</li>
+            <li>
+              <template v-if="organisationAdmin.length === 0">Organisation admin: No</template>
+              <gov-details v-else summary="Organisation admin: Yes" class="no-margin">
+                <div v-for="(role, key) in organisationAdmin" :key="key">
+                  <gov-link
+                    :to="{ name: 'organisations-show', params: { organisation: role.organisation_id } }"
+                    v-text="role.organisation.name"
+                  />
+                </div>
+              </gov-details>
+            </li>
+            <li>
+              <template v-if="serviceAdmin.length === 0">Service admin: No</template>
+              <gov-details v-else summary="Service admin: Yes" class="no-margin">
+                <div v-for="(role, key) in serviceAdmin" :key="key">
+                  <gov-link
+                    :to="{ name: 'services-show', params: { service: role.service_id } }"
+                    v-text="role.service.name"
+                  />
+                </div>
+              </gov-details>
+            </li>
+            <li>
+              <template v-if="serviceWorker.length === 0">Service worker: No</template>
+              <gov-details v-else summary="Service worker: Yes" class="no-margin">
+                <div v-for="(role, key) in serviceWorker" :key="key">
+                  <gov-link
+                    :to="{ name: 'services-show', params: { service: role.service_id } }"
+                    v-text="role.service.name"
+                  />
+                </div>
+              </gov-details>
+            </li>
+          </gov-list>
         </gov-table-cell>
       </gov-table-row>
     </template>
