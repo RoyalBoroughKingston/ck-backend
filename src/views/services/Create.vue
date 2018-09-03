@@ -642,7 +642,133 @@
                     Use this section to specify how referrals should be made to this service.
                   </gov-body>
                   <gov-section-break size="l" />
-                  <p>TODO</p>
+
+                  <!-- Show referral disclaimer -->
+                  <gov-form-group :invalid="form.$errors.has('show_referral_disclaimer')">
+                    <gov-radios>
+                      <gov-label class="govuk-!-font-weight-bold" for="show_referral_disclaimer">
+                        Show referral disclaimer?
+                      </gov-label>
+                      <gov-hint for="show_referral_disclaimer">Lorem ipsum</gov-hint>
+                      <gov-radio
+                        v-model="form.show_referral_disclaimer"
+                        id="show_referral_disclaimer_enabled"
+                        name="show_referral_disclaimer"
+                        label="Display"
+                        :value="true"
+                      />
+                      <gov-radio
+                        v-model="form.show_referral_disclaimer"
+                        id="show_referral_disclaimer_no"
+                        name="show_referral_disclaimer"
+                        label="Don't display"
+                        :value="false"
+                      />
+                      <gov-error-message
+                        v-if="form.$errors.has('show_referral_disclaimer')"
+                        v-text="form.$errors.get('show_referral_disclaimer')"
+                        for="show_referral_disclaimer"
+                      />
+                    </gov-radios>
+                  </gov-form-group>
+                  <!-- /Show referral disclaimer -->
+
+                  <!-- Referral method -->
+                  <gov-form-group :invalid="form.$errors.has('referral_method')">
+                    <gov-label class="govuk-!-font-weight-bold" for="referral_method">
+                      Referral method
+                    </gov-label>
+                    <gov-hint for="referral_method">
+                      How does this service receive referrals?
+                    </gov-hint>
+                    <gov-select
+                      v-model="form.referral_method"
+                      @input="form.$errors.clear('referral_method')"
+                      id="referral_method"
+                      name="referral_method"
+                      :options="referralMethodOptions"
+                    />
+                    <gov-error-message
+                      v-if="form.$errors.has('referral_method')"
+                      v-text="form.$errors.get('referral_method')"
+                      for="referral_method"
+                    />
+                  </gov-form-group>
+                  <!-- /Referral method -->
+
+                  <template v-if="(form.referral_method !== null) && (form.referral_method !== 'none')">
+                    <!-- Referral button text -->
+                    <gov-form-group :invalid="form.$errors.has('referral_button_text')">
+                      <gov-label class="govuk-!-font-weight-bold" for="referral_button_text">
+                        Referral button text
+                      </gov-label>
+                      <gov-hint for="referral_button_text">
+                        The text to be displayed on the button to make the referral.
+                      </gov-hint>
+                      <gov-input
+                        v-model="form.referral_button_text"
+                        @input="form.$errors.clear('referral_button_text')"
+                        id="referral_button_text"
+                        name="referral_button_text"
+                        type="text"
+                      />
+                      <gov-error-message
+                        v-if="form.$errors.has('referral_button_text')"
+                        v-text="form.$errors.get('referral_button_text')"
+                        for="referral_button_text"
+                      />
+                    </gov-form-group>
+                    <!-- /Referral button text -->
+
+                    <!-- Referral email -->
+                    <gov-form-group :invalid="form.$errors.has('referral_email')">
+                      <gov-label class="govuk-!-font-weight-bold" for="referral_email">
+                        Referral email
+                      </gov-label>
+                      <gov-hint for="referral_email">
+                        The email address which should be notified when referrals are made
+                      </gov-hint>
+                      <gov-input
+                        v-model="form.referral_email"
+                        @input="form.$errors.clear('referral_email')"
+                        id="referral_email"
+                        name="referral_email"
+                        type="email"
+                      />
+                      <gov-error-message
+                        v-if="form.$errors.has('referral_email')"
+                        v-text="form.$errors.get('referral_email')"
+                        for="referral_email"
+                      />
+                    </gov-form-group>
+                    <!-- /Referral email -->
+
+                    <!-- Referral URL -->
+                    <gov-form-group
+                      v-if="(form.referral_method === 'external')"
+                      :invalid="form.$errors.has('referral_url')"
+                    >
+                      <gov-label class="govuk-!-font-weight-bold" for="referral_url">
+                        Referral URL
+                      </gov-label>
+                      <gov-hint for="referral_url">
+                        The URL that the user must visit to make a referral
+                      </gov-hint>
+                      <gov-input
+                        v-model="form.referral_url"
+                        @input="form.$errors.clear('referral_url')"
+                        id="referral_url"
+                        name="referral_url"
+                        type="url"
+                      />
+                      <gov-error-message
+                        v-if="form.$errors.has('referral_url')"
+                        v-text="form.$errors.get('referral_url')"
+                        for="referral_url"
+                      />
+                    </gov-form-group>
+                    <!-- /Referral URL -->
+                  </template>
 
                   <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
                   <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
@@ -684,8 +810,8 @@ export default {
         contact_phone: "",
         contact_email: "",
         show_referral_disclaimer: null,
-        referral_method: "internal",
-        referral_button_text: "Make referral",
+        referral_method: null,
+        referral_button_text: "",
         referral_email: "",
         referral_url: "",
         criteria: {
@@ -728,12 +854,18 @@ export default {
         { text: "Additional information", value: "Additional information" }
       ],
       socialMediaTypeOptions: [
-        { text: "Please select", value: "", disabled: true },
+        { text: "Please select", value: null, disabled: true },
         { text: "Twitter", value: "twitter" },
         { text: "Facebook", value: "facebook" },
         { text: "Instagram", value: "instagram" },
         { text: "YouTube", value: "youtube" },
         { text: "Other", value: "other" }
+      ],
+      referralMethodOptions: [
+        { text: "Please select", value: null, disabled: true },
+        { text: "Internal", value: "internal" },
+        { text: "External", value: "external" },
+        { text: "This service doesn't accept referrals", value: "none" }
       ],
       tabs: [
         { heading: "Details", active: true },
@@ -883,6 +1015,17 @@ export default {
     otherEnabled(enabled) {
       if (!enabled) {
         this.form.criteria.other = "";
+      }
+    },
+    "form.referral_method"(newReferralMethod) {
+      if ((newReferralMethod === null) || (newReferralMethod === 'none')) {
+        this.form.referral_button_text = "";
+        this.form.referral_email = "";
+        this.form.referral_url = "";
+      }
+
+      if (newReferralMethod !== "external") {
+        this.form.referral_url = "";
       }
     }
   }

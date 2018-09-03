@@ -12,7 +12,7 @@
       />
       <gov-radio
         v-model="enabled"
-        :id="`${path}_enabledd`"
+        :id="`${path}_enabled`"
         :name="path"
         label="Other"
         :value="true"
