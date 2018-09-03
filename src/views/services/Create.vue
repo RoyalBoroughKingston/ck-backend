@@ -12,6 +12,8 @@
               v-if="tabs[0].active"
               :form="form"
               :logo-form="logoForm"
+              @clear="form.$errors.clear($event)"
+              @clear-logo="logoForm.$errors.clear($event)"
               @update:name="form.name = $event"
               @update:url="form.url = $event"
               @update:logo="logoForm.file = $event"
@@ -23,6 +25,7 @@
             <additional-info-tab
               v-if="tabs[1].active"
               :form="form"
+              @clear="form.$errors.clear($event)"
               @update:wait_time="form.wait_time = $event"
               @update:is_free="form.is_free = $event"
               @update:fees_text="form.fees_text = $event"
@@ -44,145 +47,19 @@
               @next="onNext"
             />
 
-            <!-- Contact details tab -->
-            <template v-if="tabs[3].active">
-              <gov-heading size="l">Contact details</gov-heading>
-              <gov-grid-row>
-                <gov-grid-column width="one-half">
-                  <gov-body>A place to put in the public facing contact details of your service. These will be displayed on the service page on the website.</gov-body>
-                  <gov-section-break size="l" />
-
-                  <!-- Contact name -->
-                  <gov-form-group :invalid="form.$errors.has('contact_name')">
-                    <gov-label class="govuk-!-font-weight-bold" for="contact_name">
-                      Contact name
-                    </gov-label>
-                    <gov-hint for="contact_name">
-                      Please provide the contact name eg. Jane Bloggs or a function e.g. Enquiries
-                    </gov-hint>
-                    <gov-input
-                      v-model="form.contact_name"
-                      @input="form.$errors.clear('contact_name')"
-                      id="contact_name"
-                      name="contact_name"
-                      type="text"
-                    />
-                    <gov-error-message
-                      v-if="form.$errors.has('contact_name')"
-                      v-text="form.$errors.get('contact_name')"
-                      for="contact_name"
-                    />
-                  </gov-form-group>
-                  <!-- /Contact name -->
-
-                  <!-- Contact phone -->
-                  <gov-form-group :invalid="form.$errors.has('contact_phone')">
-                    <gov-label class="govuk-!-font-weight-bold" for="contact_phone">
-                      Contact phone number
-                    </gov-label>
-                    <gov-hint for="contact_phone">
-                      Please provide a public facing phone number
-                    </gov-hint>
-                    <gov-input
-                      v-model="form.contact_phone"
-                      @input="form.$errors.clear('contact_phone')"
-                      id="contact_phone"
-                      name="contact_phone"
-                      type="tel"
-                    />
-                    <gov-error-message
-                      v-if="form.$errors.has('contact_phone')"
-                      v-text="form.$errors.get('contact_phone')"
-                      for="contact_phone"
-                    />
-                  </gov-form-group>
-                  <!-- /Contact phone -->
-
-                  <!-- Contact email -->
-                  <gov-form-group :invalid="form.$errors.has('contact_email')">
-                    <gov-label class="govuk-!-font-weight-bold" for="contact_email">
-                      Public email address
-                    </gov-label>
-                    <gov-hint for="contact_email">
-                      Please provide a public facing email address
-                    </gov-hint>
-                    <gov-input
-                      v-model="form.contact_email"
-                      @input="form.$errors.clear('contact_email')"
-                      id="contact_email"
-                      name="contact_email"
-                      type="email"
-                    />
-                    <gov-error-message
-                      v-if="form.$errors.has('contact_email')"
-                      v-text="form.$errors.get('contact_email')"
-                      for="contact_email"
-                    />
-                  </gov-form-group>
-                  <!-- /Contact email -->
-
-                  <gov-section-break size="l" />
-
-                  <gov-heading size="m">Social media links</gov-heading>
-
-                  <!-- Social medias -->
-                  <gov-inset-text v-for="(socialMedia, index) in form.social_medias" :key="socialMedia.index">
-                    <!-- Social media type -->
-                    <gov-form-group :invalid="form.$errors.has(`social_media.${index}.type`)">
-                      <gov-label class="govuk-!-font-weight-bold" :for="`social_medias.${index}.type`">
-                        Social media platform
-                      </gov-label>
-                      <gov-select
-                        v-model="form.social_medias[index].type"
-                        @input="form.$errors.clear(`social_medias.${index}.type`)"
-                        :id="`social_medias.${index}.type`"
-                        :name="`social_medias.${index}.type`"
-                        :options="socialMediaTypeOptions"
-                      />
-                      <gov-error-message
-                        v-if="form.$errors.has(`social_medias.${index}.type`)"
-                        v-text="form.$errors.get(`social_medias.${index}.type`)"
-                        :for="`social_medias.${index}.type`"
-                      />
-                    </gov-form-group>
-                    <!-- /Social media type -->
-
-                    <!-- Social media URL -->
-                    <gov-form-group :invalid="form.$errors.has(`social_medias.${index}.url`)">
-                      <gov-label class="govuk-!-font-weight-bold" :for="`social_medias.${index}.url`">
-                        Enter url of your social page
-                      </gov-label>
-                      <gov-input
-                        v-model="form.social_medias[index].url"
-                        @input="form.$errors.clear(`social_medias.${index}.url`)"
-                        :id="`social_medias.${index}.url`"
-                        :name="`social_medias.${index}.url`"
-                        type="url"
-                      />
-                      <gov-error-message
-                        v-if="form.$errors.has(`social_medias.${index}.url`)"
-                        v-text="form.$errors.get(`social_medias.${index}.url`)"
-                        :for="`social_medias.${index}.url`"
-                      />
-                    </gov-form-group>
-                    <!-- /Social media URL -->
-
-                    <gov-button @click="onDeleteSocialMedia(index)" error>Delete</gov-button>
-                  </gov-inset-text>
-                  <!-- /Social midias -->
-
-                  <div>
-                    <gov-button @click="onAddSocialMedia">
-                      <template v-if="form.social_medias.length === 0">Add social media</template>
-                      <template v-else>Add another</template>
-                    </gov-button>
-                  </div>
-
-                  <gov-button @click="onNext" start>Next</gov-button>
-                </gov-grid-column>
-              </gov-grid-row>
-            </template>
-            <!-- /Contact details tab -->
+            <contact-details-tab
+              v-if="tabs[3].active"
+              :form="form"
+              @clear="form.$errors.clear($event)"
+              @update:contact_name="form.contact_name = $event"
+              @update:contact_phone="form.contact_phone = $event"
+              @update:contact_email="form.contact_email = $event"
+              @update:social_medias_type="form.social_medias[$event.index].type = $event.value"
+              @update:social_medias_url="form.social_medias[$event.index].url = $event.value"
+              @add="form.social_medias.push($event)"
+              @delete="$delete(form.social_medias, $event)"
+              @next="onNext"
+            />
 
             <!-- Who is it for tab -->
             <template v-if="tabs[4].active">
@@ -451,11 +328,18 @@ import Form from "@/classes/Form";
 import DetailsTab from "@/views/services/create/DetailsTab";
 import AdditionalInfoTab from "@/views/services/create/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/create/UsefulInfoTab";
+import ContactDetailsTab from "@/views/services/create/ContactDetailsTab";
 import CriteriaInput from "@/views/services/create/CriteriaInput";
 
 export default {
   name: "CreateService",
-  components: { DetailsTab, AdditionalInfoTab, UsefulInfoTab, CriteriaInput },
+  components: {
+    DetailsTab,
+    AdditionalInfoTab,
+    UsefulInfoTab,
+    ContactDetailsTab,
+    CriteriaInput
+  },
   data() {
     return {
       form: new Form({
@@ -498,14 +382,6 @@ export default {
       logoForm: new Form({
         file: null
       }),
-      socialMediaTypeOptions: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Twitter", value: "twitter" },
-        { text: "Facebook", value: "facebook" },
-        { text: "Instagram", value: "instagram" },
-        { text: "YouTube", value: "youtube" },
-        { text: "Other", value: "other" }
-      ],
       referralMethodOptions: [
         { text: "Please select", value: null, disabled: true },
         { text: "Internal", value: "internal" },
@@ -521,7 +397,6 @@ export default {
         { heading: "Locations", active: false },
         { heading: "Referral", active: false  }
       ],
-      socialMediasIndex: 1,
       ageGroupEnabled: null,
       disabilityEnabled: null,
       employmentEnabled: null,
@@ -553,20 +428,6 @@ export default {
     },
     scrollToTop() {
       document.getElementById('main-content').scrollIntoView();
-    },
-    onAddSocialMedia() {
-      this.form.social_medias.push({
-        type: null,
-        url: "",
-        index: this.socialMediasIndex
-      });
-
-      this.socialMediasIndex++;
-    },
-    onDeleteSocialMedia(deleteIndex) {
-      this.form.$errors.clear(`social_medias.${deleteIndex}.type`);
-      this.form.$errors.clear(`social_medias.${deleteIndex}.url`);
-      this.$delete(this.form.social_medias, deleteIndex);
     }
   },
   watch: {
