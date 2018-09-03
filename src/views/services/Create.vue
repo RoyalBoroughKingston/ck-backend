@@ -65,6 +65,7 @@
               v-if="tabs[4].active"
               :form="form"
               @clear="form.$errors.clear($event)"
+              @next="onNext"
               @update:age_group="form.criteria.age_group = $event"
               @update:disability="form.criteria.disability = $event"
               @update:employment="form.criteria.employment = $event"
@@ -75,24 +76,12 @@
               @update:other="form.criteria.other = $event"
             />
 
-            <!-- Location tab -->
-            <template v-if="tabs[5].active">
-              <gov-heading size="l">Location of the service</gov-heading>
-              <gov-grid-row>
-                <gov-grid-column width="one-half">
-                  <gov-body>
-                    If this service operates from multiple locations, please add each individually
-                    by filling in the location below and then select "Add another location".
-                  </gov-body>
-                  <gov-section-break size="l" />
-                  <p>TODO</p>
-
-                  <gov-button @click="onNext" start>Next</gov-button>
-                </gov-grid-column>
-              </gov-grid-row>
-            </template>
-            <!-- /Location tab -->
-
+            <location-tab
+              v-if="tabs[5].active"
+              :form="form"
+              @clear="form.$errors.clear($event)"
+              @next="onNext"
+            />
 
             <referral-tab
               v-if="tabs[6].active"
@@ -120,6 +109,7 @@ import AdditionalInfoTab from "@/views/services/create/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/create/UsefulInfoTab";
 import ContactDetailsTab from "@/views/services/create/ContactDetailsTab";
 import WhoForTab from "@/views/services/create/WhoForTab";
+import LocationTab from "@/views/services/create/LocationTab";
 import ReferralTab from "@/views/services/create/ReferralTab";
 
 export default {
@@ -130,6 +120,7 @@ export default {
     UsefulInfoTab,
     ContactDetailsTab,
     WhoForTab,
+    LocationTab,
     ReferralTab
   },
   data() {
