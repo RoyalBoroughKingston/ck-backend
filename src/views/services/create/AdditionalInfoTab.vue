@@ -189,6 +189,16 @@ export default {
         { text: "Longer than a month", value: "longer" }
       ]
     };
+  },
+  watch: {
+    "form.is_free"(newIsFree) {
+      if (newIsFree) {
+        return;
+      }
+
+      this.$emit("update:fees_text", "");
+      this.$emit("update:fees_url", "");
+    }
   }
 };
 </script>

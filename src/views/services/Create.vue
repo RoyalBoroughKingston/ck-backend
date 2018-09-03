@@ -431,14 +431,6 @@ export default {
     }
   },
   watch: {
-    "form.is_free"(newIsFree) {
-      if (newIsFree) {
-        return;
-      }
-
-      this.form.fees_text = "";
-      this.form.fees_url = "";
-    },
     ageGroupEnabled(enabled) {
       if (!enabled) {
         this.form.criteria.age_group = "";
