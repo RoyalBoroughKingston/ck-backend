@@ -40,7 +40,16 @@
 
           <!-- Existing location: select from list -->
           <gov-inset-text v-if="form.location_type === 'existing'">
+            <gov-label
+              :for="`service_location.${index}.location_id`"
+              class="govuk-!-font-weight-bold"
+            >
+              Location
+            </gov-label>
+
+            <ck-loader v-if="loading" />
             <gov-select
+              v-else
               :value="form.location_id"
               @input="$emit('update:location_id', { index, value: $event })"
               :id="`service_location.${index}.location_id`"
@@ -86,7 +95,7 @@
                 :for="`location.${form.index}.address_line_2`"
                 class="govuk-!-font-weight-bold"
               >
-                Address Line 1
+                Address Line 2
               </gov-label>
               <gov-input
                 :value="form.location.address_line_2"
@@ -109,7 +118,7 @@
                 :for="`location.${form.index}.address_line_3`"
                 class="govuk-!-font-weight-bold"
               >
-                Address Line 1
+                Address Line 3
               </gov-label>
               <gov-input
                 :value="form.location.address_line_3"
