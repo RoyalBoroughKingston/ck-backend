@@ -9,7 +9,7 @@
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
 
             <details-tab
-              v-if="tabs[0].active"
+              v-show="tabs[0].active"
               :form="form"
               :logo-form="logoForm"
               @clear="form.$errors.clear($event)"
@@ -23,7 +23,7 @@
             />
 
             <additional-info-tab
-              v-if="tabs[1].active"
+              v-show="tabs[1].active"
               :form="form"
               @clear="form.$errors.clear($event)"
               @next="onNext"
@@ -36,7 +36,7 @@
             />
 
             <useful-info-tab
-              v-if="tabs[2].active"
+              v-show="tabs[2].active"
               :form="form"
               @clear="form.$errors.clear($event)"
               @add="form.useful_infos.push($event)"
@@ -48,7 +48,7 @@
             />
 
             <contact-details-tab
-              v-if="tabs[3].active"
+              v-show="tabs[3].active"
               :form="form"
               @clear="form.$errors.clear($event)"
               @add="form.social_medias.push($event)"
@@ -62,7 +62,7 @@
             />
 
             <who-for-tab
-              v-if="tabs[4].active"
+              v-show="tabs[4].active"
               :form="form"
               @clear="form.$errors.clear($event)"
               @next="onNext"
@@ -77,14 +77,28 @@
             />
 
             <location-tab
-              v-if="tabs[5].active"
-              :form="form"
-              @clear="form.$errors.clear($event)"
+              v-show="tabs[5].active"
+              :forms="serviceLocationForms"
+              @clear-service-location="serviceLocationForms[$event.index].$errors.clear($event.value)"
+              @clear-location="serviceLocationForms[$event.index].$errors.clear($event.value)"
+              @add="serviceLocationForms.push($event)"
+              @delete="$delete(serviceLocationForms, $event)"
               @next="onNext"
+              @update:location_type="serviceLocationForms[$event.index].location_type = $event.value"
+              @update:location_id="serviceLocationForms[$event.index].location_id = $event.value"
+              @update:address_line_1="serviceLocationForms[$event.index].location.address_line_1 = $event.value"
+              @update:address_line_2="serviceLocationForms[$event.index].location.address_line_2 = $event.value"
+              @update:address_line_3="serviceLocationForms[$event.index].location.address_line_3 = $event.value"
+              @update:city="serviceLocationForms[$event.index].location.city = $event.value"
+              @update:county="serviceLocationForms[$event.index].location.county = $event.value"
+              @update:postcode="serviceLocationForms[$event.index].location.postcode = $event.value"
+              @update:country="serviceLocationForms[$event.index].location.country = $event.value"
+              @update:has_wheelchair_access="serviceLocationForms[$event.index].location.has_wheelchair_access = $event.value"
+              @update:has_induction_loop="serviceLocationForms[$event.index].location.has_induction_loop = $event.value"
             />
 
             <referral-tab
-              v-if="tabs[6].active"
+              v-show="tabs[6].active"
               :form="form"
               @clear="form.$errors.clear($event)"
               @submit="onSubmit"
@@ -165,6 +179,7 @@ export default {
       logoForm: new Form({
         file: null
       }),
+      serviceLocationForms: [],
       tabs: [
         { heading: "Details", active: true },
         { heading: "Additional info", active: false },
