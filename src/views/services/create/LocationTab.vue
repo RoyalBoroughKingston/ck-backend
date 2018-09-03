@@ -266,13 +266,49 @@
           </gov-inset-text>
           <!-- /New location: etner details -->
 
-          <gov-button @click="$emit('delete', index)" error>Delete</gov-button>
+          <!-- Regular opening hours -->
+          <gov-heading size="m">Opening hours</gov-heading>
+          <div
+            v-for="(regularOpeningHour, openingHourIndex) in form.regular_opening_hours"
+            :key="regularOpeningHour.index"
+          >
+            <p>{{ openingHourIndex }}</p>
+
+            <gov-button @click="$emit('delete-regular-opening-hour', { serviceLocationIndex: index, openingHourIndex })" error>Delete day</gov-button>
+          </div>
+          <gov-button @click="onAddRegularOpeningHour(index)">
+            <template v-if="form.regular_opening_hours.length === 0">Add day</template>
+            <template v-else>Add another day</template>
+          </gov-button>
+          <!-- /Regular opening hours -->
+
+          <!-- Holiday opening hours -->
+          <gov-heading size="m">Holiday times</gov-heading>
+          <div
+            v-for="(holidayOpeningHour, openingHourIndex) in form.holiday_opening_hours"
+            :key="holidayOpeningHour.index"
+          >
+            <p>{{ openingHourIndex }}</p>
+
+            <gov-button @click="$emit('delete-holiday-opening-hour', { serviceLocationIndex: index, openingHourIndex })" error>Delete holiday times</gov-button>
+          </div>
+          <gov-button @click="onAddHolidayOpeningHour(index)">
+            <template v-if="form.holiday_opening_hours.length === 0">Add holiday times</template>
+            <template v-else>Add more holiday times</template>
+          </gov-button>
+          <!-- /Holiday opening hours -->
+
+          <div>
+            <gov-button @click="$emit('delete', index)" error>Delete location</gov-button>
+          </div>
+
+          <gov-section-break v-if="index < (forms.length - 1)" size="l" visible />
         </div>
 
         <div>
           <gov-button @click="onAdd">
             <template v-if="forms.length === 0">Add location</template>
-            <template v-else>Add another</template>
+            <template v-else>Add another location</template>
           </gov-button>
         </div>
 
@@ -299,6 +335,8 @@ export default {
       loading: false,
       locations: [],
       index: 1,
+      regularOpeningHoursIndex: 1,
+      holidayOpeningHoursIndex: 1,
       countries: [
         { text: "Please select", value: null, disabled: true },
         ...countries
@@ -342,6 +380,38 @@ export default {
       }));
 
       this.index++;
+    },
+    onAddRegularOpeningHour(index) {
+      this.$emit("add-regular-opening-hour", {
+        index,
+        value: {
+          frequency: null,
+          weekday: null,
+          day_of_month: null,
+          occurrence_of_month: null,
+          starts_at: "",
+          opens_at: "",
+          closes_at: "",
+          index: this.regularOpeningHoursIndex
+        }
+      });
+
+      this.regularOpeningHoursIndex++;
+    },
+    onAddHolidayOpeningHour(index) {
+      this.$emit("add-holiday-opening-hour", {
+        index,
+        value: {
+          is_closed: null,
+          starts_at: "",
+          ends_at: "",
+          opens_at: "",
+          closes_at: "",
+          index: this.holidayOpeningHoursIndex
+        }
+      });
+
+      this.holidayOpeningHoursIndex++;
     }
   },
   created() {
