@@ -308,6 +308,79 @@
             </template>
             <!-- /Additional info tab -->
 
+            <!-- Useful info tab -->
+            <template v-if="tabs[2].active">
+              <gov-heading size="l">Useful information</gov-heading>
+              <gov-grid-row>
+                <gov-grid-column width="one-half">
+                  <gov-body>This is a space to add really useful information about your service. This could be tips on getting there, what you need to bring or anything else. Please select a title from the drop downs and add details below</gov-body>
+                  <gov-body>If you can't think of anything, or have already included it elsewhere you can <gov-link @click="onNext">skip this section</gov-link></gov-body>
+                  <gov-section-break size="l" />
+
+                  <!-- Useful info -->
+                  <gov-inset-text v-for="(usefulInfo, index) in form.useful_infos" :key="usefulInfo.index">
+                    <!-- Useful info title -->
+                    <gov-form-group :invalid="form.$errors.has(`useful_infos.${index}.title`)">
+                      <gov-label class="govuk-!-font-weight-bold" :for="`useful_infos.${index}.title`">
+                        Pick a title from the dropdown to describe the additional information below.
+                      </gov-label>
+                      <gov-hint :for="`useful_infos.${index}.title`">
+                        Title of the helpful piece of information below
+                      </gov-hint>
+                      <gov-select
+                        v-model="form.useful_infos[index].title"
+                        @input="form.$errors.clear(`useful_infos.${index}.title`)"
+                        :id="`useful_infos.${index}.title`"
+                        :name="`useful_infos.${index}.title`"
+                        :options="usefulInfoTitleOptions"
+                      />
+                      <gov-error-message
+                        v-if="form.$errors.has(`useful_infos.${index}.title`)"
+                        v-text="form.$errors.get(`useful_infos.${index}.title`)"
+                        :for="`useful_infos.${index}.title`"
+                      />
+                    </gov-form-group>
+                    <!-- /Useful info title -->
+
+                    <!-- Useful info description -->
+                    <gov-form-group :invalid="form.$errors.has(`useful_infos.${index}.description`)">
+                      <gov-hint :for="`useful_infos.${index}.description`">
+                        Space for service to add any helpful bits of information
+                        relating to the title above eg. "There is no free parking on
+                        site, however and display is available on [road]" (max.
+                        150 characters)
+                      </gov-hint>
+                      <gov-textarea
+                        v-model="form.useful_infos[index].description"
+                        @input="form.$errors.clear(`useful_infos.${index}.description`)"
+                        :id="`useful_infos.${index}.description`"
+                        :name="`useful_infos.${index}.description`"
+                      />
+                      <gov-error-message
+                        v-if="form.$errors.has(`useful_infos.${index}.description`)"
+                        v-text="form.$errors.get(`useful_infos.${index}.description`)"
+                        :for="`useful_infos.${index}.description`"
+                      />
+                    </gov-form-group>
+                    <!-- /Useful info description -->
+
+                    <gov-button @click="onDeleteUsefulInfo(index)" error>Delete</gov-button>
+                  </gov-inset-text>
+                  <!-- /Useful info -->
+
+                  <div>
+                    <gov-button @click="onAddUsefulInfo">
+                      <template v-if="form.useful_infos.length === 0">Add useful info</template>
+                      <template v-else>Add another</template>
+                    </gov-button>
+                  </div>
+
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </gov-grid-column>
+              </gov-grid-row>
+            </template>
+            <!-- /Useful info tab -->
+
           </gov-tabs>
         </gov-grid-column>
       </gov-grid-row>
@@ -370,6 +443,18 @@ export default {
         { text: "One month", value: "month" },
         { text: "Longer than a month", value: "longer" }
       ],
+      usefulInfoTitleOptions: [
+        { text: "Please select", value: "", disabled: true },
+        { text: "Getting here", value: "Getting here" },
+        { text: "Signing up", value: "Signing up" },
+        { text: "Meeting up", value: "Meeting up" },
+        { text: "What to wear", value: "What to wear" },
+        { text: "What to bring", value: "What to bring" },
+        { text: "How to get here", value: "How to get here" },
+        { text: "Parking", value: "Parking" },
+        { text: "Keeping updated", value: "Keeping updated" },
+        { text: "Additional information", value: "Additional information" }
+      ],
       tabs: [
         { heading: "Details", active: true },
         { heading: "Additional info", active: false },
@@ -378,7 +463,8 @@ export default {
         { heading: "Who is it for?", active: false },
         { heading: "Locations", active: false },
         { heading: "Referral", active: false  }
-      ]
+      ],
+      usefulInfosIndex: 1
     };
   },
   computed: {
@@ -406,6 +492,31 @@ export default {
     },
     scrollToTop() {
       document.getElementById('main-content').scrollIntoView();
+    },
+    onAddUsefulInfo() {
+      this.form.useful_infos.push({
+        title: "",
+        description: "",
+        order: (this.form.useful_infos.length + 1),
+        index: this.usefulInfosIndex
+      });
+
+      this.usefulInfosIndex++;
+    },
+    onDeleteUsefulInfo(deleteIndex) {
+      this.form.$errors.clear(`useful_infos.${deleteIndex}.title`);
+      this.form.$errors.clear(`useful_infos.${deleteIndex}.description`);
+      this.form.$errors.clear(`useful_infos.${deleteIndex}.order`);
+      this.$delete(this.form.useful_infos, deleteIndex);
+
+      // Also decrement the order for the other useful infos.
+      this.form.useful_infos.forEach((usefulInfo, index) => {
+        if (index < deleteIndex) {
+          return;
+        }
+
+        usefulInfo.order--;
+      });
     }
   },
   watch: {
@@ -416,6 +527,20 @@ export default {
 
       this.form.fees_text = "";
       this.form.fees_url = "";
+    },
+    "form.useful_infos": {
+      handler(usefulInfos) {
+        this.usefulInfoTitleOptions.forEach((usefulInfoTitleOption, index) => {
+          if (usefulInfoTitleOption.value === "") {
+            return;
+          }
+
+          const hasBeenUsed = usefulInfos.find(usefulInfo => (usefulInfo.title === usefulInfoTitleOption.value)) !== undefined;
+          const newOption = { ...usefulInfoTitleOption, disabled: hasBeenUsed };
+          this.$set(this.usefulInfoTitleOptions, index, newOption);
+        });
+      },
+      deep: true
     }
   }
 };
