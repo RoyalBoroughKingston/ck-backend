@@ -86,6 +86,8 @@ Vue.component("GovList", () => import("@/components/Gov/GovList"));
 Vue.component("GovMainWrapper", () =>
   import("@/components/Gov/GovMainWrapper")
 );
+Vue.component("GovRadio", () => import("@/components/Gov/GovRadio"));
+Vue.component("GovRadios", () => import("@/components/Gov/GovRadios"));
 Vue.component("GovSectionBreak", () =>
   import("@/components/Gov/GovSectionBreak")
 );
@@ -98,6 +100,7 @@ Vue.component("GovTableHeader", () =>
 );
 Vue.component("GovTableRow", () => import("@/components/Gov/GovTableRow"));
 Vue.component("GovTabs", () => import("@/components/Gov/GovTabs"));
+Vue.component("GovTabPanel", () => import("@/components/Gov/GovTabPanel"));
 Vue.component("GovTag", () => import("@/components/Gov/GovTag"));
 Vue.component("GovTextarea", () => import("@/components/Gov/GovTextarea"));
 Vue.component("GovWidthContainer", () =>

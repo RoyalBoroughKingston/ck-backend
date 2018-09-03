@@ -54,3 +54,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+  .govuk-textarea {
+    resize: vertical;
+  }
+</style>

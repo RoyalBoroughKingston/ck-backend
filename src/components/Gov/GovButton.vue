@@ -1,5 +1,5 @@
 <template>
-  <button @click="onClick" :type="type" class="govuk-button" :class="{ expand: expand, 'govuk-button--error': error }">
+  <button @click="onClick" :type="type" class="govuk-button" :class="computedClasses">
     <slot />
   </button>
 </template>
@@ -22,11 +22,25 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    start: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   methods: {
     onClick() {
       this.$emit("click");
+    }
+  },
+  computed: {
+    computedClasses() {
+      return {
+        expand: this.expand,
+        "govuk-button--error": this.error,
+        "govuk-button--start": this.start
+      };
     }
   }
 };

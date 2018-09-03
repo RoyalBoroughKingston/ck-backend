@@ -21,9 +21,9 @@
         />
       </li>
     </ul>
-    <section class="govuk-tabs__panel">
+    <gov-tab-panel>
       <slot />
-    </section>
+    </gov-tab-panel>
   </div>
 </template>
 
