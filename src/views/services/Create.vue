@@ -521,6 +521,136 @@
             </template>
             <!-- /Contact details tab -->
 
+            <!-- Who is it for tab -->
+            <template v-if="tabs[4].active">
+              <gov-heading size="l">Who is it for?</gov-heading>
+              <gov-grid-row>
+                <gov-grid-column width="one-half">
+                  <gov-body>
+                    Use this section to add details as to who this service is for. If any of these
+                    criteria do not apply to your service, please leave them blank.
+                  </gov-body>
+                  <gov-section-break size="l" />
+
+                  <!-- Age group -->
+                  <criteria-input
+                    v-model="form.criteria.age_group"
+                    :form="form"
+                    path="criteria.age_group"
+                    @input="form.$errors.clear('criteria.age_group')"
+                    label="Age of service user (if applicable)"
+                    hint='e.g. "This service is for people 16+", or "This service is aimed at people nearig retirement"'
+                  />
+                  <!-- /Age group -->
+
+                  <!-- Disability -->
+                  <criteria-input
+                    v-model="form.criteria.disability"
+                    :form="form"
+                    path="criteria.disability"
+                    @input="form.$errors.clear('criteria.disability')"
+                    label="Disability Requirements / Restrictions (if applicable)"
+                    hint='e.g. "This service is for those with MS and their carers", or "For all people with disabilities and their carers"'
+                  />
+                  <!-- /Disability -->
+
+                  <!-- Gender -->
+                  <criteria-input
+                    v-model="form.criteria.gender"
+                    :form="form"
+                    path="criteria.gender"
+                    @input="form.$errors.clear('criteria.gender')"
+                    label="Gender Specific (if applicable)"
+                    hint='e.g. "Women only"'
+                  />
+                  <!-- /Gender -->
+
+                  <!-- Housing -->
+                  <criteria-input
+                    v-model="form.criteria.housing"
+                    :form="form"
+                    path="criteria.housing"
+                    @input="form.$errors.clear('criteria.housing')"
+                    label="Specific Housing status/needs (if applicable)"
+                    hint='e.g. "For people who are homeless or at risk of homelessness"'
+                  />
+                  <!-- /Housing -->
+
+                  <!-- Income -->
+                  <criteria-input
+                    v-model="form.criteria.income"
+                    :form="form"
+                    path="criteria.income"
+                    @input="form.$errors.clear('criteria.income')"
+                    label="Income level (if applicable)"
+                    hint='e.g. "Service is aimed at people claiming benefits or with Income support"'
+                  />
+                  <!-- /Income -->
+
+                  <!-- Language -->
+                  <criteria-input
+                    v-model="form.criteria.language"
+                    :form="form"
+                    path="criteria.language"
+                    @input="form.$errors.clear('criteria.language')"
+                    label="Language accessability (if applicable)"
+                    hint='e.g. "Instructors speak English, but open to all", or "This service is available in a number of languages - please contact me for more information"'
+                  />
+                  <!-- /Language -->
+
+                  <!-- Other -->
+                  <criteria-input
+                    v-model="form.criteria.other"
+                    :form="form"
+                    path="criteria.other"
+                    @input="form.$errors.clear('criteria.other')"
+                    label="Any other notes as to who the service is aimed at/not appropraite for?"
+                    hint='e.g. "This service is open to all", or "This service is aimed at people living in Chessington"'
+                  />
+                  <!-- /Other -->
+
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </gov-grid-column>
+              </gov-grid-row>
+            </template>
+            <!-- /Who is it for tab -->
+
+            <!-- Location tab -->
+            <template v-if="tabs[5].active">
+              <gov-heading size="l">Location of the service</gov-heading>
+              <gov-grid-row>
+                <gov-grid-column width="one-half">
+                  <gov-body>
+                    If this service operates from multiple locations, please add each individually
+                    by filling in the location below and then select "Add another location".
+                  </gov-body>
+                  <gov-section-break size="l" />
+                  <p>TODO</p>
+
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </gov-grid-column>
+              </gov-grid-row>
+            </template>
+            <!-- /Location tab -->
+
+            <!-- Referral tab -->
+            <template v-if="tabs[6].active">
+              <gov-heading size="l">Referral</gov-heading>
+              <gov-grid-row>
+                <gov-grid-column width="one-half">
+                  <gov-body>
+                    Use this section to specify how referrals should be made to this service.
+                  </gov-body>
+                  <gov-section-break size="l" />
+                  <p>TODO</p>
+
+                  <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+                  <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
+                </gov-grid-column>
+              </gov-grid-row>
+            </template>
+            <!-- /Referral tab -->
+
           </gov-tabs>
         </gov-grid-column>
       </gov-grid-row>
@@ -530,9 +660,11 @@
 
 <script>
 import Form from "@/classes/Form";
+import CriteriaInput from "@/views/services/create/CriteriaInput";
 
 export default {
   name: "CreateService",
+  components: { CriteriaInput },
   data() {
     return {
       form: new Form({
@@ -613,7 +745,15 @@ export default {
         { heading: "Referral", active: false  }
       ],
       usefulInfosIndex: 1,
-      socialMediasIndex: 1
+      socialMediasIndex: 1,
+      ageGroupEnabled: null,
+      disabilityEnabled: null,
+      employmentEnabled: null,
+      genderEnabled: null,
+      housingEnabled: null,
+      incomeEnabled: null,
+      languageEnabled: null,
+      otherEnabled: null
     };
   },
   computed: {
@@ -704,6 +844,46 @@ export default {
         });
       },
       deep: true
+    },
+    ageGroupEnabled(enabled) {
+      if (!enabled) {
+        this.form.criteria.age_group = "";
+      }
+    },
+    disabilityEnabled(enabled) {
+      if (!enabled) {
+        this.form.criteria.disability = "";
+      }
+    },
+    employmentEnabled(enabled) {
+      if (!enabled) {
+        this.form.criteria.employment = "";
+      }
+    },
+    genderEnabled(enabled) {
+      if (!enabled) {
+        this.form.criteria.gender = "";
+      }
+    },
+    housingEnabled(enabled) {
+      if (!enabled) {
+        this.form.criteria.housing = "";
+      }
+    },
+    incomeEnabled(enabled) {
+      if (!enabled) {
+        this.form.criteria.income = "";
+      }
+    },
+    languageEnabled(enabled) {
+      if (!enabled) {
+        this.form.criteria.language = "";
+      }
+    },
+    otherEnabled(enabled) {
+      if (!enabled) {
+        this.form.criteria.other = "";
+      }
     }
   }
 };

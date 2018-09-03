@@ -1,7 +1,8 @@
 <template>
   <textarea
     @keyup.enter="onEnter"
-    v-model="proxy"
+    :value="value"
+    @input="$emit('input', $event.target.value)"
     class="govuk-textarea"
     :id="id"
     :name="name"
@@ -12,7 +13,7 @@
 
 <script>
 export default {
-  name: "GovInput",
+  name: "GovTextarea",
   props: {
     value: {
       type: String,
@@ -32,19 +33,9 @@ export default {
       default: 5
     }
   },
-  data() {
-    return {
-      proxy: this.value
-    };
-  },
   computed: {
     ariaDescribedBy() {
       return `${this.name}-hint`;
-    }
-  },
-  watch: {
-    proxy(newValue) {
-      this.$emit("input", newValue);
     }
   },
   methods: {

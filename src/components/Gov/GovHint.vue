@@ -9,13 +9,12 @@ export default {
   name: "GovHint",
   props: {
     for: {
-      type: String,
-      required: true
+      type: String
     }
   },
   computed: {
     id() {
-      return [this.for, "hint"].join("-");
+      return this.for ? [this.for, "hint"].join("-") : null;
     }
   }
 };
