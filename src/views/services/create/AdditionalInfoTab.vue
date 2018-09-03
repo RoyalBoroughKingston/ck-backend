@@ -39,7 +39,7 @@
               Indicates if the service is free or not (used for filtering on search)
             </gov-hint>
             <gov-radio
-              :bindTo="form.is_free"
+              :bind-to="form.is_free"
               @input="$emit('update:is_free', $event)"
               id="is_free_yes"
               name="is_free"
@@ -47,7 +47,7 @@
               :value="true"
             />
             <gov-radio
-              :bindTo="form.is_free"
+              :bind-to="form.is_free"
               @input="$emit('update:is_free', $event)"
               id="is_free_no"
               name="is_free"
