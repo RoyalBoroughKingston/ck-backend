@@ -338,7 +338,23 @@
             v-for="(holidayOpeningHour, openingHourIndex) in form.holiday_opening_hours"
             :key="holidayOpeningHour.index"
           >
-            <p>{{ openingHourIndex }}</p>
+            <is-closed-input
+              :form="form"
+              :path="`holiday_opening_hours.${openingHourIndex}.is_closed`"
+              :value="form.holiday_opening_hours[openingHourIndex].is_closed"
+              @input="$emit('update:holiday_opening_hours_is_closed', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
+
+            <time-period-input
+              v-if="!form.holiday_opening_hours[openingHourIndex].is_closed"
+              :form="form"
+              :opens-at="form.holiday_opening_hours[openingHourIndex].opens_at"
+              :closes-at="form.holiday_opening_hours[openingHourIndex].closes_at"
+              :opens-at-path="`holiday_opening_hours.${openingHourIndex}.opens_at`"
+              :closes-at-path="`holiday_opening_hours.${openingHourIndex}.closes_at`"
+              @update:opens_at="$emit('update:holiday_opening_hours_opens_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+              @update:closes_at="$emit('update:holiday_opening_hours_closes_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
 
             <gov-button @click="$emit('delete-holiday-opening-hour', { serviceLocationIndex: index, openingHourIndex })" error>Delete holiday times</gov-button>
           </gov-inset-text>
@@ -378,6 +394,7 @@ import DayOfMonthInput from "@/views/services/create/inputs/DayOfMonthInput";
 import WeekdayInput from "@/views/services/create/inputs/WeekdayInput";
 import FrequencyInput from "@/views/services/create/inputs/FrequencyInput";
 import TimePeriodInput from "@/views/services/create/inputs/TimePeriodInput";
+import IsClosedInput from "@/views/services/create/inputs/IsClosedInput";
 
 export default {
   name: "LocationTab",
@@ -387,7 +404,8 @@ export default {
     DayOfMonthInput,
     WeekdayInput,
     FrequencyInput,
-    TimePeriodInput
+    TimePeriodInput,
+    IsClosedInput
   },
   props: {
     forms: {
@@ -465,7 +483,7 @@ export default {
       this.$emit("add-holiday-opening-hour", {
         index,
         value: {
-          is_closed: null,
+          is_closed: false,
           starts_at: "",
           ends_at: "",
           opens_at: null,
@@ -523,6 +541,13 @@ export default {
               regularOpeningHour.weekday = null;
               regularOpeningHour.occurrence_of_month = null;
               regularOpeningHour.starts_at = null;
+            }
+          });
+
+          form.holiday_opening_hours.forEach(holidayOpeningHour => {
+            if (holidayOpeningHour.is_closed) {
+              holidayOpeningHour.opens_at = null;
+              holidayOpeningHour.closes_at = null;
             }
           });
         });
