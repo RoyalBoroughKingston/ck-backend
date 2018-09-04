@@ -417,9 +417,9 @@
 import Form from "@/classes/Form";
 import countries from "@/storage/countries";
 import moment from "moment";
-import StartsAtInput from "@/views/services/create/StartsAtInput";
-import OccurrenceOfMonthInput from "@/views/services/create/OccurrenceOfMonthInput";
-import DayOfMonthInput from "@/views/services/create/DayOfMonthInput";
+import StartsAtInput from "@/views/services/create/inputs/StartsAtInput";
+import OccurrenceOfMonthInput from "@/views/services/create/inputs/OccurrenceOfMonthInput";
+import DayOfMonthInput from "@/views/services/create/inputs/DayOfMonthInput";
 
 export default {
   name: "LocationTab",

@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import CriteriaInput from "@/views/services/create/CriteriaInput";
+import CriteriaInput from "@/views/services/create/inputs/CriteriaInput";
 
 export default {
   name: "WhoForTab",

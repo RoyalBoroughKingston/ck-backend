@@ -129,13 +129,13 @@
 
 <script>
 import Form from "@/classes/Form";
-import DetailsTab from "@/views/services/create/DetailsTab";
-import AdditionalInfoTab from "@/views/services/create/AdditionalInfoTab";
-import UsefulInfoTab from "@/views/services/create/UsefulInfoTab";
-import ContactDetailsTab from "@/views/services/create/ContactDetailsTab";
-import WhoForTab from "@/views/services/create/WhoForTab";
-import LocationTab from "@/views/services/create/LocationTab";
-import ReferralTab from "@/views/services/create/ReferralTab";
+import DetailsTab from "@/views/services/create/tabs/DetailsTab";
+import AdditionalInfoTab from "@/views/services/create/tabs/AdditionalInfoTab";
+import UsefulInfoTab from "@/views/services/create/tabs/UsefulInfoTab";
+import ContactDetailsTab from "@/views/services/create/tabs/ContactDetailsTab";
+import WhoForTab from "@/views/services/create/tabs/WhoForTab";
+import LocationTab from "@/views/services/create/tabs/LocationTab";
+import ReferralTab from "@/views/services/create/tabs/ReferralTab";
 
 export default {
   name: "CreateService",
