@@ -364,6 +364,16 @@
             </gov-form-group>
             <!-- /Occurrence of month -->
 
+            <!-- Starting date -->
+            <starts-at-input
+              v-if="form.regular_opening_hours[openingHourIndex].frequency === 'fortnightly'"
+              :form="form"
+              :path="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
+              :value="form.regular_opening_hours[openingHourIndex].starts_at"
+              @input="$emit('update:regular_opening_hours_starts_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
+            <!-- /Starting date -->
+
             <!-- Time period -->
             <gov-form-group :invalid="false"> <!-- TODO -->
               <gov-label>Opening time</gov-label>
@@ -439,9 +449,11 @@
 import Form from "@/classes/Form";
 import countries from "@/storage/countries";
 import moment from "moment";
+import StartsAtInput from "@/views/services/create/StartsAtInput";
 
 export default {
   name: "LocationTab",
+  components: { StartsAtInput },
   props: {
     forms: {
       type: Array,
