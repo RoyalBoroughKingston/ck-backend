@@ -103,6 +103,7 @@
               @update:regular_opening_hours_weekday="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].weekday = $event.value"
               @update:regular_opening_hours_opens_at="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].opens_at = $event.value"
               @update:regular_opening_hours_closes_at="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].closes_at = $event.value"
+              @update:regular_opening_hours_occurrence_of_month="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].occurrence_of_month = $event.value"
             />
 
             <referral-tab

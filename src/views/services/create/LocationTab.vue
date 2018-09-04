@@ -341,6 +341,29 @@
             </gov-form-group>
             <!-- /Day of month -->
 
+            <!-- Occurrence of month -->
+            <gov-form-group
+              v-if="form.regular_opening_hours[openingHourIndex].frequency === 'nth_occurrence_of_month'"
+              :invalid="form.$errors.has(`regular_opening_hours.${openingHourIndex}.occurrence_of_month`)"
+            >
+              <gov-label :for="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`">
+                Occurrence in month
+              </gov-label>
+              <gov-select
+                :value="form.regular_opening_hours[openingHourIndex].occurrence_of_month"
+                @input="$emit('update:regular_opening_hours_occurrence_of_month', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+                :id="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
+                :name="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
+                :options="occurrences"
+              />
+              <gov-error-message
+                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.occurrence_of_month`)"
+                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.occurrence_of_month`)"
+                :for="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
+              />
+            </gov-form-group>
+            <!-- /Occurrence of month -->
+
             <!-- Time period -->
             <gov-form-group :invalid="false"> <!-- TODO -->
               <gov-label>Opening time</gov-label>
@@ -461,7 +484,7 @@ export default {
         { text: "Saturday", value: 6 },
         { text: "Sunday", value: 7 }
       ],
-      occurences: [
+      occurrences: [
         { text: "Please select", value: null, disabled: true },
         { text: "First", value: 1 },
         { text: "Second", value: 2 },
