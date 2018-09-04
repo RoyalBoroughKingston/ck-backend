@@ -314,32 +314,15 @@
               @input="$emit('update:regular_opening_hours_starts_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
             />
 
-            <!-- Time period -->
-            <gov-form-group :invalid="false"> <!-- TODO -->
-              <gov-label>Opening time</gov-label>
-              <gov-select
-                :value="form.regular_opening_hours[openingHourIndex].opens_at"
-                @input="$emit('update:regular_opening_hours_opens_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
-                :id="`regular_opening_hours.${openingHourIndex}.opens_at`"
-                :name="`regular_opening_hours.${openingHourIndex}.opens_at`"
-                :options="hours"
-                class="govuk-!-width-one-quarter"
-              />&nbsp;<!--
-           --><gov-select
-                :value="form.regular_opening_hours[openingHourIndex].closes_at"
-                @input="$emit('update:regular_opening_hours_closes_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
-                :id="`regular_opening_hours.${openingHourIndex}.closes_at`"
-                :name="`regular_opening_hours.${openingHourIndex}.closes_at`"
-                :options="hours"
-                class="govuk-!-width-one-quarter"
-              />
-              <gov-error-message
-                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.opens_at`)"
-                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.opens_at`)"
-                :for="`regular_opening_hours.${openingHourIndex}.opens_at`"
-              /> <!-- TODO: Add closes_at -->
-            </gov-form-group>
-            <!-- /Time period -->
+            <time-period-input
+              :form="form"
+              :opens-at="form.regular_opening_hours[openingHourIndex].opens_at"
+              :closes-at="form.regular_opening_hours[openingHourIndex].closes_at"
+              :opens-at-path="`regular_opening_hours.${openingHourIndex}.opens_at`"
+              :closes-at-path="`regular_opening_hours.${openingHourIndex}.closes_at`"
+              @update:opens_at="$emit('update:regular_opening_hours_opens_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+              @update:closes_at="$emit('update:regular_opening_hours_closes_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
 
             <gov-button @click="$emit('delete-regular-opening-hour', { serviceLocationIndex: index, openingHourIndex })" error>Delete day</gov-button>
           </gov-inset-text>
@@ -394,10 +377,18 @@ import OccurrenceOfMonthInput from "@/views/services/create/inputs/OccurrenceOfM
 import DayOfMonthInput from "@/views/services/create/inputs/DayOfMonthInput";
 import WeekdayInput from "@/views/services/create/inputs/WeekdayInput";
 import FrequencyInput from "@/views/services/create/inputs/FrequencyInput";
+import TimePeriodInput from "@/views/services/create/inputs/TimePeriodInput";
 
 export default {
   name: "LocationTab",
-  components: { StartsAtInput, OccurrenceOfMonthInput, DayOfMonthInput, WeekdayInput, FrequencyInput },
+  components: {
+    StartsAtInput,
+    OccurrenceOfMonthInput,
+    DayOfMonthInput,
+    WeekdayInput,
+    FrequencyInput,
+    TimePeriodInput
+  },
   props: {
     forms: {
       type: Array,
@@ -422,9 +413,6 @@ export default {
         { text: "Friday", value: 5 },
         { text: "Saturday", value: 6 },
         { text: "Sunday", value: 7 }
-      ],
-      hours: [
-        { text: "--:--", value: null, disabled: true }
       ]
     };
   },
@@ -497,19 +485,10 @@ export default {
       });
 
       this.index++;
-    },
-    setHours() {
-      for (let hour = 0; hour < 24; hour += 0.5) {
-        const text = ("0" + Math.floor(hour) % 24).slice(-2) + ":" + ((hour % 1)*60 + "0").slice(0, 2);
-        const value = `${text}:00`;
-        this.hours.push({ text, value });
-      }
-      this.hours.push({ text: "24:00", value: "23:59:59" });
     }
   },
   created() {
     this.fetchLocations();
-    this.setHours();
   },
   watch: {
     forms: {
