@@ -1,6 +1,6 @@
 <template>
   <gov-form-group :invalid="form.$errors.has(path)">
-    <gov-label :for="path">Starting date</gov-label>
+    <gov-label :for="path" v-text="label" />
 
     <gov-input
       v-model="day"
@@ -52,6 +52,10 @@ export default {
       required: true
     },
     path: {
+      type: String,
+      required: true
+    },
+    label: {
       type: String,
       required: true
     }

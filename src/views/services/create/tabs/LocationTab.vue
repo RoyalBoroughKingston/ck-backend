@@ -306,10 +306,11 @@
               @input="$emit('update:regular_opening_hours_occurrence_of_month', { serviceLocationIndex: index, openingHourIndex, value: $event })"
             />
 
-            <starts-at-input
+            <date-input
               v-if="form.regular_opening_hours[openingHourIndex].frequency === 'fortnightly'"
               :form="form"
               :path="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
+              label="Starting date"
               :value="form.regular_opening_hours[openingHourIndex].starts_at"
               @input="$emit('update:regular_opening_hours_starts_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
             />
@@ -343,6 +344,22 @@
               :path="`holiday_opening_hours.${openingHourIndex}.is_closed`"
               :value="form.holiday_opening_hours[openingHourIndex].is_closed"
               @input="$emit('update:holiday_opening_hours_is_closed', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
+
+            <date-input
+              :form="form"
+              :path="`holiday_opening_hours.${openingHourIndex}.starts_at`"
+              label="Starting date"
+              :value="form.holiday_opening_hours[openingHourIndex].starts_at"
+              @input="$emit('update:holiday_opening_hours_starts_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
+
+            <date-input
+              :form="form"
+              :path="`holiday_opening_hours.${openingHourIndex}.ends_at`"
+              label="Ending date"
+              :value="form.holiday_opening_hours[openingHourIndex].ends_at"
+              @input="$emit('update:holiday_opening_hours_ends_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
             />
 
             <time-period-input
@@ -388,7 +405,7 @@
 import Form from "@/classes/Form";
 import countries from "@/storage/countries";
 import moment from "moment";
-import StartsAtInput from "@/views/services/create/inputs/StartsAtInput";
+import DateInput from "@/views/services/create/inputs/DateInput";
 import OccurrenceOfMonthInput from "@/views/services/create/inputs/OccurrenceOfMonthInput";
 import DayOfMonthInput from "@/views/services/create/inputs/DayOfMonthInput";
 import WeekdayInput from "@/views/services/create/inputs/WeekdayInput";
@@ -399,7 +416,7 @@ import IsClosedInput from "@/views/services/create/inputs/IsClosedInput";
 export default {
   name: "LocationTab",
   components: {
-    StartsAtInput,
+    DateInput,
     OccurrenceOfMonthInput,
     DayOfMonthInput,
     WeekdayInput,

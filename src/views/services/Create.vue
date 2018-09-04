@@ -107,6 +107,8 @@
               @update:regular_opening_hours_occurrence_of_month="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].occurrence_of_month = $event.value"
               @update:regular_opening_hours_starts_at="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].starts_at = $event.value"
               @update:holiday_opening_hours_is_closed="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].is_closed = $event.value"
+              @update:holiday_opening_hours_starts_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].starts_at = $event.value"
+              @update:holiday_opening_hours_ends_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].ends_at = $event.value"
               @update:holiday_opening_hours_opens_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].opens_at = $event.value"
               @update:holiday_opening_hours_closes_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].closes_at = $event.value"
             />
