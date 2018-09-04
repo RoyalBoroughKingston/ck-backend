@@ -268,14 +268,108 @@
 
           <!-- Regular opening hours -->
           <gov-heading size="m">Opening hours</gov-heading>
-          <div
+          <gov-inset-text
             v-for="(regularOpeningHour, openingHourIndex) in form.regular_opening_hours"
             :key="regularOpeningHour.index"
           >
-            <p>{{ openingHourIndex }}</p>
+            <!-- Frequency -->
+            <gov-form-group :invalid="form.$errors.has(`regular_opening_hours.${openingHourIndex}.frequency`)">
+              <gov-label :for="`regular_opening_hours.${openingHourIndex}.frequency`">
+                Frequency type
+              </gov-label>
+              <gov-select
+                :value="form.regular_opening_hours[openingHourIndex].frequency"
+                @input="$emit('update:regular_opening_hours_frequency', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+                :id="`regular_opening_hours.${openingHourIndex}.frequency`"
+                :name="`regular_opening_hours.${openingHourIndex}.frequency`"
+                :options="frequencies"
+              />
+              <gov-error-message
+                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.frequency`)"
+                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.frequency`)"
+                :for="`regular_opening_hours.${openingHourIndex}.frequency`"
+              />
+            </gov-form-group>
+            <!-- /Frequency -->
+
+            <!-- Weekday -->
+            <gov-form-group
+              v-if="
+                form.regular_opening_hours[openingHourIndex].frequency === 'weekly' ||
+                form.regular_opening_hours[openingHourIndex].frequency === 'nth_occurrence_of_month'
+              "
+              :invalid="form.$errors.has(`regular_opening_hours.${openingHourIndex}.weekday`)"
+            >
+              <gov-label :for="`regular_opening_hours.${openingHourIndex}.weekday`">
+                Weekday
+              </gov-label>
+              <gov-select
+                :value="form.regular_opening_hours[openingHourIndex].weekday"
+                @input="$emit('update:regular_opening_hours_weekday', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+                :id="`regular_opening_hours.${openingHourIndex}.weekday`"
+                :name="`regular_opening_hours.${openingHourIndex}.weekday`"
+                :options="weekdays"
+              />
+              <gov-error-message
+                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.weekday`)"
+                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.weekday`)"
+                :for="`regular_opening_hours.${openingHourIndex}.weekday`"
+              />
+            </gov-form-group>
+            <!-- /Weekday -->
+
+            <!-- Day of month -->
+            <gov-form-group
+              v-if="form.regular_opening_hours[openingHourIndex].frequency === 'monthly'"
+              :invalid="form.$errors.has(`regular_opening_hours.${openingHourIndex}.day_of_month`)"
+            >
+              <gov-label :for="`regular_opening_hours.${openingHourIndex}.day_of_month`">
+                Day of month
+              </gov-label>
+              <gov-select
+                :value="form.regular_opening_hours[openingHourIndex].day_of_month"
+                @input="$emit('update:regular_opening_hours_day_of_month', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+                :id="`regular_opening_hours.${openingHourIndex}.day_of_month`"
+                :name="`regular_opening_hours.${openingHourIndex}.day_of_month`"
+                :options="days"
+              />
+              <gov-error-message
+                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.day_of_month`)"
+                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.day_of_month`)"
+                :for="`regular_opening_hours.${openingHourIndex}.day_of_month`"
+              />
+            </gov-form-group>
+            <!-- /Day of month -->
+
+            <!-- Time period -->
+            <gov-form-group :invalid="false"> <!-- TODO -->
+              <gov-label>Opening time</gov-label>
+              <gov-select
+                :value="form.regular_opening_hours[openingHourIndex].opens_at"
+                @input="$emit('update:regular_opening_hours_opens_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+                :id="`regular_opening_hours.${openingHourIndex}.opens_at`"
+                :name="`regular_opening_hours.${openingHourIndex}.opens_at`"
+                :options="hours"
+                class="govuk-!-width-one-quarter"
+              />&nbsp;<!--
+           --><gov-select
+                :value="form.regular_opening_hours[openingHourIndex].closes_at"
+                @input="$emit('update:regular_opening_hours_closes_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+                :id="`regular_opening_hours.${openingHourIndex}.closes_at`"
+                :name="`regular_opening_hours.${openingHourIndex}.closes_at`"
+                :options="hours"
+                class="govuk-!-width-one-quarter"
+              />
+              <gov-error-message
+                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.opens_at`)"
+                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.opens_at`)"
+                :for="`regular_opening_hours.${openingHourIndex}.opens_at`"
+              /> <!-- TODO: Add closes_at -->
+            </gov-form-group>
+            <!-- /Time period -->
 
             <gov-button @click="$emit('delete-regular-opening-hour', { serviceLocationIndex: index, openingHourIndex })" error>Delete day</gov-button>
-          </div>
+          </gov-inset-text>
           <gov-button @click="onAddRegularOpeningHour(index)">
             <template v-if="form.regular_opening_hours.length === 0">Add day</template>
             <template v-else>Add another day</template>
@@ -284,14 +378,14 @@
 
           <!-- Holiday opening hours -->
           <gov-heading size="m">Holiday times</gov-heading>
-          <div
+          <gov-inset-text
             v-for="(holidayOpeningHour, openingHourIndex) in form.holiday_opening_hours"
             :key="holidayOpeningHour.index"
           >
             <p>{{ openingHourIndex }}</p>
 
             <gov-button @click="$emit('delete-holiday-opening-hour', { serviceLocationIndex: index, openingHourIndex })" error>Delete holiday times</gov-button>
-          </div>
+          </gov-inset-text>
           <gov-button @click="onAddHolidayOpeningHour(index)">
             <template v-if="form.holiday_opening_hours.length === 0">Add holiday times</template>
             <template v-else>Add more holiday times</template>
@@ -321,6 +415,7 @@
 <script>
 import Form from "@/classes/Form";
 import countries from "@/storage/countries";
+import moment from "moment";
 
 export default {
   name: "LocationTab",
@@ -335,11 +430,50 @@ export default {
       loading: false,
       locations: [],
       index: 1,
-      regularOpeningHoursIndex: 1,
-      holidayOpeningHoursIndex: 1,
       countries: [
         { text: "Please select", value: null, disabled: true },
         ...countries
+      ],
+      frequencies: [
+        { text: "Please select", value: null, disabled: true },
+        { text: "Weekly", value: "weekly" },
+        { text: "Monthly", value: "monthly" },
+        { text: "Fortnightly", value: "fortnightly" },
+        { text: "Nth occurrence of month", value: "nth_occurrence_of_month" }
+      ],
+      weekdays: [
+        { text: "Please select", value: null, disabled: true },
+        { text: "Monday", value: 1 },
+        { text: "Tuesday", value: 2 },
+        { text: "Wednesday", value: 3 },
+        { text: "Thirsday", value: 4 },
+        { text: "Friday", value: 5 },
+        { text: "Saturday", value: 6 },
+        { text: "Sunday", value: 7 }
+      ],
+      weekdays: [
+        { text: "Please select", value: null, disabled: true },
+        { text: "Monday", value: 1 },
+        { text: "Tuesday", value: 2 },
+        { text: "Wednesday", value: 3 },
+        { text: "Thursday", value: 4 },
+        { text: "Friday", value: 5 },
+        { text: "Saturday", value: 6 },
+        { text: "Sunday", value: 7 }
+      ],
+      occurences: [
+        { text: "Please select", value: null, disabled: true },
+        { text: "First", value: 1 },
+        { text: "Second", value: 2 },
+        { text: "Third", value: 3 },
+        { text: "Fourth", value: 4 },
+        { text: "Last", value: 5 }
+      ],
+      days: [
+        { text: "Please select", value: null, disabled: true }
+      ],
+      hours: [
+        { text: "--:--", value: null, disabled: true }
       ]
     };
   },
@@ -390,13 +524,13 @@ export default {
           day_of_month: null,
           occurrence_of_month: null,
           starts_at: "",
-          opens_at: "",
-          closes_at: "",
-          index: this.regularOpeningHoursIndex
+          opens_at: null,
+          closes_at: null,
+          index: this.index
         }
       });
 
-      this.regularOpeningHoursIndex++;
+      this.index++;
     },
     onAddHolidayOpeningHour(index) {
       this.$emit("add-holiday-opening-hour", {
@@ -405,17 +539,35 @@ export default {
           is_closed: null,
           starts_at: "",
           ends_at: "",
-          opens_at: "",
-          closes_at: "",
-          index: this.holidayOpeningHoursIndex
+          opens_at: null,
+          closes_at: null,
+          index: this.index
         }
       });
 
-      this.holidayOpeningHoursIndex++;
+      this.index++;
+    },
+    setDays() {
+      for (let day = 1; day <= 31; day++) {
+        let text = moment({ year: 2018, month: 0, day }).format("Do");
+        text = (day > 28) ? (`${text} (or last day of month)`) : text;
+
+        this.days.push({ text, value: day });
+      }
+    },
+    setHours() {
+      for (let hour = 0; hour < 24; hour += 0.5) {
+        const text = ("0" + Math.floor(hour) % 24).slice(-2) + ":" + ((hour % 1)*60 + "0").slice(0, 2);
+        const value = `${text}:00`;
+        this.hours.push({ text, value });
+      }
+      this.hours.push({ text: "24:00", value: "23:59:59" });
     }
   },
   created() {
     this.fetchLocations();
+    this.setDays();
+    this.setHours();
   },
   watch: {
     forms: {
