@@ -272,25 +272,12 @@
             v-for="(regularOpeningHour, openingHourIndex) in form.regular_opening_hours"
             :key="regularOpeningHour.index"
           >
-            <!-- Frequency -->
-            <gov-form-group :invalid="form.$errors.has(`regular_opening_hours.${openingHourIndex}.frequency`)">
-              <gov-label :for="`regular_opening_hours.${openingHourIndex}.frequency`">
-                Frequency type
-              </gov-label>
-              <gov-select
-                :value="form.regular_opening_hours[openingHourIndex].frequency"
-                @input="$emit('update:regular_opening_hours_frequency', { serviceLocationIndex: index, openingHourIndex, value: $event })"
-                :id="`regular_opening_hours.${openingHourIndex}.frequency`"
-                :name="`regular_opening_hours.${openingHourIndex}.frequency`"
-                :options="frequencies"
-              />
-              <gov-error-message
-                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.frequency`)"
-                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.frequency`)"
-                :for="`regular_opening_hours.${openingHourIndex}.frequency`"
-              />
-            </gov-form-group>
-            <!-- /Frequency -->
+            <frequency-input
+              :form="form"
+              :path="`regular_opening_hours.${openingHourIndex}.frequency`"
+              :value="form.regular_opening_hours[openingHourIndex].frequency"
+              @input="$emit('update:regular_opening_hours_frequency', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
 
             <weekday-input
               v-if="
@@ -406,10 +393,11 @@ import StartsAtInput from "@/views/services/create/inputs/StartsAtInput";
 import OccurrenceOfMonthInput from "@/views/services/create/inputs/OccurrenceOfMonthInput";
 import DayOfMonthInput from "@/views/services/create/inputs/DayOfMonthInput";
 import WeekdayInput from "@/views/services/create/inputs/WeekdayInput";
+import FrequencyInput from "@/views/services/create/inputs/FrequencyInput";
 
 export default {
   name: "LocationTab",
-  components: { StartsAtInput, OccurrenceOfMonthInput, DayOfMonthInput, WeekdayInput },
+  components: { StartsAtInput, OccurrenceOfMonthInput, DayOfMonthInput, WeekdayInput, FrequencyInput },
   props: {
     forms: {
       type: Array,
@@ -424,13 +412,6 @@ export default {
       countries: [
         { text: "Please select", value: null, disabled: true },
         ...countries
-      ],
-      frequencies: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Weekly", value: "weekly" },
-        { text: "Monthly", value: "monthly" },
-        { text: "Fortnightly", value: "fortnightly" },
-        { text: "Nth occurrence of month", value: "nth_occurrence_of_month" }
       ],
       weekdays: [
         { text: "Please select", value: null, disabled: true },
