@@ -318,28 +318,13 @@
             </gov-form-group>
             <!-- /Weekday -->
 
-            <!-- Day of month -->
-            <gov-form-group
+            <day-of-month-input
               v-if="form.regular_opening_hours[openingHourIndex].frequency === 'monthly'"
-              :invalid="form.$errors.has(`regular_opening_hours.${openingHourIndex}.day_of_month`)"
-            >
-              <gov-label :for="`regular_opening_hours.${openingHourIndex}.day_of_month`">
-                Day of month
-              </gov-label>
-              <gov-select
-                :value="form.regular_opening_hours[openingHourIndex].day_of_month"
-                @input="$emit('update:regular_opening_hours_day_of_month', { serviceLocationIndex: index, openingHourIndex, value: $event })"
-                :id="`regular_opening_hours.${openingHourIndex}.day_of_month`"
-                :name="`regular_opening_hours.${openingHourIndex}.day_of_month`"
-                :options="days"
-              />
-              <gov-error-message
-                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.day_of_month`)"
-                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.day_of_month`)"
-                :for="`regular_opening_hours.${openingHourIndex}.day_of_month`"
-              />
-            </gov-form-group>
-            <!-- /Day of month -->
+              :form="form"
+              :path="`regular_opening_hours.${openingHourIndex}.day_of_month`"
+              :value="form.regular_opening_hours[openingHourIndex].day_of_month"
+              @input="$emit('update:regular_opening_hours_day_of_month', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
 
             <occurrence-of-month-input
               v-if="form.regular_opening_hours[openingHourIndex].frequency === 'nth_occurrence_of_month'"
@@ -434,10 +419,11 @@ import countries from "@/storage/countries";
 import moment from "moment";
 import StartsAtInput from "@/views/services/create/StartsAtInput";
 import OccurrenceOfMonthInput from "@/views/services/create/OccurrenceOfMonthInput";
+import DayOfMonthInput from "@/views/services/create/DayOfMonthInput";
 
 export default {
   name: "LocationTab",
-  components: { StartsAtInput, OccurrenceOfMonthInput },
+  components: { StartsAtInput, OccurrenceOfMonthInput, DayOfMonthInput },
   props: {
     forms: {
       type: Array,
@@ -479,9 +465,6 @@ export default {
         { text: "Friday", value: 5 },
         { text: "Saturday", value: 6 },
         { text: "Sunday", value: 7 }
-      ],
-      days: [
-        { text: "Please select", value: null, disabled: true }
       ],
       hours: [
         { text: "--:--", value: null, disabled: true }
@@ -558,14 +541,6 @@ export default {
 
       this.index++;
     },
-    setDays() {
-      for (let day = 1; day <= 31; day++) {
-        let text = moment({ year: 2018, month: 0, day }).format("Do");
-        text = (day > 28) ? (`${text} (or last day of month)`) : text;
-
-        this.days.push({ text, value: day });
-      }
-    },
     setHours() {
       for (let hour = 0; hour < 24; hour += 0.5) {
         const text = ("0" + Math.floor(hour) % 24).slice(-2) + ":" + ((hour % 1)*60 + "0").slice(0, 2);
@@ -577,7 +552,6 @@ export default {
   },
   created() {
     this.fetchLocations();
-    this.setDays();
     this.setHours();
   },
   watch: {

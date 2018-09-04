@@ -101,6 +101,7 @@
               @update:has_induction_loop="serviceLocationForms[$event.index].location.has_induction_loop = $event.value"
               @update:regular_opening_hours_frequency="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].frequency = $event.value"
               @update:regular_opening_hours_weekday="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].weekday = $event.value"
+              @update:regular_opening_hours_day_of_month="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].day_of_month = $event.value"
               @update:regular_opening_hours_opens_at="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].opens_at = $event.value"
               @update:regular_opening_hours_closes_at="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].closes_at = $event.value"
               @update:regular_opening_hours_occurrence_of_month="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].occurrence_of_month = $event.value"
