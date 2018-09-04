@@ -403,16 +403,6 @@ export default {
       countries: [
         { text: "Please select", value: null, disabled: true },
         ...countries
-      ],
-      weekdays: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Monday", value: 1 },
-        { text: "Tuesday", value: 2 },
-        { text: "Wednesday", value: 3 },
-        { text: "Thursday", value: 4 },
-        { text: "Friday", value: 5 },
-        { text: "Saturday", value: 6 },
-        { text: "Sunday", value: 7 }
       ]
     };
   },
@@ -422,7 +412,7 @@ export default {
       this.locations = await this.fetchAll("/locations");
       this.locations = this.locations.map(location => {
         return {
-          text: `${location.address_line_1}, ${location.postcode}`,
+          text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
           value: location.id
         };
       });
@@ -509,6 +499,32 @@ export default {
             this.$emit("update:has_wheelchair_access", { index, value: false });
             this.$emit("update:has_induction_loop", { index, value: false });
           }
+
+          form.regular_opening_hours.forEach(regularOpeningHour => {
+            if (regularOpeningHour.frequency === "weekly") {
+              regularOpeningHour.day_of_month = null;
+              regularOpeningHour.occurrence_of_month = null;
+              regularOpeningHour.starts_at = null;
+            }
+
+            if (regularOpeningHour.frequency === "monthly") {
+              regularOpeningHour.weekday = null;
+              regularOpeningHour.occurrence_of_month = null;
+              regularOpeningHour.starts_at = null;
+            }
+
+            if (regularOpeningHour.frequency === "fortnightly") {
+              regularOpeningHour.weekday = null;
+              regularOpeningHour.day_of_month = null;
+              regularOpeningHour.occurrence_of_month = null;
+            }
+
+            if (regularOpeningHour.frequency === "nth_occurrence_of_month") {
+              regularOpeningHour.weekday = null;
+              regularOpeningHour.occurrence_of_month = null;
+              regularOpeningHour.starts_at = null;
+            }
+          });
         });
       },
       deep: true
