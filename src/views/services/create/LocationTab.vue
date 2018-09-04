@@ -341,30 +341,14 @@
             </gov-form-group>
             <!-- /Day of month -->
 
-            <!-- Occurrence of month -->
-            <gov-form-group
+            <occurrence-of-month-input
               v-if="form.regular_opening_hours[openingHourIndex].frequency === 'nth_occurrence_of_month'"
-              :invalid="form.$errors.has(`regular_opening_hours.${openingHourIndex}.occurrence_of_month`)"
-            >
-              <gov-label :for="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`">
-                Occurrence in month
-              </gov-label>
-              <gov-select
-                :value="form.regular_opening_hours[openingHourIndex].occurrence_of_month"
-                @input="$emit('update:regular_opening_hours_occurrence_of_month', { serviceLocationIndex: index, openingHourIndex, value: $event })"
-                :id="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
-                :name="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
-                :options="occurrences"
-              />
-              <gov-error-message
-                v-if="form.$errors.has(`regular_opening_hours.${openingHourIndex}.occurrence_of_month`)"
-                v-text="form.$errors.get(`regular_opening_hours.${openingHourIndex}.occurrence_of_month`)"
-                :for="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
-              />
-            </gov-form-group>
-            <!-- /Occurrence of month -->
+              :form="form"
+              :path="`regular_opening_hours.${openingHourIndex}.occurrence_of_month`"
+              :value="form.regular_opening_hours[openingHourIndex].occurrence_of_month"
+              @input="$emit('update:regular_opening_hours_occurrence_of_month', { serviceLocationIndex: index, openingHourIndex, value: $event })"
+            />
 
-            <!-- Starting date -->
             <starts-at-input
               v-if="form.regular_opening_hours[openingHourIndex].frequency === 'fortnightly'"
               :form="form"
@@ -372,7 +356,6 @@
               :value="form.regular_opening_hours[openingHourIndex].starts_at"
               @input="$emit('update:regular_opening_hours_starts_at', { serviceLocationIndex: index, openingHourIndex, value: $event })"
             />
-            <!-- /Starting date -->
 
             <!-- Time period -->
             <gov-form-group :invalid="false"> <!-- TODO -->
@@ -450,10 +433,11 @@ import Form from "@/classes/Form";
 import countries from "@/storage/countries";
 import moment from "moment";
 import StartsAtInput from "@/views/services/create/StartsAtInput";
+import OccurrenceOfMonthInput from "@/views/services/create/OccurrenceOfMonthInput";
 
 export default {
   name: "LocationTab",
-  components: { StartsAtInput },
+  components: { StartsAtInput, OccurrenceOfMonthInput },
   props: {
     forms: {
       type: Array,
@@ -495,14 +479,6 @@ export default {
         { text: "Friday", value: 5 },
         { text: "Saturday", value: 6 },
         { text: "Sunday", value: 7 }
-      ],
-      occurrences: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "First", value: 1 },
-        { text: "Second", value: 2 },
-        { text: "Third", value: 3 },
-        { text: "Fourth", value: 4 },
-        { text: "Last", value: 5 }
       ],
       days: [
         { text: "Please select", value: null, disabled: true }
