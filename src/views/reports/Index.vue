@@ -3,7 +3,7 @@
     <gov-back-link :to="{ name: 'dashboard' }">Back to dashboard</gov-back-link>
     <gov-main-wrapper>
       <gov-grid-row>
-        <gov-grid-column width="full">
+        <gov-grid-column width="two-thirds">
 
           <gov-heading size="xl">Reports</gov-heading>
 
@@ -16,6 +16,27 @@
           <gov-button v-if="!submitting" type="submit" @click="onGenerate">Generate report</gov-button>
           <gov-button v-else type="submit" disabled>Generating report...</gov-button>
 
+          <gov-section-break size="l" />
+
+          <gov-heading size="m">Report schedule</gov-heading>
+
+          <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
+
+          <gov-form-group>
+            <gov-label for="repeat_type" class="govuk-!-font-weight-bold">
+              Recieve these
+            </gov-label>
+            <ck-loader v-if="loading" />
+            <gov-select
+              v-else
+              v-model="form.repeat_type"
+              :options="options"
+              id="repeat_type"
+              name="repeat_type"
+              :width="20"
+            />
+          </gov-form-group>
+
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -24,13 +45,32 @@
 
 <script>
 import http from "@/http";
+import Form from "@/classes/Form";
 
 export default {
   name: "ReportsPage",
   data() {
     return {
-      submitting: false
+      submitting: false,
+      loading: false,
+      reportSchedule: null,
+      form: new Form({
+        report_type: "Commissioners Report",
+        repeat_type: null
+      }),
+      options: [
+        { text: "Please select", value: null, disabled: true },
+        { text: "Weekly", value: "weekly" },
+        { text: "Monthly", value: "monthly" }
+      ]
     };
+  },
+  watch: {
+    "form.repeat_type"(newRepeatType) {
+      if ((newRepeatType !== null) && !this.loading) {
+        this.saveReportSchedule();
+      }
+    }
   },
   methods: {
     async onGenerate() {
@@ -50,7 +90,32 @@ export default {
       link.click();
 
       this.submitting = false;
+    },
+    async fetchReportSchedule() {
+      this.loading = true;
+
+      const { data } = await http.get("/report-schedules");
+
+      if (data.data.length > 0) {
+        this.reportSchedule = data.data[0];
+        this.form.repeat_type = data.data[0].repeat_type;
+      }
+
+      this.loading = false;
+    },
+    async saveReportSchedule() {
+      if (this.reportSchedule) {
+        // Update
+        await this.form.put(`/report-schedules/${this.reportSchedule.id}`);
+      } else {
+        // Create.
+        await this.form.post("/report-schedules");
+        this.fetchReportSchedule();
+      }
     }
+  },
+  created() {
+    this.fetchReportSchedule();
   }
 };
 </script>

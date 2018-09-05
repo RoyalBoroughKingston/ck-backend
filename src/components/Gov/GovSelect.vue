@@ -3,6 +3,7 @@
     v-model="proxy"
     :id="id"
     class="govuk-select"
+    :class="computedClasses"
     :name="name"
     :aria-describedby="ariaDescribedBy"
   >
@@ -38,6 +39,10 @@ export default {
     options: {
       type: Array,
       required: false
+    },
+    width: {
+      type: Number,
+      required: false
     }
   },
   data() {
@@ -48,6 +53,9 @@ export default {
   computed: {
     ariaDescribedBy() {
       return `${this.name}-hint`;
+    },
+    computedClasses() {
+      return this.width ? `govuk-input--width-${this.width}` : null;
     }
   },
   watch: {
