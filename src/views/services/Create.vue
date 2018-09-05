@@ -15,7 +15,9 @@
               @clear="form.$errors.clear($event)"
               @clear-logo="logoForm.$errors.clear($event)"
               @next="onNext"
-              @update:name="form.name = $event"
+              @update:name="form.name = $event; form.slug = slugify($event)"
+              @update:slug="form.slug = $event"
+              @update:organisation_id="form.organisation_id = $event"
               @update:url="form.url = $event"
               @update:logo="logoForm.file = $event"
               @update:intro="form.intro = $event"
@@ -156,8 +158,10 @@ export default {
   data() {
     return {
       form: new Form({
+        id: null,
         organisation_id: null,
         name: "",
+        slug: "",
         status: "active",
         intro: "",
         description: "",
@@ -209,12 +213,74 @@ export default {
   },
   computed: {
     submitting() {
-      return this.form.$submitting;
+      if (this.form.$submitting) {
+        return true;
+      }
+
+      if (this.logoForm.$submitting) {
+        return true;
+      }
+
+      for (let i = 0; i < this.serviceLocationForms.length; i++) {
+        if (this.serviceLocationForms[i].$submitting) {
+          return true;
+        }
+      }
+
+      return false;
     }
   },
   methods: {
-    onSubmit() {
-      //
+    async onSubmit() {
+      try {
+        /**
+         * Step 1: Save the locations.
+         */
+
+        // Loop through each service location form.
+        for (let serviceLocationForm of this.serviceLocationForms) {
+          if (serviceLocationForm.location_type !== 'new') {
+            continue;
+          }
+
+          // Save each new location.
+          const { data } = await serviceLocationForm.location.post("/locations");
+
+          // Append the location to the cache, set the location ID, and remove the location object/form.
+          this.$root.$emit("location-created", data);
+          serviceLocationForm.location_id = data.id;
+          serviceLocationForm.location_type = "existing";
+        }
+
+        /**
+         * Step 2: Save the service.
+         */
+
+        // Save the service and set the ID.
+        if (this.form.id === null) {
+          const { data } = await this.form.post("/services");
+          this.form.id = data.id;
+        }
+
+        /**
+         * Step 3: Save the service locations.
+         */
+
+        // Loop through each service location form and save them.
+        for (let serviceLocationForm of this.serviceLocationForms) {
+          if (serviceLocationForm.id !== null) {
+            continue;
+          }
+
+          const { data } = await form.post("/service-locations");
+          serviceLocationForm.id = data.id;
+        }
+
+        // Forward the user to the newly created service page.
+        this.$router.push({ name: "services-show", params: { service: this.form.id } });
+      } catch (error) {
+        console.log(error);
+      }
     },
     onTabChange({ index }) {
       this.tabs.forEach(tab => tab.active = false);

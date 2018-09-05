@@ -68,7 +68,7 @@ export default {
   },
   data() {
     return {
-      enabled: null
+      enabled: false
     };
   },
   watch: {

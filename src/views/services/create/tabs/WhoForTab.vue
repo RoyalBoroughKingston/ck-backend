@@ -103,60 +103,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  data() {
-    return {
-      ageGroupEnabled: null,
-      disabilityEnabled: null,
-      employmentEnabled: null,
-      genderEnabled: null,
-      housingEnabled: null,
-      incomeEnabled: null,
-      languageEnabled: null,
-      otherEnabled: null
-    };
-  },
-  watch: {
-    ageGroupEnabled(enabled) {
-      if (!enabled) {
-        this.$emit("update:age_group", "");
-      }
-    },
-    disabilityEnabled(enabled) {
-      if (!enabled) {
-        this.$emit("update:disability", "");
-      }
-    },
-    employmentEnabled(enabled) {
-      if (!enabled) {
-        this.$emit("update:employment", "");
-      }
-    },
-    genderEnabled(enabled) {
-      if (!enabled) {
-        this.$emit("update:gender", "");
-      }
-    },
-    housingEnabled(enabled) {
-      if (!enabled) {
-        this.$emit("update:housing", "");
-      }
-    },
-    incomeEnabled(enabled) {
-      if (!enabled) {
-        this.$emit("update:income", "");
-      }
-    },
-    languageEnabled(enabled) {
-      if (!enabled) {
-        this.$emit("update:language", "");
-      }
-    },
-    otherEnabled(enabled) {
-      if (!enabled) {
-        this.$emit("update:other", "");
-      }
-    }
   }
 };
 </script>

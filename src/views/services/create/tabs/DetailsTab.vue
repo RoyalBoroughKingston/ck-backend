@@ -26,6 +26,55 @@
         </gov-form-group>
         <!-- /Service name -->
 
+        <!-- Service slug -->
+        <gov-form-group :invalid="form.$errors.has('slug')">
+          <gov-label class="govuk-!-font-weight-bold" for="slug">
+            Unique slug
+          </gov-label>
+          <gov-hint for="slug">
+            This will be used to access the service page.<br>
+            e.g. example.com/services/{{ form.slug }}
+          </gov-hint>
+          <gov-input
+            :value="form.slug"
+            @input="$emit('update:slug', $event)"
+            id="slug"
+            name="slug"
+            type="text"
+          />
+          <gov-error-message
+            v-if="form.$errors.has('slug')"
+            v-text="form.$errors.get('slug')"
+            for="slug"
+          />
+        </gov-form-group>
+        <!-- /Service slug -->
+
+        <!-- Organisation -->
+        <gov-form-group :invalid="form.$errors.has('organisation_id')">
+          <gov-label class="govuk-!-font-weight-bold" for="organisation_id">
+            Organisation
+          </gov-label>
+          <gov-hint for="organisation_id">
+            Which organisation provides this service?
+          </gov-hint>
+          <ck-loader v-if="loading" />
+          <gov-select
+            v-else
+            :value="form.organisation_id"
+            @input="$emit('update:organisation_id', $event)"
+            id="organisation_id"
+            name="organisation_id"
+            :options="organisations"
+          />
+          <gov-error-message
+            v-if="form.$errors.has('organisation_id')"
+            v-text="form.$errors.get('organisation_id')"
+            for="organisation_id"
+          />
+        </gov-form-group>
+        <!-- /Organisation -->
+
         <!-- Service URL -->
         <gov-form-group :invalid="form.$errors.has('url')">
           <gov-label class="govuk-!-font-weight-bold" for="url">
@@ -140,6 +189,28 @@ export default {
       type: Object,
       required: true
     }
+  },
+  data() {
+    return {
+      organisations: [
+        { text: "Please select", value: null, disabled: true }
+      ],
+      loading: false
+    };
+  },
+  methods: {
+    async fetchOrganisations() {
+      this.loading = true;
+      let fetchedOrganisations = await this.fetchAll("/organisations");
+      fetchedOrganisations = fetchedOrganisations.map(organisation => {
+        return { text: organisation.name, value: organisation.id };
+      });
+      this.organisations = [...this.organisations, ...fetchedOrganisations];
+      this.loading = false;
+    }
+  },
+  created() {
+    this.fetchOrganisations();
   }
 };
 </script>

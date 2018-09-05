@@ -1,7 +1,8 @@
 <template>
   <input
     @keyup.enter="onEnter"
-    v-model="proxy"
+    :value="value"
+    @input="$emit('input', $event.target.value)"
     class="govuk-input"
     :class="computedClass"
     :id="id"
@@ -37,22 +38,12 @@ export default {
       required: false
     }
   },
-  data() {
-    return {
-      proxy: this.value
-    };
-  },
   computed: {
     computedClass() {
       return this.width ? `govuk-input--width-${this.width}` : null;
     },
     ariaDescribedBy() {
       return `${this.name}-hint`;
-    }
-  },
-  watch: {
-    proxy(newValue) {
-      this.$emit("input", newValue);
     }
   },
   methods: {

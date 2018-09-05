@@ -456,6 +456,7 @@ export default {
     },
     onAdd() {
       this.$emit("add", new Form({
+        id: null,
         service_id: null,
         location_id: null,
         name: "",
@@ -514,6 +515,12 @@ export default {
   },
   created() {
     this.fetchLocations();
+    this.$root.$on("location-created", location => {
+      this.locations.push({
+          text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
+          value: location.id
+        });
+    });
   },
   watch: {
     forms: {
