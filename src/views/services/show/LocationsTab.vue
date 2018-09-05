@@ -70,6 +70,9 @@
       </gov-table>
       <gov-section-break v-if="index < service.service_locations.length - 1" size="l" />
     </div>
+    <g-v-body v-if="service.service_locations.length === 0">
+      No locations have been specified for this service.
+    </g-v-body>
   </div>
 </template>
 
