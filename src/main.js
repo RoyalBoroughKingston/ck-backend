@@ -8,26 +8,7 @@ import moment from "moment";
 import http from "@/http";
 
 // Markdown conversion.
-import TurndownService from "turndown";
-import Showdown from "showdown";
-const turndownService = new TurndownService();
-const classMap = {
-  p: "govuk-body",
-  b: "govuk-!-font-weight-bold",
-  a: "govuk-link",
-  strong: "govuk-!-font-weight-bold",
-  h2: "govuk-heading-l",
-  h3: "govuk-heading-m"
-};
-const bindings = Object.keys(classMap).map(key => ({
-  type: "output",
-  regex: new RegExp(`<${key}>`, "g"),
-  replace: `<${key} class="${classMap[key]}">`
-}));
-const markdownToHtmlConverter = new Showdown.Converter({
-  extensions: [...bindings],
-  noHeaderId: true
-});
+import MarkdownConverter from "@/classes/MarkdownConverter";
 
 // Vue
 import Vue from "vue";
@@ -135,10 +116,10 @@ Vue.mixin({
       return moment(dateTime, moment.ISO_8601).format("D/M/YY HH:mm");
     },
     toMarkdown(html) {
-      return turndownService.turndown(html);
+      return MarkdownConverter.toMarkdown(html);
     },
     toHtml(markdown) {
-      return markdownToHtmlConverter.makeHtml(markdown);
+      return MarkdownConverter.toHtml(markdown);
     },
     async fetchAll(uri, params = {}) {
       let page = 1;

@@ -1,17 +1,22 @@
 import axios from "axios";
 
-const http = axios.create({
-  baseURL: process.env.VUE_APP_API_TOKEN_URI
-});
-
 class Auth {
+  /**
+   * Constructor.
+   */
+  constructor() {
+    this.http = axios.create({
+      baseURL: process.env.VUE_APP_API_TOKEN_URI
+    });
+  }
+
   /**
    * @param {string} email
    * @param {string} password
    * @returns {Promise}
    */
   async login(email, password) {
-    const response = await http.post("/oauth/token", {
+    const response = await this.http.post("/oauth/token", {
       grant_type: "password",
       username: email,
       password,
@@ -25,7 +30,7 @@ class Auth {
    * @returns {String}
    */
   async refreshAccessToken() {
-    const { data } = await http.post("/oauth/token", {
+    const { data } = await this.http.post("/oauth/token", {
       grant_type: "refresh_token",
       refresh_token: this.refreshToken,
       client_id: process.env.VUE_APP_API_CLIENT_ID,

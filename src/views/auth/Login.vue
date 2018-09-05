@@ -8,13 +8,23 @@
           <gov-body size="l">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt aliquet est. Suspendisse eget lobortis metus.
           </gov-body>
-          <gov-form-group>
+          <gov-form-group :invalid="error">
             <gov-label for="email">Email</gov-label>
-            <gov-input v-model="form.email" id="email" name="email" />
+            <gov-input
+              v-model="email"
+              @input="error = null"
+              id="email"
+              name="email"
+            />
+            <gov-error-message
+              v-if="error"
+              for="email"
+              v-text="error"
+            />
           </gov-form-group>
           <gov-form-group>
             <gov-label for="email">Password</gov-label>
-            <gov-input v-model="form.password" id="password" name="password" type="password" />
+            <gov-input v-model="password" id="password" name="password" type="password" />
             <gov-link :to="{ name: 'forgotten-password' }">Forgotten password</gov-link>
           </gov-form-group>
           <gov-button @click="onSendCode">Send code</gov-button>
@@ -32,19 +42,18 @@ export default {
   name: "Login",
   data() {
     return {
-      form: new Form({
-        email: "",
-        password: ""
-      })
+      email: "",
+      password: "",
+      error: null
     };
   },
   methods: {
     onSendCode() {
       // TODO: This currently skips the code screen.
-      auth.login(this.form.email, this.form.password).then(() => {
+      auth.login(this.email, this.password).then(() => {
         this.$root.$emit("login");
         this.$router.push({ name: "dashboard" });
-      });
+      }).catch(() => this.error = "A user does not exist with these credentials.");
     }
   }
 };
