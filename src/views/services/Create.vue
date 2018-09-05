@@ -15,12 +15,12 @@
               @clear="form.$errors.clear($event)"
               @clear-logo="logoForm.$errors.clear($event)"
               @next="onNext"
-              @update:name="form.name = $event; form.slug = slugify($event)"
+              @update:name="form.name = $event; form.slug = slugify($event); form.seo_title = $event"
               @update:slug="form.slug = $event"
               @update:organisation_id="form.organisation_id = $event"
               @update:url="form.url = $event"
               @update:logo="logoForm.file = $event"
-              @update:intro="form.intro = $event"
+              @update:intro="form.intro = $event; form.seo_description = $event"
               @update:description="form.description = $event"
             />
 
