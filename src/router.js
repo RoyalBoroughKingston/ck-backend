@@ -169,6 +169,12 @@ let router = new Router({
           component: () => import("@/views/services/show/ReferralTab")
         }
       ]
+    },
+    {
+      path: "/update-requests",
+      name: "update-requests-index",
+      component: () => import("@/views/update-requests/Index"),
+      meta: { auth: true }
     }
   ]
 });

@@ -49,7 +49,7 @@ export default {
         { text: "Users", href: { name: "users-index" } },
         { text: "Reports", href: "#" },
         { text: "Admin", href: "#" },
-        { text: "Update requests", href: "#" }
+        { text: "Update requests", href: { name: "update-requests-index" } }
       ],
       authNavItem: auth.isLoggedIn
         ? { text: "Logout", href: { name: "logout" } }
