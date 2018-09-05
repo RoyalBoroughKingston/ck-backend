@@ -219,30 +219,14 @@ export default {
         { heading: "Locations", active: false },
         { heading: "Taxonomies", active: false },
         { heading: "Referral", active: false  }
-      ]
+      ],
+      submitting: false
     };
-  },
-  computed: {
-    submitting() {
-      if (this.form.$submitting) {
-        return true;
-      }
-
-      if (this.logoForm.$submitting) {
-        return true;
-      }
-
-      for (let i = 0; i < this.serviceLocationForms.length; i++) {
-        if (this.serviceLocationForms[i].$submitting) {
-          return true;
-        }
-      }
-
-      return false;
-    }
   },
   methods: {
     async onSubmit() {
+      this.submitting = true;
+
       try {
         /**
          * Step 1: Save the locations.
@@ -271,6 +255,10 @@ export default {
         if (this.form.id === null) {
           const { data } = await this.form.post("/services");
           this.form.id = data.id;
+
+          for (let serviceLocationForm of this.serviceLocationForms) {
+            serviceLocationForm.service_id = this.form.id;
+          }
         }
 
         /**
@@ -290,6 +278,7 @@ export default {
         // Forward the user to the newly created service page.
         this.$router.push({ name: "services-show", params: { service: this.form.id } });
       } catch (error) {
+        this.submitting = false;
         console.log(error);
       }
     },

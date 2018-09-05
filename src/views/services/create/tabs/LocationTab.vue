@@ -543,35 +543,33 @@ export default {
           }
 
           form.regular_opening_hours.forEach(regularOpeningHour => {
-            if (regularOpeningHour.frequency === "weekly") {
-              regularOpeningHour.day_of_month = null;
-              regularOpeningHour.occurrence_of_month = null;
-              regularOpeningHour.starts_at = null;
-            }
-
-            if (regularOpeningHour.frequency === "monthly") {
-              regularOpeningHour.weekday = null;
-              regularOpeningHour.occurrence_of_month = null;
-              regularOpeningHour.starts_at = null;
-            }
-
-            if (regularOpeningHour.frequency === "fortnightly") {
-              regularOpeningHour.weekday = null;
-              regularOpeningHour.day_of_month = null;
-              regularOpeningHour.occurrence_of_month = null;
-            }
-
-            if (regularOpeningHour.frequency === "nth_occurrence_of_month") {
-              regularOpeningHour.weekday = null;
-              regularOpeningHour.occurrence_of_month = null;
-              regularOpeningHour.starts_at = null;
+            switch (regularOpeningHour.frequency) {
+              case "weekly":
+                regularOpeningHour.day_of_month = null;
+                regularOpeningHour.occurrence_of_month = null;
+                regularOpeningHour.starts_at = null;
+                break;
+              case "monthly":
+                regularOpeningHour.weekday = null;
+                regularOpeningHour.occurrence_of_month = null;
+                regularOpeningHour.starts_at = null;
+                break;
+              case "fortnightly":
+                regularOpeningHour.weekday = null;
+                regularOpeningHour.day_of_month = null;
+                regularOpeningHour.occurrence_of_month = null;
+                break;
+              case "nth_occurrence_of_month":
+                regularOpeningHour.day_of_month = null;
+                regularOpeningHour.starts_at = null;
+                break;
             }
           });
 
           form.holiday_opening_hours.forEach(holidayOpeningHour => {
             if (holidayOpeningHour.is_closed) {
-              holidayOpeningHour.opens_at = null;
-              holidayOpeningHour.closes_at = null;
+              holidayOpeningHour.opens_at = "00:00:00";
+              holidayOpeningHour.closes_at = "00:00:00";
             }
           });
         });
