@@ -48,6 +48,9 @@ Vue.component("GovDetails", () => import("@/components/Gov/GovDetails"));
 Vue.component("GovErrorMessage", () =>
   import("@/components/Gov/GovErrorMessage")
 );
+Vue.component("GovErrorSummary", () =>
+  import("@/components/Gov/GovErrorSummary")
+);
 Vue.component("GovFieldsetLegend", () =>
   import("@/components/Gov/GovFieldsetLegend")
 );

@@ -6,15 +6,17 @@
       <gov-grid-row v-else>
         <gov-grid-column width="two-thirds">
 
+          <gov-error-summary title="Check this page">
+            The update request needs to be confirmed. Check the
+            page for inconsistencies, errors that would be
+            problematic to a user.
+          </gov-error-summary>
+
           <gov-heading size="m">View update request</gov-heading>
 
           <update-request-details :update-request="updateRequest" />
 
-        </gov-grid-column>
-      </gov-grid-row>
-
-      <gov-grid-row class="govuk-!-padding-bottom-4">
-        <gov-grid-column width="two-thirds">
+          <gov-section-break size="xl" />
 
           <gov-heading size="m">Do you approve these changes?</gov-heading>
 
