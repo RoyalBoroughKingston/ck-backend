@@ -47,7 +47,7 @@ export default {
         { text: "Referrals", href: { name: "referrals-index" } },
         { text: "Organisations", href: { name: "organisations-index" } },
         { text: "Users", href: { name: "users-index" } },
-        { text: "Reports", href: "#" },
+        { text: "Reports", href: { name: "reports-index" } },
         { text: "Admin", href: "#" },
         { text: "Update requests", href: { name: "update-requests-index" } }
       ],
