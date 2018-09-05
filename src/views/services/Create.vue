@@ -115,8 +115,16 @@
               @update:holiday_opening_hours_closes_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].closes_at = $event.value"
             />
 
-            <referral-tab
+            <taxonomies-tab
               v-show="tabs[6].active"
+              :form="form"
+              @clear="form.$errors.clear($event)"
+              @next="onNext"
+              @input="form.category_taxonomies = $event"
+            />
+
+            <referral-tab
+              v-show="tabs[7].active"
               :form="form"
               @clear="form.$errors.clear($event)"
               @submit="onSubmit"
@@ -143,6 +151,7 @@ import ContactDetailsTab from "@/views/services/create/tabs/ContactDetailsTab";
 import WhoForTab from "@/views/services/create/tabs/WhoForTab";
 import LocationTab from "@/views/services/create/tabs/LocationTab";
 import ReferralTab from "@/views/services/create/tabs/ReferralTab";
+import TaxonomiesTab from "@/views/services/create/tabs/TaxonomiesTab";
 
 export default {
   name: "CreateService",
@@ -153,7 +162,8 @@ export default {
     ContactDetailsTab,
     WhoForTab,
     LocationTab,
-    ReferralTab
+    ReferralTab,
+    TaxonomiesTab
   },
   data() {
     return {
@@ -207,6 +217,7 @@ export default {
         { heading: "Contact info", active: false },
         { heading: "Who is it for?", active: false },
         { heading: "Locations", active: false },
+        { heading: "Taxonomies", active: false },
         { heading: "Referral", active: false  }
       ]
     };

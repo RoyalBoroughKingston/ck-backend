@@ -1,7 +1,9 @@
 <template>
   <div class="govuk-checkboxes__item">
     <input
-      v-model="proxy"
+      :checked="value"
+      :value="true"
+      @input="$emit('input', $event.target.checked)"
       class="govuk-checkboxes__input"
       :id="id"
       :name="name"
@@ -9,6 +11,7 @@
       :aria-describedby="ariaDescribedBy"
     >
     <gov-label class="govuk-checkboxes__label" :for="id">{{ label }}</gov-label>
+    <slot />
   </div>
 </template>
 
@@ -33,20 +36,16 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      proxy: this.value
-    };
-  },
   computed: {
     ariaDescribedBy() {
       return `${this.name}-hint`;
     }
-  },
-  watch: {
-    proxy(newValue) {
-      this.$emit("input", newValue);
-    }
   }
 };
 </script>
+
+<style lang="scss">
+.govuk-checkboxes__item--nested {
+  margin-top: 10px;
+}
+</style>
