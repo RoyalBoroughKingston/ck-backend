@@ -283,7 +283,7 @@ export default {
             continue;
           }
 
-          const { data } = await form.post("/service-locations");
+          const { data } = await serviceLocationForm.post("/service-locations");
           serviceLocationForm.id = data.id;
         }
 
