@@ -5,7 +5,7 @@
         <gov-grid-column width="two-thirds">
           <gov-heading size="xl">Dashboard</gov-heading>
           <gov-body size="l">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt aliquet est. Suspendisse eget lobortis metus.
+            Hello and welcome to the Connected Kingston admin portal.
           </gov-body>
         </gov-grid-column>
       </gov-grid-row>
