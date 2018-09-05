@@ -66,9 +66,26 @@
               </gov-list>
             </gov-table-cell>
           </gov-table-row>
+          <gov-table-row>
+            <gov-table-header scope="row" top>Map</gov-table-header>
+            <gov-table-cell>
+              <gmap-map
+                :center="{ lat: serviceLocation.location.lat, lng: serviceLocation.location.lon }"
+                :zoom="13"
+                map-type-id="terrain"
+                style="width: 100%; height: 20rem"
+              >
+                <GmapMarker
+                  :position="{ lat: serviceLocation.location.lat, lng: serviceLocation.location.lon }"
+                  :clickable="false"
+                  :draggable="false"
+                />
+              </gmap-map>
+            </gov-table-cell>
+          </gov-table-row>
         </template>
       </gov-table>
-      <gov-section-break v-if="index < service.service_locations.length - 1" size="l" />
+      <gov-section-break v-if="index < service.service_locations.length - 1" size="xl" />
     </div>
     <g-v-body v-if="service.service_locations.length === 0">
       No locations have been specified for this service.
