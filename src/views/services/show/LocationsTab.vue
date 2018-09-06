@@ -72,7 +72,7 @@
               <gmap-map
                 :center="{ lat: serviceLocation.location.lat, lng: serviceLocation.location.lon }"
                 :zoom="13"
-                map-type-id="terrain"
+                map-type-id="roadmap"
                 style="width: 100%; height: 20rem"
               >
                 <GmapMarker
