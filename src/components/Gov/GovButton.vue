@@ -1,5 +1,9 @@
 <template>
-  <button @click="onClick" :type="type" class="govuk-button" :class="computedClasses">
+  <router-link v-if="to" :to="to" class="govuk-button" :class="computedClasses">
+    <slot />
+  </router-link>
+
+  <button v-else @click="onClick" :type="type" class="govuk-button" :class="computedClasses">
     <slot />
   </button>
 </template>
@@ -27,6 +31,9 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    to: {
+      required: false
     }
   },
   methods: {

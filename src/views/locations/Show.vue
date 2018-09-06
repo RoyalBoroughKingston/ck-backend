@@ -22,7 +22,7 @@
         </gov-grid-column>
         <gov-grid-column width="one-third" class="text-right">
 
-          <gov-button @click="onEdit">Edit location</gov-button>
+          <gov-button :to="{ name: 'locations-edit', params: { location: location.id } }">Edit location</gov-button>
 
         </gov-grid-column>
       </gov-grid-row>
@@ -54,9 +54,6 @@ export default {
     },
     onDelete() {
       this.$router.push({ name: "locations-index" });
-    },
-    onEdit() {
-      //
     }
   },
   created() {

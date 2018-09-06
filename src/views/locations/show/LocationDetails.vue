@@ -30,6 +30,15 @@
         <gov-table-cell>{{ location.country }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
+        <gov-table-header scope="row" top>Accessibility</gov-table-header>
+        <gov-table-cell>
+          <gov-list>
+            <li>Wheelchair access: {{ location.has_wheelchair_access ? 'Yes' : 'No' }}</li>
+            <li>Induction loop system: {{ location.has_induction_loop ? 'Yes' : 'No' }}</li>
+          </gov-list>
+        </gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
         <gov-table-header scope="row" top>Map</gov-table-header>
         <gov-table-cell>
           <gmap-map
