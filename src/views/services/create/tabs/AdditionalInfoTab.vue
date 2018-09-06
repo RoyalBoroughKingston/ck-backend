@@ -62,7 +62,6 @@
           :error="form.$errors.get('testimonial')"
         />
 
-        <!-- Video embed -->
         <ck-text-input
           :value="form.video_embed"
           @input="$emit('update:video_embed', $event); $emit('clear', 'video_embed')"
