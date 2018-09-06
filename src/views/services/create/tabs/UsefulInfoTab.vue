@@ -102,7 +102,7 @@ export default {
       this.$emit("add", {
         title: "",
         description: "",
-        order: (this.form.useful_infos.length + 1),
+        order: this.form.useful_infos.length + 1,
         index: this.usefulInfosIndex
       });
 
@@ -121,7 +121,10 @@ export default {
           return;
         }
 
-        this.$emit('update:useful_infos_order', { index, value: (usefulInfo.order - 1) });
+        this.$emit("update:useful_infos_order", {
+          index,
+          value: usefulInfo.order - 1
+        });
       });
     }
   },
@@ -133,7 +136,10 @@ export default {
             return;
           }
 
-          const hasBeenUsed = usefulInfos.find(usefulInfo => (usefulInfo.title === usefulInfoTitleOption.value)) !== undefined;
+          const hasBeenUsed =
+            usefulInfos.find(
+              usefulInfo => usefulInfo.title === usefulInfoTitleOption.value
+            ) !== undefined;
           const newOption = { ...usefulInfoTitleOption, disabled: hasBeenUsed };
           this.$set(this.usefulInfoTitleOptions, index, newOption);
         });

@@ -67,7 +67,9 @@ export default {
     async fetchUpdateRequests() {
       this.loading = true;
 
-      const { data } = await http.get(`/update-requests/${this.$route.params.updateRequest}`);
+      const { data } = await http.get(
+        `/update-requests/${this.$route.params.updateRequest}`
+      );
       this.updateRequest = data;
 
       this.loading = false;
@@ -81,19 +83,34 @@ export default {
 
           switch (this.updateRequest.updateable_type) {
             case "services":
-              this.$router.push({ name: "services-show", params: { service: this.updateRequest.updateable_id } });
+              this.$router.push({
+                name: "services-show",
+                params: { service: this.updateRequest.updateable_id }
+              });
               break;
             case "organisations":
-              this.$router.push({ name: "organisations-show", params: { organisation: this.updateRequest.updateable_id } });
+              this.$router.push({
+                name: "organisations-show",
+                params: { organisation: this.updateRequest.updateable_id }
+              });
               break;
             case "locations":
-              this.$router.push({ name: "locations-show", params: { location: this.updateRequest.updateable_id } });
+              this.$router.push({
+                name: "locations-show",
+                params: { location: this.updateRequest.updateable_id }
+              });
               break;
-            case "service_locations":
-              const reponse = await http.get(`/service-locations/${this.updateRequest.id}`);
+            case "service_locations": {
+              const response = await http.get(
+                `/service-locations/${this.updateRequest.id}`
+              );
               const serviceId = response.data.data.id;
-              this.$router.push({ name: "services-show", params: { service: serviceId } });
+              this.$router.push({
+                name: "services-show",
+                params: { service: serviceId }
+              });
               break;
+            }
             default:
               this.$router.push({ name: "update-requests-index" });
               break;

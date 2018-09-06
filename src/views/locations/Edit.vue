@@ -52,7 +52,9 @@ export default {
     async fetchLocation() {
       this.loading = true;
 
-      const response = await http.get(`/locations/${this.$route.params.location}`);
+      const response = await http.get(
+        `/locations/${this.$route.params.location}`
+      );
       this.location = response.data.data;
       this.form = new Form({
         address_line_1: this.location.address_line_1,

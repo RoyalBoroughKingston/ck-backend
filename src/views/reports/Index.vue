@@ -67,7 +67,7 @@ export default {
   },
   watch: {
     "form.repeat_type"(newRepeatType) {
-      if ((newRepeatType !== null) && !this.loading) {
+      if (newRepeatType !== null && !this.loading) {
         this.saveReportSchedule();
       }
     }
@@ -76,12 +76,16 @@ export default {
     async onGenerate() {
       this.submitting = true;
 
-      const response = await http.post("/reports", { report_type: "Commissioners Report" });
+      const response = await http.post("/reports", {
+        report_type: "Commissioners Report"
+      });
       const reportId = response.data.data.id;
       const file = await http.get(`/reports/${reportId}/download`);
 
-      const regex = /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/
-      const filename = regex.exec(file.request.getResponseHeader("Content-Disposition"))[2];
+      const regex = /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/;
+      const filename = regex.exec(
+        file.request.getResponseHeader("Content-Disposition")
+      )[2];
       const url = window.URL.createObjectURL(new Blob([file.data]));
       const link = document.createElement("a");
       link.href = url;

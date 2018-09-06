@@ -214,7 +214,7 @@ export default {
         { heading: "Who is it for?", active: false },
         { heading: "Locations", active: false },
         { heading: "Taxonomies", active: false },
-        { heading: "Referral", active: false  }
+        { heading: "Referral", active: false }
       ],
       submitting: false
     };
@@ -230,12 +230,14 @@ export default {
 
         // Loop through each service location form.
         for (let serviceLocationForm of this.serviceLocationForms) {
-          if (serviceLocationForm.location_type !== 'new') {
+          if (serviceLocationForm.location_type !== "new") {
             continue;
           }
 
           // Save each new location.
-          const { data } = await serviceLocationForm.location.post("/locations");
+          const { data } = await serviceLocationForm.location.post(
+            "/locations"
+          );
 
           // Append the location to the cache, set the location ID, and remove the location object/form.
           this.$root.$emit("location-created", data);
@@ -272,24 +274,27 @@ export default {
         }
 
         // Forward the user to the newly created service page.
-        this.$router.push({ name: "services-show", params: { service: this.form.id } });
+        this.$router.push({
+          name: "services-show",
+          params: { service: this.form.id }
+        });
       } catch (error) {
         this.submitting = false;
         console.log(error);
       }
     },
     onTabChange({ index }) {
-      this.tabs.forEach(tab => tab.active = false);
+      this.tabs.forEach(tab => (tab.active = false));
       this.tabs[index].active = true;
     },
     onNext() {
-      const currentTabIndex = this.tabs.findIndex(tab => (tab.active === true));
-      this.tabs.forEach(tab => tab.active = false);
+      const currentTabIndex = this.tabs.findIndex(tab => tab.active === true);
+      this.tabs.forEach(tab => (tab.active = false));
       this.tabs[currentTabIndex + 1].active = true;
       this.scrollToTop();
     },
     scrollToTop() {
-      document.getElementById('main-content').scrollIntoView();
+      document.getElementById("main-content").scrollIntoView();
     }
   }
 };

@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import Form from "@/classes/Form";
 import auth from "@/classes/Auth";
 
 export default {
@@ -50,10 +49,15 @@ export default {
   methods: {
     onSendCode() {
       // TODO: This currently skips the code screen.
-      auth.login(this.email, this.password).then(() => {
-        this.$root.$emit("login");
-        this.$router.push({ name: "dashboard" });
-      }).catch(() => this.error = "A user does not exist with these credentials.");
+      auth
+        .login(this.email, this.password)
+        .then(() => {
+          this.$root.$emit("login");
+          this.$router.push({ name: "dashboard" });
+        })
+        .catch(
+          () => (this.error = "A user does not exist with these credentials.")
+        );
     }
   }
 };

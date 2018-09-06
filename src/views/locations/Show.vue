@@ -47,7 +47,9 @@ export default {
     async fetchLocation() {
       this.loading = true;
 
-      const response = await http.get(`/locations/${this.$route.params.location}`);
+      const response = await http.get(
+        `/locations/${this.$route.params.location}`
+      );
       this.location = response.data.data;
 
       this.loading = false;

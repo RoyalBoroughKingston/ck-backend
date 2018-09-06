@@ -167,12 +167,15 @@ export default {
   },
   computed: {
     referralIsInternalOrExternal() {
-      return (this.form.referral_method !== null) && (this.form.referral_method !== 'none');
+      return (
+        this.form.referral_method !== null &&
+        this.form.referral_method !== "none"
+      );
     }
   },
   watch: {
     "form.referral_method"(newReferralMethod) {
-      if ((newReferralMethod === null) || (newReferralMethod === 'none')) {
+      if (newReferralMethod === null || newReferralMethod === "none") {
         this.$emit("update:referral_button_text", "");
         this.$emit("update:referral_email", "");
         this.$emit("update:referral_url", "");

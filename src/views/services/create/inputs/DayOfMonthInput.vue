@@ -38,15 +38,13 @@ export default {
   },
   data() {
     return {
-      days: [
-        { text: "Please select", value: null, disabled: true }
-      ]
+      days: [{ text: "Please select", value: null, disabled: true }]
     };
   },
   created() {
     for (let day = 1; day <= 31; day++) {
       let text = moment({ year: 2018, month: 0, day }).format("Do");
-      text = (day > 28) ? (`${text} (or last day of month)`) : text;
+      text = day > 28 ? `${text} (or last day of month)` : text;
 
       this.days.push({ text, value: day });
     }

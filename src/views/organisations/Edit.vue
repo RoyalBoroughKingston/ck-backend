@@ -52,7 +52,9 @@ export default {
     async fetchOrganisation() {
       this.loading = true;
 
-      const response = await http.get(`/organisations/${this.$route.params.organisation}`);
+      const response = await http.get(
+        `/organisations/${this.$route.params.organisation}`
+      );
       this.organisation = response.data.data;
       this.form = new Form({
         name: this.organisation.name,
@@ -61,18 +63,21 @@ export default {
         url: this.organisation.url,
         email: this.organisation.email,
         phone: this.organisation.phone,
-        logo: null,
+        logo: null
       });
 
       this.loading = false;
     },
     async onSubmit() {
-      await this.form.put(`/organisations/${this.organisation.id}`, (config, data) => {
-        // Remove the logo from the request if null.
-        if (data.logo === null) {
-          delete data.logo;
+      await this.form.put(
+        `/organisations/${this.organisation.id}`,
+        (config, data) => {
+          // Remove the logo from the request if null.
+          if (data.logo === null) {
+            delete data.logo;
+          }
         }
-      });
+      );
       this.$router.push({
         name: "organisations-show",
         params: { organisation: this.organisation.id }

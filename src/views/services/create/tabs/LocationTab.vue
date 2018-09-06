@@ -404,7 +404,6 @@
 <script>
 import Form from "@/classes/Form";
 import countries from "@/storage/countries";
-import moment from "moment";
 import DateInput from "@/views/services/create/inputs/DateInput";
 import OccurrenceOfMonthInput from "@/views/services/create/inputs/OccurrenceOfMonthInput";
 import DayOfMonthInput from "@/views/services/create/inputs/DayOfMonthInput";
@@ -447,36 +446,45 @@ export default {
       this.locations = await this.fetchAll("/locations");
       this.locations = this.locations.map(location => {
         return {
-          text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
+          text: `${location.address_line_1}, ${location.city}, ${
+            location.postcode
+          }`,
           value: location.id
         };
       });
-      this.locations.unshift({ text: "Please select", value: null, disabled: true });
+      this.locations.unshift({
+        text: "Please select",
+        value: null,
+        disabled: true
+      });
       this.loading = false;
     },
     onAdd() {
-      this.$emit("add", new Form({
-        id: null,
-        service_id: null,
-        location_id: null,
-        name: "",
-        regular_opening_hours: [],
-        holiday_opening_hours: [],
-        location: new Form({
-          address_line_1: "",
-          address_line_2: "",
-          address_line_3: "",
-          city: "",
-          county: "",
-          postcode: "",
-          country: "United Kingdom",
-          accessibility_info: "",
-          has_wheelchair_access: false,
-          has_induction_loop: false
-        }),
-        location_type: null,
-        index: this.index
-      }));
+      this.$emit(
+        "add",
+        new Form({
+          id: null,
+          service_id: null,
+          location_id: null,
+          name: "",
+          regular_opening_hours: [],
+          holiday_opening_hours: [],
+          location: new Form({
+            address_line_1: "",
+            address_line_2: "",
+            address_line_3: "",
+            city: "",
+            county: "",
+            postcode: "",
+            country: "United Kingdom",
+            accessibility_info: "",
+            has_wheelchair_access: false,
+            has_induction_loop: false
+          }),
+          location_type: null,
+          index: this.index
+        })
+      );
 
       this.index++;
     },
@@ -517,9 +525,11 @@ export default {
     this.fetchLocations();
     this.$root.$on("location-created", location => {
       this.locations.push({
-          text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
-          value: location.id
-        });
+        text: `${location.address_line_1}, ${location.city}, ${
+          location.postcode
+        }`,
+        value: location.id
+      });
     });
   },
   watch: {

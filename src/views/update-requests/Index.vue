@@ -39,7 +39,9 @@ export default {
     async fetchUpdateRequests() {
       this.loading = true;
 
-      const { data } = await http.get("/update-requests", { params: { page: this.currentPage, include: "user" } });
+      const { data } = await http.get("/update-requests", {
+        params: { page: this.currentPage, include: "user" }
+      });
       this.updateRequests = data.data;
       this.currentPage = data.meta.current_page;
       this.lastPage = data.meta.last_page;

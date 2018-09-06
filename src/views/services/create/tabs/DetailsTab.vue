@@ -188,9 +188,7 @@ export default {
   },
   data() {
     return {
-      organisations: [
-        { text: "Please select", value: null, disabled: true }
-      ],
+      organisations: [{ text: "Please select", value: null, disabled: true }],
       loading: false
     };
   },

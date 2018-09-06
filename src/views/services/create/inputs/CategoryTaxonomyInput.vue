@@ -133,7 +133,7 @@ export default {
 
           if (taxonomy.parent_id !== null) {
             const parent = this.flattenedTaxonomies.find(flattenedTaxonomy => {
-              return (flattenedTaxonomy.id === taxonomy.parent_id);
+              return flattenedTaxonomy.id === taxonomy.parent_id;
             });
             this.onInput({ taxonomy: parent, enabled: true });
           }
@@ -144,7 +144,9 @@ export default {
           this.enabledTaxonomies.splice(index, 1);
 
           if (taxonomy.children.length > 0) {
-            taxonomy.children.forEach(taxonomy => this.onInput({ taxonomy, enabled: false }));
+            taxonomy.children.forEach(taxonomy =>
+              this.onInput({ taxonomy, enabled: false })
+            );
           }
         }
       }
