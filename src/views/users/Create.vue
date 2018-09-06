@@ -26,21 +26,15 @@
           <gov-heading size="m">Permissions</gov-heading>
 
           <gov-inset-text v-for="(role, key) in form.roles" :key="role.index">
-            <gov-form-group :invalid="form.$errors.has(`roles.${key}.role`)">
-              <gov-label :for="`roles_${key}_role`">User type</gov-label>
-              <gov-select
-                v-model="form.roles[key].role"
-                @input="form.$errors.clear(`roles.${key}.role`)"
-                :id="`roles_${key}_role`"
-                :name="`roles_${key}_role`"
-                :options="roleOptions"
-              />
-              <gov-error-message
-                v-if="form.$errors.has(`roles.${key}.role`)"
-                v-text="form.$errors.get(`roles.${key}.role`)"
-                :for="`roles_${key}_role`"
-              />
-            </gov-form-group>
+
+            <ck-select-input
+              v-model="form.roles[key].role"
+              @input="form.$errors.clear(`roles.${key}.role`)"
+              :id="`roles_${key}_role`"
+              label="User type"
+              :options="roleOptions"
+              :error="form.$errors.get(`roles.${key}.role`)"
+            />
 
             <!-- Select input for choosing organisation -->
             <template
@@ -51,24 +45,15 @@
               "
             >
               <ck-loader v-if="loadingOrganisations" />
-              <gov-form-group
+              <ck-select-input
                 v-else
-                :invalid="form.$errors.has(`roles.${key}.organisation_id`)"
-              >
-                <gov-label :for="`roles_${key}_organisation_id`">Organisation</gov-label>
-                <gov-select
-                  v-model="form.roles[key].organisation_id"
-                  @input="form.$errors.clear(`roles.${key}.organisation_id`)"
-                  :id="`roles_${key}_organisation_id`"
-                  :name="`roles_${key}_organisation_id`"
-                  :options="organisations"
-                />
-                <gov-error-message
-                  v-if="form.$errors.has(`roles.${key}.organisation_id`)"
-                  v-text="form.$errors.get(`roles.${key}.organisation_id`)"
-                  :for="`roles_${key}_organisation_id`"
-                />
-              </gov-form-group>
+                v-model="form.roles[key].organisation_id"
+                @input="form.$errors.clear(`roles.${key}.organisation_id`)"
+                :id="`roles_${key}_organisation_id`"
+                label="Organisation"
+                :options="organisations"
+                :error="form.$errors.get(`roles.${key}.organisation_id`)"
+              />
 
               <!-- Select input for choosing service -->
               <template
@@ -79,24 +64,15 @@
               >
                 <gov-body v-if="!services.hasOwnProperty(form.roles[key].organisation_id)">Select an organisation</gov-body>
                 <ck-loader v-else-if="services[form.roles[key].organisation_id].loading" />
-                <gov-form-group
+                <ck-select-input
                   v-else
-                  :invalid="form.$errors.has(`roles.${key}.service_id`)"
-                >
-                  <gov-label :for="`roles_${key}_service_id`">Service</gov-label>
-                  <gov-select
-                    v-model="form.roles[key].service_id"
-                    @input="form.$errors.clear(`roles.${key}.service_id`)"
-                    :id="`roles_${key}_service_id`"
-                    :name="`roles_${key}_service_id`"
-                    :options="services[form.roles[key].organisation_id].items"
-                  />
-                  <gov-error-message
-                    v-if="form.$errors.has(`roles.${key}.service_id`)"
-                    v-text="form.$errors.get(`roles.${key}.service_id`)"
-                    :for="`roles_${key}_service_id`"
-                  />
-                </gov-form-group>
+                  v-model="form.roles[key].service_id"
+                  @input="form.$errors.clear(`roles.${key}.service_id`)"
+                  :id="`roles_${key}_service_id`"
+                  label="Service"
+                  :options="services[form.roles[key].organisation_id].items"
+                  :error="form.$errors.get(`roles.${key}.service_id`)"
+                />
               </template>
 
             </template>
