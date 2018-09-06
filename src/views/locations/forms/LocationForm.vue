@@ -1,101 +1,59 @@
 <template>
   <div>
 
-    <gov-form-group :invalid="errors.has('address_line_1')">
-      <gov-label for="address_line_1" class="govuk-!-font-weight-bold">Address Line 1</gov-label>
-      <gov-input
-        :value="address_line_1"
-        @input="onInput('address_line_1', $event)"
-        id="address_line_1"
-        name="address_line_1"
-        type="text"
-      />
-      <gov-error-message
-        v-if="errors.has('address_line_1')"
-        v-text="errors.get('address_line_1')"
-        for="address_line_1"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="address_line_1"
+      @input="onInput('address_line_1', $event)"
+      id="address_line_1"
+      label="Address Line 1"
+      type="text"
+      :error="errors.get('address_line_1')"
+    />
 
-    <gov-form-group :invalid="errors.has('address_line_2')">
-      <gov-label for="address_line_1" class="govuk-!-font-weight-bold">Address Line 2</gov-label>
-      <gov-input
-        :value="address_line_2"
-        @input="onInput('address_line_2', $event)"
-        id="address_line_2"
-        name="address_line_2"
-        type="text"
-      />
-      <gov-error-message
-        v-if="errors.has('address_line_2')"
-        v-text="errors.get('address_line_2')"
-        for="address_line_2"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="address_line_2"
+      @input="onInput('address_line_2', $event)"
+      id="address_line_2"
+      label="Address Line 2"
+      type="text"
+      :error="errors.get('address_line_2')"
+    />
 
-    <gov-form-group :invalid="errors.has('address_line_3')">
-      <gov-label for="address_line_3" class="govuk-!-font-weight-bold">Address Line 3</gov-label>
-      <gov-input
-        :value="address_line_3"
-        @input="onInput('address_line_3', $event)"
-        id="address_line_3"
-        name="address_line_3"
-        type="text"
-      />
-      <gov-error-message
-        v-if="errors.has('address_line_3')"
-        v-text="errors.get('address_line_3')"
-        for="address_line_3"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="address_line_3"
+      @input="onInput('address_line_3', $event)"
+      id="address_line_3"
+      label="Address Line 3"
+      type="text"
+      :error="errors.get('address_line_3')"
+    />
 
-    <gov-form-group :invalid="errors.has('city')">
-      <gov-label for="city" class="govuk-!-font-weight-bold">City</gov-label>
-      <gov-input
-        :value="city"
-        @input="onInput('city', $event)"
-        id="city"
-        name="city"
-        type="text"
-      />
-      <gov-error-message
-        v-if="errors.has('city')"
-        v-text="errors.get('city')"
-        for="city"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="city"
+      @input="onInput('city', $event)"
+      id="city"
+      label="City"
+      type="text"
+      :error="errors.get('city')"
+    />
 
-    <gov-form-group :invalid="errors.has('county')">
-      <gov-label for="county" class="govuk-!-font-weight-bold">County</gov-label>
-      <gov-input
-        :value="county"
-        @input="onInput('county', $event)"
-        id="county"
-        name="county"
-        type="text"
-      />
-      <gov-error-message
-        v-if="errors.has('county')"
-        v-text="errors.get('county')"
-        for="county"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="county"
+      @input="onInput('county', $event)"
+      id="county"
+      label="County"
+      type="text"
+      :error="errors.get('county')"
+    />
 
-    <gov-form-group :invalid="errors.has('postcode')">
-      <gov-label for="postcode" class="govuk-!-font-weight-bold">Postcode</gov-label>
-      <gov-input
-        :value="postcode"
-        @input="onInput('postcode', $event)"
-        id="postcode"
-        name="postcode"
-        type="text"
-      />
-      <gov-error-message
-        v-if="errors.has('postcode')"
-        v-text="errors.get('postcode')"
-        for="postcode"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="postcode"
+      @input="onInput('postcode', $event)"
+      id="postcode"
+      label="Postcode"
+      type="text"
+      :error="errors.get('postcode')"
+    />
 
     <gov-form-group :invalid="errors.has('country')">
       <gov-label for="country" class="govuk-!-font-weight-bold">Country</gov-label>
