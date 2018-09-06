@@ -9,50 +9,25 @@
 
         <!-- Useful info -->
         <gov-inset-text v-for="(usefulInfo, index) in form.useful_infos" :key="usefulInfo.index">
-          <!-- Useful info title -->
-          <gov-form-group :invalid="form.$errors.has(`useful_infos.${index}.title`)">
-            <gov-label class="govuk-!-font-weight-bold" :for="`useful_infos.${index}.title`">
-              Pick a title from the dropdown to describe the additional information below.
-            </gov-label>
-            <gov-hint :for="`useful_infos.${index}.title`">
-              Title of the helpful piece of information below
-            </gov-hint>
-            <gov-select
-              :value="form.useful_infos[index].title"
-              @input="$emit('update:useful_infos_title', { index, value: $event })"
-              :id="`useful_infos.${index}.title`"
-              :name="`useful_infos.${index}.title`"
-              :options="usefulInfoTitleOptions"
-            />
-            <gov-error-message
-              v-if="form.$errors.has(`useful_infos.${index}.title`)"
-              v-text="form.$errors.get(`useful_infos.${index}.title`)"
-              :for="`useful_infos.${index}.title`"
-            />
-          </gov-form-group>
-          <!-- /Useful info title -->
+          <ck-select-input
+            :value="form.useful_infos[index].title"
+            @input="$emit('update:useful_infos_title', { index, value: $event }); $emit('clear', `useful_infos.${index}.title`)"
+            :id="`useful_infos.${index}.title`"
+            label="Pick a title from the dropdown to describe the additional information below."
+            hint="Title of the helpful piece of information below"
+            :options="usefulInfoTitleOptions"
+            :error="form.$errors.get(`useful_infos.${index}.title`)"
+          />
 
-          <!-- Useful info description -->
-          <gov-form-group :invalid="form.$errors.has(`useful_infos.${index}.description`)">
-            <gov-hint :for="`useful_infos.${index}.description`">
-              Space for service to add any helpful bits of information
-              relating to the title above eg. "There is no free parking on
-              site, however and display is available on [road]" (max.
-              150 characters)
-            </gov-hint>
-            <gov-textarea
-              :value="form.useful_infos[index].description"
-              @input="$emit('update:useful_infos_description', { index, value: $event })"
-              :id="`useful_infos.${index}.description`"
-              :name="`useful_infos.${index}.description`"
-            />
-            <gov-error-message
-              v-if="form.$errors.has(`useful_infos.${index}.description`)"
-              v-text="form.$errors.get(`useful_infos.${index}.description`)"
-              :for="`useful_infos.${index}.description`"
-            />
-          </gov-form-group>
-          <!-- /Useful info description -->
+          <ck-textarea-input
+            :value="form.useful_infos[index].description"
+            @input="$emit('update:useful_infos_description', { index, value: $event }); $emit('clear', `useful_infos.${index}.description`)"
+            :id="`useful_infos.${index}.description`"
+            label="Description"
+            hint='Space for service to add any helpful bits of information relating to the title above eg. "There is no free parking on site, however and display is available on [road]" (max. 150 characters)'
+            :maxlength="150"
+            :error="form.$errors.get('testimonial')"
+          />
 
           <gov-button @click="onDeleteUsefulInfo(index)" error>Delete</gov-button>
         </gov-inset-text>
