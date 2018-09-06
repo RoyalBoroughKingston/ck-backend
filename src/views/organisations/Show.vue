@@ -23,7 +23,9 @@
         </gov-grid-column>
         <gov-grid-column width="one-third" class="text-right">
 
-          <gov-button @click="onEdit">Edit organisation</gov-button>
+          <gov-button :to="{ name: 'organisations-edit', params: { organisation: organisation.id } }">
+            Edit organisation
+          </gov-button>
 
         </gov-grid-column>
       </gov-grid-row>
