@@ -5,14 +5,26 @@
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
         <gov-grid-column width="two-thirds">
+
           <gov-heading size="m">View organisation</gov-heading>
+
           <ck-organisation-details :organisation="organisation" />
+
           <gov-body>Please be certain of the action before deleting an organisation</gov-body>
+
           <gov-section-break size="l" />
-          <gov-button @click="onDelete" error>Delete organisation</gov-button>
+
+          <ck-delete-button
+            resource="organisation"
+            :endpoint="`/organisations/${this.organisation.id}`"
+            @deleted="onDelete"
+          />
+
         </gov-grid-column>
         <gov-grid-column width="one-third" class="text-right">
+
           <gov-button @click="onEdit">Edit organisation</gov-button>
+
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -44,7 +56,7 @@ export default {
       alert("Edit");
     },
     onDelete() {
-      alert("Delete");
+      this.$router.push({ name: "organisations-index" });
     }
   },
   created() {
