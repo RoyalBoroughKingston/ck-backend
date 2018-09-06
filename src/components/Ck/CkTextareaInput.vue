@@ -14,6 +14,8 @@
         @input="$emit('input', $event)"
         :id="id"
         :name="id"
+        :rows="rows"
+        :maxlength="maxlength"
       />
 
       <slot name="after-input" />
@@ -49,6 +51,15 @@ export default {
     id: {
       required: true,
       type: String
+    },
+    rows: {
+      required: false,
+      type: Number,
+      default: 5
+    },
+    maxlength: {
+      required: false,
+      type: Number
     }
   }
 };
