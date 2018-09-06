@@ -37,14 +37,10 @@
 
             <useful-info-tab
               v-show="tabs[2].active"
-              :form="form"
+              v-model="form.useful_infos"
               @clear="form.$errors.clear($event)"
-              @add="form.useful_infos.push($event)"
-              @delete="$delete(form.useful_infos, $event)"
+              :errors="form.$errors"
               @next="onNext"
-              @update:useful_infos_title="form.useful_infos[$event.index].title = $event.value"
-              @update:useful_infos_description="form.useful_infos[$event.index].description = $event.value"
-              @update:useful_infos_order="form.useful_infos[$event.index].order = $event.value"
             />
 
             <contact-details-tab
