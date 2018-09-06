@@ -9,69 +9,41 @@
       :error="errors.get('first_name')"
     />
 
-    <gov-form-group :invalid="errors.has('last_name')">
-      <gov-label for="last_name" class="govuk-!-font-weight-bold">Last name</gov-label>
-      <gov-input
-        :value="last_name"
-        @input="onInput('last_name', $event)"
-        id="last_name"
-        name="last_name"
-        type="text"
-      />
-      <gov-error-message
-        v-if="errors.has('last_name')"
-        v-text="errors.get('last_name')"
-        for="last_name"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="last_name"
+      @input="onInput('last_name', $event)"
+      id="last_name"
+      label="Last name"
+      type="text"
+      :error="errors.get('last_name')"
+    />
 
-    <gov-form-group :invalid="errors.has('email')">
-      <gov-label for="email" class="govuk-!-font-weight-bold">Email</gov-label>
-      <gov-input
-        :value="email"
-        @input="onInput('email', $event)"
-        id="email"
-        name="email"
-        type="email"
-      />
-      <gov-error-message
-        v-if="errors.has('email')"
-        v-text="errors.get('email')"
-        for="email"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="email"
+      @input="onInput('email', $event)"
+      id="email"
+      label="Email"
+      type="email"
+      :error="errors.get('email')"
+    />
 
-    <gov-form-group :invalid="errors.has('phone')">
-      <gov-label for="phone" class="govuk-!-font-weight-bold">Phone</gov-label>
-      <gov-input
-        :value="phone"
-        @input="onInput('phone', $event)"
-        id="phone"
-        name="phone"
-        type="tel"
-      />
-      <gov-error-message
-        v-if="errors.has('phone')"
-        v-text="errors.get('phone')"
-        for="phone"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="phone"
+      @input="onInput('phone', $event)"
+      id="phone"
+      label="Phone"
+      type="tel"
+      :error="errors.get('phone')"
+    />
 
-    <gov-form-group :invalid="errors.has('password')">
-      <gov-label for="password" class="govuk-!-font-weight-bold">Password</gov-label>
-      <gov-input
-        :value="password"
-        @input="onInput('password', $event)"
-        id="password"
-        name="password"
-        type="password"
-      />
-      <gov-error-message
-        v-if="errors.has('password')"
-        v-text="errors.get('password')"
-        for="password"
-      />
-    </gov-form-group>
+    <ck-text-input
+      :value="password"
+      @input="onInput('password', $event)"
+      id="password"
+      label="Password"
+      type="password"
+      :error="errors.get('password')"
+    />
   </div>
 </template>
 
