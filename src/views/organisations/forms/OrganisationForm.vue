@@ -23,16 +23,14 @@
       </gov-hint>
     </ck-text-input>
 
-    <gov-form-group :invalid="errors.has('description')">
-      <gov-label for="description" class="govuk-!-font-weight-bold">Please provide a one-line summary of organisation</gov-label>
-      <gov-hint for="description">This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page (max 150 characters).</gov-hint>
-      <ck-wysiwyg
-        :value="description"
-        @input="onInput('description', $event)"
-        id="description"
-      />
-      <gov-error-message v-if="errors.has('description')" v-text="errors.get('description')" for="description" />
-    </gov-form-group>
+    <ck-wysiwyg-input
+      :value="description"
+      @input="onInput('description', $event)"
+      id="description"
+      label="Please provide a one-line summary of organisation"
+      hint="This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page (max 150 characters)."
+      :error="errors.get('description')"
+    />
 
     <ck-text-input
       :value="url"
@@ -61,17 +59,14 @@
       :error="errors.get('email')"
     />
 
-    <gov-form-group :invalid="errors.has('logo')">
-      <gov-label for="logo" class="govuk-!-font-weight-bold">Organisation logo</gov-label>
-      <gov-file-upload
-        :value="logo"
-        @change="onInput('logo', $event)"
-        id="logo"
-        name="logo"
-        accept="image/x-png"
-      />
-      <gov-error-message v-if="errors.has('logo')" v-text="errors.get('logo')" for="logo" />
-    </gov-form-group>
+    <ck-file-input
+      :value="logo"
+      @input="onInput('logo', $event)"
+      id="logo"
+      label="Organisation logo"
+      accept="image/x-png"
+      :error="errors.get('logo')"
+    />
   </div>
 </template>
 
