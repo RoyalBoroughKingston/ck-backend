@@ -3,7 +3,9 @@
     <gov-heading size="l">Service details</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
+
         <gov-body>General details about the service. (We use service in the broadcast sense, This could be counciling or weekly yoga classes).</gov-body>
+
         <gov-section-break size="l" />
 
         <ck-text-input
@@ -87,6 +89,7 @@
         </ck-wysiwyg-input>
 
         <gov-button @click="$emit('next')" start>Next</gov-button>
+
       </gov-grid-column>
     </gov-grid-row>
   </div>

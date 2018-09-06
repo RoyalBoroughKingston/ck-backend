@@ -15,6 +15,7 @@
         :id="id"
         :name="id"
         :type="type"
+        :maxlength="maxlength"
       />
 
       <slot name="after-input" />
@@ -55,6 +56,10 @@ export default {
     id: {
       required: true,
       type: String
+    },
+    maxlength: {
+      required: false,
+      type: Number
     }
   }
 };
