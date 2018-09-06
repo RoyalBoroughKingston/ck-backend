@@ -10,6 +10,8 @@
           <category-taxonomy-input
             :value="form.category_taxonomies"
             @input="$emit('input', $event)"
+            :error="form.$errors.get('category_taxonomies')"
+            @clear="$emit('clear', 'category_taxonomies')"
           />
         </gov-form-group>
 
@@ -19,7 +21,7 @@
   </div>
 </template>
 <script>
-import CategoryTaxonomyInput from "@/views/services/create/inputs/CategoryTaxonomyInput";
+import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 
 export default {
   name: "TaxonomiesTab",

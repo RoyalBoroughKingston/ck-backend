@@ -2,20 +2,10 @@
   <ck-loader v-if="loading" />
 
   <!-- Level: 1 -->
-  <gov-checkboxes v-else>
-    <gov-checkbox
-      v-for="taxonomy in taxonomies" :key="taxonomy.id"
-      :value="value.includes(taxonomy.id)"
-      @input="onInput({ taxonomy, enabled: $event })"
-      :id="taxonomy.id"
-      :name="taxonomy.id"
-      :label="taxonomy.name"
-    >
-
-      <!-- Level: 2 -->
+  <gov-form-group v-else>
+    <gov-checkboxes :invalid="error">
       <gov-checkbox
-        class="govuk-checkboxes__item--nested"
-        v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
+        v-for="taxonomy in taxonomies" :key="taxonomy.id"
         :value="value.includes(taxonomy.id)"
         @input="onInput({ taxonomy, enabled: $event })"
         :id="taxonomy.id"
@@ -23,7 +13,7 @@
         :label="taxonomy.name"
       >
 
-        <!-- Level: 3 -->
+        <!-- Level: 2 -->
         <gov-checkbox
           class="govuk-checkboxes__item--nested"
           v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
@@ -34,7 +24,7 @@
           :label="taxonomy.name"
         >
 
-          <!-- Level: 4 -->
+          <!-- Level: 3 -->
           <gov-checkbox
             class="govuk-checkboxes__item--nested"
             v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
@@ -45,7 +35,7 @@
             :label="taxonomy.name"
           >
 
-            <!-- Level: 5 -->
+            <!-- Level: 4 -->
             <gov-checkbox
               class="govuk-checkboxes__item--nested"
               v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
@@ -56,7 +46,7 @@
               :label="taxonomy.name"
             >
 
-              <!-- Level: 6 -->
+              <!-- Level: 5 -->
               <gov-checkbox
                 class="govuk-checkboxes__item--nested"
                 v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
@@ -65,23 +55,41 @@
                 :id="taxonomy.id"
                 :name="taxonomy.id"
                 :label="taxonomy.name"
-              />
-              <!-- /Level: 6 -->
+              >
+
+                <!-- Level: 6 -->
+                <gov-checkbox
+                  class="govuk-checkboxes__item--nested"
+                  v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
+                  :value="value.includes(taxonomy.id)"
+                  @input="onInput({ taxonomy, enabled: $event })"
+                  :id="taxonomy.id"
+                  :name="taxonomy.id"
+                  :label="taxonomy.name"
+                />
+                <!-- /Level: 6 -->
+
+              </gov-checkbox>
+              <!-- /Level: 5 -->
 
             </gov-checkbox>
-            <!-- /Level: 5 -->
+            <!-- /Level: 4 -->
 
           </gov-checkbox>
-          <!-- /Level: 4 -->
+          <!-- /Level: 3 -->
 
         </gov-checkbox>
-        <!-- /Level: 3 -->
+        <!-- /Level: 2 -->
 
       </gov-checkbox>
-      <!-- /Level: 2 -->
+    </gov-checkboxes>
 
-    </gov-checkbox>
-  </gov-checkboxes>
+    <gov-error-message
+      v-if="error"
+      v-text="error"
+      for="category_taxonomies"
+    />
+  </gov-form-group>
   <!-- /Level: 1 -->
 </template>
 
@@ -94,6 +102,9 @@ export default {
     value: {
       required: true,
       type: Array
+    },
+    error: {
+      required: true
     }
   },
   data() {
@@ -152,6 +163,7 @@ export default {
       }
 
       this.$emit("input", this.enabledTaxonomies);
+      this.$emit("clear");
     }
   },
   created() {
