@@ -26,6 +26,9 @@ import router from "@/router";
 // Custom Vue Components
 Vue.component("CkFileInput", () => import("@/components/Ck/CkFileInput"));
 Vue.component("CkSelectInput", () => import("@/components/Ck/CkSelectInput"));
+Vue.component("CkTextareaInput", () =>
+  import("@/components/Ck/CkTextareaInput")
+);
 Vue.component("CkTextInput", () => import("@/components/Ck/CkTextInput"));
 Vue.component("CkWysiwygInput", () => import("@/components/Ck/CkWysiwygInput"));
 

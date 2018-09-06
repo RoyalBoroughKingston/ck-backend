@@ -14,35 +14,24 @@
         <gov-grid-row width="two-thirds">
           <gov-grid-column width="two-thirds">
             <gov-heading size="m">Add new comment</gov-heading>
-            <gov-form-group :invalid="form.$errors.has('status')">
-              <gov-label for="status">Status</gov-label>
-              <gov-select
-                v-model="form.status"
-                @input="form.$errors.clear('status')"
-                id="status"
-                name="status"
-                :options="statusOptions"
-              />
-              <gov-error-message
-                v-if="form.$errors.has('status')"
-                v-text="form.$errors.get('status')"
-                for="status"
-              />
-            </gov-form-group>
-            <gov-form-group :invalid="form.$errors.has('comments')">
-              <gov-label for="comments">Comments</gov-label>
-              <gov-textarea
-                v-model="form.comments"
-                @input="form.$errors.clear('comments')"
-                id="comments"
-                name="comments"
-              />
-              <gov-error-message
-                v-if="form.$errors.has('comments')"
-                v-text="form.$errors.get('comments')"
-                for="comments"
-              />
-            </gov-form-group>
+
+            <ck-select-input
+              v-model="form.status"
+              @input="form.$errors.clear('status')"
+              id="status"
+              label="Status"
+              :options="statusOptions"
+              :error="form.$errors.get('status')"
+            />
+
+            <ck-textarea-input
+              v-model="form.comments"
+              @input="form.$errors.clear('comments')"
+              id="comments"
+              label="Comments"
+              :error="form.$errors.get('comments')"
+            />
+
             <gov-button v-if="form.$submitting" disabled type="submit">Adding comment...</gov-button>
           <gov-button v-else @click="onSubmit" type="submit">Add comment</gov-button>
           </gov-grid-column>
