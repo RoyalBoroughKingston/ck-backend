@@ -99,7 +99,7 @@
         <!-- /Service URL -->
 
         <!-- Service logo -->
-        <gov-form-group :invalid="logoForm.$errors.has('file')">
+        <gov-form-group :invalid="form.$errors.has('logo')">
           <gov-label class="govuk-!-font-weight-bold" for="logo">
             Service logo
           </gov-label>
@@ -107,15 +107,15 @@
             please upload a logo of the service, not the organisation.
           </gov-hint>
           <gov-file-upload
-            :value="logoForm.file"
+            :value="form.logo"
             @change="$emit('update:logo', $event)"
             id="logo"
             name="logo"
             accept="image/x-png"
           />
           <gov-error-message
-            v-if="logoForm.$errors.has('file')"
-            v-text="logoForm.$errors.get('file')"
+            v-if="form.$errors.has('logo')"
+            v-text="form.$errors.get('logo')"
             for="logo"
           />
         </gov-form-group>
@@ -182,10 +182,6 @@ export default {
   name: "DetailsTab",
   props: {
     form: {
-      type: Object,
-      required: true
-    },
-    logoForm: {
       type: Object,
       required: true
     }

@@ -11,15 +11,13 @@
             <details-tab
               v-show="tabs[0].active"
               :form="form"
-              :logo-form="logoForm"
               @clear="form.$errors.clear($event)"
-              @clear-logo="logoForm.$errors.clear($event)"
               @next="onNext"
               @update:name="form.name = $event; form.slug = slugify($event); form.seo_title = $event"
               @update:slug="form.slug = $event"
               @update:organisation_id="form.organisation_id = $event"
               @update:url="form.url = $event"
-              @update:logo="logoForm.file = $event"
+              @update:logo="form.logo = $event"
               @update:intro="form.intro = $event; form.seo_description = $event"
               @update:description="form.description = $event"
             />
@@ -204,10 +202,8 @@ export default {
         seo_description: "",
         useful_infos: [],
         social_medias: [],
-        category_taxonomies: []
-      }),
-      logoForm: new Form({
-        file: null
+        category_taxonomies: [],
+        logo: null
       }),
       serviceLocationForms: [],
       tabs: [

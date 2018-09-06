@@ -61,18 +61,18 @@
             />
             <gov-error-message v-if="form.$errors.has('email')" v-text="form.$errors.get('email')" for="email" />
           </gov-form-group>
-          <gov-form-group :invalid="logoForm.$errors.has('file')">
-            <gov-label for="file" class="govuk-!-font-weight-bold">Organisation logo</gov-label>
+          <gov-form-group :invalid="form.$errors.has('logo')">
+            <gov-label for="logo" class="govuk-!-font-weight-bold">Organisation logo</gov-label>
             <gov-file-upload
               @change="onLogoChange"
-              id="file"
-              name="file"
+              id="logo"
+              name="logo"
               accept="image/x-png"
             />
-            <gov-error-message v-if="logoForm.$errors.has('file')" v-text="logoForm.$errors.get('file')" for="file" />
+            <gov-error-message v-if="form.$errors.has('logo')" v-text="form.$errors.get('logo')" for="logo" />
           </gov-form-group>
           <gov-section-break size="l" />
-          <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
+          <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
           <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
         </gov-grid-column>
       </gov-grid-row>
@@ -93,10 +93,8 @@ export default {
         description: "",
         url: "",
         email: "",
-        phone: ""
-      }),
-      logoForm: new Form({
-        file: null
+        phone: "",
+        logo: null
       })
     };
   },
@@ -105,34 +103,17 @@ export default {
       this.form.slug = this.slugify(newName);
     }
   },
-  computed: {
-    submitting() {
-      return this.form.$submitting || this.logoForm.$submitting;
-    }
-  },
   methods: {
     onLogoChange(fileContents) {
-      this.logoForm.$errors.clear("file");
-      this.logoForm.file = fileContents;
+      this.form.$errors.clear("logo");
+      this.form.logo = fileContents;
     },
-    onSubmit() {
-      this.form.post("/organisations").then(({ data }) => {
-        const organisationId = data.id;
-
-        if (this.logoForm.file === null) {
-          this.$router.push({
-            name: "organisations-show",
-            params: { organisation: organisationId }
-          });
-          return;
-        }
-
-        this.logoForm.post(`/organisations/${organisationId}/logo`).then(() =>
-          this.$router.push({
-            name: "organisations-show",
-            params: { organisation: organisationId }
-          })
-        );
+    async onSubmit() {
+      const response = await this.form.post("/organisations");
+      const organisationId = response.data.id;
+      this.$router.push({
+        name: "organisations-show",
+        params: { organisation: organisationId }
       });
     }
   }
