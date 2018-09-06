@@ -6,62 +6,25 @@
         <gov-body>Additional information regarding the service, If a question is not relevant to your service please skip it.</gov-body>
         <gov-section-break size="l" />
 
-        <!-- Wait time -->
-        <gov-form-group :invalid="form.$errors.has('wait_time')">
-          <gov-label class="govuk-!-font-weight-bold" for="wait_time">
-            Average wait time (if applicable)
-          </gov-label>
-          <gov-hint for="wait_time">
-            General indication as to how long someone may have to wait for an appointment/slot after initial contact has been made, if this is not relevant to your service, or service as a drop-in, please skip this question.
-          </gov-hint>
-          <gov-select
-            :value="form.wait_time"
-            @input="$emit('update:wait_time', $event)"
-            id="wait_time"
-            name="wait_time"
-            :options="waitTimeOptions"
-          />
-          <gov-error-message
-            v-if="form.$errors.has('wait_time')"
-            v-text="form.$errors.get('wait_time')"
-            for="wait_time"
-          />
-        </gov-form-group>
-        <!-- /Wait time -->
+        <ck-select-input
+          :value="form.wait_time"
+          @input="$emit('update:wait_time', $event); $emit('clear', 'wait_time')"
+          id="wait_time"
+          label="Average wait time (if applicable)"
+          hint="General indication as to how long someone may have to wait for an appointment/slot after initial contact has been made, if this is not relevant to your service, or service as a drop-in, please skip this question."
+          :options="waitTimeOptions"
+          :error="form.$errors.get('wait_time')"
+        />
 
-        <!-- Is free -->
-        <gov-form-group :invalid="form.$errors.has('is_free')">
-          <gov-radios>
-            <gov-label class="govuk-!-font-weight-bold" for="is_free">
-              Is the service free
-            </gov-label>
-            <gov-hint for="is_free">
-              Indicates if the service is free or not (used for filtering on search)
-            </gov-hint>
-            <gov-radio
-              :bind-to="form.is_free"
-              @input="$emit('update:is_free', $event)"
-              id="is_free_yes"
-              name="is_free"
-              label="Yes - The service is free"
-              :value="true"
-            />
-            <gov-radio
-              :bind-to="form.is_free"
-              @input="$emit('update:is_free', $event)"
-              id="is_free_no"
-              name="is_free"
-              label="No - there are elements of this service that must be paid for"
-              :value="false"
-            />
-            <gov-error-message
-              v-if="form.$errors.has('is_free')"
-              v-text="form.$errors.get('is_free')"
-              for="is_free"
-            />
-          </gov-radios>
-        </gov-form-group>
-        <!-- /Is free -->
+        <ck-radio-input
+          :value="form.is_free"
+          @input="$emit('update:is_free', $event); $emit('clear', 'is_free')"
+          id="is_free"
+          label="Is the service free"
+          hint="Indicates if the service is free or not (used for filtering on search)"
+          :options="[{ value: true, label: 'Yes - The service is free' }, { value: false, label: 'No - there are elements of this service that must be paid for' }]"
+          :error="form.$errors.get('is_free')"
+        />
 
         <!-- Extra fee info -->
         <gov-inset-text v-if="form.is_free === false">
