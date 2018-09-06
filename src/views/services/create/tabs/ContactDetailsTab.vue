@@ -42,36 +42,11 @@
 
         <gov-heading size="m">Social media links</gov-heading>
 
-        <!-- Social medias -->
-        <gov-inset-text v-for="(socialMedia, index) in form.social_medias" :key="socialMedia.index">
-          <ck-select-input
-            :value="form.social_medias[index].type"
-            @input="$emit('update:social_medias_type', { index, value: $event }); $emit('clear', `social_media.${index}.type`)"
-            :id="`social_media.${index}.type`"
-            label="Social media platform"
-            :options="socialMediaTypeOptions"
-            :error="form.$errors.get(`social_media.${index}.type`)"
-          />
-
-          <ck-text-input
-            :value="form.social_medias[index].url"
-            @input="$emit('update:social_medias_url', { index, value: $event }); $emit('clear', `social_medias.${index}.url`)"
-            :id="`social_medias.${index}.url`"
-            label="Enter url of your social page"
-            type="url"
-            :error="form.$errors.get(`social_medias.${index}.url`)"
-          />
-
-          <gov-button @click="onDeleteSocialMedia(index)" error>Delete</gov-button>
-        </gov-inset-text>
-        <!-- /Social midias -->
-
-        <div>
-          <gov-button @click="onAddSocialMedia">
-            <template v-if="form.social_medias.length === 0">Add social media</template>
-            <template v-else>Add another</template>
-          </gov-button>
-        </div>
+        <social-medias-input
+          :social-medias="form.social_medias"
+          @input="$emit('update:social_medias', $event)"
+          :errors="form.$errors"
+        />
 
         <gov-button @click="$emit('next')" start>Next</gov-button>
 
@@ -81,41 +56,15 @@
 </template>
 
 <script>
+import SocialMediasInput from "@/views/services/inputs/SocialMediasInput";
+
 export default {
   name: "ContactDetailsTab",
+  components: { SocialMediasInput },
   props: {
     form: {
       type: Object,
       required: true
-    }
-  },
-  data() {
-    return {
-      socialMediaTypeOptions: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Twitter", value: "twitter" },
-        { text: "Facebook", value: "facebook" },
-        { text: "Instagram", value: "instagram" },
-        { text: "YouTube", value: "youtube" },
-        { text: "Other", value: "other" }
-      ],
-      socialMediasIndex: 1
-    };
-  },
-  methods: {
-    onAddSocialMedia() {
-      this.$emit("add", {
-        type: null,
-        url: "",
-        index: this.socialMediasIndex
-      });
-
-      this.socialMediasIndex++;
-    },
-    onDeleteSocialMedia(deleteIndex) {
-      this.$emit("clear", `social_medias.${deleteIndex}.type`);
-      this.$emit("clear", `social_medias.${deleteIndex}.url`);
-      this.$emit("delete", deleteIndex);
     }
   }
 };

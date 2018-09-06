@@ -53,8 +53,7 @@
               @update:contact_name="form.contact_name = $event"
               @update:contact_phone="form.contact_phone = $event"
               @update:contact_email="form.contact_email = $event"
-              @update:social_medias_type="form.social_medias[$event.index].type = $event.value"
-              @update:social_medias_url="form.social_medias[$event.index].url = $event.value"
+              @update:social_medias="form.social_medias = $event"
             />
 
             <who-for-tab
