@@ -18,16 +18,7 @@
             :email.sync="form.email"
             :phone.sync="form.phone"
             :password.sync="form.password"
-            @clear="form.$errors.clear($event)"
-          />
-
-          <gov-section-break size="l" />
-
-          <gov-heading size="m">Permissions</gov-heading>
-
-          <user-roles-input
-            :errors="form.$errors"
-            v-model="form.roles"
+            :roles.sync="form.roles"
             @clear="form.$errors.clear($event)"
           />
 
@@ -45,11 +36,10 @@
 <script>
 import Form from "@/classes/Form";
 import UserForm from "@/views/users/forms/UserForm";
-import UserRolesInput from "@/views/users/inputs/UserRolesInput";
 
 export default {
   name: "CreateUser",
-  components: { UserForm, UserRolesInput },
+  components: { UserForm },
   data() {
     return {
       form: new Form({

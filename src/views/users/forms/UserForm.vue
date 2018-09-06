@@ -44,12 +44,26 @@
       type="password"
       :error="errors.get('password')"
     />
+
+    <gov-section-break size="l" />
+
+    <gov-heading size="m">Permissions</gov-heading>
+
+    <user-roles-input
+      :roles="roles"
+      @input="$emit('update:roles', $event)"
+      @clear="$emit('clear', $event)"
+      :errors="errors"
+    />
   </div>
 </template>
 
 <script>
+import UserRolesInput from "@/views/users/inputs/UserRolesInput";
+
 export default {
   name: "UserForm",
+  components: { UserRolesInput },
   props: {
     errors: {
       required: true,
@@ -74,6 +88,10 @@ export default {
     password: {
       required: true,
       type: String
+    },
+    roles: {
+      required: true,
+      type: Array
     }
   },
   methods: {
