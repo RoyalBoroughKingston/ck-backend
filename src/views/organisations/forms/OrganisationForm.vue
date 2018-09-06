@@ -1,32 +1,27 @@
 <template>
   <div>
-    <gov-form-group :invalid="errors.has('name')">
-      <gov-label for="name" class="govuk-!-font-weight-bold">Organisation name</gov-label>
-      <gov-input
-        :value="name"
-        @input="onInput('name', $event)"
-        id="name"
-        name="name"
-        type="text"
-      />
-      <gov-error-message v-if="errors.has('name')" v-text="errors.get('name')" for="name" />
-    </gov-form-group>
+    <ck-text-input
+      :value="name"
+      @input="onInput('name', $event)"
+      id="name"
+      label="Organisation name"
+      type="text"
+      :error="errors.get('name')"
+    />
 
-    <gov-form-group :invalid="errors.has('slug')">
-      <gov-label for="slug" class="govuk-!-font-weight-bold">Unique slug</gov-label>
-      <gov-hint for="slug">
+    <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+    >
+      <gov-hint slot="hint" for="slug">
         This will be used to access the organisation page.<br>
         e.g. example.com/organisations/{{ slug }}
       </gov-hint>
-      <gov-input
-        :value="slug"
-        @input="onInput('slug', $event)"
-        id="slug"
-        name="slug"
-        type="text"
-      />
-      <gov-error-message v-if="errors.has('slug')" v-text="errors.get('slug')" for="slug" />
-    </gov-form-group>
+    </ck-text-input>
 
     <gov-form-group :invalid="errors.has('description')">
       <gov-label for="description" class="govuk-!-font-weight-bold">Please provide a one-line summary of organisation</gov-label>
@@ -39,41 +34,32 @@
       <gov-error-message v-if="errors.has('description')" v-text="errors.get('description')" for="description" />
     </gov-form-group>
 
-    <gov-form-group :invalid="errors.has('url')">
-      <gov-label for="url" class="govuk-!-font-weight-bold">Organisation website address</gov-label>
-      <gov-input
-        :value="url"
-        @input="onInput('url', $event)"
-        id="url"
-        name="url"
-        type="url"
-      />
-      <gov-error-message v-if="errors.has('url')" v-text="errors.get('url')" for="url" />
-    </gov-form-group>
+    <ck-text-input
+      :value="url"
+      @input="onInput('url', $event)"
+      id="url"
+      label="Organisation website address"
+      type="url"
+      :error="errors.get('url')"
+    />
 
-    <gov-form-group :invalid="errors.has('phone')">
-      <gov-label for="phone" class="govuk-!-font-weight-bold">Public phone</gov-label>
-      <gov-input
-        :value="phone"
-        @input="onInput('phone', $event)"
-        id="phone"
-        name="phone"
-        type="tel"
-      />
-      <gov-error-message v-if="errors.has('phone')" v-text="errors.get('phone')" for="phone" />
-    </gov-form-group>
+    <ck-text-input
+      :value="phone"
+      @input="onInput('phone', $event)"
+      id="phone"
+      label="Public phone"
+      type="tel"
+      :error="errors.get('phone')"
+    />
 
-    <gov-form-group :invalid="errors.has('phone')">
-      <gov-label for="email" class="govuk-!-font-weight-bold">Public email address</gov-label>
-      <gov-input
-        :value="email"
-        @input="onInput('email', $event)"
-        id="email"
-        name="email"
-        type="email"
-      />
-      <gov-error-message v-if="errors.has('email')" v-text="errors.get('email')" for="email" />
-    </gov-form-group>
+    <ck-text-input
+      :value="email"
+      @input="onInput('email', $event)"
+      id="email"
+      label="Public email address"
+      type="email"
+      :error="errors.get('email')"
+    />
 
     <gov-form-group :invalid="errors.has('logo')">
       <gov-label for="logo" class="govuk-!-font-weight-bold">Organisation logo</gov-label>

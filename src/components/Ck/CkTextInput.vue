@@ -1,16 +1,13 @@
 <template>
   <gov-form-group :invalid="error !== null">
 
-      <gov-label
-        :for="id"
-        class="govuk-!-font-weight-bold"
-        v-text="label"
-      />
+      <gov-label :for="id" class="govuk-!-font-weight-bold">
+        <slot name="label">{{ label }}</slot>
+      </gov-label>
 
-      <gov-hint
-        v-if="hint"
-        v-text="hint"
-      />
+      <slot name="hint">
+        <gov-hint v-if="hint" :for="id" v-text="hint" />
+      </slot>
 
       <gov-input
         :value="value"
