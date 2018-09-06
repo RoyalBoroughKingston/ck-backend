@@ -7,6 +7,11 @@
         v-text="label"
       />
 
+      <gov-hint
+        v-if="hint"
+        v-text="hint"
+      />
+
       <gov-input
         :value="value"
         @input="$emit('input', $event)"
@@ -34,6 +39,10 @@ export default {
     },
     label: {
       required: true,
+      type: String
+    },
+    hint: {
+      required: false,
       type: String
     },
     error: {
