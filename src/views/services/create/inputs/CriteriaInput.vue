@@ -2,22 +2,22 @@
   <div>
     <ck-radio-input
       v-model="enabled"
-      :id="`${path}_radio`"
+      :id="`${id}_radio`"
       :label="label"
       :hint="hint"
       :options="[{ value: false, label: 'No specific requirement' }, { value: true, label: 'Other' }]"
-      :error="errors.get(path)"
+      :error="error"
     />
 
     <gov-inset-text v-if="enabled === true">
       <ck-textarea-input
         :value="value"
-        @input="$emit('input', $event); $emit('clear', path)"
-        :id="path"
+        @input="$emit('input', $event)"
+        :id="id"
         label="Criteria details"
         hint="(max. 75 characters)"
         :maxlength="75"
-        :error="errors.get(path)"
+        :error="error"
       />
     </gov-inset-text>
   </div>
@@ -31,11 +31,10 @@ export default {
       type: String,
       required: true
     },
-    errors: {
-      type: Object,
+    error: {
       required: true
     },
-    path: {
+    id: {
       type: String,
       required: true
     },

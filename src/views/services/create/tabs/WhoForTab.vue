@@ -12,9 +12,9 @@
         <!-- Age group -->
         <criteria-input
           :value="form.criteria.age_group"
-          @input="$emit('update:age_group', $event)"
-          :errors="form.$errors"
-          path="criteria.age_group"
+          @input="$emit('update:age_group', $event); $emit('clear', 'criteria.age_group')"
+          :error="form.$errors.get('criteria.age_group')"
+          id="criteria.age_group"
           label="Age of service user (if applicable)"
           hint='e.g. "This service is for people 16+", or "This service is aimed at people nearig retirement"'
         />
@@ -23,9 +23,9 @@
         <!-- Disability -->
         <criteria-input
           :value="form.criteria.disability"
-          @input="$emit('update:disability', $event)"
-          :errors="form.$errors"
-          path="criteria.disability"
+          @input="$emit('update:disability', $event); $emit('clear', 'criteria.disability')"
+          :error="form.$errors.get('criteria.disability')"
+          id="criteria.disability"
           label="Disability Requirements / Restrictions (if applicable)"
           hint='e.g. "This service is for those with MS and their carers", or "For all people with disabilities and their carers"'
         />
@@ -34,9 +34,9 @@
         <!-- Gender -->
         <criteria-input
           :value="form.criteria.gender"
-          @input="$emit('update:gender', $event)"
-          :errors="form.$errors"
-          path="criteria.gender"
+          @input="$emit('update:gender', $event); $emit('clear', 'criteria.gender')"
+          :error="form.$errors.get('criteria.gender')"
+          id="criteria.gender"
           label="Gender Specific (if applicable)"
           hint='e.g. "Women only"'
         />
@@ -45,9 +45,9 @@
         <!-- Housing -->
         <criteria-input
           :value="form.criteria.housing"
-          @input="$emit('update:housing', $event)"
-          :errors="form.$errors"
-          path="criteria.housing"
+          @input="$emit('update:housing', $event); $emit('clear', 'criteria.housing')"
+          :error="form.$errors.get('criteria.housing')"
+          id="criteria.housing"
           label="Specific Housing status/needs (if applicable)"
           hint='e.g. "For people who are homeless or at risk of homelessness"'
         />
@@ -56,9 +56,9 @@
         <!-- Income -->
         <criteria-input
           :value="form.criteria.income"
-          @input="$emit('update:income', $event)"
-          :errors="form.$errors"
-          path="criteria.income"
+          @input="$emit('update:income', $event); $emit('clear', 'criteria.income')"
+          :error="form.$errors.get('criteria.income')"
+          id="criteria.income"
           label="Income level (if applicable)"
           hint='e.g. "Service is aimed at people claiming benefits or with Income support"'
         />
@@ -67,9 +67,9 @@
         <!-- Language -->
         <criteria-input
           :value="form.criteria.language"
-          @input="$emit('update:language', $event)"
-          :errors="form.$errors"
-          path="criteria.language"
+          @input="$emit('update:language', $event); $emit('clear', 'criteria.language')"
+          :error="form.$errors.get('criteria.language')"
+          id="criteria.language"
           label="Language accessability (if applicable)"
           hint='e.g. "Instructors speak English, but open to all", or "This service is available in a number of languages - please contact me for more information"'
         />
@@ -78,9 +78,9 @@
         <!-- Other -->
         <criteria-input
           :value="form.criteria.other"
-          @input="$emit('update:other', $event)"
-          :errors="form.$errors"
-          path="criteria.other"
+          @input="$emit('update:other', $event); $emit('clear', 'criteria.other')"
+          :error="form.$errors.get('criteria.other')"
+          id="criteria.other"
           label="Any other notes as to who the service is aimed at/not appropraite for?"
           hint='e.g. "This service is open to all", or "This service is aimed at people living in Chessington"'
         />
