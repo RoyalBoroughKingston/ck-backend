@@ -75,7 +75,7 @@
               v-show="tabs[5].active"
               :forms="serviceLocationForms"
               @clear-service-location="serviceLocationForms[$event.index].$errors.clear($event.value)"
-              @clear-location="serviceLocationForms[$event.index].$errors.clear($event.value)"
+              @clear-location="serviceLocationForms[$event.index].location.$errors.clear($event.value)"
               @add="serviceLocationForms.push($event)"
               @delete="$delete(serviceLocationForms, $event)"
               @add-regular-opening-hour="serviceLocationForms[$event.index].regular_opening_hours.push($event.value)"

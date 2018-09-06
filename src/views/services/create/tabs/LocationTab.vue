@@ -375,17 +375,20 @@
 
             <gov-button @click="$emit('delete-holiday-opening-hour', { serviceLocationIndex: index, openingHourIndex })" error>Delete holiday times</gov-button>
           </gov-inset-text>
+
           <gov-button @click="onAddHolidayOpeningHour(index)">
             <template v-if="form.holiday_opening_hours.length === 0">Add holiday times</template>
             <template v-else>Add more holiday times</template>
           </gov-button>
           <!-- /Holiday opening hours -->
 
+          <gov-section-break size="l" />
+
           <div>
             <gov-button @click="$emit('delete', index)" error>Delete location</gov-button>
           </div>
 
-          <gov-section-break v-if="index < (forms.length - 1)" size="l" visible />
+          <gov-section-break size="l" visible />
         </div>
 
         <div>
@@ -394,6 +397,8 @@
             <template v-else>Add another location</template>
           </gov-button>
         </div>
+
+        <gov-section-break size="l" />
 
         <gov-button @click="$emit('next')" start>Next</gov-button>
       </gov-grid-column>
