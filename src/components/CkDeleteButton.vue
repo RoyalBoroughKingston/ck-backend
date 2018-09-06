@@ -11,6 +11,7 @@
         <gov-body>
           Deleting this {{ resource }} will also delete all associated data.
           Are you sure you want to delete this {{ resource }}?
+          This action is irreversible.
         </gov-body>
 
         <gov-button @click="onDelete" error>Confirm deletion</gov-button>&nbsp;<!--
