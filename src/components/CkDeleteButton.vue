@@ -13,7 +13,8 @@
           Are you sure you want to delete this {{ resource }}?
         </gov-body>
 
-        <gov-button @click="onDelete" error>Confirm deletion</gov-button>
+        <gov-button @click="onDelete" error>Confirm deletion</gov-button>&nbsp;<!--
+     --><gov-button @click="onCancel">Cancel</gov-button>
       </gov-error-summary>
     </template>
 
@@ -50,6 +51,9 @@ export default {
     async onDelete() {
       await this.form.delete(this.endpoint);
       this.$emit("deleted");
+    },
+    onCancel() {
+      this.showConfirm = false;
     }
   }
 };
