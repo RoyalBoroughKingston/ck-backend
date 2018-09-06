@@ -17,6 +17,8 @@
         :type="type"
       />
 
+      <slot name="after-input" />
+
       <gov-error-message
         v-if="error !== null"
         v-text="error"

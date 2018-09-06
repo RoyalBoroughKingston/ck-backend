@@ -4,30 +4,35 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="two-thirds">
+
           <gov-heading size="xl">Log in</gov-heading>
+
           <gov-body size="l">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt aliquet est. Suspendisse eget lobortis metus.
           </gov-body>
-          <gov-form-group :invalid="error">
-            <gov-label for="email">Email</gov-label>
-            <gov-input
-              v-model="email"
-              @input="error = null"
-              id="email"
-              name="email"
-            />
-            <gov-error-message
-              v-if="error"
-              for="email"
-              v-text="error"
-            />
-          </gov-form-group>
-          <gov-form-group>
-            <gov-label for="email">Password</gov-label>
-            <gov-input v-model="password" id="password" name="password" type="password" />
-            <gov-link :to="{ name: 'forgotten-password' }">Forgotten password</gov-link>
-          </gov-form-group>
+
+          <ck-text-input
+            v-model="email"
+            @input="error = null"
+            id="email"
+            label="Email"
+            type="email"
+            :error="error"
+          />
+
+          <ck-text-input
+            v-model="password"
+            @input="error = null"
+            id="password"
+            label="Password"
+            type="password"
+            :error="null"
+          >
+            <gov-link slot="after-input" :to="{ name: 'forgotten-password' }">Forgotten password</gov-link>
+          </ck-text-input>
+
           <gov-button @click="onSendCode">Send code</gov-button>
+
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
