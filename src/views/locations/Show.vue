@@ -9,6 +9,21 @@
 
             <location-details :location="location" />
 
+            <gov-body>Please be certain of the action before deleting an organisation</gov-body>
+
+            <gov-section-break size="l" />
+
+            <ck-delete-button
+              resource="location"
+              :endpoint="`/locations/${this.location.id}`"
+              @deleted="onDelete"
+            />
+
+        </gov-grid-column>
+        <gov-grid-column width="one-third" class="text-right">
+
+          <gov-button @click="onEdit">Edit location</gov-button>
+
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -36,6 +51,12 @@ export default {
       this.location = response.data.data;
 
       this.loading = false;
+    },
+    onDelete() {
+      this.$router.push({ name: "locations-index" });
+    },
+    onEdit() {
+      //
     }
   },
   created() {
