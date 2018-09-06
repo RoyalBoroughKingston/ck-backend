@@ -24,7 +24,9 @@ import App from "@/App.vue";
 import router from "@/router";
 
 // Custom Vue Components
+Vue.component("CkSelectInput", () => import("@/components/Ck/CkSelectInput"));
 Vue.component("CkTextInput", () => import("@/components/Ck/CkTextInput"));
+
 Vue.component("CkDeleteButton", () => import("@/components/CkDeleteButton"));
 Vue.component("CkLoader", () => import("@/components/CkLoader"));
 Vue.component("CkLocationsTable", () =>

@@ -55,21 +55,14 @@
       :error="errors.get('postcode')"
     />
 
-    <gov-form-group :invalid="errors.has('country')">
-      <gov-label for="country" class="govuk-!-font-weight-bold">Country</gov-label>
-      <gov-select
-        :value="country"
-        @input="onInput('country', $event)"
-        id="country"
-        name="country"
-        :options="countries"
-      />
-      <gov-error-message
-        v-if="errors.has('country')"
-        v-text="errors.get('country')"
-        for="country"
-      />
-    </gov-form-group>
+    <ck-select-input
+      :value="country"
+      @input="onInput('country', $event)"
+      id="country"
+      label="Country"
+      :options="countries"
+      :error="errors.get('country')"
+    />
 
     <gov-section-break size="l" />
 
