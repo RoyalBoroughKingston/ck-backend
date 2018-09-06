@@ -1,44 +1,26 @@
 <template>
-  <gov-form-group :invalid="form.$errors.has(path)">
-    <gov-radios>
-      <gov-label class="govuk-!-font-weight-bold" :for="path" v-text="label" />
-      <gov-hint :for="path" v-text="hint" />
-      <gov-radio
-        v-model="enabled"
-        :id="`${path}_disabled`"
-        :name="path"
-        label="No specific requirement"
-        :value="false"
-      />
-      <gov-radio
-        v-model="enabled"
-        :id="`${path}_enabled`"
-        :name="path"
-        label="Other"
-        :value="true"
-      />
-    </gov-radios>
+  <div>
+    <ck-radio-input
+      v-model="enabled"
+      :id="`${path}_radio`"
+      :label="label"
+      :hint="hint"
+      :options="[{ value: false, label: 'No specific requirement' }, { value: true, label: 'Other' }]"
+      :error="errors.get(path)"
+    />
 
     <gov-inset-text v-if="enabled === true">
-      <gov-hint>
-        (max. 75 characters)
-      </gov-hint>
-      <gov-textarea
+      <ck-textarea-input
         :value="value"
-        @input="onInput"
+        @input="$emit('input', $event); $emit('clear', path)"
         :id="path"
-        :name="path"
-        type="text"
-        maxlength="75"
+        label="Criteria details"
+        hint="(max. 75 characters)"
+        :maxlength="75"
+        :error="errors.get(path)"
       />
     </gov-inset-text>
-
-    <gov-error-message
-      v-if="form.$errors.has(path)"
-      v-text="form.$errors.get(path)"
-      :for="path"
-    />
-  </gov-form-group>
+  </div>
 </template>
 
 <script>
@@ -49,7 +31,7 @@ export default {
       type: String,
       required: true
     },
-    form: {
+    errors: {
       type: Object,
       required: true
     },
@@ -68,7 +50,7 @@ export default {
   },
   data() {
     return {
-      enabled: false
+      enabled: (this.value !== "")
     };
   },
   watch: {
@@ -76,11 +58,6 @@ export default {
       if (!enabled) {
         this.$emit("input", "");
       }
-    }
-  },
-  methods: {
-    onInput(value) {
-      this.$emit("input", value);
     }
   }
 };

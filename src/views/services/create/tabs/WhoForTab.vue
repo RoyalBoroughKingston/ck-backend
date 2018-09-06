@@ -13,7 +13,7 @@
         <criteria-input
           :value="form.criteria.age_group"
           @input="$emit('update:age_group', $event)"
-          :form="form"
+          :errors="form.$errors"
           path="criteria.age_group"
           label="Age of service user (if applicable)"
           hint='e.g. "This service is for people 16+", or "This service is aimed at people nearig retirement"'
@@ -24,7 +24,7 @@
         <criteria-input
           :value="form.criteria.disability"
           @input="$emit('update:disability', $event)"
-          :form="form"
+          :errors="form.$errors"
           path="criteria.disability"
           label="Disability Requirements / Restrictions (if applicable)"
           hint='e.g. "This service is for those with MS and their carers", or "For all people with disabilities and their carers"'
@@ -35,7 +35,7 @@
         <criteria-input
           :value="form.criteria.gender"
           @input="$emit('update:gender', $event)"
-          :form="form"
+          :errors="form.$errors"
           path="criteria.gender"
           label="Gender Specific (if applicable)"
           hint='e.g. "Women only"'
@@ -46,7 +46,7 @@
         <criteria-input
           :value="form.criteria.housing"
           @input="$emit('update:housing', $event)"
-          :form="form"
+          :errors="form.$errors"
           path="criteria.housing"
           label="Specific Housing status/needs (if applicable)"
           hint='e.g. "For people who are homeless or at risk of homelessness"'
@@ -57,7 +57,7 @@
         <criteria-input
           :value="form.criteria.income"
           @input="$emit('update:income', $event)"
-          :form="form"
+          :errors="form.$errors"
           path="criteria.income"
           label="Income level (if applicable)"
           hint='e.g. "Service is aimed at people claiming benefits or with Income support"'
@@ -68,7 +68,7 @@
         <criteria-input
           :value="form.criteria.language"
           @input="$emit('update:language', $event)"
-          :form="form"
+          :errors="form.$errors"
           path="criteria.language"
           label="Language accessability (if applicable)"
           hint='e.g. "Instructors speak English, but open to all", or "This service is available in a number of languages - please contact me for more information"'
@@ -79,7 +79,7 @@
         <criteria-input
           :value="form.criteria.other"
           @input="$emit('update:other', $event)"
-          :form="form"
+          :errors="form.$errors"
           path="criteria.other"
           label="Any other notes as to who the service is aimed at/not appropraite for?"
           hint='e.g. "This service is open to all", or "This service is aimed at people living in Chessington"'
