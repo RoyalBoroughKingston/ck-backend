@@ -7,21 +7,34 @@
         <gov-grid-column width="full">
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
+
               <gov-heading size="m">
                 <gov-caption size="m">{{ service.name }}</gov-caption>
                 View service
               </gov-heading>
+
             </gov-grid-column>
             <gov-grid-column width="one-third" class="text-right">
+
               <gov-button @click="onEdit">Edit service</gov-button>
+
             </gov-grid-column>
           </gov-grid-row>
+
           <gov-tabs :tabs="tabs">
             <router-view :service="service" />
           </gov-tabs>
+
           <gov-body>Please be certain of the action before deleting a service</gov-body>
+
           <gov-section-break size="l" />
-          <gov-button @click="onDelete" error>Delete service</gov-button>
+
+          <ck-delete-button
+            resource="service"
+            :endpoint="`/services/${this.service.id}`"
+            @deleted="onDelete"
+          />
+
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -74,7 +87,7 @@ export default {
       alert("Edit");
     },
     onDelete() {
-      alert("Delete");
+      this.$router.push({ name: "services-index" });
     }
   },
   created() {
