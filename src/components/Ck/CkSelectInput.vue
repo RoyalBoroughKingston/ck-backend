@@ -15,6 +15,7 @@
         :id="id"
         :name="id"
         :options="options"
+        :width="width"
       />
 
       <slot name="after-input" />
@@ -33,8 +34,7 @@ export default {
   name: "CkSelectInput",
   props: {
     value: {
-      required: true,
-      type: String
+      required: true
     },
     label: {
       required: true,
@@ -54,6 +54,10 @@ export default {
     id: {
       required: true,
       type: String
+    },
+    width: {
+      type: Number,
+      required: false
     }
   }
 };

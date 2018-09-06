@@ -22,20 +22,14 @@
 
           <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
 
-          <gov-form-group>
-            <gov-label for="repeat_type" class="govuk-!-font-weight-bold">
-              Recieve these
-            </gov-label>
-            <ck-loader v-if="loading" />
-            <gov-select
-              v-else
-              v-model="form.repeat_type"
-              :options="options"
-              id="repeat_type"
-              name="repeat_type"
-              :width="20"
-            />
-          </gov-form-group>
+          <ck-select-input
+            v-model="form.repeat_type"
+            id="repeat_type"
+            label="Recieve these"
+            :options="options"
+            :error="null"
+            :width="20"
+          />
 
         </gov-grid-column>
       </gov-grid-row>

@@ -1,6 +1,7 @@
 <template>
   <select
-    v-model="proxy"
+    :value="value"
+    @change="$emit('input', $event.target.value)"
     :id="id"
     class="govuk-select"
     :class="computedClasses"
@@ -45,22 +46,12 @@ export default {
       required: false
     }
   },
-  data() {
-    return {
-      proxy: this.value
-    };
-  },
   computed: {
     ariaDescribedBy() {
       return `${this.name}-hint`;
     },
     computedClasses() {
       return this.width ? `govuk-input--width-${this.width}` : null;
-    }
-  },
-  watch: {
-    proxy(newValue) {
-      this.$emit("input", newValue);
     }
   }
 };
