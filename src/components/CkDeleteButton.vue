@@ -7,7 +7,7 @@
 
     <!-- If the user has clicked the delete button, they must then confirm -->
     <template v-else>
-      <gov-error-summary title="Confirm">
+      <gov-error-summary title="This action will be logged">
         <gov-body>
           Deleting this {{ resource }} will also delete all associated data.
           Are you sure you want to delete this {{ resource }}?
