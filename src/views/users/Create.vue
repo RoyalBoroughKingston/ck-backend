@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const response = await this.form.post("/users", (config, data) => {
+      const data = await this.form.post("/users", (config, data) => {
         data.roles.forEach(role => {
           switch (role.role) {
             // Delete the organisation and service IDs instead of sending null values.
@@ -70,7 +70,7 @@ export default {
         });
       });
 
-      this.$router.push({ name: "users-show", params: { user: data.id } });
+      this.$router.push({ name: "users-show", params: { user: data.data.id } });
     }
   }
 };

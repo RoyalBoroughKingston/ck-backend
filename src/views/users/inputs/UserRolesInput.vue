@@ -15,7 +15,9 @@
 
       <template v-if="showOrganisationSelect(index)">
         <!-- Organisation -->
-        <ck-loader v-if="loadingOrganisations" />
+        <gov-form-group v-if="loadingOrganisations">
+          <ck-loader />
+        </gov-form-group>
         <ck-select-input
           v-else
           :value="roles[index].organisation_id"
@@ -29,8 +31,12 @@
 
         <template v-if="showServiceSelect(index)">
           <!-- Service -->
-          <gov-body v-if="!services.hasOwnProperty(roles[index].organisation_id)">Select an organisation</gov-body>
-          <ck-loader v-else-if="services[roles[index].organisation_id].loading" />
+          <gov-form-group v-if="!services.hasOwnProperty(roles[index].organisation_id)">
+            Select an organisation
+          </gov-form-group>
+          <gov-form-group v-else-if="services[roles[index].organisation_id].loading">
+            <ck-loader  />
+          </gov-form-group>
           <ck-select-input
             v-else
             :value="roles[index].service_id"
@@ -203,38 +209,52 @@ export default {
 
       this.loadingOrganisations = false;
     },
-    async cacheServices(organisationId) {
-      // Skip if the services have already been cached.
-      if (this.services.hasOwnProperty(organisationId)) {
-        return;
+    async cacheServices(organisationIds) {
+      organisationIds = Array.isArray(organisationIds) ? organisationIds : [organisationIds];
+
+      for (let organisationId of organisationIds) {
+        // Skip if the services have already been cached.
+        if (this.services.hasOwnProperty(organisationId)) {
+          continue;
+        }
+
+        // Set the initial object.
+        this.services[organisationId] = {
+          items: [{ value: null, text: "Please select", disabled: true }],
+          loading: true
+        };
       }
 
-      // Set the initial object.
-      this.services[organisationId] = {
-        items: [{ value: null, text: "Please select", disabled: true }],
-        loading: true
-      };
-
       let services = await this.fetchAll("/services", {
-        "filter[organisation_id]": organisationId
+        "filter[organisation_id]": organisationIds.join(",")
       });
-      services = services.map(service => {
-        return {
-          value: service.id,
-          text: service.name
-        };
-      });
-      this.services[organisationId].items = [
-        ...this.services[organisationId].items,
-        ...services
-      ];
 
-      this.services[organisationId].loading = false;
+      for (let organisationId of organisationIds) {
+        this.services[organisationId].items = [
+          ...this.services[organisationId].items,
+          ...services
+            .filter(service => (service.organisation_id === organisationId))
+            .map(service => ({ value: service.id, text: service.name }))
+        ];
+
+        this.services[organisationId].loading = false;
+      }
+
       this.$forceUpdate();
     }
   },
   created() {
     this.cacheOrganisations();
+
+    let organisationIds = {};
+
+    this.roles.forEach(role => {
+      if (role.hasOwnProperty("organisation_id")) {
+        organisationIds[role.organisation_id] = null;
+      }
+    });
+
+    this.cacheServices(Object.keys(organisationIds));
   }
 };
 </script>
