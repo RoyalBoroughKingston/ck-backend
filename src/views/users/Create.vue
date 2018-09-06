@@ -3,87 +3,28 @@
     <gov-back-link :to="{ name: 'users-index' }">Back to users</gov-back-link>
     <gov-main-wrapper>
       <gov-grid-row>
-        <gov-grid-column width="two-thirds">
+        <gov-grid-column width="one-half">
+
           <gov-heading size="xl">Users</gov-heading>
+
           <gov-heading size="m">Add user</gov-heading>
+
           <gov-body>Create users to be able to acces the back-end of the Connected Kingston service (deciding their permissions in what they have access to)</gov-body>
-          <gov-form-group :invalid="form.$errors.has('first_name')">
-            <gov-label for="first_name" class="govuk-!-font-weight-bold">First name</gov-label>
-            <gov-input
-              v-model="form.first_name"
-              @input="form.$errors.clear('first_name')"
-              id="first_name"
-              name="first_name"
-              type="text"
-            />
-            <gov-error-message
-              v-if="form.$errors.has('first_name')"
-              v-text="form.$errors.get('first_name')"
-              for="first_name"
-            />
-          </gov-form-group>
-          <gov-form-group :invalid="form.$errors.has('last_name')">
-            <gov-label for="last_name" class="govuk-!-font-weight-bold">Last name</gov-label>
-            <gov-input
-              v-model="form.last_name"
-              @input="form.$errors.clear('last_name')"
-              id="last_name"
-              name="last_name"
-              type="text"
-            />
-            <gov-error-message
-              v-if="form.$errors.has('last_name')"
-              v-text="form.$errors.get('last_name')"
-              for="last_name"
-            />
-          </gov-form-group>
-          <gov-form-group :invalid="form.$errors.has('email')">
-            <gov-label for="email" class="govuk-!-font-weight-bold">Email</gov-label>
-            <gov-input
-              v-model="form.email"
-              @input="form.$errors.clear('email')"
-              id="email"
-              name="email"
-              type="email"
-            />
-            <gov-error-message
-              v-if="form.$errors.has('email')"
-              v-text="form.$errors.get('email')"
-              for="email"
-            />
-          </gov-form-group>
-          <gov-form-group :invalid="form.$errors.has('phone')">
-            <gov-label for="phone" class="govuk-!-font-weight-bold">Phone</gov-label>
-            <gov-input
-              v-model="form.phone"
-              @input="form.$errors.clear('phone')"
-              id="phone"
-              name="phone"
-              type="tel"
-            />
-            <gov-error-message
-              v-if="form.$errors.has('phone')"
-              v-text="form.$errors.get('phone')"
-              for="phone"
-            />
-          </gov-form-group>
-          <gov-form-group :invalid="form.$errors.has('password')">
-            <gov-label for="password" class="govuk-!-font-weight-bold">Password</gov-label>
-            <gov-input
-              v-model="form.password"
-              @input="form.$errors.clear('password')"
-              id="password"
-              name="password"
-              type="password"
-            />
-            <gov-error-message
-              v-if="form.$errors.has('password')"
-              v-text="form.$errors.get('password')"
-              for="password"
-            />
-          </gov-form-group>
+
+          <user-form
+            :errors="form.$errors"
+            :first_name.sync="form.first_name"
+            :last_name.sync="form.last_name"
+            :email.sync="form.email"
+            :phone.sync="form.phone"
+            :password.sync="form.password"
+            @clear="form.$errors.clear($event)"
+          />
+
           <gov-section-break size="l" />
+
           <gov-heading size="m">Permissions</gov-heading>
+
           <gov-inset-text v-for="(role, key) in form.roles" :key="role.index">
             <gov-form-group :invalid="form.$errors.has(`roles.${key}.role`)">
               <gov-label :for="`roles_${key}_role`">User type</gov-label>
@@ -162,13 +103,18 @@
 
             <gov-button @click="onRemovePermission(key)" error>Remove</gov-button>
           </gov-inset-text>
+
           <gov-inset-text v-if="form.roles.length === 0">
             <gov-body>No permissions</gov-body>
           </gov-inset-text>
+
           <gov-button @click="onAddPermission">Add permission</gov-button>
+
           <gov-section-break size="l" />
+
           <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
           <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
+
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -177,9 +123,11 @@
 
 <script>
 import Form from "@/classes/Form";
+import UserForm from "@/views/users/forms/UserForm";
 
 export default {
   name: "CreateUser",
+  components: { UserForm },
   data() {
     return {
       form: new Form({
