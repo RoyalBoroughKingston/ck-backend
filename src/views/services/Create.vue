@@ -15,7 +15,7 @@
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
 
             <details-tab
-              v-show="tabs[0].active"
+              v-if="tabs[0].active"
               @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
               :errors="form.$errors"
@@ -29,20 +29,20 @@
             />
 
             <additional-info-tab
-              v-show="tabs[1].active"
-              :form="form"
+              v-if="tabs[1].active"
               @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
-              @update:wait_time="form.wait_time = $event"
-              @update:is_free="form.is_free = $event"
-              @update:fees_text="form.fees_text = $event"
-              @update:fees_url="form.fees_url = $event"
-              @update:testimonial="form.testimonial = $event"
-              @update:video_embed="form.video_embed = $event"
+              :errors="form.$errors"
+              :wait_time.sync="form.wait_time"
+              :is_free.sync="form.is_free"
+              :fees_text.sync="form.fees_text"
+              :fees_url.sync="form.fees_url"
+              :testimonial.sync="form.testimonial"
+              :video_embed.sync="form.video_embed"
             />
 
             <useful-info-tab
-              v-show="tabs[2].active"
+              v-if="tabs[2].active"
               v-model="form.useful_infos"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
@@ -50,7 +50,7 @@
             />
 
             <contact-details-tab
-              v-show="tabs[3].active"
+              v-if="tabs[3].active"
               :form="form"
               @clear="form.$errors.clear($event); errors = {}"
               @add="form.social_medias.push($event)"
@@ -63,7 +63,7 @@
             />
 
             <who-for-tab
-              v-show="tabs[4].active"
+              v-if="tabs[4].active"
               :form="form"
               @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
@@ -78,7 +78,7 @@
             />
 
             <location-tab
-              v-show="tabs[5].active"
+              v-if="tabs[5].active"
               :forms="serviceLocationForms"
               @clear-service-location="serviceLocationForms[$event.index].$errors.clear($event.value); errors = {}"
               @clear-location="serviceLocationForms[$event.index].location.$errors.clear($event.value); errors = {}"
@@ -115,7 +115,7 @@
             />
 
             <taxonomies-tab
-              v-show="tabs[6].active"
+              v-if="tabs[6].active"
               :form="form"
               @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
@@ -123,7 +123,7 @@
             />
 
             <referral-tab
-              v-show="tabs[7].active"
+              v-if="tabs[7].active"
               :form="form"
               @clear="form.$errors.clear($event); errors = {}"
               @submit="onSubmit"
