@@ -51,15 +51,13 @@
 
             <contact-details-tab
               v-if="tabs[3].active"
-              :form="form"
               @clear="form.$errors.clear($event); errors = {}"
-              @add="form.social_medias.push($event)"
-              @delete="$delete(form.social_medias, $event)"
               @next="onNext"
-              @update:contact_name="form.contact_name = $event"
-              @update:contact_phone="form.contact_phone = $event"
-              @update:contact_email="form.contact_email = $event"
-              @update:social_medias="form.social_medias = $event"
+              :errors="form.$errors"
+              :contact_name.sync="form.contact_name"
+              :contact_phone.sync="form.contact_phone"
+              :contact_email.sync="form.contact_email"
+              :social_medias.sync="form.social_medias"
             />
 
             <who-for-tab

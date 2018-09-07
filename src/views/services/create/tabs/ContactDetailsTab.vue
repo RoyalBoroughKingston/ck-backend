@@ -9,33 +9,33 @@
         <gov-section-break size="l" />
 
         <ck-text-input
-          :value="form.contact_name"
+          :value="contact_name"
           @input="$emit('update:contact_name', $event); $emit('clear', 'contact_name')"
           id="contact_name"
           label="Contact name"
           hint="Please provide the contact name eg. Jane Bloggs or a function e.g. Enquiries"
           type="text"
-          :error="form.$errors.get('contact_name')"
+          :error="errors.get('contact_name')"
         />
 
         <ck-text-input
-          :value="form.contact_phone"
+          :value="contact_phone"
           @input="$emit('update:contact_phone', $event); $emit('clear', 'contact_phone')"
           id="contact_phone"
           label="Contact phone number"
           hint="Please provide a public facing phone number"
           type="tel"
-          :error="form.$errors.get('contact_phone')"
+          :error="errors.get('contact_phone')"
         />
 
         <ck-text-input
-          :value="form.contact_email"
+          :value="contact_email"
           @input="$emit('update:contact_email', $event); $emit('clear', 'contact_email')"
           id="contact_email"
           label="Public email address"
           hint="Please provide a public facing email address"
           type="email"
-          :error="form.$errors.get('contact_email')"
+          :error="errors.get('contact_email')"
         />
 
         <gov-section-break size="l" />
@@ -43,9 +43,9 @@
         <gov-heading size="m">Social media links</gov-heading>
 
         <social-medias-input
-          :social-medias="form.social_medias"
+          :social-medias="social_medias"
           @input="$emit('update:social_medias', $event)"
-          :errors="form.$errors"
+          :errors="errors"
         />
 
         <gov-button @click="$emit('next')" start>Next</gov-button>
@@ -62,8 +62,19 @@ export default {
   name: "ContactDetailsTab",
   components: { SocialMediasInput },
   props: {
-    form: {
-      type: Object,
+    errors: {
+      required: true
+    },
+    contact_name: {
+      required: true
+    },
+    contact_phone: {
+      required: true
+    },
+    contact_email: {
+      required: true
+    },
+    social_medias: {
       required: true
     }
   }
