@@ -139,7 +139,7 @@ export default {
   },
   computed: {
     isCreateForm() {
-      return this.location_id !== undefined;
+      return this.organisation_id !== undefined;
     }
   },
   methods: {

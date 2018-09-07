@@ -102,7 +102,7 @@
               :referral_email.sync="form.referral_email"
               :referral_url.sync="form.referral_url"
             >
-              <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
+              <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
               <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
             </referral-tab>
 
