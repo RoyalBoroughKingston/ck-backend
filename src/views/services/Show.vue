@@ -16,7 +16,7 @@
             </gov-grid-column>
             <gov-grid-column width="one-third" class="text-right">
 
-              <gov-button @click="onEdit">Edit service</gov-button>
+              <gov-button :to="{ name: 'services-edit', params: { service: service.id } }">Edit service</gov-button>
 
             </gov-grid-column>
           </gov-grid-row>

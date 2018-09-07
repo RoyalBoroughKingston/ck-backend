@@ -86,7 +86,8 @@
         />
         <!-- /Other -->
 
-        <gov-button @click="$emit('next')" start>Next</gov-button>
+        <slot />
+
       </gov-grid-column>
     </gov-grid-row>
   </div>

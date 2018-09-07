@@ -32,6 +32,7 @@
         </ck-text-input>
 
         <ck-select-input
+          v-if="isCreateForm"
           :value="organisation_id"
           @input="$emit('update:organisation_id', $event); $emit('clear', 'organisation_id')"
           id="organisation_id"
@@ -88,7 +89,7 @@
           </gov-hint>
         </ck-wysiwyg-input>
 
-        <gov-button @click="$emit('next')" start>Next</gov-button>
+        <slot />
 
       </gov-grid-column>
     </gov-grid-row>
@@ -109,7 +110,7 @@ export default {
       required: true
     },
     organisation_id: {
-      required: true
+      required: false
     },
     url: {
       required: true
@@ -135,6 +136,11 @@ export default {
       organisations: [{ text: "Please select", value: null, disabled: true }],
       loading: false
     };
+  },
+  computed: {
+    isCreateForm() {
+      return this.location_id !== undefined;
+    }
   },
   methods: {
     async fetchOrganisations() {

@@ -63,8 +63,7 @@
           :error="errors.get('show_referral_disclaimer')"
         />
 
-        <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
-        <gov-button v-else @click="$emit('submit')" type="submit">Create</gov-button>
+        <slot />
 
       </gov-grid-column>
     </gov-grid-row>
@@ -77,10 +76,6 @@ export default {
   props: {
     errors: {
       required: true
-    },
-    submitting: {
-      required: true,
-      type: Boolean
     },
     show_referral_disclaimer: {
       required: true

@@ -189,6 +189,12 @@ let router = new Router({
       ]
     },
     {
+      path: "/services/:service/edit",
+      name: "services-edit",
+      component: () => import("@/views/services/Edit"),
+      meta: { auth: true }
+    },
+    {
       path: "/services/:service/service-locations/create",
       name: "service-locations-create",
       component: () => import("@/views/service-locations/Create"),

@@ -18,7 +18,6 @@
             <details-tab
               v-if="tabs[0].active"
               @clear="form.$errors.clear($event); errors = {}"
-              @next="onNext"
               :errors="form.$errors"
               :name.sync="form.name"
               :slug.sync="form.slug"
@@ -29,12 +28,13 @@
               :description.sync="form.description"
               :seo_title.sync="form.seo_title"
               :seo_description.sync="form.seo_description"
-            />
+            >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </details-tab>
 
             <additional-info-tab
               v-if="tabs[1].active"
               @clear="form.$errors.clear($event); errors = {}"
-              @next="onNext"
               :errors="form.$errors"
               :wait_time.sync="form.wait_time"
               :is_free.sync="form.is_free"
@@ -42,31 +42,34 @@
               :fees_url.sync="form.fees_url"
               :testimonial.sync="form.testimonial"
               :video_embed.sync="form.video_embed"
-            />
+            >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </additional-info-tab>
 
             <useful-info-tab
               v-if="tabs[2].active"
               @clear="form.$errors.clear($event); errors = {}"
-              @next="onNext"
               :errors="form.$errors"
               :useful_infos.sync="form.useful_infos"
-            />
+            >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </useful-info-tab>
 
             <contact-details-tab
               v-if="tabs[3].active"
               @clear="form.$errors.clear($event); errors = {}"
-              @next="onNext"
               :errors="form.$errors"
               :contact_name.sync="form.contact_name"
               :contact_phone.sync="form.contact_phone"
               :contact_email.sync="form.contact_email"
               :social_medias.sync="form.social_medias"
-            />
+            >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </contact-details-tab>
 
             <who-for-tab
               v-if="tabs[4].active"
               @clear="form.$errors.clear($event); errors = {}"
-              @next="onNext"
               :errors="form.$errors"
               :age_group.sync="form.criteria.age_group"
               :disability.sync="form.criteria.disability"
@@ -76,28 +79,32 @@
               :income.sync="form.criteria.income"
               :language.sync="form.criteria.language"
               :other.sync="form.criteria.other"
-            />
+            >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </who-for-tab>
 
             <taxonomies-tab
               v-if="tabs[5].active"
               @clear="form.$errors.clear($event); errors = {}"
-              @next="onNext"
               :errors="form.$errors"
               :category_taxonomies.sync="form.category_taxonomies"
-            />
+            >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </taxonomies-tab>
 
             <referral-tab
               v-if="tabs[6].active"
               @clear="form.$errors.clear($event); errors = {}"
-              @submit="onSubmit"
               :errors="form.$errors"
-              :submitting="form.$submitting"
               :show_referral_disclaimer.sync="form.show_referral_disclaimer"
               :referral_method.sync="form.referral_method"
               :referral_button_text.sync="form.referral_button_text"
               :referral_email.sync="form.referral_email"
               :referral_url.sync="form.referral_url"
-            />
+            >
+              <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
+              <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
+            </referral-tab>
 
           </gov-tabs>
         </gov-grid-column>
@@ -108,13 +115,13 @@
 
 <script>
 import Form from "@/classes/Form";
-import DetailsTab from "@/views/services/create/tabs/DetailsTab";
-import AdditionalInfoTab from "@/views/services/create/tabs/AdditionalInfoTab";
-import UsefulInfoTab from "@/views/services/create/tabs/UsefulInfoTab";
-import ContactDetailsTab from "@/views/services/create/tabs/ContactDetailsTab";
-import WhoForTab from "@/views/services/create/tabs/WhoForTab";
-import ReferralTab from "@/views/services/create/tabs/ReferralTab";
-import TaxonomiesTab from "@/views/services/create/tabs/TaxonomiesTab";
+import DetailsTab from "@/views/services/forms/DetailsTab";
+import AdditionalInfoTab from "@/views/services/forms/AdditionalInfoTab";
+import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
+import ContactDetailsTab from "@/views/services/forms/ContactDetailsTab";
+import WhoForTab from "@/views/services/forms/WhoForTab";
+import ReferralTab from "@/views/services/forms/ReferralTab";
+import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
 
 export default {
   name: "CreateService",
