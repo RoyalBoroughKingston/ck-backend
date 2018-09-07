@@ -11,221 +11,95 @@
         <gov-section-break size="l" />
 
         <div v-for="(form, index) in forms" :key="form.index">
-          <gov-form-group :invalid="false"> <!-- TODO: Check all the errors -->
-            <gov-radios>
-              <gov-label class="govuk-!-font-weight-bold" :for="`service_location.${index}.location_type`">
-                Select location
-              </gov-label>
-              <gov-hint :for="`service_location.${index}.location_type`">
-                You can select an existing location or create a new one.
-              </gov-hint>
-              <gov-radio
-                :bind-to="form.location_type"
-                @input="$emit('update:location_type', { index, value: $event })"
-                :id="`service_location.${index}.location_type_existing`"
-                name="location_type"
-                label="Existing"
-                value="existing"
-              />
-              <gov-radio
-                :bind-to="form.location_type"
-                @input="$emit('update:location_type', { index, value: $event })"
-                :id="`service_location.${index}.location_type_new`"
-                name="location_type"
-                label="New"
-                value="new"
-              />
-            </gov-radios>
-          </gov-form-group>
+          <ck-radio-input
+            :value="form.location_type"
+            @input="$emit('update:location_type', { index, value: $event })"
+            :id="`service_location.${index}.location_type_existing`"
+            label="Select location"
+            hint="You can select an existing location or create a new one."
+            :options="[{ value: 'existing', label: 'Existing' }, { value: 'new', label: 'New' }]"
+            :error="null"
+          />
 
           <!-- Existing location: select from list -->
           <gov-inset-text v-if="form.location_type === 'existing'">
-            <gov-label
-              :for="`service_location.${index}.location_id`"
-              class="govuk-!-font-weight-bold"
-            >
-              Location
-            </gov-label>
-
             <ck-loader v-if="loading" />
-            <gov-select
+            <ck-select-input
               v-else
               :value="form.location_id"
-              @input="$emit('update:location_id', { index, value: $event })"
+              @input="$emit('update:location_id', { index, value: $event }); $emit('clear-service-location', { index, value: 'location_id' })"
               :id="`service_location.${index}.location_id`"
-              name="location_id"
+              label="Location"
               :options="locations"
-            />
-            <gov-error-message
-              v-if="form.$errors.has('location_id')"
-              v-text="form.$errors.get('location_id')"
-              :for="`service_location.${index}.location_id`"
+              :error="form.$errors.get('location_id')"
             />
           </gov-inset-text>
           <!-- /Existing location: select from list -->
 
           <!-- New location: etner details -->
           <gov-inset-text v-else-if="form.location_type === 'new'">
-            <!-- Address line 1 -->
-            <gov-form-group :invalid="form.location.$errors.has('address_line_1')">
-              <gov-label
-                :for="`location.${form.index}.address_line_1`"
-                class="govuk-!-font-weight-bold"
-              >
-                Address Line 1
-              </gov-label>
-              <gov-input
-                :value="form.location.address_line_1"
-                @input="$emit('update:address_line_1', { index, value: $event })"
-                :id="`location.${form.index}.address_line_1`"
-                name="address_line_1"
-                type="text"
-              />
-              <gov-error-message
-                v-if="form.location.$errors.has('address_line_1')"
-                v-text="form.location.$errors.get('address_line_1')"
-                :for="`location.${form.index}.address_line_1`"
-              />
-            </gov-form-group>
-            <!-- /Address line 1 -->
+            <ck-text-input
+              :value="form.location.address_line_1"
+              @input="$emit('update:address_line_1', { index, value: $event }); $emit('clear-location', { index, value: 'address_line_1' })"
+              :id="`location.${form.index}.address_line_1`"
+              label="Address Line 1"
+              type="text"
+              :error="form.location.$errors.get('address_line_1')"
+            />
 
-            <!-- Address line 2 -->
-            <gov-form-group :invalid="form.location.$errors.has('address_line_2')">
-              <gov-label
-                :for="`location.${form.index}.address_line_2`"
-                class="govuk-!-font-weight-bold"
-              >
-                Address Line 2
-              </gov-label>
-              <gov-input
-                :value="form.location.address_line_2"
-                @input="$emit('update:address_line_2', { index, value: $event })"
-                :id="`location.${form.index}.address_line_2`"
-                name="address_line_2"
-                type="text"
-              />
-              <gov-error-message
-                v-if="form.location.$errors.has('address_line_2')"
-                v-text="form.location.$errors.get('address_line_2')"
-                :for="`location.${form.index}.address_line_2`"
-              />
-            </gov-form-group>
-            <!-- /Address line 2 -->
+            <ck-text-input
+              :value="form.location.address_line_2"
+              @input="$emit('update:address_line_2', { index, value: $event }); $emit('clear-location', { index, value: 'address_line_2' })"
+              :id="`location.${form.index}.address_line_2`"
+              label="Address Line 2"
+              type="text"
+              :error="form.location.$errors.get('address_line_2')"
+            />
 
-            <!-- Address line 3 -->
-            <gov-form-group :invalid="form.location.$errors.has('address_line_3')">
-              <gov-label
-                :for="`location.${form.index}.address_line_3`"
-                class="govuk-!-font-weight-bold"
-              >
-                Address Line 3
-              </gov-label>
-              <gov-input
-                :value="form.location.address_line_3"
-                @input="$emit('update:address_line_3', { index, value: $event })"
-                :id="`location.${form.index}.address_line_3`"
-                name="address_line_3"
-                type="text"
-              />
-              <gov-error-message
-                v-if="form.location.$errors.has('address_line_3')"
-                v-text="form.location.$errors.get('address_line_3')"
-                :for="`location.${form.index}.address_line_3`"
-              />
-            </gov-form-group>
-            <!-- /Address line 3 -->
+            <ck-text-input
+              :value="form.location.address_line_3"
+              @input="$emit('update:address_line_3', { index, value: $event }); $emit('clear-location', { index, value: 'address_line_3' })"
+              :id="`location.${form.index}.address_line_3`"
+              label="Address Line 3"
+              type="text"
+              :error="form.location.$errors.get('address_line_3')"
+            />
 
-            <!-- City -->
-            <gov-form-group :invalid="form.location.$errors.has('city')">
-              <gov-label
-                :for="`location.${form.index}.city`"
-                class="govuk-!-font-weight-bold"
-              >
-                City
-              </gov-label>
-              <gov-input
-                :value="form.location.city"
-                @input="$emit('update:city', { index, value: $event })"
-                :id="`location.${form.index}.city`"
-                name="city"
-                type="text"
-              />
-              <gov-error-message
-                v-if="form.location.$errors.has('city')"
-                v-text="form.location.$errors.get('city')"
-                for="city"
-              />
-            </gov-form-group>
-            <!-- /City -->
+            <ck-text-input
+              :value="form.location.city"
+              @input="$emit('update:city', { index, value: $event }); $emit('clear-location', { index, value: 'city' })"
+              :id="`location.${form.index}.city`"
+              label="City"
+              type="text"
+              :error="form.location.$errors.get('city')"
+            />
 
-            <!-- County -->
-            <gov-form-group :invalid="form.location.$errors.has('county')">
-              <gov-label
-                :for="`location.${form.index}.county`"
-                class="govuk-!-font-weight-bold"
-              >
-                County
-              </gov-label>
-              <gov-input
-                :value="form.location.county"
-                @input="$emit('update:county', { index, value: $event })"
-                :id="`location.${form.index}.county`"
-                name="county"
-                type="text"
-              />
-              <gov-error-message
-                v-if="form.location.$errors.has('county')"
-                v-text="form.location.$errors.get('county')"
-                for="county"
-              />
-            </gov-form-group>
-            <!-- /County -->
+            <ck-text-input
+              :value="form.location.county"
+              @input="$emit('update:county', { index, value: $event }); $emit('clear-location', { index, value: 'county' })"
+              :id="`location.${form.index}.county`"
+              label="County"
+              type="text"
+              :error="form.location.$errors.get('county')"
+            />
 
-            <!-- Postcode -->
-            <gov-form-group :invalid="form.location.$errors.has('postcode')">
-              <gov-label
-                :for="`location.${form.index}.postcode`"
-                class="govuk-!-font-weight-bold"
-              >
-                Postcode
-              </gov-label>
-              <gov-input
-                :value="form.location.postcode"
-                @input="$emit('update:postcode', { index, value: $event })"
-                :id="`location.${form.index}.postcode`"
-                name="postcode"
-                type="text"
-              />
-              <gov-error-message
-                v-if="form.location.$errors.has('postcode')"
-                v-text="form.location.$errors.get('postcode')"
-                for="postcode"
-              />
-            </gov-form-group>
-            <!-- /Postcode -->
+            <ck-text-input
+              :value="form.location.postcode"
+              @input="$emit('update:postcode', { index, value: $event }); $emit('clear-location', { index, value: 'postcode' })"
+              :id="`location.${form.index}.postcode`"
+              label="Postcode"
+              type="text"
+              :error="form.location.$errors.get('postcode')"
+            />
 
-            <!-- Country -->
-            <gov-form-group :invalid="form.location.$errors.has('country')">
-              <gov-label
-                :for="`location.${form.index}.country`"
-                class="govuk-!-font-weight-bold"
-              >
-                Country
-              </gov-label>
-              <gov-select
-                :value="form.location.country"
-                @input="$emit('update:country', { index, value: $event })"
-                :id="`location.${form.index}.country`"
-                name="country"
-                :options="countries"
-              />
-              <gov-error-message
-                v-if="form.location.$errors.has('country')"
-                v-text="form.location.$errors.get('country')"
-                for="country"
-              />
-            </gov-form-group>
-            <!-- /Country -->
+            <ck-select-input
+              :value="form.location.country"
+              @input="$emit('update:country', { index, value: $event }); $emit('clear-location', { index, value: 'country' })"
+              :id="`location.${index}.country`"
+              label="Country"
+              :options="countries"
+              :error="form.location.$errors.get('country')"
+            />
 
             <gov-section-break size="l" />
 

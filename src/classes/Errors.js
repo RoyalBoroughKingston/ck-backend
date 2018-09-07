@@ -36,14 +36,19 @@ export default class Errors {
   /**
    * Retrieve the error message for a field.
    *
-   * @param {string} field
+   * @param {string|Array} fields
    * @returns {string|null}
    */
-  get(field) {
-    field = field.replace(/\./g, "_");
-    if (this.errors[field]) {
-      return this.errors[field][0];
+  get(fields) {
+    fields = Array.isArray(fields) ? fields : [fields];
+
+    for (let field of fields) {
+      field.replace(/\./g, "_");
+      if (this.errors[field]) {
+        return this.errors[field][0];
+      }
     }
+
     return null;
   }
 

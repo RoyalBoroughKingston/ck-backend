@@ -4,6 +4,12 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
+          <gov-error-summary v-if="Object.keys(errors).length > 0" title="Errors">
+            <gov-list>
+              <li v-for="(error, index) in errors" :key="index" v-text="error[0]"/>
+            </gov-list>
+          </gov-error-summary>
+
           <gov-heading size="xl">Services</gov-heading>
           <gov-heading size="m">Add service</gov-heading>
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
@@ -11,7 +17,7 @@
             <details-tab
               v-show="tabs[0].active"
               :form="form"
-              @clear="form.$errors.clear($event)"
+              @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
               @update:name="form.name = $event; form.slug = slugify($event); form.seo_title = $event"
               @update:slug="form.slug = $event"
@@ -25,7 +31,7 @@
             <additional-info-tab
               v-show="tabs[1].active"
               :form="form"
-              @clear="form.$errors.clear($event)"
+              @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
               @update:wait_time="form.wait_time = $event"
               @update:is_free="form.is_free = $event"
@@ -38,7 +44,7 @@
             <useful-info-tab
               v-show="tabs[2].active"
               v-model="form.useful_infos"
-              @clear="form.$errors.clear($event)"
+              @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               @next="onNext"
             />
@@ -46,7 +52,7 @@
             <contact-details-tab
               v-show="tabs[3].active"
               :form="form"
-              @clear="form.$errors.clear($event)"
+              @clear="form.$errors.clear($event); errors = {}"
               @add="form.social_medias.push($event)"
               @delete="$delete(form.social_medias, $event)"
               @next="onNext"
@@ -59,7 +65,7 @@
             <who-for-tab
               v-show="tabs[4].active"
               :form="form"
-              @clear="form.$errors.clear($event)"
+              @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
               @update:age_group="form.criteria.age_group = $event"
               @update:disability="form.criteria.disability = $event"
@@ -74,8 +80,8 @@
             <location-tab
               v-show="tabs[5].active"
               :forms="serviceLocationForms"
-              @clear-service-location="serviceLocationForms[$event.index].$errors.clear($event.value)"
-              @clear-location="serviceLocationForms[$event.index].location.$errors.clear($event.value)"
+              @clear-service-location="serviceLocationForms[$event.index].$errors.clear($event.value); errors = {}"
+              @clear-location="serviceLocationForms[$event.index].location.$errors.clear($event.value); errors = {}"
               @add="serviceLocationForms.push($event)"
               @delete="$delete(serviceLocationForms, $event)"
               @add-regular-opening-hour="serviceLocationForms[$event.index].regular_opening_hours.push($event.value)"
@@ -111,7 +117,7 @@
             <taxonomies-tab
               v-show="tabs[6].active"
               :form="form"
-              @clear="form.$errors.clear($event)"
+              @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
               @input="form.category_taxonomies = $event"
             />
@@ -119,7 +125,7 @@
             <referral-tab
               v-show="tabs[7].active"
               :form="form"
-              @clear="form.$errors.clear($event)"
+              @clear="form.$errors.clear($event); errors = {}"
               @submit="onSubmit"
               @update:show_referral_disclaimer="form.show_referral_disclaimer = $event"
               @update:referral_method="form.referral_method = $event"
@@ -211,7 +217,8 @@ export default {
         { heading: "Taxonomies", active: false },
         { heading: "Referral", active: false }
       ],
-      submitting: false
+      submitting: false,
+      errors: {}
     };
   },
   methods: {
@@ -275,7 +282,7 @@ export default {
         });
       } catch (error) {
         this.submitting = false;
-        console.log(error);
+        this.errors = error.errors;
       }
     },
     onTabChange({ index }) {
