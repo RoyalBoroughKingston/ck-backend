@@ -62,17 +62,17 @@
 
             <who-for-tab
               v-if="tabs[4].active"
-              :form="form"
               @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
-              @update:age_group="form.criteria.age_group = $event"
-              @update:disability="form.criteria.disability = $event"
-              @update:employment="form.criteria.employment = $event"
-              @update:gender="form.criteria.gender = $event"
-              @update:housing="form.criteria.housing = $event"
-              @update:income="form.criteria.income = $event"
-              @update:language="form.criteria.language = $event"
-              @update:other="form.criteria.other = $event"
+              :errors="form.$errors"
+              :age_group.sync="form.criteria.age_group"
+              :disability.sync="form.criteria.disability"
+              :employment.sync="form.criteria.employment"
+              :gender.sync="form.criteria.gender"
+              :housing.sync="form.criteria.housing"
+              :income.sync="form.criteria.income"
+              :language.sync="form.criteria.language"
+              :other.sync="form.criteria.other"
             />
 
             <location-tab

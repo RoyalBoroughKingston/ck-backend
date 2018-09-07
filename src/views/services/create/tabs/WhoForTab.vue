@@ -11,9 +11,9 @@
 
         <!-- Age group -->
         <criteria-input
-          :value="form.criteria.age_group"
+          :value="age_group"
           @input="$emit('update:age_group', $event); $emit('clear', 'criteria.age_group')"
-          :error="form.$errors.get('criteria.age_group')"
+          :error="errors.get('criteria.age_group')"
           id="criteria.age_group"
           label="Age of service user (if applicable)"
           hint='e.g. "This service is for people 16+", or "This service is aimed at people nearig retirement"'
@@ -22,9 +22,9 @@
 
         <!-- Disability -->
         <criteria-input
-          :value="form.criteria.disability"
+          :value="disability"
           @input="$emit('update:disability', $event); $emit('clear', 'criteria.disability')"
-          :error="form.$errors.get('criteria.disability')"
+          :error="errors.get('criteria.disability')"
           id="criteria.disability"
           label="Disability Requirements / Restrictions (if applicable)"
           hint='e.g. "This service is for those with MS and their carers", or "For all people with disabilities and their carers"'
@@ -33,9 +33,9 @@
 
         <!-- Gender -->
         <criteria-input
-          :value="form.criteria.gender"
+          :value="gender"
           @input="$emit('update:gender', $event); $emit('clear', 'criteria.gender')"
-          :error="form.$errors.get('criteria.gender')"
+          :error="errors.get('criteria.gender')"
           id="criteria.gender"
           label="Gender Specific (if applicable)"
           hint='e.g. "Women only"'
@@ -44,9 +44,9 @@
 
         <!-- Housing -->
         <criteria-input
-          :value="form.criteria.housing"
+          :value="housing"
           @input="$emit('update:housing', $event); $emit('clear', 'criteria.housing')"
-          :error="form.$errors.get('criteria.housing')"
+          :error="errors.get('criteria.housing')"
           id="criteria.housing"
           label="Specific Housing status/needs (if applicable)"
           hint='e.g. "For people who are homeless or at risk of homelessness"'
@@ -55,9 +55,9 @@
 
         <!-- Income -->
         <criteria-input
-          :value="form.criteria.income"
+          :value="income"
           @input="$emit('update:income', $event); $emit('clear', 'criteria.income')"
-          :error="form.$errors.get('criteria.income')"
+          :error="errors.get('criteria.income')"
           id="criteria.income"
           label="Income level (if applicable)"
           hint='e.g. "Service is aimed at people claiming benefits or with Income support"'
@@ -66,9 +66,9 @@
 
         <!-- Language -->
         <criteria-input
-          :value="form.criteria.language"
+          :value="language"
           @input="$emit('update:language', $event); $emit('clear', 'criteria.language')"
-          :error="form.$errors.get('criteria.language')"
+          :error="errors.get('criteria.language')"
           id="criteria.language"
           label="Language accessability (if applicable)"
           hint='e.g. "Instructors speak English, but open to all", or "This service is available in a number of languages - please contact me for more information"'
@@ -77,9 +77,9 @@
 
         <!-- Other -->
         <criteria-input
-          :value="form.criteria.other"
+          :value="other"
           @input="$emit('update:other', $event); $emit('clear', 'criteria.other')"
-          :error="form.$errors.get('criteria.other')"
+          :error="errors.get('criteria.other')"
           id="criteria.other"
           label="Any other notes as to who the service is aimed at/not appropraite for?"
           hint='e.g. "This service is open to all", or "This service is aimed at people living in Chessington"'
@@ -99,10 +99,33 @@ export default {
   name: "WhoForTab",
   components: { CriteriaInput },
   props: {
-    form: {
-      type: Object,
+    errors: {
       required: true
-    }
+    },
+    age_group: {
+      required: true
+    },
+    disability: {
+      required: true
+    },
+    employment: {
+      required: true
+    },
+    gender: {
+      required: true
+    },
+    housing: {
+      required: true
+    },
+    income: {
+      required: true
+    },
+    language: {
+      required: true
+    },
+    other: {
+      required: true
+    },
   }
 };
 </script>
