@@ -49,7 +49,9 @@ export default {
     async fetchUser() {
       this.loading = true;
 
-      const response = await http.get(`/users/${this.$route.params.user}`, { params: { include: "user-roles" } });
+      const response = await http.get(`/users/${this.$route.params.user}`, {
+        params: { include: "user-roles" }
+      });
       this.user = response.data.data;
       this.form = new Form({
         first_name: this.user.first_name,
@@ -66,10 +68,14 @@ export default {
           serviceIds.push(role.service_id);
         }
       });
-      let services = await this.fetchAll("/services", { "filter[id]": serviceIds.join(",") });
+      let services = await this.fetchAll("/services", {
+        "filter[id]": serviceIds.join(",")
+      });
       this.form.roles.forEach(role => {
         if (role.hasOwnProperty("service_id")) {
-          const service = services.find(service => (service.id === role.service_id));
+          const service = services.find(
+            service => service.id === role.service_id
+          );
           role.organisation_id = service.organisation_id;
         }
       });

@@ -185,7 +185,10 @@ export default {
     async onSubmit() {
       const data = await this.form.post("/services");
       const serviceId = data.data.id;
-      this.$router.push({ name: "service-show", params: { service: serviceId } });
+      this.$router.push({
+        name: "service-show",
+        params: { service: serviceId }
+      });
     },
     onTabChange({ index }) {
       this.tabs.forEach(tab => (tab.active = false));

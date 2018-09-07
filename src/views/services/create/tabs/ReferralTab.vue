@@ -110,10 +110,7 @@ export default {
   },
   computed: {
     referralIsInternalOrExternal() {
-      return (
-        this.referral_method !== null &&
-        this.referral_method !== "none"
-      );
+      return this.referral_method !== null && this.referral_method !== "none";
     }
   },
   watch: {

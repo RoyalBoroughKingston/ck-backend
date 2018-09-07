@@ -51,12 +51,18 @@ export default {
   methods: {
     async fetchServiceLocation() {
       this.loading = true;
-      const response = await http.get(`/service-locations/${this.$route.params.serviceLocation}`, { params: { include: "location" } });
+      const response = await http.get(
+        `/service-locations/${this.$route.params.serviceLocation}`,
+        { params: { include: "location" } }
+      );
       this.serviceLocation = response.data.data;
       this.loading = false;
     },
     onDelete() {
-      this.$router.push({ name: "services-show", params: { service: this.serviceLocation.service_id } });
+      this.$router.push({
+        name: "services-show",
+        params: { service: this.serviceLocation.service_id }
+      });
     }
   },
   created() {

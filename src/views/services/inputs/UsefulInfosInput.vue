@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     cloneUsefulInfos() {
-      return this.usefulInfos.map(usefulInfo => ({...usefulInfo}));
+      return this.usefulInfos.map(usefulInfo => ({ ...usefulInfo }));
     },
     onAddUsefulInfo() {
       let usefulInfos = this.cloneUsefulInfos();
@@ -115,7 +115,7 @@ export default {
     }
   },
   watch: {
-    "usefulInfos": {
+    usefulInfos: {
       handler(usefulInfos) {
         this.usefulInfoTitleOptions.forEach((usefulInfoTitleOption, index) => {
           if (usefulInfoTitleOption.value === "") {

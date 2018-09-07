@@ -116,8 +116,11 @@ export default {
         { text: "Longer than a month", value: "longer" }
       ],
       isFreeOptions: [
-        { value: true, label: 'Yes - The service is free' },
-        { value: false, label: 'No - there are elements of this service that must be paid for' }
+        { value: true, label: "Yes - The service is free" },
+        {
+          value: false,
+          label: "No - there are elements of this service that must be paid for"
+        }
       ]
     };
   },

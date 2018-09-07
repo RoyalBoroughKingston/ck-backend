@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     cloneSocialMedias() {
-      return this.socialMedias.map(socialMedia => ({...socialMedia}));
+      return this.socialMedias.map(socialMedia => ({ ...socialMedia }));
     },
     onAddSocialMedia() {
       let socialMedias = this.cloneSocialMedias();

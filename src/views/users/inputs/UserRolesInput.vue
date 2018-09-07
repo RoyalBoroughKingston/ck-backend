@@ -104,13 +104,13 @@ export default {
     };
   },
   watch: {
-    "roles": {
-      handler: function (newRoles, oldRoles) {
+    roles: {
+      handler: function(newRoles, oldRoles) {
         if (JSON.stringify(newRoles) === JSON.stringify(oldRoles)) {
           return;
         }
 
-        newRoles = newRoles.map(role => ({...role}));
+        newRoles = newRoles.map(role => ({ ...role }));
 
         newRoles.forEach(role => {
           // If the role uses a service, then lazy load the services and cache them.
@@ -142,30 +142,34 @@ export default {
   },
   methods: {
     cloneRoles() {
-      return this.roles.map(role => ({...role}));
+      return this.roles.map(role => ({ ...role }));
     },
     showOrganisationSelect(index) {
-      return ["Organisation Admin", "Service Admin", "Service Worker"].includes(this.roles[index].role);
+      return ["Organisation Admin", "Service Admin", "Service Worker"].includes(
+        this.roles[index].role
+      );
     },
     showServiceSelect(index) {
-      return ["Service Admin", "Service Worker"].includes(this.roles[index].role);
+      return ["Service Admin", "Service Worker"].includes(
+        this.roles[index].role
+      );
     },
     onRoleInput({ key, value }) {
-      this.$emit("clear", `roles.${key}.role`)
+      this.$emit("clear", `roles.${key}.role`);
 
       let roles = this.cloneRoles();
       roles[key].role = value;
       this.$emit("input", roles);
     },
     onOrganisationInput({ key, value }) {
-      this.$emit("clear", `roles.${key}.organisation_id`)
+      this.$emit("clear", `roles.${key}.organisation_id`);
 
       let roles = this.cloneRoles();
       roles[key].organisation_id = value;
       this.$emit("input", roles);
     },
     onServiceInput({ key, value }) {
-      this.$emit("clear", `roles.${key}.service_id`)
+      this.$emit("clear", `roles.${key}.service_id`);
 
       let roles = this.cloneRoles();
       roles[key].service_id = value;
@@ -210,7 +214,9 @@ export default {
       this.loadingOrganisations = false;
     },
     async cacheServices(organisationIds) {
-      organisationIds = Array.isArray(organisationIds) ? organisationIds : [organisationIds];
+      organisationIds = Array.isArray(organisationIds)
+        ? organisationIds
+        : [organisationIds];
 
       for (let organisationId of organisationIds) {
         // Skip if the services have already been cached.
@@ -233,7 +239,7 @@ export default {
         this.services[organisationId].items = [
           ...this.services[organisationId].items,
           ...services
-            .filter(service => (service.organisation_id === organisationId))
+            .filter(service => service.organisation_id === organisationId)
             .map(service => ({ value: service.id, text: service.name }))
         ];
 

@@ -79,7 +79,9 @@ export default {
   methods: {
     async fetchService() {
       this.loading = true;
-      const response = await http.get(`/services/${this.$route.params.service}`);
+      const response = await http.get(
+        `/services/${this.$route.params.service}`
+      );
       this.service = response.data.data;
       this.form.service_id = this.service.id;
       this.loading = false;
@@ -106,8 +108,8 @@ export default {
       }
     }
   },
-  created() {{
+  created() {
     this.fetchService();
-  }}
+  }
 };
 </script>

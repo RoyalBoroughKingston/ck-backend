@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      enabled: (this.value !== "")
+      enabled: this.value !== ""
     };
   },
   watch: {

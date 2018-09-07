@@ -125,7 +125,7 @@ export default {
     },
     other: {
       required: true
-    },
+    }
   }
 };
 </script>

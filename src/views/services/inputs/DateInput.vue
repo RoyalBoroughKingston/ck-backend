@@ -80,7 +80,9 @@ export default {
         }
       }
 
-      let date = moment({ year, month: (month - 1), day }).format(moment.HTML5_FMT.DATE);
+      let date = moment({ year, month: month - 1, day }).format(
+        moment.HTML5_FMT.DATE
+      );
 
       // Only return the date if it's vaild.
       if (date === "Invalid date") {
