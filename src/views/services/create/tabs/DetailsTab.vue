@@ -10,7 +10,7 @@
 
         <ck-text-input
           :value="name"
-          @input="$emit('update:name', $event); $emit('clear', 'name'); $emit('update:slug', slugify($event)); $emit('clear', 'slug')"
+          @input="$emit('update:name', $event); $emit('clear', 'name'); $emit('update:seo_title', $event); $emit('clear', 'seo_title'); $emit('update:slug', slugify($event)); $emit('clear', 'slug')"
           id="name"
           label="Name of service"
           type="text"
@@ -63,7 +63,7 @@
 
         <ck-textarea-input
           :value="intro"
-          @input="$emit('update:intro', $event); $emit('clear', 'intro')"
+          @input="$emit('update:intro', $event); $emit('clear', 'intro'); $emit('update:seo_description', $event); $emit('clear', 'seo_description')"
           id="intro"
           label="Please provide a one-line summary of the service"
           hint="This should be a short line or two that summarises what the service offers and will appear below the service name in search results (max 150 characters)."
@@ -121,6 +121,12 @@ export default {
       required: true
     },
     description: {
+      required: true
+    },
+    seo_title: {
+      required: true
+    },
+    seo_description: {
       required: true
     }
   },

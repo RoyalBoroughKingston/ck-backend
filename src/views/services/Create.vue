@@ -9,7 +9,7 @@
 
           <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
             <gov-list>
-              <li v-for="(error, field) in form.$errors" :key="field" v-text="error[0]" />
+              <li v-for="(error, field) in form.$errors.all()" :key="field" v-text="error[0]" />
             </gov-list>
           </gov-error-summary>
 
@@ -27,6 +27,8 @@
               :logo.sync="form.logo"
               :intro.sync="form.intro"
               :description.sync="form.description"
+              :seo_title.sync="form.seo_title"
+              :seo_description.sync="form.seo_description"
             />
 
             <additional-info-tab
@@ -183,8 +185,8 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const response = await this.form.post("/services");
-      const serviceId = response.data.data.id;
+      const data = await this.form.post("/services");
+      const serviceId = data.data.id;
       this.$router.push({ name: "service-show", params: { service: serviceId } });
     },
     onTabChange({ index }) {
