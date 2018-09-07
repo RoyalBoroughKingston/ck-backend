@@ -6,6 +6,13 @@
         <gov-grid-column width="full">
           <gov-heading size="xl">Services</gov-heading>
           <gov-heading size="m">Add service</gov-heading>
+
+          <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
+            <gov-list>
+              <li v-for="(error, field) in form.$errors" :key="field" v-text="error[0]" />
+            </gov-list>
+          </gov-error-summary>
+
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
 
             <details-tab
@@ -69,45 +76,8 @@
               :other.sync="form.criteria.other"
             />
 
-            <location-tab
-              v-if="tabs[5].active"
-              :forms="serviceLocationForms"
-              @clear-service-location="serviceLocationForms[$event.index].$errors.clear($event.value); errors = {}"
-              @clear-location="serviceLocationForms[$event.index].location.$errors.clear($event.value); errors = {}"
-              @add="serviceLocationForms.push($event)"
-              @delete="$delete(serviceLocationForms, $event)"
-              @add-regular-opening-hour="serviceLocationForms[$event.index].regular_opening_hours.push($event.value)"
-              @delete-regular-opening-hour="$delete(serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours, $event.openingHourIndex)"
-              @add-holiday-opening-hour="serviceLocationForms[$event.index].holiday_opening_hours.push($event.value)"
-              @delete-holiday-opening-hour="$delete(serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours, $event.openingHourIndex)"
-              @next="onNext"
-              @update:location_type="serviceLocationForms[$event.index].location_type = $event.value"
-              @update:location_id="serviceLocationForms[$event.index].location_id = $event.value"
-              @update:address_line_1="serviceLocationForms[$event.index].location.address_line_1 = $event.value"
-              @update:address_line_2="serviceLocationForms[$event.index].location.address_line_2 = $event.value"
-              @update:address_line_3="serviceLocationForms[$event.index].location.address_line_3 = $event.value"
-              @update:city="serviceLocationForms[$event.index].location.city = $event.value"
-              @update:county="serviceLocationForms[$event.index].location.county = $event.value"
-              @update:postcode="serviceLocationForms[$event.index].location.postcode = $event.value"
-              @update:country="serviceLocationForms[$event.index].location.country = $event.value"
-              @update:has_wheelchair_access="serviceLocationForms[$event.index].location.has_wheelchair_access = $event.value"
-              @update:has_induction_loop="serviceLocationForms[$event.index].location.has_induction_loop = $event.value"
-              @update:regular_opening_hours_frequency="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].frequency = $event.value"
-              @update:regular_opening_hours_weekday="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].weekday = $event.value"
-              @update:regular_opening_hours_day_of_month="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].day_of_month = $event.value"
-              @update:regular_opening_hours_opens_at="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].opens_at = $event.value"
-              @update:regular_opening_hours_closes_at="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].closes_at = $event.value"
-              @update:regular_opening_hours_occurrence_of_month="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].occurrence_of_month = $event.value"
-              @update:regular_opening_hours_starts_at="serviceLocationForms[$event.serviceLocationIndex].regular_opening_hours[$event.openingHourIndex].starts_at = $event.value"
-              @update:holiday_opening_hours_is_closed="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].is_closed = $event.value"
-              @update:holiday_opening_hours_starts_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].starts_at = $event.value"
-              @update:holiday_opening_hours_ends_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].ends_at = $event.value"
-              @update:holiday_opening_hours_opens_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].opens_at = $event.value"
-              @update:holiday_opening_hours_closes_at="serviceLocationForms[$event.serviceLocationIndex].holiday_opening_hours[$event.openingHourIndex].closes_at = $event.value"
-            />
-
             <taxonomies-tab
-              v-if="tabs[6].active"
+              v-if="tabs[5].active"
               @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
               :errors="form.$errors"
@@ -115,7 +85,7 @@
             />
 
             <referral-tab
-              v-if="tabs[7].active"
+              v-if="tabs[6].active"
               @clear="form.$errors.clear($event); errors = {}"
               @submit="onSubmit"
               :errors="form.$errors"
@@ -199,84 +169,23 @@ export default {
         category_taxonomies: [],
         logo: null
       }),
-      serviceLocationForms: [],
       tabs: [
         { heading: "Details", active: true },
         { heading: "Additional info", active: false },
         { heading: "Useful info", active: false },
         { heading: "Contact info", active: false },
         { heading: "Who is it for?", active: false },
-        { heading: "Locations", active: false },
         { heading: "Taxonomies", active: false },
         { heading: "Referral", active: false }
       ],
-      submitting: false,
       errors: {}
     };
   },
   methods: {
     async onSubmit() {
-      this.submitting = true;
-
-      try {
-        /**
-         * Step 1: Save the locations.
-         */
-
-        // Loop through each service location form.
-        for (let serviceLocationForm of this.serviceLocationForms) {
-          if (serviceLocationForm.location_type !== "new") {
-            continue;
-          }
-
-          // Save each new location.
-          const { data } = await serviceLocationForm.location.post(
-            "/locations"
-          );
-
-          // Append the location to the cache, set the location ID, and remove the location object/form.
-          this.$root.$emit("location-created", data);
-          serviceLocationForm.location_id = data.id;
-          serviceLocationForm.location_type = "existing";
-        }
-
-        /**
-         * Step 2: Save the service.
-         */
-
-        // Save the service and set the ID.
-        if (this.form.id === null) {
-          const { data } = await this.form.post("/services");
-          this.form.id = data.id;
-
-          for (let serviceLocationForm of this.serviceLocationForms) {
-            serviceLocationForm.service_id = this.form.id;
-          }
-        }
-
-        /**
-         * Step 3: Save the service locations.
-         */
-
-        // Loop through each service location form and save them.
-        for (let serviceLocationForm of this.serviceLocationForms) {
-          if (serviceLocationForm.id !== null) {
-            continue;
-          }
-
-          const { data } = await serviceLocationForm.post("/service-locations");
-          serviceLocationForm.id = data.id;
-        }
-
-        // Forward the user to the newly created service page.
-        this.$router.push({
-          name: "services-show",
-          params: { service: this.form.id }
-        });
-      } catch (error) {
-        this.submitting = false;
-        console.log(error);
-      }
+      const response = await this.form.post("/services");
+      const serviceId = response.data.data.id;
+      this.$router.push({ name: "service-show", params: { service: serviceId } });
     },
     onTabChange({ index }) {
       this.tabs.forEach(tab => (tab.active = false));
