@@ -4,12 +4,6 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
-          <gov-error-summary v-if="Object.keys(errors).length > 0" title="Errors">
-            <gov-list>
-              <li v-for="(error, index) in errors" :key="index" v-text="error[0]"/>
-            </gov-list>
-          </gov-error-summary>
-
           <gov-heading size="xl">Services</gov-heading>
           <gov-heading size="m">Add service</gov-heading>
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
@@ -122,14 +116,15 @@
 
             <referral-tab
               v-if="tabs[7].active"
-              :form="form"
               @clear="form.$errors.clear($event); errors = {}"
               @submit="onSubmit"
-              @update:show_referral_disclaimer="form.show_referral_disclaimer = $event"
-              @update:referral_method="form.referral_method = $event"
-              @update:referral_button_text="form.referral_button_text = $event"
-              @update:referral_email="form.referral_email = $event"
-              @update:referral_url="form.referral_url = $event"
+              :errors="form.$errors"
+              :submitting="form.$submitting"
+              :show_referral_disclaimer.sync="form.show_referral_disclaimer"
+              :referral_method.sync="form.referral_method"
+              :referral_button_text.sync="form.referral_button_text"
+              :referral_email.sync="form.referral_email"
+              :referral_url.sync="form.referral_url"
             />
 
           </gov-tabs>
@@ -280,7 +275,7 @@ export default {
         });
       } catch (error) {
         this.submitting = false;
-        this.errors = error.errors;
+        console.log(error);
       }
     },
     onTabChange({ index }) {

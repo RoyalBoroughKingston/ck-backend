@@ -10,60 +10,60 @@
 
         <gov-section-break size="l" />
 
-        <ck-radio-input
-          :value="form.show_referral_disclaimer"
-          @input="$emit('update:show_referral_disclaimer', $event); $emit('clear', 'show_referral_disclaimer')"
-          id="show_referral_disclaimer"
-          label="Show referral disclaimer?"
-          :options="[{ value: true, label: 'Display' }, { value: false, label: 'Don\'t display' }]"
-          :error="form.$errors.get('show_referral_disclaimer')"
-        />
-
         <ck-select-input
-          v-if="form.show_referral_disclaimer"
-          :value="form.referral_method"
+          :value="referral_method"
           @input="$emit('update:referral_method', $event); $emit('clear', 'referral_method')"
           id="referral_method"
           label="Referral method"
           hint="How does this service receive referrals?"
           :options="referralMethodOptions"
-          :error="form.$errors.get('referral_method')"
+          :error="errors.get('referral_method')"
         />
 
         <ck-text-input
-          v-if="form.show_referral_disclaimer && referralIsInternalOrExternal"
-          :value="form.referral_button_text"
+          v-if="referralIsInternalOrExternal"
+          :value="referral_button_text"
           @input="$emit('update:referral_button_text', $event); $emit('clear', 'referral_button_text')"
           id="referral_button_text"
           label="Referral button text"
           hint="The text to be displayed on the button to make the referral."
           type="text"
-          :error="form.$errors.get('referral_button_text')"
+          :error="errors.get('referral_button_text')"
         />
 
         <ck-text-input
-          v-if="form.show_referral_disclaimer && referralIsInternalOrExternal && (form.referral_method === 'internal')"
-          :value="form.referral_email"
+          v-if="referralIsInternalOrExternal && (referral_method === 'internal')"
+          :value="referral_email"
           @input="$emit('update:referral_email', $event); $emit('clear', 'referral_email')"
           id="referral_email"
           label="Referral email"
           hint="The email address which should be notified when referrals are made"
           type="email"
-          :error="form.$errors.get('referral_email')"
+          :error="errors.get('referral_email')"
         />
 
         <ck-text-input
-          v-if="form.show_referral_disclaimer && referralIsInternalOrExternal && (form.referral_method === 'external')"
-          :value="form.referral_url"
+          v-if="referralIsInternalOrExternal && (referral_method === 'external')"
+          :value="referral_url"
           @input="$emit('update:referral_url', $event); $emit('clear', 'referral_url')"
           id="referral_url"
           label="Referral URL"
           hint="The URL that the user must visit to make a referral"
           type="url"
-          :error="form.$errors.get('referral_url')"
+          :error="errors.get('referral_url')"
         />
 
-        <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+        <ck-radio-input
+          v-if="referralIsInternalOrExternal"
+          :value="show_referral_disclaimer"
+          @input="$emit('update:show_referral_disclaimer', $event); $emit('clear', 'show_referral_disclaimer')"
+          id="show_referral_disclaimer"
+          label="Show referral disclaimer?"
+          :options="[{ value: true, label: 'Display' }, { value: false, label: 'Don\'t display' }]"
+          :error="errors.get('show_referral_disclaimer')"
+        />
+
+        <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
         <gov-button v-else @click="$emit('submit')" type="submit">Create</gov-button>
 
       </gov-grid-column>
@@ -75,8 +75,26 @@
 export default {
   name: "ReferralTab",
   props: {
-    form: {
-      type: Object,
+    errors: {
+      required: true
+    },
+    submitting: {
+      required: true,
+      type: Boolean
+    },
+    show_referral_disclaimer: {
+      required: true
+    },
+    referral_method: {
+      required: true
+    },
+    referral_button_text: {
+      required: true
+    },
+    referral_email: {
+      required: true
+    },
+    referral_url: {
       required: true
     }
   },
@@ -93,37 +111,23 @@ export default {
   computed: {
     referralIsInternalOrExternal() {
       return (
-        this.form.referral_method !== null &&
-        this.form.referral_method !== "none"
+        this.referral_method !== null &&
+        this.referral_method !== "none"
       );
     }
   },
   watch: {
-    "form.show_referral_disclaimer"(newShowReferralDisclaimer) {
-      if (newShowReferralDisclaimer !== true) {
-        this.$emit("update:referral_method", "none");
-        this.$emit("update:referral_button_text", "");
-        this.$emit("update:referral_email", "");
-        this.$emit("update:referral_url", "");
-
-        this.$emit("clear", "referral_method");
-        this.$emit("clear", "referral_button_text");
-        this.$emit("clear", "referral_email");
-        this.$emit("clear", "referral_url");
-      } else {
-        this.$emit("update:referral_method", null);
-        this.$emit("clear", "referral_method");
-      }
-    },
-    "form.referral_method"(newReferralMethod) {
+    referral_method(newReferralMethod) {
       if (newReferralMethod === null || newReferralMethod === "none") {
         this.$emit("update:referral_button_text", "");
         this.$emit("update:referral_email", "");
         this.$emit("update:referral_url", "");
+        this.$emit("update:show_referral_disclaimer", false);
 
         this.$emit("clear", "referral_button_text");
         this.$emit("clear", "referral_email");
         this.$emit("clear", "referral_url");
+        this.$emit("clear", "show_referral_disclaimer");
       }
 
       if (newReferralMethod !== "internal") {
