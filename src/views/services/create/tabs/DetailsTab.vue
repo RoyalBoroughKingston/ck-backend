@@ -9,74 +9,74 @@
         <gov-section-break size="l" />
 
         <ck-text-input
-          :value="form.name"
-          @input="$emit('update:name', $event); $emit('clear', 'name'); $emit('clear', 'slug')"
+          :value="name"
+          @input="$emit('update:name', $event); $emit('clear', 'name'); $emit('update:slug', slugify($event)); $emit('clear', 'slug')"
           id="name"
           label="Name of service"
           type="text"
-          :error="form.$errors.get('name')"
+          :error="errors.get('name')"
         />
 
         <ck-text-input
-          :value="form.slug"
+          :value="slug"
           @input="$emit('update:slug', $event); $emit('clear', 'slug')"
           id="slug"
           label="Unique slug"
           type="text"
-          :error="form.$errors.get('slug')"
+          :error="errors.get('slug')"
         >
           <gov-hint slot="hint" for="slug">
             This will be used to access the service page.<br>
-            e.g. example.com/services/{{ form.slug }}
+            e.g. example.com/services/{{ slug }}
           </gov-hint>
         </ck-text-input>
 
         <ck-select-input
-          :value="form.organisation_id"
+          :value="organisation_id"
           @input="$emit('update:organisation_id', $event); $emit('clear', 'organisation_id')"
           id="organisation_id"
           label="Organisation"
           hint="Which organisation provides this service?"
           :options="organisations"
-          :error="form.$errors.get('organisation_id')"
+          :error="errors.get('organisation_id')"
         />
 
         <ck-text-input
-          :value="form.url"
+          :value="url"
           @input="$emit('update:url', $event); $emit('clear', 'url')"
           id="url"
           label="Service website address"
           hint="or your organisation if you do not have a seperate service website/page"
           type="url"
-          :error="form.$errors.get('url')"
+          :error="errors.get('url')"
         />
 
         <ck-file-input
-          :value="form.logo"
+          :value="logo"
           @input="$emit('update:logo', $event); $emit('clear', 'logo')"
           id="logo"
           label="Service logo"
           hint="please upload a logo of the service, not the organisation."
           accept="image/x-png"
-          :error="form.$errors.get('logo')"
+          :error="errors.get('logo')"
         />
 
         <ck-textarea-input
-          :value="form.intro"
+          :value="intro"
           @input="$emit('update:intro', $event); $emit('clear', 'intro')"
           id="intro"
           label="Please provide a one-line summary of the service"
           hint="This should be a short line or two that summarises what the service offers and will appear below the service name in search results (max 150 characters)."
           :maxlength="150"
-          :error="form.$errors.get('intro')"
+          :error="errors.get('intro')"
         />
 
         <ck-wysiwyg-input
-          :value="form.description"
+          :value="description"
           @input="$emit('update:description', $event); $emit('clear', 'description')"
           id="description"
           label="Service description"
-          :error="form.$errors.get('description')"
+          :error="errors.get('description')"
         >
           <gov-hint slot="hint" for="description">
             Please enter a more detailed description of the service. This will be
@@ -99,8 +99,28 @@
 export default {
   name: "DetailsTab",
   props: {
-    form: {
-      type: Object,
+    errors: {
+      required: true
+    },
+    name: {
+      required: true
+    },
+    slug: {
+      required: true
+    },
+    organisation_id: {
+      required: true
+    },
+    url: {
+      required: true
+    },
+    logo: {
+      required: true
+    },
+    intro: {
+      required: true
+    },
+    description: {
       required: true
     }
   },

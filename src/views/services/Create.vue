@@ -16,16 +16,16 @@
 
             <details-tab
               v-show="tabs[0].active"
-              :form="form"
               @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
-              @update:name="form.name = $event; form.slug = slugify($event); form.seo_title = $event"
-              @update:slug="form.slug = $event"
-              @update:organisation_id="form.organisation_id = $event"
-              @update:url="form.url = $event"
-              @update:logo="form.logo = $event"
-              @update:intro="form.intro = $event; form.seo_description = $event"
-              @update:description="form.description = $event"
+              :errors="form.$errors"
+              :name.sync="form.name"
+              :slug.sync="form.slug"
+              :organisation_id.sync="form.organisation_id"
+              :url.sync="form.url"
+              :logo.sync="form.logo"
+              :intro.sync="form.intro"
+              :description.sync="form.description"
             />
 
             <additional-info-tab
