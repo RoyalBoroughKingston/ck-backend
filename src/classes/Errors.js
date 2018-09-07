@@ -34,6 +34,15 @@ export default class Errors {
   }
 
   /**
+   * Returns the errors object.
+   *
+   * @returns {Object}
+   */
+  all() {
+    return this.errors;
+  }
+
+  /**
    * Retrieve the error message for a field.
    *
    * @param {string|Array} fields

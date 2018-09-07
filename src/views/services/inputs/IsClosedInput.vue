@@ -1,32 +1,36 @@
 <template>
-  <gov-form-group :invalid="form.$errors.has(path)">
+  <gov-form-group :invalid="error !== null">
 
     <gov-radios>
-      <gov-label :for="path">
+
+      <gov-label :for="id">
         Is this service open or closed during these holiday hours?
       </gov-label>
+
       <gov-radio
         :bind-to="value"
         @input="$emit('input', $event)"
-        :id="`${path}_open`"
-        :name="path"
+        :id="`${id}_open`"
+        :name="id"
         label="Open"
         :value="false"
       />
+
       <gov-radio
         :bind-to="value"
         @input="$emit('input', $event)"
-        :id="`${path}_closed`"
-        :name="path"
+        :id="`${id}_closed`"
+        :name="id"
         label="Closed"
         :value="true"
       />
+
     </gov-radios>
 
     <gov-error-message
-      v-if="form.location.$errors.has(path)"
-      v-text="form.location.$errors.get(path)"
-      :for="path"
+      v-if="error"
+      v-text="error"
+      :for="id"
     />
 
   </gov-form-group>
@@ -39,11 +43,10 @@ export default {
     value: {
       required: true
     },
-    form: {
-      type: Object,
+    error: {
       required: true
     },
-    path: {
+    id: {
       type: String,
       required: true
     }

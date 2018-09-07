@@ -20,8 +20,8 @@
           <gov-table-cell>{{ service.criteria.housing || "No specific requirement" }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header scope="row" top>Employment</gov-table-header>
-          <gov-table-cell>{{ service.criteria.employment || "No specific requirement" }}</gov-table-cell>
+          <gov-table-header scope="row" top>Income</gov-table-header>
+          <gov-table-cell>{{ service.criteria.income || "No specific requirement" }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
           <gov-table-header scope="row" top>Language accessibility</gov-table-header>
