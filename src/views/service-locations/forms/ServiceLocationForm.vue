@@ -181,10 +181,6 @@ export default {
   name: "ServiceLocationForm",
   components: {
     DateInput,
-    OccurrenceOfMonthInput,
-    DayOfMonthInput,
-    WeekdayInput,
-    FrequencyInput,
     TimePeriodInput,
     IsClosedInput
   },

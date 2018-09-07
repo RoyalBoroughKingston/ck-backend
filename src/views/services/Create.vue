@@ -113,7 +113,6 @@ import AdditionalInfoTab from "@/views/services/create/tabs/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/create/tabs/UsefulInfoTab";
 import ContactDetailsTab from "@/views/services/create/tabs/ContactDetailsTab";
 import WhoForTab from "@/views/services/create/tabs/WhoForTab";
-import LocationTab from "@/views/services/create/tabs/LocationTab";
 import ReferralTab from "@/views/services/create/tabs/ReferralTab";
 import TaxonomiesTab from "@/views/services/create/tabs/TaxonomiesTab";
 
@@ -125,7 +124,6 @@ export default {
     UsefulInfoTab,
     ContactDetailsTab,
     WhoForTab,
-    LocationTab,
     ReferralTab,
     TaxonomiesTab
   },

@@ -2,7 +2,7 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <gov-back-link :to="{ name: 'service-show', params: { service: service.id } }">Back to service</gov-back-link>
+      <gov-back-link :to="{ name: 'services-show-locations', params: { service: service.id } }">Back to service</gov-back-link>
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="one-half">
@@ -44,6 +44,7 @@
 <script>
 import Form from "@/classes/Form";
 import ServiceLocationForm from "@/views/service-locations/forms/ServiceLocationForm";
+import http from "@/http";
 
 export default {
   name: "CreateServiceLocation",
@@ -77,19 +78,22 @@ export default {
   methods: {
     async fetchService() {
       this.loading = true;
-      const response = await http.get(`/service/${this.$route.params.service}`);
+      const response = await http.get(`/services/${this.$route.params.service}`);
       this.service = response.data.data;
       this.form.service_id = this.service.id;
       this.loading = false;
     },
     async onSubmit() {
       const response = await this.form.post("/service-locations");
-      const serviceId = response.data.service_id;
+      const serviceLocationId = response.data.id;
       this.$router.push({
-        name: "services-show",
-        params: { organisation: serviceId }
+        name: "service-locations-show",
+        params: { serviceLocation: serviceLocationId }
       });
     }
-  }
+  },
+  created() {{
+    this.fetchService();
+  }}
 };
 </script>

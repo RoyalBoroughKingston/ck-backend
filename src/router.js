@@ -189,6 +189,12 @@ let router = new Router({
       ]
     },
     {
+      path: "/services/:service/service-locations/create",
+      name: "service-locations-create",
+      component: () => import("@/views/service-locations/Create"),
+      meta: { auth: true }
+    },
+    {
       path: "/service-locations/:serviceLocation",
       name: "service-locations-show",
       component: () => import("@/views/service-locations/Show"),
