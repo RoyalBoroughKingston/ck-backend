@@ -29,15 +29,15 @@
     <gov-inset-text v-else-if="location_type === 'new'">
       <location-form
         :errors="locationErrors"
-        :address_line_1="locationForm.address_line_1"
-        :address_line_2="locationForm.address_line_2"
-        :address_line_3="locationForm.address_line_3"
-        :city="locationForm.city"
-        :county="locationForm.county"
-        :postcode="locationForm.postcode"
-        :country="locationForm.country"
-        :has_induction_loop="locationForm.has_induction_loop"
-        :has_wheelchair_access="locationForm.has_wheelchair_access"
+        :address_line_1="address_line_1"
+        :address_line_2="address_line_2"
+        :address_line_3="address_line_3"
+        :city="city"
+        :county="county"
+        :postcode="postcode"
+        :country="country"
+        :has_induction_loop="has_induction_loop"
+        :has_wheelchair_access="has_wheelchair_access"
         @update:address_line_1="onLocationInput({ field: 'address_line_1', value: $event })"
         @update:address_line_2="onLocationInput({ field: 'address_line_2', value: $event })"
         @update:address_line_3="onLocationInput({ field: 'address_line_3', value: $event })"
@@ -68,6 +68,7 @@
       />
 
       <ck-select-input
+        v-if="['weekly', 'nth_occurrence_of_month'].includes(regularOpeningHour.frequency)"
         :value="regularOpeningHour.weekday"
         @input="onRegularOpeningHourInput({ index, field: 'weekday', value: $event })"
         :id="`regular_opening_hours.${index}.weekday`"
@@ -77,6 +78,7 @@
       />
 
       <ck-select-input
+        v-if="regularOpeningHour.frequency === 'monthly'"
         :value="regularOpeningHour.day_of_month"
         @input="onRegularOpeningHourInput({ index, field: 'day_of_month', value: $event })"
         :id="`regular_opening_hours.${index}.day_of_month`"
@@ -86,6 +88,7 @@
       />
 
       <ck-select-input
+        v-if="regularOpeningHour.frequency === 'nth_occurrence_of_month'"
         :value="regularOpeningHour.occurrence_of_month"
         @input="onRegularOpeningHourInput({ index, field: 'occurrence_of_month', value: $event })"
         :id="`regular_opening_hours.${index}.occurrence_of_month`"
@@ -104,12 +107,12 @@
       />
 
       <time-period-input
-        :id="`regular_opening_hours.${openingHourIndex}`"
+        :id="`regular_opening_hours.${index}`"
         :opens_at="regularOpeningHour.opens_at"
         :closes_at="regularOpeningHour.closes_at"
         @update:opens_at="onRegularOpeningHourInput({ index, field: 'opens_at', value: $event })"
         @update:closes_at="onRegularOpeningHourInput({ index, field: 'closes_at', value: $event })"
-        :error="errors.get([`regular_opening_hours.${openingHourIndex}.opens_at`, `regular_opening_hours.${openingHourIndex}.closes_at`])"
+        :error="errors.get([`regular_opening_hours.${index}.opens_at`, `regular_opening_hours.${index}.closes_at`])"
       />
 
       <gov-button @click="onDeleteRegularOpeningHour(index)" error>Delete day</gov-button>
@@ -150,12 +153,12 @@
       />
 
       <time-period-input
-        :id="`holiday_opening_hours.${openingHourIndex}`"
+        :id="`holiday_opening_hours.${index}`"
         :opens_at="holidayOpeningHour.opens_at"
         :closes_at="holidayOpeningHour.closes_at"
         @update:opens_at="onHolidayOpeningHourInput({ index, field: 'opens_at', value: $event })"
         @update:closes_at="onHolidayOpeningHourInput({ index, field: 'closes_at', value: $event })"
-        :error="errors.get([`holiday_opening_hours.${openingHourIndex}.opens_at`, `holiday_opening_hours.${openingHourIndex}.closes_at`])"
+        :error="errors.get([`holiday_opening_hours.${index}.opens_at`, `holiday_opening_hours.${index}.closes_at`])"
       />
 
       <gov-button @click="onDeleteHolidayOpeningHour(index)" error>Delete holiday times</gov-button>
@@ -176,10 +179,12 @@ import countries from "@/storage/countries";
 import DateInput from "@/views/services/inputs/DateInput";
 import TimePeriodInput from "@/views/services/inputs/TimePeriodInput";
 import IsClosedInput from "@/views/services/inputs/IsClosedInput";
+import LocationForm from "@/views/locations/forms/LocationForm";
 
 export default {
   name: "ServiceLocationForm",
   components: {
+    LocationForm,
     DateInput,
     TimePeriodInput,
     IsClosedInput
@@ -210,6 +215,42 @@ export default {
     holiday_opening_hours: {
       required: true,
       type: Array
+    },
+    address_line_1: {
+      required: true,
+      type: String
+    },
+    address_line_2: {
+      required: true,
+      type: String
+    },
+    address_line_3: {
+      required: true,
+      type: String
+    },
+    city: {
+      required: true,
+      type: String
+    },
+    county: {
+      required: true,
+      type: String
+    },
+    postcode: {
+      required: true,
+      type: String
+    },
+    country: {
+      required: true,
+      type: String
+    },
+    has_induction_loop: {
+      required: true,
+      type: Boolean
+    },
+    has_wheelchair_access: {
+      required: true,
+      type: Boolean
     }
   },
   data() {
@@ -344,12 +385,12 @@ export default {
     },
     onDeleteRegularOpeningHour(index) {
       let regularOpeningHours = this.cloneRegularOpeningHours();
-      delete regularOpeningHours[index];
+      regularOpeningHours.splice(index, 1);
       this.$emit("update:regular_opening_hours", regularOpeningHours);
     },
     onDeleteHolidayOpeningHour(index) {
       let holidayOpeningHours = this.cloneHolidayOpeningHours();
-      delete holidayOpeningHours[index];
+      holidayOpeningHours.splice(index, 1);
       this.$emit("update:holiday_opening_hours", holidayOpeningHours);
     }
   },
@@ -361,19 +402,19 @@ export default {
   watch: {
     location_type(newLocationType) {
       if (newLocationType === "new") {
-        this.$emit("update:location_id", { index, value: null });
+        this.$emit("update:location_id", null);
       }
 
       if (newLocationType === "existing") {
-        this.$emit("update:address_line_1", { index, value: "" });
-        this.$emit("update:address_line_2", { index, value: "" });
-        this.$emit("update:address_line_3", { index, value: "" });
-        this.$emit("update:city", { index, value: "" });
-        this.$emit("update:county", { index, value: "" });
-        this.$emit("update:postcode", { index, value: "" });
-        this.$emit("update:country", { index, value: "United Kingdom" });
-        this.$emit("update:has_wheelchair_access", { index, value: false });
-        this.$emit("update:has_induction_loop", { index, value: false });
+        this.$emit("update:address_line_1", "");
+        this.$emit("update:address_line_2", "");
+        this.$emit("update:address_line_3", "");
+        this.$emit("update:city", "");
+        this.$emit("update:county", "");
+        this.$emit("update:postcode", "");
+        this.$emit("update:country", "United Kingdom");
+        this.$emit("update:has_wheelchair_access", false);
+        this.$emit("update:has_induction_loop", false);
       }
     },
     regular_opening_hours(newValue, oldValue)  {
@@ -383,7 +424,7 @@ export default {
 
       let regularOpeningHours = newValue.map(regularOpeningHour => ({...regularOpeningHour}));
 
-      for (let regularOpeningHour in newValue) {
+      for (let regularOpeningHour of regularOpeningHours) {
         switch (regularOpeningHour.frequency) {
           case "weekly":
             regularOpeningHour.day_of_month = null;
@@ -416,7 +457,7 @@ export default {
 
       let holidayOpeningHours = newValue.map(holidayOpeningHour => ({...holidayOpeningHour}));
 
-      for (let holidayOpeningHour in newValue) {
+      for (let holidayOpeningHour of holidayOpeningHours) {
         if (holidayOpeningHour.is_closed) {
             holidayOpeningHour.opens_at = "00:00:00";
             holidayOpeningHour.closes_at = "00:00:00";

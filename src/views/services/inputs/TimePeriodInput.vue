@@ -10,7 +10,7 @@
       class="govuk-!-width-one-quarter"
     />&nbsp;<!--
   --><gov-select
-      :value="closesAt"
+      :value="closes_at"
       @input="$emit('update:closes_at', $event)"
       :id="`${id}.closes_at`"
       :name="`${id}.closes_at`"
@@ -29,6 +29,10 @@
 export default {
   name: "TimePeriodInput",
   props: {
+    id: {
+      required: true,
+      type: String
+    },
     opens_at: {
       required: true
     },
