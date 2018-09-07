@@ -6,7 +6,7 @@
       </gov-grid-column>
       <gov-grid-column width="one-third text-right">
         <gov-button
-          :to="{ name: 'services-service-locations-create', params: { service: service.id } }"
+          :to="{ name: 'service-locations-create', params: { service: service.id } }"
           expand
         >
           Add location
