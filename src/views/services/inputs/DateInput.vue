@@ -1,39 +1,36 @@
 <template>
-  <gov-form-group :invalid="form.$errors.has(path)">
-    <gov-label :for="path" v-text="label" />
+  <gov-form-group :invalid="error !== null">
+    <gov-label :for="id" v-text="label" />
 
     <gov-input
       v-model="day"
-      :id="`${path}_day`"
-      :name="`${path}_day`"
+      :id="`${id}_day`"
+      :name="`${id}_day`"
       type="number"
       :width="2"
       placeholder="DD"
-      ref="day"
     />&nbsp;<!--
  --><gov-input
       v-model="month"
-      :id="`${path}_month`"
-      :name="`${path}_month`"
+      :id="`${id}_month`"
+      :name="`${id}_month`"
       type="number"
       :width="2"
       placeholder="MM"
-      ref="month"
     />&nbsp;<!--
  --><gov-input
       v-model="year"
-      :id="`${path}_year`"
-      :name="`${path}_year`"
+      :id="`${id}_year`"
+      :name="`${id}_year`"
       type="number"
       :width="4"
       placeholder="YYYYY"
-      ref="year"
     />
 
     <gov-error-message
-      v-if="form.$errors.has(path)"
-      v-text="form.$errors.get(path)"
-      :for="path"
+      v-if="error"
+      v-text="error"
+      :for="id"
     />
   </gov-form-group>
 </template>
@@ -47,11 +44,10 @@ export default {
     value: {
       required: true
     },
-    form: {
-      type: Object,
+    error: {
       required: true
     },
-    path: {
+    id: {
       type: String,
       required: true
     },
@@ -85,6 +81,14 @@ export default {
     }
   },
   watch: {
+    value(newValue) {
+      if (newValue !== null) {
+        const date = moment(newValue, moment.HTML5_FMT.DATE);
+        this.year = moment.year;
+        this.month = moment.month;
+        this.day = moment.day;
+      }
+    },
     year() {
       this.onInput();
     },

@@ -1,26 +1,26 @@
 <template>
-  <gov-form-group :invalid="form.$errors.has(opensAtPath) || form.$errors.has(closesAtPath)">
+  <gov-form-group :invalid="error !== null">
     <gov-label>Opening time</gov-label>
     <gov-select
-      :value="opensAt"
+      :value="opens_at"
       @input="$emit('update:opens_at', $event)"
-      :id="opensAtPath"
-      :name="opensAtPath"
+      :id="`${id}.opens_at`"
+      :name="`${id}.opens_at`"
       :options="hours"
       class="govuk-!-width-one-quarter"
     />&nbsp;<!--
   --><gov-select
       :value="closesAt"
       @input="$emit('update:closes_at', $event)"
-      :id="closesAtPath"
-      :name="closesAtPath"
+      :id="`${id}.closes_at`"
+      :name="`${id}.closes_at`"
       :options="hours"
       class="govuk-!-width-one-quarter"
     />
     <gov-error-message
-      v-if="form.$errors.has(opensAtPath) || form.$errors.has(closesAtPath)"
-      v-text="form.$errors.get(opensAtPath) || form.$errors.get(closesAtPath)"
-      :for="opensAtPath"
+      v-if="error"
+      v-text="error"
+      :for="`${id}.opens_at`"
     />
   </gov-form-group>
 </template>
@@ -29,22 +29,13 @@
 export default {
   name: "TimePeriodInput",
   props: {
-    opensAt: {
+    opens_at: {
       required: true
     },
-    closesAt: {
+    closes_at: {
       required: true
     },
-    form: {
-      type: Object,
-      required: true
-    },
-    opensAtPath: {
-      type: String,
-      required: true
-    },
-    closesAtPath: {
-      type: String,
+    error: {
       required: true
     }
   },
