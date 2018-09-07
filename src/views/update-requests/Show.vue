@@ -100,17 +100,12 @@ export default {
                 params: { location: this.updateRequest.updateable_id }
               });
               break;
-            case "service_locations": {
-              const response = await http.get(
-                `/service-locations/${this.updateRequest.id}`
-              );
-              const serviceId = response.data.data.id;
+            case "service_locations":
               this.$router.push({
-                name: "services-show",
-                params: { service: serviceId }
+                name: "service-locations-show",
+                params: { serviceLocation: this.updateRequest.updateable_id }
               });
               break;
-            }
             default:
               this.$router.push({ name: "update-requests-index" });
               break;

@@ -9,57 +9,59 @@
       :error="errors.get('name')"
     />
 
-    <ck-radio-input
-      :value="location_type"
-      @input="onInput({ field: 'location_type', value: $event })"
-      id="location_type"
-      label="Select location"
-      hint="You can select an existing location or create a new one."
-      :options="locationTypes"
-      :error="null"
-    />
-
-    <!-- Existing location: select from list -->
-    <gov-inset-text v-if="location_type === 'existing'">
-      <ck-loader v-if="loading" />
-      <ck-select-input
-        v-else
-        :value="location_id"
-        @input="onInput({ field: 'location_id', value: $event })"
-        id="location_id"
-        label="Location"
-        :options="locations"
-        :error="errors.get('location_id')"
+    <template v-if="isCreateForm">
+      <ck-radio-input
+        :value="location_type"
+        @input="onInput({ field: 'location_type', value: $event })"
+        id="location_type"
+        label="Select location"
+        hint="You can select an existing location or create a new one."
+        :options="locationTypes"
+        :error="null"
       />
-    </gov-inset-text>
-    <!-- /Existing location: select from list -->
 
-    <!-- New location: enter details -->
-    <gov-inset-text v-else-if="location_type === 'new'">
-      <location-form
-        :errors="locationErrors"
-        :address_line_1="address_line_1"
-        :address_line_2="address_line_2"
-        :address_line_3="address_line_3"
-        :city="city"
-        :county="county"
-        :postcode="postcode"
-        :country="country"
-        :has_induction_loop="has_induction_loop"
-        :has_wheelchair_access="has_wheelchair_access"
-        @update:address_line_1="onLocationInput({ field: 'address_line_1', value: $event })"
-        @update:address_line_2="onLocationInput({ field: 'address_line_2', value: $event })"
-        @update:address_line_3="onLocationInput({ field: 'address_line_3', value: $event })"
-        @update:city="onLocationInput({ field: 'city', value: $event })"
-        @update:county="onLocationInput({ field: 'county', value: $event })"
-        @update:postcode="onLocationInput({ field: 'postcode', value: $event })"
-        @update:country="onLocationInput({ field: 'country', value: $event })"
-        @update:has_induction_loop="onLocationInput({ field: 'has_induction_loop', value: $event })"
-        @update:has_wheelchair_access="onLocationInput({ field: 'has_wheelchair_access', value: $event })"
-        @clear="$emit('clear-location', $event)"
-      />
-    </gov-inset-text>
-    <!-- /New location: enter details -->
+      <!-- Existing location: select from list -->
+      <gov-inset-text v-if="location_type === 'existing'">
+        <ck-loader v-if="loading" />
+        <ck-select-input
+          v-else
+          :value="location_id"
+          @input="onInput({ field: 'location_id', value: $event })"
+          id="location_id"
+          label="Location"
+          :options="locations"
+          :error="errors.get('location_id')"
+        />
+      </gov-inset-text>
+      <!-- /Existing location: select from list -->
+
+      <!-- New location: enter details -->
+      <gov-inset-text v-else-if="location_type === 'new'">
+        <location-form
+          :errors="locationErrors"
+          :address_line_1="address_line_1"
+          :address_line_2="address_line_2"
+          :address_line_3="address_line_3"
+          :city="city"
+          :county="county"
+          :postcode="postcode"
+          :country="country"
+          :has_induction_loop="has_induction_loop"
+          :has_wheelchair_access="has_wheelchair_access"
+          @update:address_line_1="onLocationInput({ field: 'address_line_1', value: $event })"
+          @update:address_line_2="onLocationInput({ field: 'address_line_2', value: $event })"
+          @update:address_line_3="onLocationInput({ field: 'address_line_3', value: $event })"
+          @update:city="onLocationInput({ field: 'city', value: $event })"
+          @update:county="onLocationInput({ field: 'county', value: $event })"
+          @update:postcode="onLocationInput({ field: 'postcode', value: $event })"
+          @update:country="onLocationInput({ field: 'country', value: $event })"
+          @update:has_induction_loop="onLocationInput({ field: 'has_induction_loop', value: $event })"
+          @update:has_wheelchair_access="onLocationInput({ field: 'has_wheelchair_access', value: $event })"
+          @clear="$emit('clear-location', $event)"
+        />
+      </gov-inset-text>
+      <!-- /New location: enter details -->
+    </template>
 
     <!-- Regular opening hours -->
     <gov-heading size="m">Opening hours</gov-heading>
@@ -204,14 +206,14 @@ export default {
       type: Object
     },
     locationErrors: {
-      required: true,
+      required: false,
       type: Object
     },
     location_type: {
-      required: true
+      required: false
     },
     location_id: {
-      required: true
+      required: false
     },
     name: {
       required: true,
@@ -226,39 +228,39 @@ export default {
       type: Array
     },
     address_line_1: {
-      required: true,
+      required: false,
       type: String
     },
     address_line_2: {
-      required: true,
+      required: false,
       type: String
     },
     address_line_3: {
-      required: true,
+      required: false,
       type: String
     },
     city: {
-      required: true,
+      required: false,
       type: String
     },
     county: {
-      required: true,
+      required: false,
       type: String
     },
     postcode: {
-      required: true,
+      required: false,
       type: String
     },
     country: {
-      required: true,
+      required: false,
       type: String
     },
     has_induction_loop: {
-      required: true,
+      required: false,
       type: Boolean
     },
     has_wheelchair_access: {
-      required: true,
+      required: false,
       type: Boolean
     }
   },
@@ -302,6 +304,11 @@ export default {
         { text: "Last", value: 5 }
       ]
     };
+  },
+  computed: {
+    isCreateForm() {
+      return this.location_type !== undefined;
+    }
   },
   methods: {
     setDaysInMonth() {
