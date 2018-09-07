@@ -44,7 +44,6 @@ export default {
       required: true
     },
     error: {
-      type: Object,
       required: true
     },
     id: {

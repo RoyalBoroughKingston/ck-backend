@@ -4,6 +4,7 @@
 
     <gov-input
       v-model="day"
+      @input="onInput"
       :id="`${id}_day`"
       :name="`${id}_day`"
       type="number"
@@ -12,6 +13,7 @@
     />&nbsp;<!--
  --><gov-input
       v-model="month"
+      @input="onInput"
       :id="`${id}_month`"
       :name="`${id}_month`"
       type="number"
@@ -20,6 +22,7 @@
     />&nbsp;<!--
  --><gov-input
       v-model="year"
+      @input="onInput"
       :id="`${id}_year`"
       :name="`${id}_year`"
       type="number"
@@ -66,37 +69,40 @@ export default {
   methods: {
     onInput() {
       let year = parseInt(this.year);
-      year = isNaN(year) ? 0 : year;
-
       let month = parseInt(this.month);
-      month = isNaN(month) ? 0 : month;
-      month--;
-
       let day = parseInt(this.day);
-      day = isNaN(day) ? 0 : day;
 
-      const date = moment({ year, month, day });
+      // Only parse the date if the inputs are all valid.
+      for (let value of [year, month, day]) {
+        if (isNaN(value)) {
+          this.$emit("input", "");
+          return;
+        }
+      }
 
-      this.$emit("input", date.format(moment.HTML5_FMT.DATE));
+      let date = moment({ year, month: (month - 1), day }).format(moment.HTML5_FMT.DATE);
+
+      // Only return the date if it's vaild.
+      if (date === "Invalid date") {
+        this.$emit("input", "");
+        return;
+      }
+
+      this.$emit("input", date);
     }
   },
   watch: {
-    value(newValue) {
-      if (newValue !== null) {
-        const date = moment(newValue, moment.HTML5_FMT.DATE);
-        this.year = moment.year;
-        this.month = moment.month;
-        this.day = moment.day;
+    value(newValue, oldValue) {
+      if (newValue === oldValue) {
+        return;
       }
-    },
-    year() {
-      this.onInput();
-    },
-    month() {
-      this.onInput();
-    },
-    day() {
-      this.onInput();
+
+      if (newValue !== "") {
+        const date = moment(newValue, moment.HTML5_FMT.DATE);
+        this.year = date.year().toString();
+        this.month = (date.month() + 1).toString();
+        this.day = date.date().toString();
+      }
     }
   }
 };

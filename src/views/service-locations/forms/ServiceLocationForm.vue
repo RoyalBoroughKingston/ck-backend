@@ -130,7 +130,7 @@
       :key="holidayOpeningHour.index"
     >
       <is-closed-input
-        :bind-to="holidayOpeningHour.is_closed"
+        :value="holidayOpeningHour.is_closed"
         @input="onHolidayOpeningHourInput({ index, field: 'is_closed', value: $event })"
         :id="`holiday_opening_hours.${index}.is_closed`"
         :error="errors.get(`holiday_opening_hours.${index}.is_closed`)"
@@ -153,6 +153,7 @@
       />
 
       <time-period-input
+        v-if="holidayOpeningHour.is_closed === false"
         :id="`holiday_opening_hours.${index}`"
         :opens_at="holidayOpeningHour.opens_at"
         :closes_at="holidayOpeningHour.closes_at"
