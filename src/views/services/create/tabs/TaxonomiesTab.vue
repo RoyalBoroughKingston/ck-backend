@@ -6,11 +6,11 @@
         <gov-body>Specify which categories apply to this service. This will make the service more relevant in search results.</gov-body>
         <gov-section-break size="l" />
 
-        <gov-form-group :invalid="form.$errors.has('category_taxonomies')">
+        <gov-form-group :invalid="errors.has('category_taxonomies')">
           <category-taxonomy-input
-            :value="form.category_taxonomies"
-            @input="$emit('input', $event)"
-            :error="form.$errors.get('category_taxonomies')"
+            :value="category_taxonomies"
+            @input="$emit('update:category_taxonomies', $event)"
+            :error="errors.get('category_taxonomies')"
             @clear="$emit('clear', 'category_taxonomies')"
           />
         </gov-form-group>
@@ -27,9 +27,12 @@ export default {
   name: "TaxonomiesTab",
   components: { CategoryTaxonomyInput },
   props: {
-    form: {
+    errors: {
+      required: true
+    },
+    category_taxonomies: {
       required: true,
-      type: Object
+      type: Array
     }
   }
 };

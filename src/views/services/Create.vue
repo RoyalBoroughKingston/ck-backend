@@ -114,10 +114,10 @@
 
             <taxonomies-tab
               v-if="tabs[6].active"
-              :form="form"
               @clear="form.$errors.clear($event); errors = {}"
               @next="onNext"
-              @input="form.category_taxonomies = $event"
+              :errors="form.$errors"
+              :category_taxonomies.sync="form.category_taxonomies"
             />
 
             <referral-tab
