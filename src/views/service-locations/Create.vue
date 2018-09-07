@@ -32,7 +32,7 @@
 
             <gov-section-break size="l" />
 
-            <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+            <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
             <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
           </gov-grid-column>
         </gov-grid-row>
@@ -72,7 +72,8 @@ export default {
         has_induction_loop: false
       }),
       service: null,
-      loading: false
+      loading: false,
+      submitting: false
     };
   },
   methods: {
@@ -84,12 +85,25 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      const response = await this.form.post("/service-locations");
-      const serviceLocationId = response.data.id;
-      this.$router.push({
-        name: "service-locations-show",
-        params: { serviceLocation: serviceLocationId }
-      });
+      try {
+        this.submitting = true;
+
+        // Post the location if new.
+        if (this.location_type === "new") {
+          const { data: location } = await this.locationForm.post("/locations");
+          this.location_type = "existing";
+          this.form.location_id = location.id;
+        }
+
+        // Post the service location.
+        const { data: service } = await this.form.post("/service-locations");
+        this.$router.push({
+          name: "service-locations-show",
+          params: { serviceLocation: service.id }
+        });
+      } catch (error) {
+        this.submitting = false;
+      }
     }
   },
   created() {{

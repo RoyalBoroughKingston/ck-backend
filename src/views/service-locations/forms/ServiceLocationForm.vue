@@ -1,5 +1,14 @@
 <template>
   <div>
+    <ck-text-input
+      :value="name"
+      @input="onInput({ field: 'name', value: $event })"
+      id="name"
+      label="Name of location"
+      type="text"
+      :error="errors.get('name')"
+    />
+
     <ck-radio-input
       :value="location_type"
       @input="onInput({ field: 'location_type', value: $event })"

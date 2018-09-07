@@ -2,7 +2,7 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <gov-back-link :to="{ name: 'services-show', params: { service: serviceLocation.service_id } }">Back to service</gov-back-link>
+      <gov-back-link :to="{ name: 'services-show-locations', params: { service: serviceLocation.service_id } }">Back to service</gov-back-link>
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="two-thirds">
