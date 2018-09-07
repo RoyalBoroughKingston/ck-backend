@@ -43,10 +43,10 @@
 
             <useful-info-tab
               v-if="tabs[2].active"
-              v-model="form.useful_infos"
               @clear="form.$errors.clear($event); errors = {}"
-              :errors="form.$errors"
               @next="onNext"
+              :errors="form.$errors"
+              :useful_infos.sync="form.useful_infos"
             />
 
             <contact-details-tab

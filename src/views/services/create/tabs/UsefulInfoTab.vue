@@ -11,8 +11,8 @@
         <gov-section-break size="l" />
 
         <useful-infos-input
-          :useful-infos="value"
-          @input="$emit('input', $event)"
+          :useful-infos="useful_infos"
+          @input="$emit('update:useful_infos', $event)"
           @clear="$emit('clear', $event)"
           :errors="errors"
         />
@@ -31,13 +31,13 @@ export default {
   name: "UsefulInfoTab",
   components: { UsefulInfosInput },
   props: {
-    value: {
-      type: Array,
-      required: true
-    },
     errors: {
       required: true,
       type: Object
+    },
+    useful_infos: {
+      type: Array,
+      required: true
     }
   }
 };
