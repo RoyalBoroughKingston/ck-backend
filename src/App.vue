@@ -51,22 +51,9 @@ export default {
         { text: "Update requests", href: { name: "update-requests-index" } },
         { text: "Logout", href: { name: "logout" } }
       ],
-      footerNav: [
-        {
-          title: "Something Here",
-          items: [
-            { text: "Google", href: "https://google.com" },
-            { text: "Google", href: "https://google.com" },
-            { text: "Google", href: "https://google.com" }
-          ]
-        }
-      ],
+      footerNav: [],
       footerMeta: {
-        items: [
-          { text: "Clear data", href: "#clear-data" },
-          { text: "Cookies", href: "#cookies" },
-          { text: "Privacy policy", href: "#privacy-policy" }
-        ]
+        items: []
       }
     };
   },
