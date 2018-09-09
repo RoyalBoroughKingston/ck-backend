@@ -2,6 +2,8 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
+      <vue-headful :title="`Connected Kingston - Edit Location: ${location.address_line_1}`" />
+
       <gov-back-link :to="{ name: 'locations-show', params: { location: location.id } }">Back to location</gov-back-link>
       <gov-main-wrapper>
         <gov-grid-row>

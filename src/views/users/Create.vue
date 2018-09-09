@@ -1,5 +1,7 @@
 <template>
   <gov-width-container>
+    <vue-headful title="Connected Kingston - Add User" />
+
     <gov-back-link :to="{ name: 'users-index' }">Back to users</gov-back-link>
     <gov-main-wrapper>
       <gov-grid-row>

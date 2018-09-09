@@ -23,6 +23,10 @@ import Vue from "vue";
 import App from "@/App.vue";
 import router from "@/router";
 
+// Vue headful.
+import VueHeadful from "vue-headful";
+Vue.component("vue-headful", VueHeadful);
+
 // Custom Vue Components
 Vue.component("CkFileInput", () => import("@/components/Ck/CkFileInput"));
 Vue.component("CkRadioInput", () => import("@/components/Ck/CkRadioInput"));

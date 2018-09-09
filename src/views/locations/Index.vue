@@ -1,5 +1,7 @@
 <template>
   <gov-width-container>
+    <vue-headful title="Connected Kingston - List Locations" />
+
     <gov-back-link :to="{ name: 'dashboard' }">Back to dashboard</gov-back-link>
     <gov-main-wrapper>
       <gov-grid-row>

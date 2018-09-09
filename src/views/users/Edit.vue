@@ -2,6 +2,8 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
+      <vue-headful :title="`Connected Kingston - Edit User: ${user.first_name} ${user.last_name}`" />
+
       <gov-back-link :to="{ name: 'users-show', params: { user: user.id } }">Back to user</gov-back-link>
       <gov-main-wrapper>
         <gov-grid-row>

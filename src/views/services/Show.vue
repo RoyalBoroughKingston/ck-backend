@@ -4,6 +4,8 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
+        <vue-headful :title="`Connected Kingston - Service: ${service.name}`" />
+
         <gov-grid-column width="full">
           <gov-grid-row>
             <gov-grid-column width="two-thirds">

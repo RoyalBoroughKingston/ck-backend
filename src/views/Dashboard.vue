@@ -1,5 +1,7 @@
 <template>
   <gov-width-container>
+    <vue-headful title="Connected Kingston - Dashboard" />
+
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="two-thirds">

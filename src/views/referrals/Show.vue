@@ -4,6 +4,8 @@
     <gov-main-wrapper>
       <ck-loader v-if="loadingReferral" />
       <template v-else>
+        <vue-headful :title="`Connected Kingston - Referral: ${referral.name}`" />
+
         <gov-grid-row>
           <gov-grid-column width="two-thirds">
             <gov-heading size="m">Referral details</gov-heading>

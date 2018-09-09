@@ -1,5 +1,7 @@
 <template>
   <gov-width-container>
+    <vue-headful title="Connected Kingston - Add Location" />
+
     <gov-back-link :to="{ name: 'locations-index' }">Back to locations</gov-back-link>
     <gov-main-wrapper>
       <gov-grid-row>

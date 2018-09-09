@@ -4,6 +4,8 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
+        <vue-headful :title="`Connected Kingston - Organisation: ${organisation.name}`" />
+
         <gov-grid-column width="two-thirds">
 
           <gov-heading size="m">View organisation</gov-heading>

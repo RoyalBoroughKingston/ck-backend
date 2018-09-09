@@ -2,6 +2,8 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
+      <vue-headful :title="`Connected Kingston - Edit Service Location: ${serviceLocation.name || '-'}`" />
+
       <gov-back-link :to="{ name: 'service-locations-show', params: { serviceLocation: serviceLocation.id } }">Back to service location</gov-back-link>
       <gov-main-wrapper>
         <gov-grid-row>

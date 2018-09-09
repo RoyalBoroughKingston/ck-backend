@@ -4,6 +4,8 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
+        <vue-headful :title="`Connected Kingston - User: ${user.first_name} ${user.last_name}`" />
+
         <gov-grid-column width="two-thirds">
 
           <gov-heading size="m">View user</gov-heading>

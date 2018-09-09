@@ -30,11 +30,8 @@
 </template>
 
 <script>
-import VueHeadful from "vue-headful";
-
 export default {
   name: "App",
-  components: { VueHeadful },
   data() {
     return {
       themeColor: "#0b0c0c",

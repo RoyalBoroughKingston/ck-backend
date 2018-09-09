@@ -1,5 +1,7 @@
 <template>
   <gov-width-container>
+    <vue-headful title="Connected Kingston - Add Service" />
+
     <gov-back-link :to="{ name: 'services-index' }">Back to services</gov-back-link>
     <gov-main-wrapper>
       <gov-grid-row>
