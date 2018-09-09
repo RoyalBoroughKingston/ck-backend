@@ -3,6 +3,10 @@
     <slot />
   </router-link>
 
+  <a v-else-if="href" :href="href" class="govuk-button" :class="computedClasses">
+    <slot />
+  </a>
+
   <button v-else @click="onClick" :type="type" class="govuk-button" :class="computedClasses">
     <slot />
   </button>
@@ -33,6 +37,9 @@ export default {
       default: false
     },
     to: {
+      required: false
+    },
+    href: {
       required: false
     }
   },
