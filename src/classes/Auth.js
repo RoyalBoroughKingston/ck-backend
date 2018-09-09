@@ -10,58 +10,61 @@ class Auth {
     });
   }
 
+  get authorizeUrl() {
+    return `${process.env.VUE_APP_API_OAUTH_AUTHORIZE_URI}?client_id=${
+      process.env.VUE_APP_API_CLIENT_ID
+    }&redirect_uri=${encodeURI(
+      process.env.VUE_APP_URI + "/login"
+    )}&response_type=token`;
+  }
+
+  /**
+   * Parses the URL and returns query string parameters as an object.
+   *
+   * @param {String} url
+   * @returns {Object}
+   */
+  parseQueryString(url) {
+    let query = url.substring(url.indexOf("#") + 1);
+
+    let e,
+      a = /\+/g, // Regex for replacing addition symbol with a space
+      r = /([^&;=]+)=?([^&;]*)/g,
+      d = function(s) {
+        return decodeURIComponent(s.replace(a, " "));
+      },
+      q = query,
+      urlParams = {};
+
+    /* jshint ignore:start */
+    while ((e = r.exec(q))) {
+      urlParams[d(e[1])] = d(e[2]);
+    }
+    /* jshint ignore:end */
+
+    return urlParams;
+  }
+
+  /**
+   * Redirects the user the authorization URL.
+   */
+  redirect() {
+    window.location.href = this.authorizeUrl;
+  }
+
   /**
    * @param {string} email
    * @param {string} password
    * @returns {Promise}
    */
-  async login(email, password) {
-    const response = await this.http.post("/oauth/token", {
-      grant_type: "password",
-      username: email,
-      password,
-      client_id: process.env.VUE_APP_API_CLIENT_ID,
-      client_secret: process.env.VUE_APP_API_CLIENT_SECRET
-    });
-    return this.storeTokens(response.data);
-  }
-
-  /**
-   * @returns {String}
-   */
-  async refreshAccessToken() {
-    const { data } = await this.http.post("/oauth/token", {
-      grant_type: "refresh_token",
-      refresh_token: this.refreshToken,
-      client_id: process.env.VUE_APP_API_CLIENT_ID,
-      client_secret: process.env.VUE_APP_API_CLIENT_SECRET
-    });
-
-    if (data.hasOwnProperty("error")) {
-      this.logout();
-      throw new Error(data);
-    }
-
-    this.storeTokens(data);
-
-    return this.accessToken;
-  }
-
-  /**
-   * @param {object} tokens
-   * @returns {boolean}
-   */
-  storeTokens(tokens) {
+  login(accessToken, expiresIn) {
     localStorage.setItem(
       "oauth",
       JSON.stringify({
-        expires_at: tokens.expires_in * 1000 + Date.now(),
-        access_token: tokens.access_token,
-        refresh_token: tokens.refresh_token
+        expires_at: expiresIn * 1000 + new Date().setHours(24, 0, 0, 0),
+        access_token: accessToken
       })
     );
-
-    return true;
   }
 
   /**
@@ -99,13 +102,6 @@ class Auth {
    */
   get accessToken() {
     return this.oauth ? this.oauth.access_token : null;
-  }
-
-  /**
-   * @returns {string|null}
-   */
-  get refreshToken() {
-    return this.oauth ? this.oauth.refresh_token : null;
   }
 
   /**

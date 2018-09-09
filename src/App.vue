@@ -9,7 +9,7 @@
     </slot>
 
     <slot name="header">
-      <gov-header service-name="Connected Kingston" :navigation="computedHeaverNav" />
+      <gov-header service-name="Connected Kingston" :navigation="headerNav" />
     </slot>
 
     <slot name="main">
@@ -31,7 +31,6 @@
 
 <script>
 import VueHeadful from "vue-headful";
-import auth from "@/classes/Auth";
 
 export default {
   name: "App",
@@ -49,27 +48,12 @@ export default {
         { text: "Users", href: { name: "users-index" } },
         { text: "Reports", href: { name: "reports-index" } },
         { text: "Admin", href: "#" },
-        { text: "Update requests", href: { name: "update-requests-index" } }
+        { text: "Update requests", href: { name: "update-requests-index" } },
+        { text: "Logout", href: { name: "logout" } }
       ],
-      authNavItem: auth.isLoggedIn
-        ? { text: "Logout", href: { name: "logout" } }
-        : { text: "Login", href: { name: "login" } },
-      footerNav: [
-        {
-          title: "Something Here",
-          items: [
-            { text: "Google", href: "https://google.com" },
-            { text: "Google", href: "https://google.com" },
-            { text: "Google", href: "https://google.com" }
-          ]
-        }
-      ],
+      footerNav: [],
       footerMeta: {
-        items: [
-          { text: "Clear data", href: "#clear-data" },
-          { text: "Cookies", href: "#cookies" },
-          { text: "Privacy policy", href: "#privacy-policy" }
-        ]
+        items: []
       }
     };
   },
@@ -85,17 +69,7 @@ export default {
           class: [document.body.className, ...this.bodyClasses].join(" ")
         }
       };
-    },
-    computedHeaverNav() {
-      return [...this.headerNav, this.authNavItem];
     }
-  },
-  created() {
-    this.$root.$on(["login", "logout"], () => {
-      this.authNavItem = auth.isLoggedIn
-        ? { text: "Logout", href: { name: "logout" } }
-        : { text: "Login", href: { name: "login" } };
-    });
   }
 };
 </script>

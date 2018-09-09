@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import auth from "@/classes/Auth";
+import Auth from "@/classes/Auth";
 
 Vue.use(Router);
 
@@ -9,39 +9,19 @@ let router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "dashboard",
-      component: () => import("@/views/Dashboard"),
-      meta: { auth: true }
-    },
-    {
       path: "/login",
       name: "login",
-      component: () => import("@/views/auth/Login"),
-      meta: { guest: true }
-    },
-    {
-      path: "/login/code",
-      name: "login-code",
-      component: () => import("@/views/auth/Code"),
-      meta: { guest: true }
-    },
-    {
-      path: "/forgotten-password",
-      name: "forgotten-password",
-      component: () => import("@/views/auth/ForgottenPassword"),
-      meta: { guest: true }
-    },
-    {
-      path: "/reset-password",
-      name: "reset-password",
-      component: () => import("@/views/auth/NewPassword"),
-      meta: { guest: true }
+      component: () => import("@/views/auth/Login")
     },
     {
       path: "/logout",
       name: "logout",
-      component: () => import("@/views/auth/Logout"),
+      component: () => import("@/views/auth/Logout")
+    },
+    {
+      path: "/",
+      name: "dashboard",
+      component: () => import("@/views/Dashboard"),
       meta: { auth: true }
     },
     {
@@ -235,22 +215,10 @@ let router = new Router({
 
 // Middleware.
 router.beforeEach((to, from, next) => {
-  // If user needs to be authed.
+  // If user needs to be authed, then redirect them to the auth URL.
   if (to.matched.some(route => route.meta.auth)) {
-    if (!auth.isLoggedIn) {
-      auth
-        .refreshAccessToken()
-        .then(() => next())
-        .catch(() => next({ name: "login" }));
-      return;
-    }
-  }
-
-  // If user needs to be a guest.
-  if (to.matched.some(route => route.meta.guest)) {
-    if (auth.isLoggedIn) {
-      next({ name: "dashboard" });
-      return;
+    if (!Auth.isLoggedIn) {
+      return Auth.redirect();
     }
   }
 

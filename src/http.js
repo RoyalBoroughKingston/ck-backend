@@ -9,23 +9,15 @@ const http = axios.create({
 http.defaults.headers.post["Content-Type"] = "application/json";
 http.interceptors.request.use(
   config => {
-    let originalConfig = config;
-
-    // Set the retried flag.
-    originalConfig.hasRetried = originalConfig.hasOwnProperty("hasRetried");
-
     // If the user is logged in then attach the access token.
     if (Auth.isLoggedIn) {
-      originalConfig.headers["Authorization"] = `Bearer ${Auth.accessToken}`;
-      return originalConfig;
+      config.headers["Authorization"] = `Bearer ${Auth.accessToken}`;
+      return config;
     }
 
     // If the user was logged in, but the token has now expired.
-    if (Auth.accessToken && Auth.hasExpired && !originalConfig.hasRetried) {
-      return Auth.refreshAccessToken().then(() => {
-        originalConfig.headers["Authorization"] = `Bearer ${Auth.accessToken}`;
-        return Promise.resolve(originalConfig);
-      });
+    if (Auth.accessToken && Auth.hasExpired) {
+      Auth.logout();
     }
 
     // If the user is not authenticated.

@@ -21,11 +21,19 @@
                 <button @click="onToggleMenu" role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
                 <nav>
                     <ul id="navigation" class="govuk-header__navigation" :class="{ 'govuk-header__navigation--open': navExpanded }" aria-label="Top Level Navigation">
-                        <li v-for="(item, key) in navigation" :key="key" v-if="item.href && item.text" class="govuk-header__navigation-item" :class="itemActiveClass(item)">
-                            <router-link class="govuk-header__link" :to="item.href">
+                        <router-link
+                          v-for="(item, key) in navigation"
+                          :key="key"
+                          v-if="item.href && item.text"
+                          tag="li"
+                          class="govuk-header__navigation-item"
+                          active-class="govuk-header__navigation-item--active"
+                          :to="item.href"
+                        >
+                            <a class="govuk-header__link" :href="item.href">
                                 {{ item.text }}
-                            </router-link>
-                        </li>
+                            </a>
+                        </router-link>
                     </ul>
                 </nav>
             </div>
