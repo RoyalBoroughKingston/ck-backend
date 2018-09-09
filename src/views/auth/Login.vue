@@ -29,7 +29,8 @@ export default {
   name: "Login",
   data() {
     return {
-      accessToken: Auth.parseQueryString(window.location.href).access_token || null,
+      accessToken:
+        Auth.parseQueryString(window.location.href).access_token || null,
       expiresIn: Auth.parseQueryString(window.location.href).expires_in || null
     };
   },

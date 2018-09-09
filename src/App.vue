@@ -31,7 +31,6 @@
 
 <script>
 import VueHeadful from "vue-headful";
-import auth from "@/classes/Auth";
 
 export default {
   name: "App",
