@@ -18,7 +18,7 @@
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row v-if="locations.length === 0">
-        <gov-tavble-cell center colspan="4">No locations</gov-tavble-cell>
+        <gov-table-cell center colspan="4">No locations</gov-table-cell>
       </gov-table-row>
     </template>
   </gov-table>
