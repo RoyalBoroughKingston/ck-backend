@@ -209,6 +209,18 @@ let router = new Router({
       name: "reports-index",
       component: () => import("@/views/reports/Index"),
       meta: { auth: true }
+    },
+    {
+      path: "/admin",
+      component: () => import("@/views/admin/Index"),
+      meta: { auth: true },
+      children: [
+        {
+          path: "/",
+          name: "admin-index",
+          component: () => import("@/views/admin/index/AuditLogs")
+        }
+      ]
     }
   ]
 });
