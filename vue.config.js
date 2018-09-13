@@ -6,6 +6,7 @@ module.exports = {
       region: "eu-west-1",
       pwa: false,
       enableCloudfront: false,
+      cloudfrontMatchers: "/*",
       uploadConcurrency: 5
     }
   }
