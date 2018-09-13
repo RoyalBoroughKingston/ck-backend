@@ -2,7 +2,7 @@
 
 # Set AWS CLI credentials.
 echo "Setting AWS credentials..."
-cat > ~/.aws/config << 'EOF'
+cat > ~/.aws/config << EOF
 [default]
 aws_access_key_id=$STAGING_AWS_ACCESS_KEY_ID
 aws_secret_access_key=$STAGING_AWS_SECRET_ACCESS_KEY
@@ -11,7 +11,7 @@ EOF
 
 # Set environment variables.
 echo "Creating .env file..."
-cat > .env.staging << 'EOF'
+cat > .env.staging << EOF
 VUE_APP_URI=$STAGING_APP_URI
 VUE_APP_API_URI=$STAGING_API_URI
 VUE_APP_API_OAUTH_AUTHORIZE_URI=$STAGING_API_OAUTH_AUTHORIZE_URI
