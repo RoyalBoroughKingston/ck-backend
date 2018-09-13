@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Set AWS CLI credentials.
+echo "Setting AWS credentials..."
 cat > ~/.aws/config << 'EOF'
 [default]
 aws_access_key_id=$STAGING_AWS_ACCESS_KEY_ID
@@ -9,6 +10,7 @@ region=$STAGING_AWS_REGION
 EOF
 
 # Set environment variables.
+echo "Creating .env file..."
 cat > .env.staging << 'EOF'
 VUE_APP_URI=$STAGING_APP_URI
 VUE_APP_API_URI=$STAGING_API_URI
@@ -20,7 +22,9 @@ VUE_APP_S3D_BUCKET=$STAGING_S3_DEPLOYMENT_BUCKET
 EOF
 
 # Build.
+echo "Building..."
 node_modules/.bin/vue-cli-service build --mode staging
 
 # Deploy to S3.
+echo "Deploying..."
 node_modules/.bin/vue-cli-service s3-deploy --mode staging
