@@ -1,4 +1,10 @@
 module.exports = {
+  baseUrl: "/",
+  outputDir: "dist",
+  indexPath: "index.html",
+  filenameHashing: true,
+  lintOnSave: true,
+  productionSourceMap: true,
   pluginOptions: {
     s3Deploy: {
       assetPath: "dist",
