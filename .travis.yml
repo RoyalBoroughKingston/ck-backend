@@ -7,7 +7,6 @@ branches:
   only:
     - master
     - develop
-    - feature/travis # TODO: Remove this
 
 cache:
   directories:
@@ -26,11 +25,17 @@ script:
 
 deploy:
   - provider: script
+    script: bash scripts/DeployProduction.sh
+    skip_cleanup: true
+    on:
+      repo: RoyalBoroughKingston/ck-backend
+      branch: master
+  - provider: script
     script: bash scripts/DeployStaging.sh
     skip_cleanup: true
     on:
       repo: RoyalBoroughKingston/ck-backend
-      branch: feature/travis # TODO: Change this to develop.
+      branch: develop
 
 notifications:
   slack:
