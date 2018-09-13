@@ -2,11 +2,18 @@
 
 # Set AWS CLI credentials.
 echo "Setting AWS credentials..."
+cat > ~/.aws/credentials << EOF
+[default]
+aws_access_key_id = $STAGING_AWS_ACCESS_KEY_ID
+aws_secret_access_key = $STAGING_AWS_SECRET_ACCESS_KEY
+EOF
+
+# Set AWS CLI config.
+echo "Setting AWS config..."
 cat > ~/.aws/config << EOF
 [default]
-aws_access_key_id=$STAGING_AWS_ACCESS_KEY_ID
-aws_secret_access_key=$STAGING_AWS_SECRET_ACCESS_KEY
-region=$STAGING_AWS_REGION
+region = $STAGING_AWS_REGION
+output = json
 EOF
 
 # Set environment variables.
