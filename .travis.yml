@@ -30,8 +30,8 @@ deploy:
     script: scripts/DeployStaging.sh
     skip_cleanup: true
     on:
-      repo: RoyalBoroughKingston/ck-frontend
-      branch: travis # TODO: Change this to develop
+      repo: RoyalBoroughKingston/ck-backend
+      branch: feature/travis # TODO: Change this to develop.
 
 notifications:
   slack:
