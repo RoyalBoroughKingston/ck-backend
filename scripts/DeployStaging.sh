@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
+# Create AWS dir for credentials and config.
+echo "Creating AWS config directory..."
+mkdir ~/.aws
+
 # Set AWS CLI credentials.
 echo "Setting AWS credentials..."
+touch ~/.aws/credentials
 cat > ~/.aws/credentials << EOF
 [default]
 aws_access_key_id = $STAGING_AWS_ACCESS_KEY_ID
@@ -10,6 +15,7 @@ EOF
 
 # Set AWS CLI config.
 echo "Setting AWS config..."
+touch ~/.aws/config
 cat > ~/.aws/config << EOF
 [default]
 region = $STAGING_AWS_REGION
