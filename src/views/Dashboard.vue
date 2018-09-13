@@ -7,7 +7,7 @@
         <gov-grid-column width="two-thirds">
           <gov-heading size="xl">Dashboard</gov-heading>
           <gov-body size="l">
-            Hello and welcome to the Connected Kingston admin portal.
+            Hello and welcome to the Connected Kingston admin portal. [Staging]
           </gov-body>
         </gov-grid-column>
       </gov-grid-row>
