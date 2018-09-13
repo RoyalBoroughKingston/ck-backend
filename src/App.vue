@@ -44,7 +44,7 @@ export default {
         { text: "Organisations", href: { name: "organisations-index" } },
         { text: "Users", href: { name: "users-index" } },
         { text: "Reports", href: { name: "reports-index" } },
-        { text: "Admin", href: "#" },
+        { text: "Admin", href: { name: "admin-index" } },
         { text: "Update requests", href: { name: "update-requests-index" } },
         { text: "Logout", href: { name: "logout" } }
       ],
