@@ -62,7 +62,7 @@ export default {
     async onSubmit() {
       await this.form.put(`/service-locations/${this.serviceLocation.id}`);
       this.$router.push({
-        name: "service-locations-show",
+        name: "service-locations-updated",
         params: { serviceLocation: this.serviceLocation.id }
       });
     }
