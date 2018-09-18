@@ -30,6 +30,7 @@
               :description.sync="form.description"
               :seo_title.sync="form.seo_title"
               :seo_description.sync="form.seo_description"
+              :status.sync="form.status"
             >
               <gov-button @click="onNext" start>Next</gov-button>
             </details-tab>
@@ -143,7 +144,7 @@ export default {
         organisation_id: null,
         name: "",
         slug: "",
-        status: "active",
+        status: null,
         intro: "",
         description: "",
         wait_time: null,

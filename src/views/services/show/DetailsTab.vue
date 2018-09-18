@@ -25,6 +25,10 @@
           <gov-table-header top scope="row">Service description</gov-table-header>
           <gov-table-cell v-html="toHtml(service.description)" />
         </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Status</gov-table-header>
+          <gov-table-cell v-html="service.status === 'active' ? 'Enabled' : 'Disabled'" />
+        </gov-table-row>
       </template>
     </gov-table>
   </div>

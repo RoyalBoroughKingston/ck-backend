@@ -89,6 +89,16 @@
           </gov-hint>
         </ck-wysiwyg-input>
 
+        <ck-radio-input
+          :value="status"
+          @input="$emit('update:status', $event); $emit('clear', 'status')"
+          id="status"
+          label="Is the service enabled"
+          hint="Indicates if the service is enabled or disabled (disabled services will not be shown in search results)"
+          :options="statusOptions"
+          :error="errors.get('status')"
+        />
+
         <slot />
 
       </gov-grid-column>
@@ -129,12 +139,19 @@ export default {
     },
     seo_description: {
       required: true
+    },
+    status: {
+      required: true
     }
   },
   data() {
     return {
       organisations: [{ text: "Please select", value: null, disabled: true }],
-      loading: false
+      loading: false,
+      statusOptions: [
+        { label: "Enabled", value: "active" },
+        { label: "Disabled", value: "inactive" }
+      ]
     };
   },
   computed: {
