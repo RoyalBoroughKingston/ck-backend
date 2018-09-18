@@ -36,7 +36,9 @@ export default {
   methods: {
     async fetchService() {
       this.loading = true;
-      const response = await http.get(`/services/${this.$route.params.service}`);
+      const response = await http.get(
+        `/services/${this.$route.params.service}`
+      );
       this.service = response.data.data;
       this.loading = false;
     }

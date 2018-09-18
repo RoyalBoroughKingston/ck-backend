@@ -36,7 +36,9 @@ export default {
   methods: {
     async fetchOrganisation() {
       this.loading = true;
-      const response = await http.get(`/organisations/${this.$route.params.organisation}`);
+      const response = await http.get(
+        `/organisations/${this.$route.params.organisation}`
+      );
       this.organisation = response.data.data;
       this.loading = false;
     }

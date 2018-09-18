@@ -36,7 +36,9 @@ export default {
   methods: {
     async fetchServiceLocation() {
       this.loading = true;
-      const response = await http.get(`/service-locations/${this.$route.params.serviceLocation}`);
+      const response = await http.get(
+        `/service-locations/${this.$route.params.serviceLocation}`
+      );
       this.serviceLocation = response.data.data;
       this.loading = false;
     }
