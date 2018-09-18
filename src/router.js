@@ -240,9 +240,14 @@ let router = new Router({
       meta: { auth: true },
       children: [
         {
-          path: "/",
+          path: "",
           name: "admin-index",
           component: () => import("@/views/admin/index/AuditLogs")
+        },
+        {
+          path: "notifications",
+          name: "admin-index-notifications",
+          component: () => import("@/views/admin/index/Notifications")
         }
       ]
     },

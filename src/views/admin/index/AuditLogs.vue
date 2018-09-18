@@ -31,7 +31,7 @@ export default {
     async fetchAudits() {
       this.loading = true;
 
-      const response = await http.get("/audits");
+      const response = await http.get("/audits", { params: { page: this.currentPage } });
       const audits = await this.fetchUsers(response.data.data);
 
       this.audits = audits;
