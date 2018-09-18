@@ -31,6 +31,7 @@
                 :description.sync="form.description"
                 :seo_title.sync="form.seo_title"
                 :seo_description.sync="form.seo_description"
+                :seo_image.sync="form.seo_image"
                 :status.sync="form.status"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
@@ -204,7 +205,8 @@ export default {
         category_taxonomies: this.service.category_taxonomies.map(
           taxonomy => taxonomy.id
         ),
-        logo: null
+        logo: null,
+        seo_image: null
       });
 
       this.loading = false;

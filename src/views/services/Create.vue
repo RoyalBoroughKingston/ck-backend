@@ -30,6 +30,7 @@
               :description.sync="form.description"
               :seo_title.sync="form.seo_title"
               :seo_description.sync="form.seo_description"
+              :seo_image.sync="form.seo_image"
               :status.sync="form.status"
             >
               <gov-button @click="onNext" start>Next</gov-button>
@@ -177,7 +178,8 @@ export default {
         useful_infos: [],
         social_medias: [],
         category_taxonomies: [],
-        logo: null
+        logo: null,
+        seo_image: null
       }),
       tabs: [
         { heading: "Details", active: true },
