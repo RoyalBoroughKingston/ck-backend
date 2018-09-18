@@ -215,7 +215,7 @@ export default {
         }
       });
       this.$router.push({
-        name: "services-show",
+        name: "services-updated",
         params: { service: this.service.id }
       });
     },

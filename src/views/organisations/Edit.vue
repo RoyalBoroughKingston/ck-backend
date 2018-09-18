@@ -81,7 +81,7 @@ export default {
         }
       );
       this.$router.push({
-        name: "organisations-show",
+        name: "organisations-updated",
         params: { organisation: this.organisation.id }
       });
     }

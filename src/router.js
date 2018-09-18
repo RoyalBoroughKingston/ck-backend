@@ -49,6 +49,12 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/organisations/:organisation/updated",
+      name: "organisations-updated",
+      component: () => import("@/views/organisations/Updated"),
+      meta: { auth: true }
+    },
+    {
       path: "/referrals",
       name: "referrals-index",
       component: () => import("@/views/referrals/Index"),
@@ -88,6 +94,12 @@ let router = new Router({
       path: "/locations/:location/edit",
       name: "locations-edit",
       component: () => import("@/views/locations/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/locations/:location/updated",
+      name: "locations-updated",
+      component: () => import("@/views/locations/Updated"),
       meta: { auth: true }
     },
     {
@@ -175,6 +187,12 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/services/:service/updated",
+      name: "services-updated",
+      component: () => import("@/views/services/Updated"),
+      meta: { auth: true }
+    },
+    {
       path: "/services/:service/service-locations/create",
       name: "service-locations-create",
       component: () => import("@/views/service-locations/Create"),
@@ -190,6 +208,12 @@ let router = new Router({
       path: "/service-locations/:serviceLocation/edit",
       name: "service-locations-edit",
       component: () => import("@/views/service-locations/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/service-locations/:serviceLocation/updated",
+      name: "service-locations-updated",
+      component: () => import("@/views/service-locations/Updated"),
       meta: { auth: true }
     },
     {
