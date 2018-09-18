@@ -267,6 +267,12 @@ let router = new Router({
       name: "notifications-show",
       component: () => import("@/views/notifications/Show"),
       meta: { auth: true }
+    },
+    {
+      path: "/page-feedbacks/:pageFeedback",
+      name: "page-feedbacks-show",
+      component: () => import("@/views/page-feedbacks/Show"),
+      meta: { auth: true }
     }
   ]
 });
