@@ -76,7 +76,7 @@ export default {
     onSubmit() {
       this.form.put(`/locations/${this.location.id}`).then(() =>
         this.$router.push({
-          name: "locations-show",
+          name: "locations-updated",
           params: { location: this.location.id }
         })
       );
