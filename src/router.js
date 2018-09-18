@@ -91,6 +91,12 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/locations/:location/updated",
+      name: "locations-updated",
+      component: () => import("@/views/locations/Updated"),
+      meta: { auth: true }
+    },
+    {
       path: "/users",
       name: "users-index",
       component: () => import("@/views/users/Index"),
