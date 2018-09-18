@@ -256,6 +256,12 @@ let router = new Router({
       name: "audits-show",
       component: () => import("@/views/audits/Show"),
       meta: { auth: true }
+    },
+    {
+      path: "/notifications/:notification",
+      name: "notifications-show",
+      component: () => import("@/views/notifications/Show"),
+      meta: { auth: true }
     }
   ]
 });
