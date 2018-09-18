@@ -248,6 +248,11 @@ let router = new Router({
           path: "notifications",
           name: "admin-index-notifications",
           component: () => import("@/views/admin/index/Notifications")
+        },
+        {
+          path: "feedback",
+          name: "admin-index-feedback",
+          component: () => import("@/views/admin/index/Feedback")
         }
       ]
     },
