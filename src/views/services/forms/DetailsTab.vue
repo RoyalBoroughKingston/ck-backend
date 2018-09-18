@@ -10,7 +10,7 @@
 
         <ck-text-input
           :value="name"
-          @input="$emit('update:name', $event); $emit('clear', 'name'); $emit('update:seo_title', $event); $emit('clear', 'seo_title'); $emit('update:slug', slugify($event)); $emit('clear', 'slug')"
+          @input="$emit('update:name', $event); $emit('clear', 'name'); $emit('update:slug', slugify($event)); $emit('clear', 'slug')"
           id="name"
           label="Name of service"
           type="text"
@@ -64,7 +64,7 @@
 
         <ck-textarea-input
           :value="intro"
-          @input="$emit('update:intro', $event); $emit('clear', 'intro'); $emit('update:seo_description', $event); $emit('clear', 'seo_description')"
+          @input="$emit('update:intro', $event); $emit('clear', 'intro')"
           id="intro"
           label="Please provide a one-line summary of the service"
           hint="This should be a short line or two that summarises what the service offers and will appear below the service name in search results (max 150 characters)."
@@ -97,6 +97,41 @@
           hint="Indicates if the service is enabled or disabled (disabled services will not be shown in search results)"
           :options="statusOptions"
           :error="errors.get('status')"
+        />
+
+        <gov-section-break size="l" />
+
+        <gov-heading size="m">SEO details</gov-heading>
+        <gov-body>These details are used for optimising relevance with third party search engines such as Google.</gov-body>
+
+        <ck-text-input
+          :value="seo_title"
+          @input="$emit('update:seo_title', $event); $emit('clear', 'seo_title')"
+          id="seo_title"
+          label="Title of service"
+          hint="This will generally be the same as the service name"
+          type="text"
+          :error="errors.get('seo_title')"
+        />
+
+        <ck-textarea-input
+          :value="seo_description"
+          @input="$emit('update:seo_description', $event); $emit('clear', 'seo_description')"
+          id="seo_description"
+          label="Description of service"
+          hint="This will generally be the same as the service intro (max 150 characters)."
+          :maxlength="150"
+          :error="errors.get('seo_description')"
+        />
+
+        <ck-file-input
+          :value="seo_image"
+          @input="$emit('update:seo_image', $event); $emit('clear', 'seo_image')"
+          id="logo"
+          label="Image of service"
+          hint="This will generall be the same image as the service logo."
+          accept="image/x-png"
+          :error="errors.get('seo_image')"
         />
 
         <slot />
@@ -138,6 +173,9 @@ export default {
       required: true
     },
     seo_description: {
+      required: true
+    },
+    seo_image: {
       required: true
     },
     status: {
