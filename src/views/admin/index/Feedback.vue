@@ -1,5 +1,6 @@
 <template>
   <div>
+    <gov-heading size="l">Feedback</gov-heading>
     <ck-loader v-if="loading" />
     <template v-else>
       <ck-page-feedbacks-table :page-feedbacks="pageFeedbacks" />

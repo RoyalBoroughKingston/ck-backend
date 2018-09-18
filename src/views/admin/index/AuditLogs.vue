@@ -1,5 +1,6 @@
 <template>
   <div>
+    <gov-heading size="l">Audit logs</gov-heading>
     <ck-loader v-if="loading" />
     <template v-else>
       <ck-audits-table :audits="audits" />

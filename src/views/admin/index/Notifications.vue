@@ -1,12 +1,13 @@
 <template>
   <div>
+    <gov-heading size="l">Notifications</gov-heading>
     <ck-loader v-if="loading" />
     <template v-else>
       <ck-notifications-table :notifications="notifications" />
       <gov-body>
         Page {{ currentPage }} of {{ lastPage }}
         <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-      --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
+     --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
       </gov-body>
     </template>
   </div>
