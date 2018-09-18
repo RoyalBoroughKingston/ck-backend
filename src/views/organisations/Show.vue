@@ -56,9 +56,6 @@ export default {
           this.loading = false;
         });
     },
-    onEdit() {
-      alert("Edit");
-    },
     onDelete() {
       this.$router.push({ name: "organisations-index" });
     }

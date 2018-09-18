@@ -245,6 +245,12 @@ let router = new Router({
           component: () => import("@/views/admin/index/AuditLogs")
         }
       ]
+    },
+    {
+      path: "/audits/:audit",
+      name: "audits-show",
+      component: () => import("@/views/audits/Show"),
+      meta: { auth: true }
     }
   ]
 });
