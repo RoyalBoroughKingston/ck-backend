@@ -291,6 +291,30 @@ let router = new Router({
       name: "page-feedbacks-show",
       component: () => import("@/views/page-feedbacks/Show"),
       meta: { auth: true }
+    },
+    {
+      path: "/taxonomies/categories/create",
+      name: "taxonomies-categories-create",
+      component: () => import("@/views/taxonomies/categories/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/taxonomies/categories/:taxonomy/edit",
+      name: "taxonomies-categories-edit",
+      component: () => import("@/views/taxonomies/categories/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/taxonomies/organisations/create",
+      name: "taxonomies-organisations-create",
+      component: () => import("@/views/taxonomies/organisations/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/taxonomies/organisations/:taxonomy/edit",
+      name: "taxonomies-organisations-edit",
+      component: () => import("@/views/taxonomies/organisations/Edit"),
+      meta: { auth: true }
     }
   ]
 });
