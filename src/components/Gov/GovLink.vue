@@ -5,7 +5,7 @@
   </router-link>
 
   <!-- For dummy links that are handled by JavaScript -->
-  <a v-else href="javascript:;" class="govuk-link govuk-link--no-visited-state" @click="onClick">
+  <a v-else :href="href || 'javascript:;'" class="govuk-link govuk-link--no-visited-state" @click="onClick">
     <slot />
   </a>
 </template>
@@ -15,6 +15,9 @@ export default {
   name: "GovLink",
   props: {
     to: {
+      required: false
+    },
+    href: {
       required: false
     }
   },
