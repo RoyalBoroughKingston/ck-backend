@@ -40,15 +40,26 @@
       />
     </ck-select-input>
 
+    <gov-label class="govuk-!-font-weight-bold">Taxonomies</gov-label>
+    <category-taxonomy-input
+      :invalid="errors.has('category_taxonomies')"
+      :value="category_taxonomies"
+      @input="$emit('update:category_taxonomies', $event)"
+      :error="errors.get('category_taxonomies')"
+      @clear="$emit('clear', 'category_taxonomies')"
+    />
+
   </div>
 </template>
 
 <script>
 import http from "@/http";
 import icons from "@/storage/icons";
+import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 
 export default {
   name: "CollectionForm",
+  components: { CategoryTaxonomyInput },
   props: {
     errors: {
       required: true,
