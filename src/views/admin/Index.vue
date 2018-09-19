@@ -1,5 +1,7 @@
 <template>
   <gov-width-container>
+    <vue-headful title="Connected Kingston - Admin" />
+
     <gov-back-link :to="{ name: 'dashboard' }">Back to dashboard</gov-back-link>
 
     <gov-main-wrapper>
@@ -8,7 +10,8 @@
 
           <gov-heading size="xl">Admin</gov-heading>
 
-          <gov-tabs :tabs="tabs">
+          <gov-tabs :tabs="tabs" bar :panel="false">
+            <gov-section-break size="m" />
             <router-view />
           </gov-tabs>
 
