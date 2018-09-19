@@ -57,9 +57,11 @@ export default {
 <style lang="scss">
 @import "@/scss/app.scss";
 
-.govuk-tabs__tab {
-  &.govuk-tabs__tab--active {
-    @extend .govuk-tabs__tab[aria-selected="true"];
+.govuk-tabs {
+  &__tab {
+    &--active {
+      @extend .govuk-tabs__tab[aria-selected="true"];
+    }
   }
 }
 </style>
