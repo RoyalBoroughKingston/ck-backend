@@ -168,6 +168,7 @@ export default {
   },
   created() {
     this.fetchTaxonomies();
+    this.enabledTaxonomies = this.value;
   }
 };
 </script>
