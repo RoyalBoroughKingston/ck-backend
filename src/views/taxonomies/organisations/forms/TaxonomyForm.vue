@@ -1,9 +1,40 @@
 <template>
-  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel aut sint corporis facilis, voluptatibus nisi blanditiis iusto eligendi laborum aliquam sed ipsa in vero a et, totam impedit cum veniam?</p>
+  <div>
+
+    <ck-text-input
+      :value="name"
+      @input="onInput('name', $event)"
+      id="name"
+      label="Name"
+      type="text"
+      :error="errors.get('name')"
+    />
+
+  </div>
 </template>
 
 <script>
+import http from "@/http";
+
 export default {
-  name: "ListTaxonomyOrganisations"
+  name: "TaxonomyForm",
+  props: {
+    errors: {
+      required: true,
+      type: Object
+    },
+    name: {
+      required: true
+    },
+    order: {
+      required: true
+    }
+  },
+  methods: {
+    onInput(field, value) {
+      this.$emit(`update:${field}`, value);
+      this.$emit("clear", field);
+    }
+  }
 };
 </script>

@@ -60,7 +60,7 @@ export default {
     };
   },
   methods: {
-    async fetchLocation() {
+    async fetchTaxonomy() {
       this.loading = true;
 
       const response = await http.get(
@@ -84,7 +84,7 @@ export default {
     }
   },
   created() {
-    this.fetchLocation();
+    this.fetchTaxonomy();
   }
 };
 </script>
