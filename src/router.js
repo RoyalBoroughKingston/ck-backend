@@ -240,11 +240,123 @@ let router = new Router({
       meta: { auth: true },
       children: [
         {
-          path: "/",
+          path: "",
           name: "admin-index",
           component: () => import("@/views/admin/index/AuditLogs")
+        },
+        {
+          path: "notifications",
+          name: "admin-index-notifications",
+          component: () => import("@/views/admin/index/Notifications")
+        },
+        {
+          path: "feedback",
+          name: "admin-index-feedback",
+          component: () => import("@/views/admin/index/Feedback")
+        },
+        {
+          path: "taxonomies",
+          component: () => import("@/views/admin/index/Taxonomies"),
+          children: [
+            {
+              path: "",
+              name: "admin-index-taxonomies",
+              component: () =>
+                import("@/views/admin/index/taxonomies/Categories")
+            },
+            {
+              path: "organisations",
+              name: "admin-index-taxonomies-organisations",
+              component: () =>
+                import("@/views/admin/index/taxonomies/Organisations")
+            }
+          ]
+        },
+        {
+          path: "collections",
+          component: () => import("@/views/admin/index/Collections"),
+          children: [
+            {
+              path: "",
+              name: "admin-index-collections",
+              component: () =>
+                import("@/views/admin/index/collections/Categories")
+            },
+            {
+              path: "organisations",
+              name: "admin-index-collections-personas",
+              component: () =>
+                import("@/views/admin/index/collections/Personas")
+            }
+          ]
         }
       ]
+    },
+    {
+      path: "/audits/:audit",
+      name: "audits-show",
+      component: () => import("@/views/audits/Show"),
+      meta: { auth: true }
+    },
+    {
+      path: "/notifications/:notification",
+      name: "notifications-show",
+      component: () => import("@/views/notifications/Show"),
+      meta: { auth: true }
+    },
+    {
+      path: "/page-feedbacks/:pageFeedback",
+      name: "page-feedbacks-show",
+      component: () => import("@/views/page-feedbacks/Show"),
+      meta: { auth: true }
+    },
+    {
+      path: "/taxonomies/categories/create",
+      name: "taxonomies-categories-create",
+      component: () => import("@/views/taxonomies/categories/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/taxonomies/categories/:taxonomy/edit",
+      name: "taxonomies-categories-edit",
+      component: () => import("@/views/taxonomies/categories/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/taxonomies/organisations/create",
+      name: "taxonomies-organisations-create",
+      component: () => import("@/views/taxonomies/organisations/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/taxonomies/organisations/:taxonomy/edit",
+      name: "taxonomies-organisations-edit",
+      component: () => import("@/views/taxonomies/organisations/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/categories/create",
+      name: "collections-categories-create",
+      component: () => import("@/views/collections/categories/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/categories/:collection/edit",
+      name: "collections-categories-edit",
+      component: () => import("@/views/collections/categories/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/personas/create",
+      name: "collections-personas-create",
+      component: () => import("@/views/collections/personas/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/personas/:collection/edit",
+      name: "collections-personas-edit",
+      component: () => import("@/views/collections/personas/Edit"),
+      meta: { auth: true }
     }
   ]
 });

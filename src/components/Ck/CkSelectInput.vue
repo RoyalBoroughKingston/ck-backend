@@ -10,13 +10,27 @@
       </slot>
 
       <gov-select
+        v-if="options"
         :value="value"
         @input="$emit('input', $event)"
         :id="id"
         :name="id"
         :options="options"
         :width="width"
+        :class="{ 'govuk-select--icons': hasIcons }"
       />
+
+      <gov-select
+        v-else
+        :value="value"
+        @input="$emit('input', $event)"
+        :id="id"
+        :name="id"
+        :width="width"
+        :class="{ 'govuk-select--icons': hasIcons }"
+      >
+        <slot />
+      </gov-select>
 
       <slot name="after-input" />
 
@@ -48,7 +62,7 @@ export default {
       required: true
     },
     options: {
-      required: true,
+      required: false,
       type: Array
     },
     id: {
@@ -58,7 +72,20 @@ export default {
     width: {
       type: Number,
       required: false
+    },
+    hasIcons: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   }
 };
 </script>
+
+<style lang="scss">
+.govuk-select {
+  &.govuk-select--icons {
+    font-family: "FontAwesome", "nta", Arial, sans-serif;;
+  }
+}
+</style>
