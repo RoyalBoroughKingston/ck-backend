@@ -5,7 +5,7 @@
   </router-link>
 
   <!-- For dummy links that are handled by JavaScript -->
-  <a v-else href="javascript:;" class="govuk-link" @click="onClick">
+  <a v-else href="javascript:;" class="govuk-link govuk-link--no-visited-state" @click="onClick">
     <slot />
   </a>
 </template>

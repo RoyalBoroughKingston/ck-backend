@@ -256,8 +256,21 @@ let router = new Router({
         },
         {
           path: "taxonomies",
-          name: "admin-index-taxonomies",
-          component: () => import("@/views/admin/index/Taxonomies")
+          component: () => import("@/views/admin/index/Taxonomies"),
+          children: [
+            {
+              path: "",
+              name: "admin-index-taxonomies",
+              component: () =>
+                import("@/views/admin/index/taxonomies/Categories")
+            },
+            {
+              path: "organisations",
+              name: "admin-index-taxonomies-organisations",
+              component: () =>
+                import("@/views/admin/index/taxonomies/Organisations")
+            }
+          ]
         }
       ]
     },

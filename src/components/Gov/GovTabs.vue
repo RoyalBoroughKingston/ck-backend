@@ -18,7 +18,7 @@
           :class="{ 'govuk-tabs__tab--bar': bar }"
           active-class="govuk-tabs__tab--active"
           v-text="tab.heading"
-          :exact="tab.exact || true"
+          exact
         />
       </li>
     </ul>

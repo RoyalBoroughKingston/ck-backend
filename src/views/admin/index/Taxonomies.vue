@@ -2,10 +2,6 @@
   <div>
     <vue-headful title="Connected Kingston - Admin: Taxonomies" />
 
-    <gov-heading size="l">Taxonomies</gov-heading>
-
-    <gov-body>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum a vero deserunt iure aut blanditiis et numquam voluptatibus nulla aperiam ipsa quam saepe dolorum quos, sapiente praesentium porro officiis nesciunt.</gov-body>
-
     <gov-tabs :tabs="tabs">
       <router-view />
     </gov-tabs>
@@ -18,7 +14,7 @@ export default {
   data() {
     return {
       tabs: [
-        { heading: "Categories", to: { name: "admin-index-taxonomies-categories" } },
+        { heading: "Categories", to: { name: "admin-index-taxonomies" } },
         { heading: "Organisations", to: { name: "admin-index-taxonomies-organisations" } }
       ]
     };
