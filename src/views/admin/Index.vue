@@ -10,7 +10,8 @@
 
           <gov-heading size="xl">Admin</gov-heading>
 
-          <gov-tabs :tabs="tabs">
+          <gov-tabs :tabs="tabs" bar :panel="false">
+            <gov-section-break size="m" />
             <router-view />
           </gov-tabs>
 
