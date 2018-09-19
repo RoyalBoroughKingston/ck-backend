@@ -1,5 +1,7 @@
 <template>
   <div>
+    <vue-headful title="Connected Kingston - Admin: Page Feedback" />
+
     <gov-heading size="l">Feedback</gov-heading>
     <ck-loader v-if="loading" />
     <template v-else>

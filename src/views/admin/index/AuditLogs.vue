@@ -1,5 +1,7 @@
 <template>
   <div>
+    <vue-headful title="Connected Kingston - Admin: Audits" />
+
     <gov-heading size="l">Audit logs</gov-heading>
     <ck-loader v-if="loading" />
     <template v-else>
