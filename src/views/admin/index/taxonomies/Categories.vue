@@ -4,9 +4,11 @@
       <gov-grid-column width="two-thirds">
         <gov-heading size="l">Taxonomy: Categories</gov-heading>
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac neque sed
-        lorem ullamcorper luctus. Orci varius natoque penatibus et magnis dis parturient
-        montes, nascetur ridiculus mus.
+        <gov-body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac neque sed
+          lorem ullamcorper luctus. Orci varius natoque penatibus et magnis dis parturient
+          montes, nascetur ridiculus mus.
+        </gov-body>
       </gov-grid-column>
 
       <gov-grid-column width="one-third">

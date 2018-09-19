@@ -271,6 +271,24 @@ let router = new Router({
                 import("@/views/admin/index/taxonomies/Organisations")
             }
           ]
+        },
+        {
+          path: "collections",
+          component: () => import("@/views/admin/index/Collections"),
+          children: [
+            {
+              path: "",
+              name: "admin-index-collections",
+              component: () =>
+                import("@/views/admin/index/collections/Categories")
+            },
+            {
+              path: "organisations",
+              name: "admin-index-collections-personas",
+              component: () =>
+                import("@/views/admin/index/collections/Personas")
+            }
+          ]
         }
       ]
     },
