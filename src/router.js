@@ -333,6 +333,30 @@ let router = new Router({
       name: "taxonomies-organisations-edit",
       component: () => import("@/views/taxonomies/organisations/Edit"),
       meta: { auth: true }
+    },
+    {
+      path: "/collections/categories/create",
+      name: "collections-categories-create",
+      component: () => import("@/views/collections/categories/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/categories/:collection/edit",
+      name: "collections-categories-edit",
+      component: () => import("@/views/collections/categories/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/personas/create",
+      name: "collections-personas-create",
+      component: () => import("@/views/collections/personas/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/personas/:collection/edit",
+      name: "collections-personas-edit",
+      component: () => import("@/views/collections/personas/Edit"),
+      meta: { auth: true }
     }
   ]
 });

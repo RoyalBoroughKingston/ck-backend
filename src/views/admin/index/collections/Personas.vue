@@ -49,10 +49,7 @@ export default {
   methods: {
     async fetchCollections() {
       this.loading = true;
-
-      const { data } = await http.get('/collections/personas');
-      this.collections = data.data;
-
+      this.collections = await this.fetchAll('/collections/personas');
       this.loading = false;
     }
   },
