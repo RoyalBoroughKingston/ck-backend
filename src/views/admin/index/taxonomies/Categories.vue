@@ -10,7 +10,7 @@
       </gov-grid-column>
 
       <gov-grid-column width="one-third">
-        <gov-button :to="{ name: 'taxonomy-categories-create' }" expand>Add a new category</gov-button>
+        <gov-button :to="{ name: 'taxonomies-categories-create' }" expand>Add a new category</gov-button>
       </gov-grid-column>
     </gov-grid-row>
 
