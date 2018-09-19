@@ -253,6 +253,11 @@ let router = new Router({
           path: "feedback",
           name: "admin-index-feedback",
           component: () => import("@/views/admin/index/Feedback")
+        },
+        {
+          path: "taxonomies",
+          name: "admin-index-taxonomies",
+          component: () => import("@/views/admin/index/Taxonomies")
         }
       ]
     },

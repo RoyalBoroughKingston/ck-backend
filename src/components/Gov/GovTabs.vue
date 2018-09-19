@@ -17,7 +17,7 @@
           class="govuk-tabs__tab"
           active-class="govuk-tabs__tab--active"
           v-text="tab.heading"
-          exact
+          :exact="tab.exact || true"
         />
       </li>
     </ul>

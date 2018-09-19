@@ -29,8 +29,8 @@ export default {
         { heading: "Audit Logs", to: { name: "admin-index" } },
         { heading: "Notifications", to: { name: "admin-index-notifications" } },
         { heading: "Feedback", to: { name: "admin-index-feedback" } },
-        { heading: "Taxonomies", to: { name: "admin-index-taxonomies" } },
-        { heading: "Collections", to: { name: "admin-index-collections" } }
+        { heading: "Taxonomies", to: { name: "admin-index-taxonomies" }, exact: false },
+        { heading: "Collections", to: { name: "admin-index-collections" }, exact: false }
       ]
     };
   }

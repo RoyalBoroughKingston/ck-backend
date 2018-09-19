@@ -1,55 +1,27 @@
 <template>
   <div>
-    <gov-heading size="l">Feedback</gov-heading>
-    <ck-loader v-if="loading" />
-    <template v-else>
-      <ck-page-feedbacks-table :page-feedbacks="pageFeedbacks" />
-      <gov-body>
-        Page {{ currentPage }} of {{ lastPage }}
-        <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-      --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
-      </gov-body>
-    </template>
+    <vue-headful title="Connected Kingston - Admin: Taxonomies" />
+
+    <gov-heading size="l">Taxonomies</gov-heading>
+
+    <gov-body>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum a vero deserunt iure aut blanditiis et numquam voluptatibus nulla aperiam ipsa quam saepe dolorum quos, sapiente praesentium porro officiis nesciunt.</gov-body>
+
+    <gov-tabs :tabs="tabs">
+      <router-view />
+    </gov-tabs>
   </div>
 </template>
 
 <script>
-import http from "@/http";
-import CkPageFeedbacksTable from "@/components/CkPageFeedbacksTable";
-
 export default {
   name: "ListTaxonomies",
-  components: { CkPageFeedbacksTable },
   data() {
     return {
-      loading: false,
-      pageFeedbacks: [],
-      currentPage: 1,
-      lastPage: 1
+      tabs: [
+        { heading: "Categories", to: { name: "admin-index-taxonomies-categories" } },
+        { heading: "Organisations", to: { name: "admin-index-taxonomies-organisations" } }
+      ]
     };
-  },
-  methods: {
-    async fetchPageFeedbacks() {
-      this.loading = true;
-
-      const { data } = await http.get("/page-feedbacks", { params: { page: this.currentPage } });
-      this.pageFeedbacks = data.data;
-      this.currentPage = data.meta.current_page;
-      this.lastPage = data.meta.last_page;
-
-      this.loading = false;
-    },
-    onNext() {
-      this.currentPage++;
-      this.fetchPageFeedbacks();
-    },
-    onPrevious() {
-      this.currentPage--;
-      this.fetchPageFeedbacks();
-    }
-  },
-  created() {
-    this.fetchPageFeedbacks();
   }
 };
 </script>
