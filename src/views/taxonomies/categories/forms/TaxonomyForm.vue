@@ -11,16 +11,15 @@
     />
 
     <ck-loader v-if="loading" />
-    <template v-else>
-      <ck-select-input
-        :value="parent_id"
-        @input="onInput('parent_id', $event)"
-        id="parent_id"
-        label="Parent"
-        :options="taxonomyOptions"
-        :error="errors.get('parent_id')"
-      />
-    </template>
+    <ck-select-input
+      v-else
+      :value="parent_id"
+      @input="onInput('parent_id', $event)"
+      id="parent_id"
+      label="Parent"
+      :options="taxonomyOptions"
+      :error="errors.get('parent_id')"
+    />
 
   </div>
 </template>
@@ -63,20 +62,23 @@ export default {
       const { data } = await http.get("/taxonomies/categories");
       this.taxonomies = data.data;
       this.taxonomyOptions = [
-        { text: "Please select...", value: null, disabled: true },
+        { text: "No parent (top level)", value: null },
         ...this.parseTaxonomies(this.taxonomies)
       ];
 
       this.loading = false;
     },
-    parseTaxonomies(taxonomies) {
-      return taxonomies.map(taxonomy => {
-        let parsed = { text: taxonomy.name, value: taxonomy.id };
-        if (taxonomy.children.length > 0) {
-          parsed.options = this.parseTaxonomies(taxonomy.children);
+    parseTaxonomies(taxonomies, parsed = [], depth = 0) {
+      taxonomies.forEach(taxonomy => {
+        const text = "-".repeat(depth) + " " + taxonomy.name;
+        parsed.push({ text, value: taxonomy.id });
+
+        if ((taxonomy.children.length > 0) && (depth < 4)) {
+          parsed = this.parseTaxonomies(taxonomy.children, parsed, (depth + 1));
         }
-        return parsed;
       });
+
+      return parsed;
     }
   },
   created() {
