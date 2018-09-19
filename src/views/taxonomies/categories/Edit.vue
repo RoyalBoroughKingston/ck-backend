@@ -29,6 +29,14 @@
 
             <gov-button v-if="form.$submitting" disabled type="submit">Updating...</gov-button>
             <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
+
+            <gov-section-break size="l" />
+
+            <ck-delete-button
+              resource="category"
+              :endpoint="`/taxonomies/categories/${this.taxonomy.id}`"
+              @deleted="onDelete"
+            />
           </gov-grid-column>
         </gov-grid-row>
       </gov-main-wrapper>
@@ -69,6 +77,9 @@ export default {
     },
     async onSubmit() {
       await this.form.put(`/taxonomies/categories/${this.taxonomy.id}`);
+      this.$router.push({ name: "admin-index-taxonomies" });
+    },
+    onDelete() {
       this.$router.push({ name: "admin-index-taxonomies" });
     }
   },
