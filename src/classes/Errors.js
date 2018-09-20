@@ -52,7 +52,7 @@ export default class Errors {
     fields = Array.isArray(fields) ? fields : [fields];
 
     for (let field of fields) {
-      field.replace(/\./g, "_");
+      field = field.replace(/\./g, "_");
       if (this.errors[field]) {
         return this.errors[field][0];
       }
