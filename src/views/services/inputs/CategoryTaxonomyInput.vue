@@ -105,6 +105,11 @@ export default {
     },
     error: {
       required: true
+    },
+    hierarchy: {
+      required: false,
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -139,9 +144,19 @@ export default {
     },
     onInput({ taxonomy, enabled }) {
       if (enabled) {
-        if (!this.enabledTaxonomies.includes(taxonomy.id)) {
-          this.enabledTaxonomies.push(taxonomy.id);
+        this.onChecked(taxonomy);
+      } else {
+        this.onUnchecked(taxonomy);
+      }
 
+      this.$emit("input", this.enabledTaxonomies);
+      this.$emit("clear");
+    },
+    onChecked(taxonomy) {
+      if (!this.enabledTaxonomies.includes(taxonomy.id)) {
+        this.enabledTaxonomies.push(taxonomy.id);
+
+        if (this.hierarchy) {
           if (taxonomy.parent_id !== null) {
             const parent = this.flattenedTaxonomies.find(flattenedTaxonomy => {
               return flattenedTaxonomy.id === taxonomy.parent_id;
@@ -149,11 +164,14 @@ export default {
             this.onInput({ taxonomy: parent, enabled: true });
           }
         }
-      } else {
-        if (this.enabledTaxonomies.includes(taxonomy.id)) {
-          const index = this.enabledTaxonomies.indexOf(taxonomy.id);
-          this.enabledTaxonomies.splice(index, 1);
+      }
+    },
+    onUnchecked(taxonomy) {
+      if (this.enabledTaxonomies.includes(taxonomy.id)) {
+        const index = this.enabledTaxonomies.indexOf(taxonomy.id);
+        this.enabledTaxonomies.splice(index, 1);
 
+        if (this.hierarchy) {
           if (taxonomy.children.length > 0) {
             taxonomy.children.forEach(taxonomy =>
               this.onInput({ taxonomy, enabled: false })
@@ -161,9 +179,6 @@ export default {
           }
         }
       }
-
-      this.$emit("input", this.enabledTaxonomies);
-      this.$emit("clear");
     }
   },
   created() {
