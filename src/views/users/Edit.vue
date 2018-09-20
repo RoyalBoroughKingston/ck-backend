@@ -84,13 +84,16 @@ export default {
 
       this.loading = false;
     },
-    onSubmit() {
-      this.form.put(`/users/${this.user.id}`).then(() =>
-        this.$router.push({
-          name: "users-show",
-          params: { user: this.user.id }
-        })
-      );
+    async onSubmit() {
+      await this.form.put(`/users/${this.user.id}`, (config, data) => {
+        if (data.password.length === 0) {
+          delete data.password;
+        }
+      });
+      this.$router.push({
+        name: "users-show",
+        params: { user: this.user.id }
+      });
     }
   },
   created() {

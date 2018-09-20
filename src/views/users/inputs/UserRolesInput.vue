@@ -1,60 +1,73 @@
 <template>
-  <gov-form-group :invalid="errors.has('roles')">
-    <gov-inset-text v-for="(role, index) in roles" :key="role.index">
+  <div>
+    <gov-form-group
+      v-for="(role, index) in roles"
+      :key="role.index"
+      :invalid="errors.has('roles')"
+    >
+      <gov-inset-text>
 
-      <!-- Role -->
-      <ck-select-input
-        :value="roles[index].role"
-        @input="onRoleInput({ key: index, value: $event })"
-        :id="`roles_${index}_role`"
-        label="User type"
-        :options="roleOptions"
-        :error="errors.get(`roles.${index}.role`)"
-      />
-      <!-- /Role -->
-
-      <template v-if="showOrganisationSelect(index)">
-        <!-- Organisation -->
-        <gov-form-group v-if="loadingOrganisations">
-          <ck-loader />
-        </gov-form-group>
-        <ck-select-input
-          v-else
-          :value="roles[index].organisation_id"
-          @input="onOrganisationInput({ key: index, value: $event })"
-          :id="`roles_${index}_organisation_id`"
-          label="Organisation"
-          :options="organisations"
-          :error="errors.get(`roles.${index}.organisation_id`)"
+        <gov-error-message
+          v-if="errors.has(`roles.${index}`)"
+          v-text="errors.get(`roles.${index}`)"
+          :for="`roles.${index}`"
         />
-        <!-- /Organisation -->
 
-        <template v-if="showServiceSelect(index)">
-          <!-- Service -->
-          <gov-form-group v-if="!services.hasOwnProperty(roles[index].organisation_id)">
-            Select an organisation
-          </gov-form-group>
-          <gov-form-group v-else-if="services[roles[index].organisation_id].loading">
-            <ck-loader  />
+        <!-- Role -->
+        <ck-select-input
+          :value="roles[index].role"
+          @input="onRoleInput({ key: index, value: $event })"
+          :id="`roles_${index}_role`"
+          label="User type"
+          :options="roleOptions"
+          :error="errors.get(`roles.${index}.role`)"
+        />
+        <!-- /Role -->
+
+        <template v-if="showOrganisationSelect(index)">
+          <!-- Organisation -->
+          <gov-form-group v-if="loadingOrganisations">
+            <ck-loader />
           </gov-form-group>
           <ck-select-input
             v-else
-            :value="roles[index].service_id"
-            @input="onServiceInput({ key: index, value: $event })"
-            :id="`roles_${index}_service_id`"
-            label="Service"
-            :options="services[roles[index].organisation_id].items"
-            :error="errors.get(`roles.${index}.service_id`)"
+            :value="roles[index].organisation_id"
+            @input="onOrganisationInput({ key: index, value: $event })"
+            :id="`roles_${index}_organisation_id`"
+            label="Organisation"
+            :options="organisations"
+            :error="errors.get(`roles.${index}.organisation_id`)"
           />
-          <!-- /Service -->
+          <!-- /Organisation -->
+
+          <template v-if="showServiceSelect(index)">
+            <!-- Service -->
+            <gov-form-group v-if="!services.hasOwnProperty(roles[index].organisation_id)">
+              Select an organisation
+            </gov-form-group>
+            <gov-form-group v-else-if="services[roles[index].organisation_id].loading">
+              <ck-loader  />
+            </gov-form-group>
+            <ck-select-input
+              v-else
+              :value="roles[index].service_id"
+              @input="onServiceInput({ key: index, value: $event })"
+              :id="`roles_${index}_service_id`"
+              label="Service"
+              :options="services[roles[index].organisation_id].items"
+              :error="errors.get(`roles.${index}.service_id`)"
+            />
+            <!-- /Service -->
+          </template>
+
         </template>
 
-      </template>
+        <gov-section-break size="m" />
 
-      <gov-section-break size="m" />
+        <gov-button @click="onRemovePermission(index)" error>Remove</gov-button>
 
-      <gov-button @click="onRemovePermission(index)" error>Remove</gov-button>
-    </gov-inset-text>
+      </gov-inset-text>
+    </gov-form-group>
 
     <gov-inset-text v-if="roles.length === 0">
       <gov-body>No permissions</gov-body>
@@ -67,7 +80,7 @@
       v-text="errors.get('roles')"
       for="roles"
     />
-  </gov-form-group>
+  </div>
 </template>
 
 <script>
