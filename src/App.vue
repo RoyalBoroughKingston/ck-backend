@@ -42,9 +42,7 @@ export default {
         { text: "Update requests", to: { name: "update-requests-index" } },
         { text: "Logout", to: { name: "logout" } }
       ],
-      loggedOutItems: [
-        { text: "Login", href: Auth.authorizeUrl }
-      ]
+      loggedOutItems: [{ text: "Login", href: Auth.authorizeUrl }]
     };
   },
   computed: {
@@ -64,7 +62,9 @@ export default {
   methods: {
     setHeaderItems() {
       console.log(Auth.isLoggedIn);
-      this.headerNav = Auth.isLoggedIn ? this.loggedInItems : this.loggedOutItems;
+      this.headerNav = Auth.isLoggedIn
+        ? this.loggedInItems
+        : this.loggedOutItems;
     }
   },
   created() {
