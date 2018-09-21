@@ -36,7 +36,8 @@ export default {
   props: {
     size: {
       type: String,
-      required: true
+      required: false,
+      default: "m"
     },
     tag: {
       type: String,
