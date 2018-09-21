@@ -371,7 +371,7 @@ router.beforeEach((to, from, next) => {
   // If user needs to be authed, then redirect them to the auth URL.
   if (to.matched.some(route => route.meta.auth)) {
     if (!Auth.isLoggedIn) {
-      return Auth.redirect();
+      return next({ name: "logout" });
     }
   }
 

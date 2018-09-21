@@ -8,9 +8,11 @@
 
           <gov-heading size="xl">Log out</gov-heading>
 
-          <gov-body size="l">
-            You have successfully been logged out.
-          </gov-body>
+          <gov-body size="l">You are currently logged out.</gov-body>
+
+          <gov-body size="l">Please login to access the system.</gov-body>
+
+          <gov-button :href="loginUri">Login</gov-button>
 
         </gov-grid-column>
       </gov-grid-row>
@@ -22,8 +24,14 @@
 import Auth from "@/classes/Auth";
 
 export default {
+  data() {
+    return {
+      loginUri: Auth.authorizeUrl
+    };
+  },
   created() {
     Auth.logout();
+    this.$root.$emit("logout");
   }
 };
 </script>

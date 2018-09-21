@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import Auth from "@/classes/Auth";
+
 export default {
   name: "App",
   data() {
@@ -24,7 +26,12 @@ export default {
       themeColor: "#0b0c0c",
       bodyClasses: ["js-enabled"],
       mainClasses: [],
-      headerNav: [
+      headerNav: [],
+      footerNav: [],
+      footerMeta: {
+        items: []
+      },
+      loggedInItems: [
         { text: "Services", to: { name: "services-index" } },
         { text: "Locations", to: { name: "locations-index" } },
         { text: "Referrals", to: { name: "referrals-index" } },
@@ -35,10 +42,9 @@ export default {
         { text: "Update requests", to: { name: "update-requests-index" } },
         { text: "Logout", to: { name: "logout" } }
       ],
-      footerNav: [],
-      footerMeta: {
-        items: []
-      }
+      loggedOutItems: [
+        { text: "Login", href: Auth.authorizeUrl }
+      ]
     };
   },
   computed: {
@@ -54,6 +60,17 @@ export default {
         }
       };
     }
+  },
+  methods: {
+    setHeaderItems() {
+      console.log(Auth.isLoggedIn);
+      this.headerNav = Auth.isLoggedIn ? this.loggedInItems : this.loggedOutItems;
+    }
+  },
+  created() {
+    this.setHeaderItems();
+    this.$root.$on("login", this.setHeaderItems);
+    this.$root.$on("logout", this.setHeaderItems);
   }
 };
 </script>
