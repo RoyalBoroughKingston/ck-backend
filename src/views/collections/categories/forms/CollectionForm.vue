@@ -29,7 +29,7 @@
       has-icons
     >
       <gov-hint slot="hint" for="icon">
-        If you're having trouble viewing the icons, refer to the <gov-link href="https://fontawesome.com/v4.7.0/icons/" target="_blank">Font Awesome website</gov-link> (the font library used).
+        If you're having trouble viewing the icons, refer to the <gov-link href="https://fontawesome.com/icons" target="_blank">Font Awesome website</gov-link> (the font library used).
       </gov-hint>
       <option
         v-for="(option, key) in icons"
