@@ -16,7 +16,8 @@
 
           <gov-heading size="m">View update request</gov-heading>
 
-          <update-request-details :update-request="updateRequest" />
+          <organisation-details v-if="updateRequest.updateable_type === 'organisations'" :organisation="updateRequest.data" />
+          <update-request-details v-else :update-request="updateRequest" />
 
           <gov-section-break size="xl" />
 
@@ -53,10 +54,11 @@
 <script>
 import http from "@/http";
 import UpdateRequestDetails from "@/views/update-requests/show/UpdateRequestDetails";
+import OrganisationDetails from "@/views/update-requests/show/OrganisationDetails";
 
 export default {
   name: "ShowUpdateRequest",
-  components: { UpdateRequestDetails },
+  components: { UpdateRequestDetails, OrganisationDetails },
   data() {
     return {
       loading: false,

@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     setHeaderItems() {
-      console.log(Auth.isLoggedIn);
       this.headerNav = Auth.isLoggedIn
         ? this.loggedInItems
         : this.loggedOutItems;
