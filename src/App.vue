@@ -2,34 +2,23 @@
   <div id="app">
     <vue-headful title="Connected Kingston" :head="headAttributes" :html="htmlAttributes" />
 
-    <slot name="bodyStart" />
+    <gov-skip-link href="#main-content">Skip to main content</gov-skip-link>
 
-    <slot name="skipLink">
-      <gov-skip-link href="#main-content">Skip to main content</gov-skip-link>
-    </slot>
+    <gov-header service-name="Connected Kingston" :navigation="headerNav" />
 
-    <slot name="header">
-      <gov-header service-name="Connected Kingston" :navigation="headerNav" />
-    </slot>
+    <div class="govuk-width-container">
+      <main class="govuk-main-wrapper" :class="mainClasses" id="main-content" role="main">
+        <router-view />
+      </main>
+    </div>
 
-    <slot name="main">
-      <div class="govuk-width-container">
-        <slot name="beforeContent" />
-        <main class="govuk-main-wrapper" :class="mainClasses" id="main-content" role="main">
-          <router-view />
-        </main>
-      </div>
-    </slot>
-
-    <slot name="footer">
-      <gov-footer :navigation="footerNav" :meta="footerMeta" />
-    </slot>
-
-    <slot name="bodyEnd" />
+    <gov-footer :navigation="footerNav" :meta="footerMeta" />
   </div>
 </template>
 
 <script>
+import Auth from "@/classes/Auth";
+
 export default {
   name: "App",
   data() {
@@ -37,21 +26,23 @@ export default {
       themeColor: "#0b0c0c",
       bodyClasses: ["js-enabled"],
       mainClasses: [],
-      headerNav: [
-        { text: "Services", href: { name: "services-index" } },
-        { text: "Locations", href: { name: "locations-index" } },
-        { text: "Referrals", href: { name: "referrals-index" } },
-        { text: "Organisations", href: { name: "organisations-index" } },
-        { text: "Users", href: { name: "users-index" } },
-        { text: "Reports", href: { name: "reports-index" } },
-        { text: "Admin", href: { name: "admin-index" } },
-        { text: "Update requests", href: { name: "update-requests-index" } },
-        { text: "Logout", href: { name: "logout" } }
-      ],
+      headerNav: [],
       footerNav: [],
       footerMeta: {
         items: []
-      }
+      },
+      loggedInItems: [
+        { text: "Services", to: { name: "services-index" } },
+        { text: "Locations", to: { name: "locations-index" } },
+        { text: "Referrals", to: { name: "referrals-index" } },
+        { text: "Organisations", to: { name: "organisations-index" } },
+        { text: "Users", to: { name: "users-index" } },
+        { text: "Reports", to: { name: "reports-index" } },
+        { text: "Admin", to: { name: "admin-index" } },
+        { text: "Update requests", to: { name: "update-requests-index" } },
+        { text: "Logout", to: { name: "logout" } }
+      ],
+      loggedOutItems: [{ text: "Login", href: Auth.authorizeUrl }]
     };
   },
   computed: {
@@ -67,6 +58,19 @@ export default {
         }
       };
     }
+  },
+  methods: {
+    setHeaderItems() {
+      console.log(Auth.isLoggedIn);
+      this.headerNav = Auth.isLoggedIn
+        ? this.loggedInItems
+        : this.loggedOutItems;
+    }
+  },
+  created() {
+    this.setHeaderItems();
+    this.$root.$on("login", this.setHeaderItems);
+    this.$root.$on("logout", this.setHeaderItems);
   }
 };
 </script>

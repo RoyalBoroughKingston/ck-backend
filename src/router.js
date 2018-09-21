@@ -357,6 +357,11 @@ let router = new Router({
       name: "collections-personas-edit",
       component: () => import("@/views/collections/personas/Edit"),
       meta: { auth: true }
+    },
+    {
+      path: "*",
+      name: "404",
+      component: () => import("@/views/errors/404")
     }
   ]
 });
@@ -366,7 +371,7 @@ router.beforeEach((to, from, next) => {
   // If user needs to be authed, then redirect them to the auth URL.
   if (to.matched.some(route => route.meta.auth)) {
     if (!Auth.isLoggedIn) {
-      return Auth.redirect();
+      return next({ name: "logout" });
     }
   }
 

@@ -24,16 +24,21 @@
                         <router-link
                           v-for="(item, key) in navigation"
                           :key="key"
-                          v-if="item.href && item.text"
+                          v-if="item.to"
                           tag="li"
                           class="govuk-header__navigation-item"
                           active-class="govuk-header__navigation-item--active"
-                          :to="item.href"
+                          :to="item.to"
                         >
-                            <a class="govuk-header__link" :href="item.href">
+                            <a class="govuk-header__link" :href="item.to">
                                 {{ item.text }}
                             </a>
                         </router-link>
+                        <li v-else-if="item.href" class="govuk-header__navigation-item">
+                          <a class="govuk-header__link" :href="item.href">
+                              {{ item.text }}
+                          </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

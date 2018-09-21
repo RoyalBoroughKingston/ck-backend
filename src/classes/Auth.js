@@ -94,7 +94,7 @@ class Auth {
    * @returns {number}
    */
   get expiresAt() {
-    return this.oauth ? this.oauth.expires_at : null;
+    return this.oauth !== null ? this.oauth.expires_at : null;
   }
 
   /**
@@ -108,7 +108,9 @@ class Auth {
    * @returns {boolean}
    */
   get isLoggedIn() {
-    return this.accessToken && !this.hasExpired;
+    return (
+      this.accessToken !== null && this.expiresAt !== null && !this.hasExpired
+    );
   }
 }
 
