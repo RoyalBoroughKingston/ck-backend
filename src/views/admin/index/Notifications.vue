@@ -34,7 +34,9 @@ export default {
     async fetchNotifications() {
       this.loading = true;
 
-      const { data } = await http.get("/notifications", { params: { page: this.currentPage } });
+      const { data } = await http.get("/notifications", {
+        params: { page: this.currentPage }
+      });
       this.notifications = data.data;
       this.currentPage = data.meta.current_page;
       this.lastPage = data.meta.last_page;

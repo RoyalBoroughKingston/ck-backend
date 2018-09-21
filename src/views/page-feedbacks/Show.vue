@@ -34,7 +34,9 @@ export default {
   methods: {
     async fetchPageFeedback() {
       this.loading = true;
-      const { data } = await http.get(`/page-feedbacks/${this.$route.params.pageFeedback}`);
+      const { data } = await http.get(
+        `/page-feedbacks/${this.$route.params.pageFeedback}`
+      );
       this.pageFeedback = data.data;
       this.loading = false;
     }

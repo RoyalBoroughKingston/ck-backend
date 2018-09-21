@@ -34,7 +34,9 @@ export default {
     async fetchAudits() {
       this.loading = true;
 
-      const response = await http.get("/audits", { params: { page: this.currentPage } });
+      const response = await http.get("/audits", {
+        params: { page: this.currentPage }
+      });
       const audits = await this.fetchUsers(response.data.data);
 
       this.audits = audits;
@@ -45,10 +47,10 @@ export default {
     },
     async fetchUsers(audits) {
       let userIds = audits
-        .map(audit => (audit.user_id))
-        .filter(userId => (userId !== null));
+        .map(audit => audit.user_id)
+        .filter(userId => userId !== null);
       userIds = userIds
-        .filter((userId, index) => (userIds.indexOf(userId) === index))
+        .filter((userId, index) => userIds.indexOf(userId) === index)
         .join(",");
 
       const users = await this.fetchAll("/users", { "filter[id]": userIds });

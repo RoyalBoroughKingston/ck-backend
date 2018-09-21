@@ -131,7 +131,7 @@ export default {
     async fetchTaxonomies() {
       this.loading = true;
 
-      const { data } = await http.get('/taxonomies/categories');
+      const { data } = await http.get("/taxonomies/categories");
       this.taxonomies = data.data;
 
       this.loading = false;

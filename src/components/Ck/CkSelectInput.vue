@@ -85,7 +85,7 @@ export default {
 <style lang="scss">
 .govuk-select {
   &.govuk-select--icons {
-    font-family: "FontAwesome", "nta", Arial, sans-serif;;
+    font-family: "Font Awesome 5 Free", "nta", Arial, sans-serif;
   }
 }
 </style>

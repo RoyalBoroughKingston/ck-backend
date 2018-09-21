@@ -34,7 +34,9 @@ export default {
   methods: {
     async fetchNotification() {
       this.loading = true;
-      const { data } = await http.get(`/notifications/${this.$route.params.notification}`);
+      const { data } = await http.get(
+        `/notifications/${this.$route.params.notification}`
+      );
       this.notification = data.data;
       this.loading = false;
     }
