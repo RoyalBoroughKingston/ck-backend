@@ -25,15 +25,15 @@ export default {
       bodyClasses: ["js-enabled"],
       mainClasses: [],
       headerNav: [
-        { text: "Services", href: { name: "services-index" } },
-        { text: "Locations", href: { name: "locations-index" } },
-        { text: "Referrals", href: { name: "referrals-index" } },
-        { text: "Organisations", href: { name: "organisations-index" } },
-        { text: "Users", href: { name: "users-index" } },
-        { text: "Reports", href: { name: "reports-index" } },
-        { text: "Admin", href: { name: "admin-index" } },
-        { text: "Update requests", href: { name: "update-requests-index" } },
-        { text: "Logout", href: { name: "logout" } }
+        { text: "Services", to: { name: "services-index" } },
+        { text: "Locations", to: { name: "locations-index" } },
+        { text: "Referrals", to: { name: "referrals-index" } },
+        { text: "Organisations", to: { name: "organisations-index" } },
+        { text: "Users", to: { name: "users-index" } },
+        { text: "Reports", to: { name: "reports-index" } },
+        { text: "Admin", to: { name: "admin-index" } },
+        { text: "Update requests", to: { name: "update-requests-index" } },
+        { text: "Logout", to: { name: "logout" } }
       ],
       footerNav: [],
       footerMeta: {

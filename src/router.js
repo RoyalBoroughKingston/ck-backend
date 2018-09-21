@@ -357,6 +357,11 @@ let router = new Router({
       name: "collections-personas-edit",
       component: () => import("@/views/collections/personas/Edit"),
       meta: { auth: true }
+    },
+    {
+      path: "*",
+      name: "404",
+      component: () => import("@/views/errors/404")
     }
   ]
 });
