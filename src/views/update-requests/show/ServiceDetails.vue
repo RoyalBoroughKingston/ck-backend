@@ -1,5 +1,6 @@
 <template>
-  <gov-table>
+  <ck-loader v-if="loading" />
+  <gov-table v-else>
     <template slot="body">
 
       <gov-table-row>
@@ -160,9 +161,9 @@
       <gov-table-row>
         <gov-table-header top scope="row">Category taxonomies</gov-table-header>
         <gov-table-cell>
-          <gov-list>
-            <li v-for="(taxonomies, index) in service.category_taxonomies" :key="`category_taxonomies.${index}`">
-              {{ taxonomies }}
+          <gov-list bullet>
+            <li v-for="(taxonomy, index) in service.category_taxonomies" :key="`category_taxonomies.${index}`">
+              {{ taxonomyName(findTaxonomy(taxonomy)) }}
             </li>
           </gov-list>
         </gov-table-cell>
@@ -183,6 +184,8 @@
 </template>
 
 <script>
+import http from "@/http";
+
 export default {
   name: "ServiceDetails",
   props: {
@@ -191,9 +194,19 @@ export default {
       type: Object
     }
   },
+  data() {
+    return {
+      loading: false,
+      taxonomies: [],
+      flattenedTaxonomies: []
+    };
+  },
   computed: {
     referralMethod() {
-      return this.service.referral_method.charAt(0).toUpperCase() + this.service.referral_method.slice(1);
+      return (
+        this.service.referral_method.charAt(0).toUpperCase() +
+        this.service.referral_method.slice(1)
+      );
     }
   },
   methods: {
@@ -210,7 +223,48 @@ export default {
         case "other":
           return "Other";
       }
+    },
+    taxonomyName(taxonomy) {
+      let name = taxonomy.name;
+
+      if (taxonomy.parent_id !== null) {
+        const parent = this.flattenedTaxonomies.find(flattenedTaxonomy => {
+          return flattenedTaxonomy.id === taxonomy.parent_id;
+        });
+        name = `${this.taxonomyName(parent)} / ${name}`;
+      }
+
+      return name;
+    },
+    async fetchTaxonomies() {
+      this.loading = true;
+
+      const { data } = await http.get("/taxonomies/categories");
+      this.taxonomies = data.data;
+      this.setFlattenedTaxonomies();
+
+      this.loading = false;
+    },
+    setFlattenedTaxonomies(taxonomies = null) {
+      if (taxonomies === null) {
+        this.flattenedTaxonomies = [];
+        taxonomies = this.taxonomies;
+      }
+
+      taxonomies.forEach(taxonomy => {
+        this.flattenedTaxonomies.push(taxonomy);
+
+        if (taxonomy.children.length > 0) {
+          this.setFlattenedTaxonomies(taxonomy.children);
+        }
+      });
+    },
+    findTaxonomy(id) {
+      return this.flattenedTaxonomies.find(taxonomy => taxonomy.id === id);
     }
+  },
+  created() {
+    this.fetchTaxonomies();
   }
 };
 </script>
