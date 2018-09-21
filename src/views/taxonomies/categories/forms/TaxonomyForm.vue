@@ -73,8 +73,8 @@ export default {
         const text = "-".repeat(depth) + " " + taxonomy.name;
         parsed.push({ text, value: taxonomy.id });
 
-        if ((taxonomy.children.length > 0) && (depth < 4)) {
-          parsed = this.parseTaxonomies(taxonomy.children, parsed, (depth + 1));
+        if (taxonomy.children.length > 0 && depth < 4) {
+          parsed = this.parseTaxonomies(taxonomy.children, parsed, depth + 1);
         }
       });
 

@@ -75,7 +75,9 @@ export default {
         subtitle: this.collection.subtitle,
         intro: this.collection.intro,
         order: this.collection.order,
-        category_taxonomies: this.collection.category_taxonomies.map(taxonomy => taxonomy.id),
+        category_taxonomies: this.collection.category_taxonomies.map(
+          taxonomy => taxonomy.id
+        ),
         image: null
       });
 

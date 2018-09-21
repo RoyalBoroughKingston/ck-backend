@@ -36,8 +36,6 @@
 </template>
 
 <script>
-import http from "@/http";
-
 export default {
   name: "ListCollectionCategories",
   data() {
@@ -49,7 +47,7 @@ export default {
   methods: {
     async fetchCollections() {
       this.loading = true;
-      this.collections = await this.fetchAll('/collections/categories');
+      this.collections = await this.fetchAll("/collections/categories");
       this.loading = false;
     }
   },

@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import http from "@/http";
 import icons from "@/storage/icons";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 

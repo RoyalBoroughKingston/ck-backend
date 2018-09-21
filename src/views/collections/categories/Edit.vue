@@ -74,7 +74,9 @@ export default {
         intro: this.collection.intro,
         icon: this.collection.icon,
         order: this.collection.order,
-        category_taxonomies: this.collection.category_taxonomies.map(taxonomy => taxonomy.id)
+        category_taxonomies: this.collection.category_taxonomies.map(
+          taxonomy => taxonomy.id
+        )
       });
 
       this.loading = false;

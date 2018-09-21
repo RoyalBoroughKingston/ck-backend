@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import http from "@/http";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 
 export default {

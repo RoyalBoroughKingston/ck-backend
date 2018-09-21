@@ -34,7 +34,9 @@ export default {
     async fetchPageFeedbacks() {
       this.loading = true;
 
-      const { data } = await http.get("/page-feedbacks", { params: { page: this.currentPage } });
+      const { data } = await http.get("/page-feedbacks", {
+        params: { page: this.currentPage }
+      });
       this.pageFeedbacks = data.data;
       this.currentPage = data.meta.current_page;
       this.lastPage = data.meta.last_page;
