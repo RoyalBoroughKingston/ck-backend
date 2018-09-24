@@ -18,6 +18,7 @@
 
           <organisation-details v-if="updateRequest.updateable_type === 'organisations'" :organisation="updateRequest.data" />
           <service-details v-else-if="updateRequest.updateable_type === 'services'" :service="updateRequest.data" />
+          <location-details v-else-if="updateRequest.updateable_type === 'locations'" :location="updateRequest.data" />
           <update-request-details v-else :update-request="updateRequest" />
 
           <gov-section-break size="xl" />
@@ -57,10 +58,11 @@ import http from "@/http";
 import UpdateRequestDetails from "@/views/update-requests/show/UpdateRequestDetails";
 import OrganisationDetails from "@/views/update-requests/show/OrganisationDetails";
 import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
+import LocationDetails from "@/views/update-requests/show/LocationDetails";
 
 export default {
   name: "ShowUpdateRequest",
-  components: { UpdateRequestDetails, OrganisationDetails, ServiceDetails },
+  components: { UpdateRequestDetails, OrganisationDetails, ServiceDetails, LocationDetails },
   data() {
     return {
       loading: false,
