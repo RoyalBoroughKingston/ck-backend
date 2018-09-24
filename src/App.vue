@@ -30,19 +30,7 @@ export default {
       footerNav: [],
       footerMeta: {
         items: []
-      },
-      loggedInItems: [
-        { text: "Services", to: { name: "services-index" } },
-        { text: "Locations", to: { name: "locations-index" } },
-        { text: "Referrals", to: { name: "referrals-index" } },
-        { text: "Organisations", to: { name: "organisations-index" } },
-        { text: "Users", to: { name: "users-index" } },
-        { text: "Reports", to: { name: "reports-index" } },
-        { text: "Admin", to: { name: "admin-index" } },
-        { text: "Update requests", to: { name: "update-requests-index" } },
-        { text: "Logout", to: { name: "logout" } }
-      ],
-      loggedOutItems: [{ text: "Login", href: Auth.authorizeUrl }]
+      }
     };
   },
   computed: {
@@ -57,6 +45,22 @@ export default {
           class: [document.body.className, ...this.bodyClasses].join(" ")
         }
       };
+    },
+    loggedInItems() {
+      return [
+        { text: "Services", to: { name: "services-index" } },
+        { text: "Locations", to: { name: "locations-index" } },
+        { text: "Referrals", to: { name: "referrals-index" } },
+        { text: "Organisations", to: { name: "organisations-index" } },
+        { text: "Users", to: { name: "users-index" } },
+        { text: "Reports", to: { name: "reports-index" }, hide: !Auth.isGlobalAdmin },
+        { text: "Admin", to: { name: "admin-index" }, hide: !Auth.isGlobalAdmin },
+        { text: "Update requests", to: { name: "update-requests-index" }, hide: !Auth.isGlobalAdmin },
+        { text: "Logout", to: { name: "logout" } }
+      ];
+    },
+    loggedOutItems() {
+      return [{ text: "Login", href: Auth.authorizeUrl }];
     }
   },
   methods: {

@@ -15,7 +15,7 @@
              --><gov-button @click="onSearch" type="submit">Search</gov-button>
               </gov-form-group>
             </gov-grid-column>
-            <gov-grid-column v-if="auth.isOrganisationAdmin" width="one-third">
+            <gov-grid-column v-if="auth.isOrganisationAdmin()" width="one-third">
               <gov-label for="empty">&nbsp;</gov-label>
               <gov-button @click="onAddService" type="submit" expand>Add service</gov-button>
             </gov-grid-column>
