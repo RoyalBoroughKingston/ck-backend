@@ -53,8 +53,8 @@ export default {
     }
   },
   methods: {
-    login() {
-      Auth.login(this.accessToken, this.expiresIn);
+    async login() {
+      await Auth.login(this.accessToken, this.expiresIn);
       this.$root.$emit("login");
       this.$router.push({ name: "dashboard" });
     }
