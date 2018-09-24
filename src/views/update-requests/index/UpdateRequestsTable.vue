@@ -45,7 +45,7 @@ export default {
         case "locations":
           return "Location";
         case "service_locations":
-          return "Service at location";
+          return "Service location";
         default:
           return "Invalid type";
       }
