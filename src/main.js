@@ -7,6 +7,9 @@ import moment from "moment";
 // Axios.
 import http from "@/http";
 
+// Auth.
+import Auth from "@/classes/Auth";
+
 // Markdown conversion.
 import MarkdownConverter from "@/classes/MarkdownConverter";
 
@@ -118,6 +121,11 @@ Vue.component("GovWidthContainer", () =>
 
 // Vue Helpers
 Vue.mixin({
+  data() {
+    return {
+      auth: Auth
+    };
+  },
   methods: {
     apiUrl(path) {
       return process.env.VUE_APP_API_URI + path;

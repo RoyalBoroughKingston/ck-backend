@@ -11,18 +11,20 @@
 
             <location-details :location="location" />
 
-            <gov-body>Please be certain of the action before deleting an organisation</gov-body>
+            <template v-if="auth.isGlobalAdmin">
+              <gov-body>Please be certain of the action before deleting an organisation</gov-body>
 
-            <gov-section-break size="l" />
+              <gov-section-break size="l" />
 
-            <ck-delete-button
-              resource="location"
-              :endpoint="`/locations/${this.location.id}`"
-              @deleted="onDelete"
-            />
+              <ck-delete-button
+                resource="location"
+                :endpoint="`/locations/${this.location.id}`"
+                @deleted="onDelete"
+              />
+            </template>
 
         </gov-grid-column>
-        <gov-grid-column width="one-third" class="text-right">
+        <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third" class="text-right">
 
           <gov-button :to="{ name: 'locations-edit', params: { location: location.id } }">Edit location</gov-button>
 

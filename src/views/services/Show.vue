@@ -16,7 +16,7 @@
               </gov-heading>
 
             </gov-grid-column>
-            <gov-grid-column width="one-third" class="text-right">
+            <gov-grid-column v-if="auth.isServiceAdmin(service)" width="one-third" class="text-right">
 
               <gov-button :to="{ name: 'services-edit', params: { service: service.id } }">Edit service</gov-button>
 
@@ -29,13 +29,15 @@
 
           <gov-body>Please be certain of the action before deleting a service</gov-body>
 
-          <gov-section-break size="l" />
+          <template v-if="auth.isSuperAdmin">
+            <gov-section-break size="l" />
 
-          <ck-delete-button
-            resource="service"
-            :endpoint="`/services/${this.service.id}`"
-            @deleted="onDelete"
-          />
+            <ck-delete-button
+              resource="service"
+              :endpoint="`/services/${this.service.id}`"
+              @deleted="onDelete"
+            />
+          </template>
 
         </gov-grid-column>
       </gov-grid-row>

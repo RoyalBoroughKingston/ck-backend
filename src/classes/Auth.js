@@ -172,7 +172,7 @@ class Auth {
           (role.role === "Organisation Admin") !== undefined &&
           role.organisation_id === organisation.id
         );
-      })
+      }) !== undefined
     );
   }
 
@@ -195,7 +195,30 @@ class Auth {
           (role.role === "Service Admin") !== undefined &&
           role.service_id === service.id
         );
-      })
+      }) !== undefined
+    );
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  isServiceWorker(service = null) {
+    if (service === null) {
+      return (
+        this.user !== null &&
+        this.user.roles.find(role => role.role === "Service Worker") !==
+          undefined
+      );
+    }
+
+    return (
+      this.user !== null &&
+      this.user.roles.find(role => {
+        return (
+          (role.role === "Service Worker") !== undefined &&
+          role.service_id === service.id
+        );
+      }) !== undefined
     );
   }
 }

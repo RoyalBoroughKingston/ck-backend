@@ -12,18 +12,20 @@
 
           <ck-user-details :user="user" />
 
-          <gov-body>Please be certain of the action before deleting a user</gov-body>
+          <template v-if="auth.isServiceAdmin()">
+            <gov-body>Please be certain of the action before deleting a user</gov-body>
 
-          <gov-section-break size="l" />
+            <gov-section-break size="l" />
 
-          <ck-delete-button
-            resource="user"
-            :endpoint="`/users/${this.user.id}`"
-            @deleted="onDelete"
-          />
+            <ck-delete-button
+              resource="user"
+              :endpoint="`/users/${this.user.id}`"
+              @deleted="onDelete"
+            />
+          </template>
 
         </gov-grid-column>
-        <gov-grid-column width="one-third" class="text-right">
+        <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third" class="text-right">
 
           <gov-button :to="{ name: 'users-edit', params: { user: $route.params.user } }">Edit user</gov-button>
 
