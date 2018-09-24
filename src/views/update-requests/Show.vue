@@ -16,10 +16,26 @@
 
           <gov-heading size="m">View update request</gov-heading>
 
-          <organisation-details v-if="updateRequest.updateable_type === 'organisations'" :organisation="updateRequest.data" />
-          <service-details v-else-if="updateRequest.updateable_type === 'services'" :service="updateRequest.data" />
-          <location-details v-else-if="updateRequest.updateable_type === 'locations'" :location="updateRequest.data" />
-          <update-request-details v-else :update-request="updateRequest" />
+          <organisation-details
+            v-if="updateRequest.updateable_type === 'organisations'"
+            :organisation="updateRequest.data"
+          />
+          <service-details
+            v-else-if="updateRequest.updateable_type === 'services'"
+            :service="updateRequest.data"
+          />
+          <location-details
+            v-else-if="updateRequest.updateable_type === 'locations'"
+            :location="updateRequest.data"
+          />
+          <service-location-details
+            v-else-if="updateRequest.updateable_type === 'service_locations'"
+            :service-location="updateRequest.data"
+          />
+          <update-request-details
+            v-else
+            :update-request="updateRequest"
+          />
 
           <gov-section-break size="xl" />
 
@@ -59,10 +75,11 @@ import UpdateRequestDetails from "@/views/update-requests/show/UpdateRequestDeta
 import OrganisationDetails from "@/views/update-requests/show/OrganisationDetails";
 import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
 import LocationDetails from "@/views/update-requests/show/LocationDetails";
+import ServiceLocationDetails from "@/views/update-requests/show/ServiceLocationDetails";
 
 export default {
   name: "ShowUpdateRequest",
-  components: { UpdateRequestDetails, OrganisationDetails, ServiceDetails, LocationDetails },
+  components: { UpdateRequestDetails, OrganisationDetails, ServiceDetails, LocationDetails, ServiceLocationDetails },
   data() {
     return {
       loading: false,
