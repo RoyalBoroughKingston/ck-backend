@@ -79,7 +79,13 @@ import ServiceLocationDetails from "@/views/update-requests/show/ServiceLocation
 
 export default {
   name: "ShowUpdateRequest",
-  components: { UpdateRequestDetails, OrganisationDetails, ServiceDetails, LocationDetails, ServiceLocationDetails },
+  components: {
+    UpdateRequestDetails,
+    OrganisationDetails,
+    ServiceDetails,
+    LocationDetails,
+    ServiceLocationDetails
+  },
   data() {
     return {
       loading: false,
