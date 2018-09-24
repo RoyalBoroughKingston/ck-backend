@@ -25,7 +25,7 @@
           </template>
 
         </gov-grid-column>
-        <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third" class="text-right">
+        <gov-grid-column v-if="auth.isOrganisationAdmin(organisation)" width="one-third" class="text-right">
 
           <gov-button :to="{ name: 'organisations-edit', params: { organisation: organisation.id } }">
             Edit organisation
