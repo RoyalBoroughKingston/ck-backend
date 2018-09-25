@@ -111,7 +111,7 @@
       <date-input
         v-if="regularOpeningHour.frequency === 'fortnightly'"
         :value="regularOpeningHour.starts_at"
-        @input="onRegularOpeningHourInput({ index, field: 'fortnightly', value: $event })"
+        @input="onRegularOpeningHourInput({ index, field: 'starts_at', value: $event })"
         :id="`regular_opening_hours.${index}.starts_at`"
         label="Starting date"
         :error="errors.get(`regular_opening_hours.${index}.starts_at`)"
