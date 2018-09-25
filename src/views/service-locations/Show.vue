@@ -13,18 +13,20 @@
 
             <service-location-details :service-location="serviceLocation" />
 
-            <gov-body>Please be certain of the action before deleting a service location</gov-body>
+            <template v-if="auth.isServiceAdmin(serviceLocation.service)">
+              <gov-body>Please be certain of the action before deleting a service location</gov-body>
 
-            <gov-section-break size="l" />
+              <gov-section-break size="l" />
 
-            <ck-delete-button
-              resource="service location"
-              :endpoint="`/service-locations/${this.serviceLocation.id}`"
-              @deleted="onDelete"
-            />
+              <ck-delete-button
+                resource="service location"
+                :endpoint="`/service-locations/${this.serviceLocation.id}`"
+                @deleted="onDelete"
+              />
+            </template>
 
           </gov-grid-column>
-          <gov-grid-column width="one-third" class="text-right">
+          <gov-grid-column v-if="auth.isServiceAdmin(serviceLocation.service)" width="one-third" class="text-right">
 
             <gov-button :to="{ name: 'service-locations-edit', params: { serviceLocation: serviceLocation.id } }">
               Edit service location

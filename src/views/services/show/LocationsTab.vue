@@ -4,7 +4,7 @@
       <gov-grid-column width="two-thirds">
         <gov-heading size="l">Service locations</gov-heading>
       </gov-grid-column>
-      <gov-grid-column width="one-third text-right">
+      <gov-grid-column v-if="auth.isServiceAdmin(service)" width="one-third text-right">
         <gov-button
           :to="{ name: 'service-locations-create', params: { service: service.id } }"
           expand

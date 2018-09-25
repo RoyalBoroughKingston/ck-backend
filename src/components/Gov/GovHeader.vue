@@ -24,7 +24,7 @@
                         <router-link
                           v-for="(item, key) in navigation"
                           :key="key"
-                          v-if="item.to"
+                          v-if="item.to && !item.hide"
                           tag="li"
                           class="govuk-header__navigation-item"
                           active-class="govuk-header__navigation-item--active"

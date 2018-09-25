@@ -28,7 +28,9 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   response => response,
   error => {
-    if (error.response.status === 401) {
+    if (error.response.status === 403) {
+      alert("You are not authorised to perform this action.");
+    } else if (error.response.status === 401) {
       Auth.logout();
       router.push({ name: "login" });
     } else {

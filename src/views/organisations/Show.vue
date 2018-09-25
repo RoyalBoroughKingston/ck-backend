@@ -12,18 +12,20 @@
 
           <ck-organisation-details :organisation="organisation" />
 
-          <gov-body>Please be certain of the action before deleting an organisation</gov-body>
+          <template v-if="auth.isSuperAdmin">
+            <gov-body>Please be certain of the action before deleting an organisation</gov-body>
 
-          <gov-section-break size="l" />
+            <gov-section-break size="l" />
 
-          <ck-delete-button
-            resource="organisation"
-            :endpoint="`/organisations/${this.organisation.id}`"
-            @deleted="onDelete"
-          />
+            <ck-delete-button
+              resource="organisation"
+              :endpoint="`/organisations/${this.organisation.id}`"
+              @deleted="onDelete"
+            />
+          </template>
 
         </gov-grid-column>
-        <gov-grid-column width="one-third" class="text-right">
+        <gov-grid-column v-if="auth.isOrganisationAdmin(organisation)" width="one-third" class="text-right">
 
           <gov-button :to="{ name: 'organisations-edit', params: { organisation: organisation.id } }">
             Edit organisation

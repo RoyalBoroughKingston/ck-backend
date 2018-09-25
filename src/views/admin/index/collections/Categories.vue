@@ -11,7 +11,7 @@
         </gov-body>
       </gov-grid-column>
 
-      <gov-grid-column width="one-third">
+      <gov-grid-column v-if="auth.isSuperAdmin" width="one-third">
         <gov-button :to="{ name: 'collections-categories-create' }" expand>Add a new category</gov-button>
       </gov-grid-column>
     </gov-grid-row>
@@ -26,7 +26,12 @@
         <gov-list bullet>
           <li v-for="collection in collections" :key="collection.id">
             {{ collection.name }}&nbsp;
-            <gov-link :to="{ name: 'collections-categories-edit', params: { collection: collection.id } }">Edit</gov-link>
+            <gov-link
+              v-if="auth.isSuperAdmin"
+              :to="{ name: 'collections-categories-edit', params: { collection: collection.id } }"
+            >
+              Edit
+            </gov-link>
           </li>
         </gov-list>
 

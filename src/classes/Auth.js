@@ -57,7 +57,7 @@ class Auth {
    * @param {string} password
    * @returns {Promise}
    */
-  login(accessToken, expiresIn) {
+  async login(accessToken, expiresIn) {
     localStorage.setItem(
       "oauth",
       JSON.stringify({
@@ -65,6 +65,18 @@ class Auth {
         access_token: accessToken
       })
     );
+
+    const { data } = await this.http.get(
+      `${process.env.VUE_APP_API_URI}/users/user`,
+      {
+        params: { include: "user-roles" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+    localStorage.setItem("user", JSON.stringify(data.data));
   }
 
   /**
@@ -72,6 +84,7 @@ class Auth {
    */
   logout() {
     localStorage.removeItem("oauth");
+    localStorage.removeItem("user");
 
     return true;
   }
@@ -88,6 +101,13 @@ class Auth {
    */
   get oauth() {
     return JSON.parse(localStorage.getItem("oauth"));
+  }
+
+  /**
+   * @returns {object|null}
+   */
+  get user() {
+    return JSON.parse(localStorage.getItem("user"));
   }
 
   /**
@@ -110,6 +130,95 @@ class Auth {
   get isLoggedIn() {
     return (
       this.accessToken !== null && this.expiresAt !== null && !this.hasExpired
+    );
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get isSuperAdmin() {
+    return (
+      this.user !== null &&
+      this.user.roles.find(role => role.role === "Super Admin") !== undefined
+    );
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get isGlobalAdmin() {
+    return (
+      this.user !== null &&
+      this.user.roles.find(role => role.role === "Global Admin") !== undefined
+    );
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  isOrganisationAdmin(organisation = null) {
+    if (organisation === null) {
+      return (
+        this.user !== null &&
+        this.user.roles.find(role => role.role === "Organisation Admin") !==
+          undefined
+      );
+    }
+
+    return (
+      this.user !== null &&
+      this.user.roles.find(role => {
+        return (
+          (role.role === "Organisation Admin") !== undefined &&
+          role.organisation_id === organisation.id
+        );
+      }) !== undefined
+    );
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  isServiceAdmin(service = null) {
+    if (service === null) {
+      return (
+        this.user !== null &&
+        this.user.roles.find(role => role.role === "Service Admin") !==
+          undefined
+      );
+    }
+
+    return (
+      this.user !== null &&
+      this.user.roles.find(role => {
+        return (
+          (role.role === "Service Admin") !== undefined &&
+          role.service_id === service.id
+        );
+      }) !== undefined
+    );
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  isServiceWorker(service = null) {
+    if (service === null) {
+      return (
+        this.user !== null &&
+        this.user.roles.find(role => role.role === "Service Worker") !==
+          undefined
+      );
+    }
+
+    return (
+      this.user !== null &&
+      this.user.roles.find(role => {
+        return (
+          (role.role === "Service Worker") !== undefined &&
+          role.service_id === service.id
+        );
+      }) !== undefined
     );
   }
 }

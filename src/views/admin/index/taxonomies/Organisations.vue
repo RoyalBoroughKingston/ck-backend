@@ -11,7 +11,7 @@
         </gov-body>
       </gov-grid-column>
 
-      <gov-grid-column width="one-third">
+      <gov-grid-column v-if="auth.isSuperAdmin" width="one-third">
         <gov-button :to="{ name: 'taxonomies-organisations-create' }" expand>Add a new organisation</gov-button>
       </gov-grid-column>
     </gov-grid-row>
@@ -26,7 +26,12 @@
         <gov-list bullet>
           <li v-for="taxonomy in taxonomies" :key="taxonomy.id">
             {{ taxonomy.name }}&nbsp;
-            <gov-link :to="{ name: 'taxonomies-organisations-edit', params: { taxonomy: taxonomy.id } }">Edit</gov-link>
+            <gov-link
+              v-if="auth.isSuperAdmin"
+              :to="{ name: 'taxonomies-organisations-edit', params: { taxonomy: taxonomy.id } }"
+            >
+              Edit
+            </gov-link>
           </li>
         </gov-list>
 
