@@ -128,9 +128,13 @@
 
       <gov-button @click="onDeleteRegularOpeningHour(index)" error>Delete day</gov-button>
     </gov-inset-text>
+
     <gov-button @click="onAddRegularOpeningHour(index)">
       <template v-if="regular_opening_hours.length === 0">Add day</template>
       <template v-else>Add another day</template>
+    </gov-button>&nbsp;<!--
+ --><gov-button @click="onAddWeekdays()">
+      Add weekdays
     </gov-button>
     <!-- /Regular opening hours -->
 
@@ -389,6 +393,25 @@ export default {
       });
       this.$emit("update:regular_opening_hours", regularOpeningHours);
       this.index++;
+    },
+    onAddWeekdays() {
+      let regularOpeningHours = this.cloneRegularOpeningHours();
+
+      for (let i = 1; i <= 5; i++) {
+        regularOpeningHours.push({
+          frequency: "weekly",
+          weekday: i,
+          day_of_month: null,
+          occurrence_of_month: null,
+          starts_at: "",
+          opens_at: null,
+          closes_at: null,
+          index: this.index
+        });
+        this.index++;
+      }
+
+      this.$emit("update:regular_opening_hours", regularOpeningHours);
     },
     onAddHolidayOpeningHour() {
       let holidayOpeningHours = this.cloneHolidayOpeningHours();
