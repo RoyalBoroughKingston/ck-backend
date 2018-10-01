@@ -198,7 +198,7 @@ export default {
       const data = await this.form.post("/services");
       const serviceId = data.data.id;
       this.$router.push({
-        name: "service-show",
+        name: "services-show",
         params: { service: serviceId }
       });
     },
