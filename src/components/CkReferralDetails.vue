@@ -25,6 +25,24 @@
         <gov-table-header top scope="row">Phone</gov-table-header>
         <gov-table-cell>{{ referral.phone || "-" }}</gov-table-cell>
       </gov-table-row>
+      <template v-if="!isSelfReferral">
+        <gov-table-row>
+          <gov-table-header top scope="row">Referee Name</gov-table-header>
+          <gov-table-cell>{{ referral.referee_name }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Referee Email</gov-table-header>
+          <gov-table-cell>{{ referral.referee_email || "-" }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Referee Phone</gov-table-header>
+          <gov-table-cell>{{ referral.referee_phone || "-" }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Referee Organisation</gov-table-header>
+          <gov-table-cell>{{ referral.referee_organisation }}</gov-table-cell>
+        </gov-table-row>
+      </template>
       <gov-table-row>
         <gov-table-header top scope="row">Consent</gov-table-header>
         <gov-table-cell>{{ consented }}</gov-table-cell>
@@ -53,9 +71,12 @@ export default {
     }
   },
   computed: {
+    isSelfReferral() {
+      return this.referral.referee_name === null;
+    },
     type() {
       // Implies self-referral.
-      if (this.referral.referee_name === null) {
+      if (this.isSelfReferral) {
         return "Refered myself";
       }
 
