@@ -53,9 +53,21 @@ export default {
         { text: "Referrals", to: { name: "referrals-index" } },
         { text: "Organisations", to: { name: "organisations-index" } },
         { text: "Users", to: { name: "users-index" } },
-        { text: "Reports", to: { name: "reports-index" }, hide: !Auth.isGlobalAdmin },
-        { text: "Admin", to: { name: "admin-index" }, hide: !Auth.isGlobalAdmin },
-        { text: "Update requests", to: { name: "update-requests-index" }, hide: !Auth.isGlobalAdmin },
+        {
+          text: "Reports",
+          to: { name: "reports-index" },
+          hide: !Auth.isGlobalAdmin
+        },
+        {
+          text: "Admin",
+          to: { name: "admin-index" },
+          hide: !Auth.isGlobalAdmin
+        },
+        {
+          text: "Update requests",
+          to: { name: "update-requests-index" },
+          hide: !Auth.isGlobalAdmin
+        },
         { text: "Logout", to: { name: "logout" } }
       ];
     },
