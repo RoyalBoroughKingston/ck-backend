@@ -13,6 +13,11 @@
             :error="errors.get('category_taxonomies')"
             @clear="$emit('clear', 'category_taxonomies')"
           />
+          <gov-error-message
+            v-if="errors.has('category_taxonomies')"
+            v-text="errors.get('category_taxonomies')"
+            :for="category_taxonomies"
+          />
         </gov-form-group>
 
         <slot />
