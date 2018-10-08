@@ -102,6 +102,7 @@ export default {
         `/update-requests/${this.$route.params.updateRequest}`
       );
       this.updateRequest = data;
+      this.updateRequest.data.id = data.updateable_id;
 
       this.loading = false;
     },
