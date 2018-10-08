@@ -30,7 +30,9 @@ export default {
     };
   },
   created() {
+    Auth.clearSessions();
     Auth.logout();
+
     this.$root.$emit("logout");
   }
 };
