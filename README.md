@@ -39,3 +39,20 @@ Below is the commands that TraviCI uses to build the application.
 ```bash
 npm run build
 ```
+
+## Built With
+* [Vue.js](https://vuejs.org/) - The JavaScript Framework Used
+
+## Contributing
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/RoyalBoroughKingston/ck-backend/tags).
+
+## Authors
+* [Ayup Digital](https://ayup.agency/)
+
+See also the list of [contributors](https://github.com/RoyalBoroughKingston/ck-backend/contributors) who participated in this project.
+
+## License
+This project is licensed under the GNU AGPLv3 License - see the [LICENSE.md](LICENSE.md) file for details.
