@@ -10,7 +10,7 @@
 
         <ck-text-input
           :value="name"
-          @input="$emit('update:name', $event); $emit('clear', 'name'); $emit('update:slug', slugify($event)); $emit('clear', 'slug')"
+          @input="onNameInput($event)"
           id="name"
           label="Name of service"
           type="text"
@@ -24,6 +24,7 @@
           label="Unique slug"
           type="text"
           :error="errors.get('slug')"
+          :disabled="!auth.isGlobalAdmin"
         >
           <gov-hint slot="hint" for="slug">
             This will be used to access the service page.<br>
@@ -97,6 +98,7 @@
           hint="Indicates if the service is enabled or disabled (disabled services will not be shown in search results)"
           :options="statusOptions"
           :error="errors.get('status')"
+          :disabled="!auth.isGlobalAdmin"
         />
 
         <gov-section-break size="l" />
@@ -206,6 +208,15 @@ export default {
       });
       this.organisations = [...this.organisations, ...fetchedOrganisations];
       this.loading = false;
+    },
+    onNameInput(name) {
+      this.$emit('update:name', name);
+      this.$emit('clear', 'name');
+
+      if (this.auth.isGlobalAdmin) {
+        this.$emit('update:slug', this.slugify(name));
+        this.$emit('clear', 'slug')
+      }
     }
   },
   created() {

@@ -19,6 +19,7 @@
         :name="id"
         :label="option.label"
         :value="option.value"
+        :disabled="disabled"
       />
 
       <slot name="after-input" />
@@ -58,6 +59,11 @@ export default {
     options: {
       required: true,
       type: Array
+    },
+    disabled: {
+      required: false,
+      type: Boolean,
+      default: false
     }
   }
 };

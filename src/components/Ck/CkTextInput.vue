@@ -16,6 +16,7 @@
         :name="id"
         :type="type"
         :maxlength="maxlength"
+        :disabled="disabled"
       />
 
       <slot name="after-input" />
@@ -60,6 +61,11 @@ export default {
     maxlength: {
       required: false,
       type: Number
+    },
+    disabled: {
+      required: false,
+      type: Boolean,
+      default: false
     }
   }
 };
