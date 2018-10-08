@@ -8,6 +8,7 @@
       :name="name"
       type="radio"
       :value="value"
+      :disabled="disabled"
     >
     <gov-label class="govuk-radios__label" :for="id">{{ label }}</gov-label>
   </div>
@@ -38,6 +39,11 @@ export default {
     },
     value: {
       required: true
+    },
+    disabled: {
+      required: false,
+      type: Boolean,
+      default: false
     }
   }
 };
