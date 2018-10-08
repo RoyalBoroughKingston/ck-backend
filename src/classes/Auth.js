@@ -90,6 +90,21 @@ class Auth {
   }
 
   /**
+   * Clears the user's sessions on the API.
+   */
+  async clearSessions() {
+    await this.http.delete(
+      `${process.env.VUE_APP_API_URI}/users/user/sessions`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.accessToken}`
+        }
+      }
+    );
+  }
+
+  /**
    * @returns {boolean}
    */
   get hasExpired() {
