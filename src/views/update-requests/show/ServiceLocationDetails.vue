@@ -1,50 +1,59 @@
 <template>
-  <gov-table>
-    <template slot="body">
+  <ck-loader v-if="loading" />
+  <div v-else>
+    <gov-body>
+      For the <gov-link :to="{ name: 'services-show', params: { service: service.id } }" v-text="service.name" />
+      service at location <gov-link :to="{ name: 'locations-show', params: { location: location.id } }" v-text="location.address_line_1" />.
+    </gov-body>
 
-      <gov-table-row v-if="serviceLocation.name">
-        <gov-table-header top scope="row">Name</gov-table-header>
-        <gov-table-cell>{{ serviceLocation.name }}</gov-table-cell>
-      </gov-table-row>
+    <gov-table>
+      <template slot="body">
 
-      <gov-table-row>
-        <gov-table-header top scope="row">Regular opening hours</gov-table-header>
-        <gov-table-cell>
-          <gov-list>
-            <li
-              v-for="(regularOpeningHour, index) in serviceLocation.regular_opening_hours"
-              :key="index"
-              v-text="formatRegularOpeningHour(regularOpeningHour)"
-            />
-            <li v-if="serviceLocation.regular_opening_hours.length === 0">
-              No regular opening hours have been specifeid for this service
-            </li>
-          </gov-list>
-        </gov-table-cell>
-      </gov-table-row>
+        <gov-table-row v-if="serviceLocation.name">
+          <gov-table-header top scope="row">Name</gov-table-header>
+          <gov-table-cell>{{ serviceLocation.name }}</gov-table-cell>
+        </gov-table-row>
 
-      <gov-table-row>
-        <gov-table-header top scope="row">Holiday opening hours</gov-table-header>
-        <gov-table-cell>
-          <gov-list>
-            <li
-              v-for="(holidayOpeningHour, index) in serviceLocation.holiday_opening_hours"
-              :key="index"
-              v-text="formatHolidayOpeningHour(holidayOpeningHour)"
-            />
-            <li v-if="serviceLocation.holiday_opening_hours.length === 0">
-              No holiday opening hours have been specifeid for this service
-            </li>
-          </gov-list>
-        </gov-table-cell>
-      </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Regular opening hours</gov-table-header>
+          <gov-table-cell>
+            <gov-list>
+              <li
+                v-for="(regularOpeningHour, index) in serviceLocation.regular_opening_hours"
+                :key="index"
+                v-text="formatRegularOpeningHour(regularOpeningHour)"
+              />
+              <li v-if="serviceLocation.regular_opening_hours.length === 0">
+                No regular opening hours have been specifeid for this service
+              </li>
+            </gov-list>
+          </gov-table-cell>
+        </gov-table-row>
 
-    </template>
-  </gov-table>
+        <gov-table-row>
+          <gov-table-header top scope="row">Holiday opening hours</gov-table-header>
+          <gov-table-cell>
+            <gov-list>
+              <li
+                v-for="(holidayOpeningHour, index) in serviceLocation.holiday_opening_hours"
+                :key="index"
+                v-text="formatHolidayOpeningHour(holidayOpeningHour)"
+              />
+              <li v-if="serviceLocation.holiday_opening_hours.length === 0">
+                No holiday opening hours have been specifeid for this service
+              </li>
+            </gov-list>
+          </gov-table-cell>
+        </gov-table-row>
+
+      </template>
+    </gov-table>
+  </div>
 </template>
 
 <script>
 import moment from "moment";
+import http from "@/http";
 
 export default {
   name: "ServiceLocationDetails",
@@ -54,7 +63,53 @@ export default {
       type: Object
     }
   },
+  data() {
+    return {
+      loading: false,
+      model: null,
+      service: null,
+      location: null
+    };
+  },
+  computed: {
+    fetching() {
+      if (this.loading.serviceLocation) {
+        return true;
+      }
+
+      if (this.loading.service) {
+        return true;
+      }
+
+      if (this.loading.location) {
+        return true;
+      }
+
+      return false;
+    }
+  },
   methods: {
+    async fetchAll() {
+      this.loading = true;
+
+      await this.fetchServiceLocation();
+      await this.fetchService();
+      await this.fetchLocation();
+
+      this.loading = false;
+    },
+    async fetchServiceLocation() {
+      const { data } = await http.get(`/service-locations/${this.serviceLocation.id}`);
+      this.model = data.data;
+    },
+    async fetchService() {
+      const { data } = await http.get(`/services/${this.model.service_id}`);
+      this.service = data.data;
+    },
+    async fetchLocation() {
+      const { data } = await http.get(`/locations/${this.model.location_id}`);
+      this.location = data.data;
+    },
     formatRegularOpeningHour(openingHour) {
       switch (openingHour.frequency) {
         case "weekly":
@@ -115,6 +170,9 @@ export default {
 
       return remainingDays > 6 ? "next calendar week" : "this calendar week";
     }
+  },
+  created() {
+    this.fetchAll();
   }
 };
 </script>
