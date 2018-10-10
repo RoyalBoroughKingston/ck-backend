@@ -52,7 +52,11 @@ export default {
         { text: "Locations", to: { name: "locations-index" } },
         { text: "Referrals", to: { name: "referrals-index" } },
         { text: "Organisations", to: { name: "organisations-index" } },
-        { text: "Users", to: { name: "users-index" } },
+        {
+          text: "Users",
+          to: { name: "users-index" },
+          hide: !Auth.isGlobalAdmin
+        },
         {
           text: "Reports",
           to: { name: "reports-index" },
