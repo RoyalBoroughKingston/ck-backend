@@ -99,7 +99,9 @@ export default {
       this.loading = false;
     },
     async fetchServiceLocation() {
-      const { data } = await http.get(`/service-locations/${this.serviceLocation.id}`);
+      const { data } = await http.get(
+        `/service-locations/${this.serviceLocation.id}`
+      );
       this.model = data.data;
     },
     async fetchService() {

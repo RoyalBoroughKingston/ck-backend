@@ -210,12 +210,12 @@ export default {
       this.loading = false;
     },
     onNameInput(name) {
-      this.$emit('update:name', name);
-      this.$emit('clear', 'name');
+      this.$emit("update:name", name);
+      this.$emit("clear", "name");
 
       if (this.auth.isGlobalAdmin) {
-        this.$emit('update:slug', this.slugify(name));
-        this.$emit('clear', 'slug')
+        this.$emit("update:slug", this.slugify(name));
+        this.$emit("clear", "slug");
       }
     }
   },
