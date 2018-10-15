@@ -368,7 +368,21 @@ let router = new Router({
 
 // Middleware.
 router.beforeEach((to, from, next) => {
-  // If user needs to be authed, then redirect them to the auth URL.
+  // If the user is logged in but has been inactive for too long.
+  if (
+    Auth.isLoggedIn &&
+    Auth.inactive() &&
+    !["login", "logout"].includes(to.name)
+  ) {
+    return next({ name: "logout" });
+  }
+
+  // If the user is logged in, then update their activity.
+  if (Auth.isLoggedIn) {
+    Auth.invokeActivity();
+  }
+
+  // If user needs to be authenticated, then redirect them to the auth URL.
   if (to.matched.some(route => route.meta.auth)) {
     if (!Auth.isLoggedIn) {
       return next({ name: "logout" });
