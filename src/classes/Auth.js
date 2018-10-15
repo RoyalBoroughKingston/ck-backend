@@ -58,6 +58,7 @@ class Auth {
    * @returns {Promise}
    */
   async login(accessToken, expiresIn) {
+    // OAuth tokens.
     localStorage.setItem(
       "oauth",
       JSON.stringify({
@@ -66,6 +67,7 @@ class Auth {
       })
     );
 
+    // User details.
     const { data } = await this.http.get(
       `${process.env.VUE_APP_API_URI}/users/user`,
       {
@@ -77,6 +79,9 @@ class Auth {
       }
     );
     localStorage.setItem("user", JSON.stringify(data.data));
+
+    // Last active.
+    this.invokeActivity();
   }
 
   /**
@@ -85,6 +90,7 @@ class Auth {
   logout() {
     localStorage.removeItem("oauth");
     localStorage.removeItem("user");
+    localStorage.removeItem("last_active");
 
     return true;
   }
@@ -102,6 +108,28 @@ class Auth {
         }
       }
     );
+  }
+
+  /**
+   * Touches the last_active timestamp.
+   */
+  invokeActivity() {
+    localStorage.setItem("last_active", Date.now());
+  }
+
+  /**
+   * Determines if the user session is inactive.
+   * @param {number} time
+   * @returns {boolean}
+   */
+  inactive(minutes = process.env.VUE_APP_SESSION_TIMEOUT) {
+    const milliseconds = minutes * 60 * 1000;
+
+    if (this.lastActive === null) {
+      return true;
+    }
+
+    return Date.now() - this.lastActive > milliseconds;
   }
 
   /**
@@ -123,6 +151,13 @@ class Auth {
    */
   get user() {
     return JSON.parse(localStorage.getItem("user"));
+  }
+
+  /**
+   * @returns {object|null}
+   */
+  get lastActive() {
+    return JSON.parse(localStorage.getItem("last_active"));
   }
 
   /**
