@@ -18,6 +18,7 @@
           hint="How does this service receive referrals?"
           :options="referralMethodOptions"
           :error="errors.get('referral_method')"
+          :disabled="!auth.isGlobalAdmin"
         />
 
         <ck-text-input
@@ -29,6 +30,7 @@
           hint="The text to be displayed on the button to make the referral."
           type="text"
           :error="errors.get('referral_button_text')"
+          :disabled="!auth.isGlobalAdmin"
         />
 
         <ck-text-input
@@ -40,6 +42,7 @@
           hint="The email address which should be notified when referrals are made"
           type="email"
           :error="errors.get('referral_email')"
+          :disabled="!auth.isGlobalAdmin"
         />
 
         <ck-text-input
@@ -51,6 +54,7 @@
           hint="The URL that the user must visit to make a referral"
           type="url"
           :error="errors.get('referral_url')"
+          :disabled="!auth.isGlobalAdmin"
         />
 
         <ck-radio-input
@@ -61,6 +65,7 @@
           label="Show referral disclaimer?"
           :options="[{ value: true, label: 'Display' }, { value: false, label: 'Don\'t display' }]"
           :error="errors.get('show_referral_disclaimer')"
+          :disabled="!auth.isGlobalAdmin"
         />
 
         <slot />

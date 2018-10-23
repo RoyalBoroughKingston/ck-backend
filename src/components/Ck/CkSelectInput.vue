@@ -18,6 +18,7 @@
         :options="options"
         :width="width"
         :class="{ 'govuk-select--icons': hasIcons }"
+        :disabled="disabled"
       />
 
       <gov-select
@@ -28,6 +29,7 @@
         :name="id"
         :width="width"
         :class="{ 'govuk-select--icons': hasIcons }"
+        :disabled="disabled"
       >
         <slot />
       </gov-select>
@@ -76,6 +78,11 @@ export default {
     hasIcons: {
       type: Boolean,
       required: false,
+      default: false
+    },
+    disabled: {
+      required: false,
+      type: Boolean,
       default: false
     }
   }
