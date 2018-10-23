@@ -89,6 +89,20 @@ export default {
         if (data.password.length === 0) {
           delete data.password;
         }
+
+        data.roles.forEach(role => {
+          switch (role.role) {
+            // Delete the organisation and service IDs instead of sending null values.
+            case "Super Admin":
+            case "Global Admin":
+              delete role.organisation_id;
+              delete role.service_id;
+              break;
+            case "Organisation Admin":
+              delete role.service_id;
+              break;
+          }
+        });
       });
       this.$router.push({
         name: "users-show",
