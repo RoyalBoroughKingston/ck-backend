@@ -84,11 +84,14 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      await this.form.put(`/collections/personas/${this.collection.id}`, (config, data) => {
-        if (data.image === null) {
-          delete data.image;
+      await this.form.put(
+        `/collections/personas/${this.collection.id}`,
+        (config, data) => {
+          if (data.image === null) {
+            delete data.image;
+          }
         }
-      });
+      );
       this.$router.push({ name: "admin-index-collections-personas" });
     },
     onDelete() {
