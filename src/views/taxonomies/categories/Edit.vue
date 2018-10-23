@@ -29,6 +29,7 @@
 
             <gov-button v-if="form.$submitting" disabled type="submit">Updating...</gov-button>
             <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
+            <ck-submit-error v-if="form.$errors.any()" />
 
             <gov-section-break size="l" />
 
