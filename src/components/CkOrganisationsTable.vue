@@ -12,7 +12,7 @@
     <template slot="body">
       <gov-table-row v-for="organisation in organisations" :key="organisation.id">
         <gov-table-cell scope="row">{{ organisation.name }}</gov-table-cell>
-        <gov-table-cell class="wrap-long-text">{{ organisation.url }}</gov-table-cell>
+        <gov-table-cell break>{{ organisation.url }}</gov-table-cell>
         <gov-table-cell>{{ organisation.phone }}</gov-table-cell>
         <gov-table-cell>{{ organisation.email }}</gov-table-cell>
         <gov-table-cell right>
@@ -37,9 +37,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.wrap-long-text {
-  word-break: break-word;
-}
-</style>

@@ -9,7 +9,7 @@
         </gov-table-row>
         <gov-table-row>
           <gov-table-header top scope="row">Service website address</gov-table-header>
-          <gov-table-cell>{{ service.url }}</gov-table-cell>
+          <gov-table-cell break>{{ service.url }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
           <gov-table-header top scope="row">Service logo</gov-table-header>
