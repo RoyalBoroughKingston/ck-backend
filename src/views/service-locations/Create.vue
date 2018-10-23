@@ -36,6 +36,7 @@
 
             <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
             <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
+            <ck-submit-error v-if="form.$errors.any() || locationForm.$errors.any()" />
           </gov-grid-column>
         </gov-grid-row>
       </gov-main-wrapper>
