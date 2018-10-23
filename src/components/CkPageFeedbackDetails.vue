@@ -3,7 +3,7 @@
     <template slot="body">
       <gov-table-row>
         <gov-table-header top scope="row">URL</gov-table-header>
-        <gov-table-cell>{{ pageFeedback.url }}</gov-table-cell>
+        <gov-table-cell break>{{ pageFeedback.url }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Channel</gov-table-header>

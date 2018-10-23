@@ -17,15 +17,27 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    break: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
     computedClasses() {
       return {
         "text-center": this.center,
-        "text-right": this.right
+        "text-right": this.right,
+        "govuk-table__cell--break-word": this.break
       };
     }
   }
 };
 </script>
+
+<style lang="scss">
+.govuk-table__cell--break-word {
+  word-break: break-all;
+}
+</style>

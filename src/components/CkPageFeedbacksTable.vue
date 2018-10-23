@@ -9,7 +9,7 @@
     </template>
     <template slot="body">
       <gov-table-row v-for="pageFeedback in pageFeedbacks" :key="pageFeedback.id">
-        <gov-table-cell>{{ pageFeedback.url }}</gov-table-cell>
+        <gov-table-cell break>{{ pageFeedback.url }}</gov-table-cell>
         <gov-table-cell>{{ formatDateTime(pageFeedback.created_at) }}</gov-table-cell>
         <gov-table-cell right>
           <gov-link :to="{ name: 'page-feedbacks-show', params: { pageFeedback: pageFeedback.id } }">View</gov-link>

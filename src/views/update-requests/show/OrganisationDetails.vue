@@ -4,7 +4,7 @@
 
       <gov-table-row>
         <gov-table-header top scope="row">URL</gov-table-header>
-        <gov-table-cell>{{ organisation.url }}</gov-table-cell>
+        <gov-table-cell break>{{ organisation.url }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>

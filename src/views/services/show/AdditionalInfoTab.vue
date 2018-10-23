@@ -17,7 +17,7 @@
         </gov-table-row>
         <gov-table-row>
           <gov-table-header scope="row" top>Video URL</gov-table-header>
-          <gov-table-cell>{{ service.video_embed || "-" }}</gov-table-cell>
+          <gov-table-cell break>{{ service.video_embed || "-" }}</gov-table-cell>
         </gov-table-row>
       </template>
     </gov-table>

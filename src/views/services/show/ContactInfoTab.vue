@@ -17,7 +17,7 @@
         </gov-table-row>
         <gov-table-row>
           <gov-table-header scope="row" top>Social links</gov-table-header>
-          <gov-table-cell>
+          <gov-table-cell break>
             <gov-list>
               <li v-for="(socialMedia, index) in service.social_medias" :key="index">
                 ({{ humanReadableSocialMedia(socialMedia.type) }}) {{ socialMedia.url }}

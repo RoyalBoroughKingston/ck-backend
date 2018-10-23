@@ -5,7 +5,7 @@
 
       <gov-table-row>
         <gov-table-header top scope="row">URL</gov-table-header>
-        <gov-table-cell>{{ service.url }}</gov-table-cell>
+        <gov-table-cell break>{{ service.url }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>
@@ -67,7 +67,7 @@
 
       <gov-table-row v-if="service.fees_url">
         <gov-table-header top scope="row">Fees URL</gov-table-header>
-        <gov-table-cell>{{ service.fees_url }}</gov-table-cell>
+        <gov-table-cell break>{{ service.fees_url }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row v-if="service.fees_text">
@@ -107,7 +107,7 @@
 
       <gov-table-row v-if="service.referral_url">
         <gov-table-header top scope="row">Referral URL</gov-table-header>
-        <gov-table-cell>{{ service.referral_url }}</gov-table-cell>
+        <gov-table-cell break>{{ service.referral_url }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row v-if="service.useful_infos.length > 0">
@@ -134,7 +134,7 @@
 
       <gov-table-row>
         <gov-table-header top scope="row">Social medias</gov-table-header>
-        <gov-table-cell>
+        <gov-table-cell break>
           <gov-list>
             <li v-for="(socialMedia, index) in service.social_medias" :key="`social_media.${index}`">
               <span class="govuk-!-font-weight-bold">{{ socialMediaType(socialMedia.type) }}:</span> {{ socialMedia.url }}
