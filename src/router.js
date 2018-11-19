@@ -289,6 +289,11 @@ let router = new Router({
                 import("@/views/admin/index/collections/Personas")
             }
           ]
+        },
+        {
+          path: "thesaurus",
+          name: "admin-index-thesaurus",
+          component: () => import("@/views/admin/index/Thesaurus")
         }
       ]
     },
@@ -356,6 +361,12 @@ let router = new Router({
       path: "/collections/personas/:collection/edit",
       name: "collections-personas-edit",
       component: () => import("@/views/collections/personas/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/thesuarus/eidt",
+      name: "thesaurus-edit",
+      component: () => import("@/views/thesaurus/Edit"),
       meta: { auth: true }
     },
     {
