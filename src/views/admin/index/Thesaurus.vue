@@ -12,7 +12,7 @@
         </gov-grid-column>
 
         <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
-          <gov-button :to="{ name: 'taxonomies-categories-create' }" expand>Edit thesaurus</gov-button>
+          <gov-button :to="{ name: 'thesaurus-edit' }" expand>Edit thesaurus</gov-button>
         </gov-grid-column>
       </gov-grid-row>
     </template>
