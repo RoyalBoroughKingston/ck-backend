@@ -69,6 +69,7 @@ export default {
             let synonyms = content.split(/\n/);
             synonyms = synonyms.map((synonym) => synonym.split(','));
             synonyms = synonyms.map((synonym) => synonym.filter(word => word.length > 1));
+            synonyms = synonyms.filter((synonym) => synonym.length > 0);
 
             return synonyms;
         }
