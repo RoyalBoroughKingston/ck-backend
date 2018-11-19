@@ -11,24 +11,24 @@
 
 <script>
 export default {
-    name: "ThesaurusForm",
+  name: "ThesaurusForm",
 
-    props: {
-        errors: {
-            required: true,
-            type: Object
-        },
-
-        synonyms: {
-            required: true
-        }
+  props: {
+    errors: {
+      required: true,
+      type: Object
     },
 
-    methods: {
-        onInput(field, value) {
-        this.$emit(`update:${field}`, value);
-        this.$emit("clear", field);
-        }
+    synonyms: {
+      required: true
     }
-}
+  },
+
+  methods: {
+    onInput(field, value) {
+      this.$emit(`update:${field}`, value);
+      this.$emit("clear", field);
+    }
+  }
+};
 </script>

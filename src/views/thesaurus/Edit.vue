@@ -34,45 +34,47 @@ import Form from "@/classes/Form";
 import ThesaurusForm from "@/views/thesaurus/forms/ThesaurusForm";
 
 export default {
-    name: "EditThesuarus",
+  name: "EditThesuarus",
 
-    components: { ThesaurusForm },
+  components: { ThesaurusForm },
 
-    data() {
-        return {
-            file: null,
+  data() {
+    return {
+      file: null,
 
-            form: new Form({
-                synonyms: null
-            })
-        };
+      form: new Form({
+        synonyms: null
+      })
+    };
+  },
+
+  methods: {
+    async onSubmit() {
+      const content = this.base64Decode(this.file);
+      const synonyms = this.parseCsv(content);
+
+      this.form.synonyms = synonyms;
+
+      await this.form.put("/thesaurus");
+
+      this.$router.push({ name: "admin-index-thesaurus" });
     },
 
-    methods: {
-        async onSubmit() {
-            const content = this.base64Decode(this.file);
-            const synonyms = this.parseCsv(content);
+    base64Decode(string) {
+      string = string.replace("data:text/csv;base64,", "");
+      return atob(string);
+    },
 
-            this.form.synonyms = synonyms;
+    parseCsv(content) {
+      let synonyms = content.split(/\n/);
+      synonyms = synonyms.map(synonym => synonym.split(","));
+      synonyms = synonyms.map(synonym =>
+        synonym.filter(word => word.length > 1)
+      );
+      synonyms = synonyms.filter(synonym => synonym.length > 0);
 
-            await this.form.put("/thesaurus");
-
-            this.$router.push({ name: "admin-index-thesaurus" });
-        },
-
-        base64Decode(string) {
-            string = string.replace('data:text/csv;base64,', '');
-            return atob(string);
-        },
-
-        parseCsv(content) {
-            let synonyms = content.split(/\n/);
-            synonyms = synonyms.map((synonym) => synonym.split(','));
-            synonyms = synonyms.map((synonym) => synonym.filter(word => word.length > 1));
-            synonyms = synonyms.filter((synonym) => synonym.length > 0);
-
-            return synonyms;
-        }
+      return synonyms;
     }
-}
+  }
+};
 </script>
