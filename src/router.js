@@ -289,6 +289,11 @@ let router = new Router({
                 import("@/views/admin/index/collections/Personas")
             }
           ]
+        },
+        {
+          path: "thesaurus",
+          name: "admin-index-thesaurus",
+          component: () => import("@/views/admin/index/Thesaurus")
         }
       ]
     },
