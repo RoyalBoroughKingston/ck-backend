@@ -25,6 +25,7 @@ EOF
 # Set environment variables.
 echo "Creating .env file..."
 cat > .env.production << EOF
+VUE_APP_ENV=production
 VUE_APP_URI=$PRODUCTION_APP_URI
 VUE_APP_API_URI=$PRODUCTION_API_URI
 VUE_APP_API_OAUTH_AUTHORIZE_URI=$PRODUCTION_API_OAUTH_AUTHORIZE_URI

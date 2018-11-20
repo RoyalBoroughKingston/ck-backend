@@ -25,6 +25,7 @@ EOF
 # Set environment variables.
 echo "Creating .env file..."
 cat > .env.staging << EOF
+VUE_APP_ENV=staging
 VUE_APP_URI=$STAGING_APP_URI
 VUE_APP_API_URI=$STAGING_API_URI
 VUE_APP_API_OAUTH_AUTHORIZE_URI=$STAGING_API_OAUTH_AUTHORIZE_URI
@@ -40,8 +41,8 @@ EOF
 
 # Build.
 echo "Building..."
-NODE_ENV=staging node_modules/.bin/vue-cli-service build --mode staging
+node_modules/.bin/vue-cli-service build --mode staging
 
 # Deploy to S3.
 echo "Deploying..."
-NODE_ENV=staging node_modules/.bin/vue-cli-service s3-deploy --mode staging
+node_modules/.bin/vue-cli-service s3-deploy --mode staging
