@@ -23,6 +23,8 @@
             :subtitle.sync="form.subtitle"
             :intro.sync="form.intro"
             :order.sync="form.order"
+            :sidebox_title.sync="form.sidebox_title"
+            :sidebox_content.sync="form.sidebox_content"
             :category_taxonomies.sync="form.category_taxonomies"
             :image.sync="form.image"
             @clear="form.$errors.clear($event)"
@@ -51,6 +53,8 @@ export default {
         intro: "",
         subtitle: "",
         order: 1,
+        sidebox_title: "",
+        sidebox_content: "",
         category_taxonomies: [],
         image: null
       })
