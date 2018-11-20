@@ -33,7 +33,13 @@ import router from "@/router";
 import bugsnag from "bugsnag-js";
 const bugsnagClient = bugsnag({
   apiKey: process.env.VUE_APP_BUGSNAG_API_KEY,
-  notifyReleaseStages: ["development", "staging", "production"]
+  notifyReleaseStages: ["development", "staging", "production"],
+  beforeSend(report) {
+    const user = Auth.user;
+    delete user.roles;
+
+    report.user = user;
+  }
 });
 import bugsnagVue from "bugsnag-vue";
 
