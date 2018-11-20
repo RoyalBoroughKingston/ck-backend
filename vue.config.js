@@ -15,5 +15,8 @@ module.exports = {
       cloudfrontMatchers: "/*",
       uploadConcurrency: 5
     }
+  },
+  configureWebpack: {
+    devtool: "source-map"
   }
 };

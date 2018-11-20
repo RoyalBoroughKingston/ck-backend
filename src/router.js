@@ -364,7 +364,7 @@ let router = new Router({
       meta: { auth: true }
     },
     {
-      path: "/thesuarus/eidt",
+      path: "/thesuarus/edit",
       name: "thesaurus-edit",
       component: () => import("@/views/thesaurus/Edit"),
       meta: { auth: true }

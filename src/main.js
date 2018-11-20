@@ -29,6 +29,16 @@ import Vue from "vue";
 import App from "@/App.vue";
 import router from "@/router";
 
+// Bugsnag.
+import bugsnag from "bugsnag-js";
+const bugsnagClient = bugsnag({
+  apiKey: process.env.VUE_APP_BUGSNAG_API_KEY,
+  notifyReleaseStages: ["development", "staging", "production"]
+});
+import bugsnagVue from "bugsnag-vue";
+
+bugsnagClient.use(bugsnagVue(Vue));
+
 // Vue headful.
 import VueHeadful from "vue-headful";
 Vue.component("vue-headful", VueHeadful);
