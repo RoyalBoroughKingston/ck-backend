@@ -40,8 +40,8 @@ EOF
 
 # Build.
 echo "Building..."
-node_modules/.bin/vue-cli-service build --mode staging
+NODE_ENV=staging node_modules/.bin/vue-cli-service build --mode staging
 
 # Deploy to S3.
 echo "Deploying..."
-node_modules/.bin/vue-cli-service s3-deploy --mode staging
+NODE_ENV=staging node_modules/.bin/vue-cli-service s3-deploy --mode staging
