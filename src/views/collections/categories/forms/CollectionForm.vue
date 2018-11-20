@@ -40,6 +40,23 @@
       />
     </ck-select-input>
 
+    <ck-text-input
+      :value="sidebox_title"
+      @input="onInput('sidebox_title', $event)"
+      id="sidebox_title"
+      label="Sidebox Title"
+      type="text"
+      :error="errors.get('sidebox_title')"
+    />
+
+    <ck-wysiwyg-input
+      :value="sidebox_content"
+      @input="onInput('sidebox_content', $event)"
+      id="sidebox_content"
+      label="Sidebox Content"
+      :error="errors.get('sidebox_content')"
+    />
+
     <gov-label class="govuk-!-font-weight-bold">Taxonomies</gov-label>
     <category-taxonomy-input
       :invalid="errors.has('category_taxonomies')"
@@ -75,6 +92,12 @@ export default {
       required: true
     },
     order: {
+      required: true
+    },
+    sidebox_title: {
+      required: true
+    },
+    sidebox_content: {
       required: true
     },
     category_taxonomies: {
