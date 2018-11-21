@@ -21,6 +21,7 @@
               v-if="tabs[0].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
+              :is-new="true"
               :name.sync="form.name"
               :slug.sync="form.slug"
               :organisation_id.sync="form.organisation_id"
@@ -88,6 +89,7 @@
               v-if="tabs[5].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
+              :is-global-admin="auth.isGlobalAdmin"
               :category_taxonomies.sync="form.category_taxonomies"
             >
               <gov-button @click="onNext" start>Next</gov-button>
@@ -97,7 +99,7 @@
               v-if="tabs[6].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
-              :is-organisation-admin="auth.isOrganisationAdmin({ id: form.organisation_id })"
+              :is-global-admin="auth.isGlobalAdmin"
               :show_referral_disclaimer.sync="form.show_referral_disclaimer"
               :referral_method.sync="form.referral_method"
               :referral_button_text.sync="form.referral_button_text"
@@ -144,7 +146,7 @@ export default {
         organisation_id: null,
         name: "",
         slug: "",
-        status: null,
+        status: "inactive",
         intro: "",
         description: "",
         wait_time: null,
@@ -157,7 +159,7 @@ export default {
         contact_name: "",
         contact_phone: "",
         contact_email: "",
-        show_referral_disclaimer: null,
+        show_referral_disclaimer: false,
         referral_method: "none",
         referral_button_text: "",
         referral_email: "",
@@ -193,6 +195,10 @@ export default {
     async onSubmit() {
       const data = await this.form.post("/services");
       const serviceId = data.data.id;
+
+      // Refetch the user as new permissions added for the new service.
+      await this.auth.fetchUser();
+
       this.$router.push({
         name: "services-show",
         params: { service: serviceId }

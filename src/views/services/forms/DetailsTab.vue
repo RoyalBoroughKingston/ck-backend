@@ -115,6 +115,11 @@ export default {
     errors: {
       required: true
     },
+    isNew: {
+      required: false,
+      type: Boolean,
+      default: false
+    },
     name: {
       required: true
     },
@@ -169,7 +174,7 @@ export default {
       this.$emit("update:name", name);
       this.$emit("clear", "name");
 
-      if (this.auth.isGlobalAdmin) {
+      if (this.auth.isGlobalAdmin || this.isNew) {
         this.$emit("update:slug", this.slugify(name));
         this.$emit("clear", "slug");
       }

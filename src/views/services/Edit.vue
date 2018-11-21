@@ -89,6 +89,7 @@
                 v-if="tabs[5].active"
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
+                :is-global-admin="auth.isGlobalAdmin"
                 :category_taxonomies.sync="form.category_taxonomies"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
@@ -98,7 +99,7 @@
                 v-if="tabs[6].active"
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
-                :is-organisation-admin="auth.isOrganisationAdmin(service.organisation)"
+                :is-global-admin="auth.isGlobalAdmin"
                 :show_referral_disclaimer.sync="form.show_referral_disclaimer"
                 :referral_method.sync="form.referral_method"
                 :referral_button_text.sync="form.referral_button_text"

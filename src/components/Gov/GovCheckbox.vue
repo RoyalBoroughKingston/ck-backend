@@ -9,6 +9,7 @@
       :name="name"
       type="checkbox"
       :aria-describedby="ariaDescribedBy"
+      :disabled="disabled"
     >
     <gov-label class="govuk-checkboxes__label" :for="id">{{ label }}</gov-label>
     <slot />
@@ -34,6 +35,11 @@ export default {
     label: {
       type: String,
       required: true
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {

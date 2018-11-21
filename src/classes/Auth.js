@@ -68,20 +68,25 @@ class Auth {
     );
 
     // User details.
+    await this.fetchUser();
+
+    // Last active.
+    this.invokeActivity();
+  }
+
+  async fetchUser() {
     const { data } = await this.http.get(
       `${process.env.VUE_APP_API_URI}/users/user`,
       {
         params: { include: "user-roles" },
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${this.accessToken}`
         }
       }
     );
-    localStorage.setItem("user", JSON.stringify(data.data));
 
-    // Last active.
-    this.invokeActivity();
+    localStorage.setItem("user", JSON.stringify(data.data));
   }
 
   /**

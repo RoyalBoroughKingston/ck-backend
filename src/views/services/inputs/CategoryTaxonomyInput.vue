@@ -11,6 +11,7 @@
         :id="taxonomy.id"
         :name="taxonomy.id"
         :label="taxonomy.name"
+        :disabled="disabled"
       >
 
         <!-- Level: 2 -->
@@ -22,6 +23,7 @@
           :id="taxonomy.id"
           :name="taxonomy.id"
           :label="taxonomy.name"
+          :disabled="disabled"
         >
 
           <!-- Level: 3 -->
@@ -33,6 +35,7 @@
             :id="taxonomy.id"
             :name="taxonomy.id"
             :label="taxonomy.name"
+            :disabled="disabled"
           >
 
             <!-- Level: 4 -->
@@ -44,6 +47,7 @@
               :id="taxonomy.id"
               :name="taxonomy.id"
               :label="taxonomy.name"
+              :disabled="disabled"
             >
 
               <!-- Level: 5 -->
@@ -55,6 +59,7 @@
                 :id="taxonomy.id"
                 :name="taxonomy.id"
                 :label="taxonomy.name"
+                :disabled="disabled"
               >
 
                 <!-- Level: 6 -->
@@ -66,6 +71,7 @@
                   :id="taxonomy.id"
                   :name="taxonomy.id"
                   :label="taxonomy.name"
+                  :disabled="disabled"
                 />
                 <!-- /Level: 6 -->
 
@@ -105,6 +111,11 @@ export default {
     },
     error: {
       required: true
+    },
+    disabled: {
+      required: false,
+      type: Boolean,
+      default: false
     },
     hierarchy: {
       required: false,

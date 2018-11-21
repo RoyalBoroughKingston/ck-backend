@@ -18,7 +18,7 @@
           hint="How does this service receive referrals?"
           :options="referralMethodOptions"
           :error="errors.get('referral_method')"
-          :disabled="!isOrganisationAdmin"
+          :disabled="!isGlobalAdmin"
         />
 
         <ck-text-input
@@ -30,7 +30,7 @@
           hint="The text to be displayed on the button to make the referral."
           type="text"
           :error="errors.get('referral_button_text')"
-          :disabled="!isOrganisationAdmin"
+          :disabled="!isGlobalAdmin"
         />
 
         <ck-text-input
@@ -42,7 +42,7 @@
           hint="The email address which should be notified when referrals are made"
           type="email"
           :error="errors.get('referral_email')"
-          :disabled="!isOrganisationAdmin"
+          :disabled="!isGlobalAdmin"
         />
 
         <ck-text-input
@@ -54,7 +54,7 @@
           hint="The URL that the user must visit to make a referral"
           type="url"
           :error="errors.get('referral_url')"
-          :disabled="!isOrganisationAdmin"
+          :disabled="!isGlobalAdmin"
         />
 
         <ck-radio-input
@@ -65,7 +65,7 @@
           label="Show referral disclaimer?"
           :options="[{ value: true, label: 'Display' }, { value: false, label: 'Don\'t display' }]"
           :error="errors.get('show_referral_disclaimer')"
-          :disabled="!isOrganisationAdmin"
+          :disabled="!isGlobalAdmin"
         />
 
         <slot />
@@ -82,7 +82,7 @@ export default {
     errors: {
       required: true
     },
-    isOrganisationAdmin: {
+    isGlobalAdmin: {
       required: true
     },
     show_referral_disclaimer: {
