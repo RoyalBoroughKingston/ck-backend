@@ -6,10 +6,27 @@
         <gov-back-link :to="{ name: 'admin-index-thesaurus' }">Back to thesaurus</gov-back-link>
         <gov-main-wrapper>
             <gov-grid-row>
-            <gov-grid-column width="one-half">
+            <gov-grid-column width="two-thirds">
                 <gov-heading size="xl">Thesaurus</gov-heading>
+
+                <gov-warning-text>
+                  Please note, uploading a new Thesaurus may cause the search functionality
+                  to stop working for a short period of time. Please do not replace during
+                  peak hours.
+                </gov-warning-text>
+
                 <gov-heading size="m">Edit Thesaurus</gov-heading>
+
                 <gov-body>Update the synonyms used when searching for services.</gov-body>
+                <gov-body>
+                  As all rows in a CSV must contain the same number of columns, the system will
+                  strip out any blank cells. See the example below for reference:
+                </gov-body>
+                <ck-code>
+                  run,dash,escape,elope,flee,<br>
+                  help,aid,assist,support,encourage,back<br>
+                  people,persons,,,
+                </ck-code>
 
                 <thesaurus-form
                     :errors="form.$errors"
@@ -22,6 +39,7 @@
                 <gov-button v-if="form.$submitting" disabled type="submit">Updating...</gov-button>
                 <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
                 <ck-submit-error v-if="form.$errors.any()" />
+
             </gov-grid-column>
             </gov-grid-row>
         </gov-main-wrapper>
@@ -32,11 +50,12 @@
 <script>
 import Form from "@/classes/Form";
 import ThesaurusForm from "@/views/thesaurus/forms/ThesaurusForm";
+import CkCode from "@/components/CkCode";
 
 export default {
   name: "EditThesuarus",
 
-  components: { ThesaurusForm },
+  components: { ThesaurusForm, CkCode },
 
   data() {
     return {
