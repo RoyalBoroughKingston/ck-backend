@@ -12,6 +12,7 @@
             @input="$emit('update:category_taxonomies', $event)"
             :error="errors.get('category_taxonomies')"
             @clear="$emit('clear', 'category_taxonomies')"
+            :disabled="!isGlobalAdmin"
           />
           <gov-error-message
             v-if="errors.has('category_taxonomies')"
@@ -34,6 +35,9 @@ export default {
   components: { CategoryTaxonomyInput },
   props: {
     errors: {
+      required: true
+    },
+    isGlobalAdmin: {
       required: true
     },
     category_taxonomies: {
