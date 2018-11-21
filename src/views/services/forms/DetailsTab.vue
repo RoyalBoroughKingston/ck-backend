@@ -147,7 +147,8 @@ export default {
       statusOptions: [
         { label: "Enabled", value: "active" },
         { label: "Disabled", value: "inactive" }
-      ]
+      ],
+      initialSlug: this.slug
     };
   },
   computed: {
@@ -169,7 +170,7 @@ export default {
       this.$emit("update:name", name);
       this.$emit("clear", "name");
 
-      if (this.auth.isGlobalAdmin) {
+      if (this.auth.isGlobalAdmin || this.initialSlug === "") {
         this.$emit("update:slug", this.slugify(name));
         this.$emit("clear", "slug");
       }
