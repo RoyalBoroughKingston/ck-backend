@@ -101,41 +101,6 @@
           :disabled="!auth.isGlobalAdmin"
         />
 
-        <gov-section-break size="l" />
-
-        <gov-heading size="m">SEO details</gov-heading>
-        <gov-body>These details are used for optimising relevance with third party search engines such as Google.</gov-body>
-
-        <ck-text-input
-          :value="seo_title"
-          @input="$emit('update:seo_title', $event); $emit('clear', 'seo_title')"
-          id="seo_title"
-          label="Title of service"
-          hint="This will generally be the same as the service name"
-          type="text"
-          :error="errors.get('seo_title')"
-        />
-
-        <ck-textarea-input
-          :value="seo_description"
-          @input="$emit('update:seo_description', $event); $emit('clear', 'seo_description')"
-          id="seo_description"
-          label="Description of service"
-          hint="This will generally be the same as the service intro (max 150 characters)."
-          :maxlength="150"
-          :error="errors.get('seo_description')"
-        />
-
-        <ck-file-input
-          :value="seo_image"
-          @input="$emit('update:seo_image', $event); $emit('clear', 'seo_image')"
-          id="logo"
-          label="Image of service"
-          hint="This will generall be the same image as the service logo."
-          accept="image/x-png"
-          :error="errors.get('seo_image')"
-        />
-
         <slot />
 
       </gov-grid-column>
@@ -169,15 +134,6 @@ export default {
       required: true
     },
     description: {
-      required: true
-    },
-    seo_title: {
-      required: true
-    },
-    seo_description: {
-      required: true
-    },
-    seo_image: {
       required: true
     },
     status: {

@@ -31,28 +31,6 @@
         </gov-table-row>
       </template>
     </gov-table>
-
-    <gov-section-break size="l" />
-
-    <gov-heading size="l">SEO details</gov-heading>
-    <gov-table>
-      <template slot="body">
-        <gov-table-row>
-          <gov-table-header top scope="row">Title of service</gov-table-header>
-          <gov-table-cell>{{ service.seo_title }}</gov-table-cell>
-        </gov-table-row>
-        <gov-table-row>
-          <gov-table-header top scope="row">Image for service</gov-table-header>
-          <gov-table-cell>
-            <img :src="apiUrl(`/services/${service.id}/seo-image.png?v=${service.updated_at}`)" alt="Service logo" class="ck-logo">
-          </gov-table-cell>
-        </gov-table-row>
-        <gov-table-row>
-          <gov-table-header top scope="row">Description of service</gov-table-header>
-          <gov-table-cell>{{ service.seo_description }}</gov-table-cell>
-        </gov-table-row>
-      </template>
-    </gov-table>
   </div>
 </template>
 
