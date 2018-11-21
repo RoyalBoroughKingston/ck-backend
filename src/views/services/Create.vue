@@ -98,7 +98,7 @@
               v-if="tabs[6].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
-              :is-global-admin="auth.isGlobalAdmin()"
+              :is-global-admin="auth.isGlobalAdmin"
               :show_referral_disclaimer.sync="form.show_referral_disclaimer"
               :referral_method.sync="form.referral_method"
               :referral_button_text.sync="form.referral_button_text"
@@ -145,7 +145,7 @@ export default {
         organisation_id: null,
         name: "",
         slug: "",
-        status: null,
+        status: 'inactive',
         intro: "",
         description: "",
         wait_time: null,
