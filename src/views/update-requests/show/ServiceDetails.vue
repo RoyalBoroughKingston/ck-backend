@@ -75,11 +75,6 @@
         <gov-table-cell>{{ service.fees_text }}</gov-table-cell>
       </gov-table-row>
 
-      <gov-table-row>
-        <gov-table-header top scope="row">SEO title</gov-table-header>
-        <gov-table-cell>{{ service.seo_title }}</gov-table-cell>
-      </gov-table-row>
-
       <gov-table-row v-if="service.wait_time">
         <gov-table-header top scope="row">Wait time</gov-table-header>
         <gov-table-cell>{{ service.wait_time }}</gov-table-cell>
@@ -151,11 +146,6 @@
       <gov-table-row v-if="service.referral_method">
         <gov-table-header top scope="row">Referral method</gov-table-header>
         <gov-table-cell>{{ referralMethod }}</gov-table-cell>
-      </gov-table-row>
-
-      <gov-table-row>
-        <gov-table-header top scope="row">SEO description</gov-table-header>
-        <gov-table-cell>{{ service.seo_description }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>

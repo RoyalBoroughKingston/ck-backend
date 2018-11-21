@@ -29,9 +29,6 @@
                 :logo.sync="form.logo"
                 :intro.sync="form.intro"
                 :description.sync="form.description"
-                :seo_title.sync="form.seo_title"
-                :seo_description.sync="form.seo_description"
-                :seo_image.sync="form.seo_image"
                 :status.sync="form.status"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
@@ -200,15 +197,12 @@ export default {
           language: this.service.criteria.language || "",
           other: this.service.criteria.other || ""
         },
-        seo_title: this.service.seo_title,
-        seo_description: this.service.seo_description,
         useful_infos: this.service.useful_infos,
         social_medias: this.service.social_medias,
         category_taxonomies: this.service.category_taxonomies.map(
           taxonomy => taxonomy.id
         ),
-        logo: null,
-        seo_image: null
+        logo: null
       });
 
       this.loading = false;
