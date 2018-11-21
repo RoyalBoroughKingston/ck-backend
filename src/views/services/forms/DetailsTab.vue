@@ -115,6 +115,11 @@ export default {
     errors: {
       required: true
     },
+    isNew: {
+      required: false,
+      type: Boolean,
+      default: false
+    },
     name: {
       required: true
     },
@@ -147,8 +152,7 @@ export default {
       statusOptions: [
         { label: "Enabled", value: "active" },
         { label: "Disabled", value: "inactive" }
-      ],
-      initialSlug: this.slug
+      ]
     };
   },
   computed: {
@@ -170,7 +174,7 @@ export default {
       this.$emit("update:name", name);
       this.$emit("clear", "name");
 
-      if (this.auth.isGlobalAdmin || this.initialSlug === "") {
+      if (this.auth.isGlobalAdmin || this.isNew) {
         this.$emit("update:slug", this.slugify(name));
         this.$emit("clear", "slug");
       }

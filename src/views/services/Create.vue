@@ -21,6 +21,7 @@
               v-if="tabs[0].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
+              :is-new="true"
               :name.sync="form.name"
               :slug.sync="form.slug"
               :organisation_id.sync="form.organisation_id"
@@ -145,7 +146,7 @@ export default {
         organisation_id: null,
         name: "",
         slug: "",
-        status: 'inactive',
+        status: "inactive",
         intro: "",
         description: "",
         wait_time: null,
@@ -194,6 +195,10 @@ export default {
     async onSubmit() {
       const data = await this.form.post("/services");
       const serviceId = data.data.id;
+
+      // Refetch the user as new permissions added for the new service.
+      await this.auth.fetchUser();
+
       this.$router.push({
         name: "services-show",
         params: { service: serviceId }
