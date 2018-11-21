@@ -157,7 +157,7 @@ export default {
         contact_name: "",
         contact_phone: "",
         contact_email: "",
-        show_referral_disclaimer: null,
+        show_referral_disclaimer: false,
         referral_method: "none",
         referral_button_text: "",
         referral_email: "",
