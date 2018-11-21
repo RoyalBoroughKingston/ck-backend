@@ -136,6 +136,9 @@ Vue.component("GovTabs", () => import("@/components/Gov/GovTabs"));
 Vue.component("GovTabPanel", () => import("@/components/Gov/GovTabPanel"));
 Vue.component("GovTag", () => import("@/components/Gov/GovTag"));
 Vue.component("GovTextarea", () => import("@/components/Gov/GovTextarea"));
+Vue.component("GovWarningText", () =>
+  import("@/components/Gov/GovWarningText")
+);
 Vue.component("GovWidthContainer", () =>
   import("@/components/Gov/GovWidthContainer")
 );
