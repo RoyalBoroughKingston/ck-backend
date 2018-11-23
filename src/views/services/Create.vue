@@ -7,6 +7,20 @@
       <gov-grid-row>
         <gov-grid-column width="full">
           <gov-heading size="xl">Services</gov-heading>
+
+          <template v-if="!auth.isGlobalAdmin">
+            <gov-body class="govuk-!-font-weight-bold">
+              Please review the process below on how to create a service.
+            </gov-body>
+
+            <gov-list bullet>
+              <li>To create a service, fill in the form below.</li>
+              <li>The service won't be made active until an admin has reviewed it.</li>
+              <li>If there are any issues upon review, an admin will get directly in touch with you.</li>
+              <li>You can return to edit this service at any time.</li>
+            </gov-list>
+          </template>
+
           <gov-heading size="m">Add service</gov-heading>
 
           <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
