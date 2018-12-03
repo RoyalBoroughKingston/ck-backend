@@ -91,6 +91,28 @@ export default {
             role.organisation_id = service.organisation_id;
           }
         });
+
+        // Filter down the roles for organisation admins.
+        const organisationIds = [];
+        this.form.roles.forEach(role => {
+          if (role.role === "Organisation Admin") {
+            organisationIds.push(role.organisation_id);
+          }
+        });
+        this.form.roles = this.form.roles.filter(role => {
+          return role.role === "Organisation Admin" || !organisationIds.includes(role.organisation_id);
+        });
+
+        // Filter down the roles for service admins.
+        const serviceAdminIds = [];
+        this.form.roles.forEach(role => {
+          if (role.role === "Service Admin") {
+            serviceAdminIds.push(role.service_id);
+          }
+        });
+        this.form.roles = this.form.roles.filter(role => {
+          return role.role === "Service Admin" || !serviceAdminIds.includes(role.service_id);
+        });
       }
 
       this.loading = false;
