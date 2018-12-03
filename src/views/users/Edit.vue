@@ -65,23 +65,33 @@ export default {
         roles: this.user.roles
       });
 
-      let serviceIds = [];
-      this.form.roles.forEach(role => {
-        if (role.hasOwnProperty("service_id")) {
-          serviceIds.push(role.service_id);
-        }
-      });
-      let services = await this.fetchAll("/services", {
-        "filter[id]": serviceIds.join(",")
-      });
-      this.form.roles.forEach(role => {
-        if (role.hasOwnProperty("service_id")) {
-          const service = services.find(
-            service => service.id === role.service_id
-          );
-          role.organisation_id = service.organisation_id;
-        }
-      });
+      // TODO: Filter down the roles.
+      if (this.form.roles.find(role => role.role === "Super Admin")) {
+        // If the user is a super admin.
+        this.form.roles = this.form.roles.filter(role => role.role === "Super Admin");
+      } else if (this.form.roles.find(role => role.role === "Global Admin")) {
+        // Else if, the user is a global admin.
+        this.form.roles = this.form.roles.filter(role => role.role === "Global Admin");
+      } else {
+        // Else, fetch the services for each role and embed them.
+        let serviceIds = [];
+        this.form.roles.forEach(role => {
+          if (role.hasOwnProperty("service_id")) {
+            serviceIds.push(role.service_id);
+          }
+        });
+        let services = await this.fetchAll("/services", {
+          "filter[id]": serviceIds.join(",")
+        });
+        this.form.roles.forEach(role => {
+          if (role.hasOwnProperty("service_id")) {
+            const service = services.find(
+              service => service.id === role.service_id
+            );
+            role.organisation_id = service.organisation_id;
+          }
+        });
+      }
 
       this.loading = false;
     },
