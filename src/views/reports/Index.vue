@@ -13,25 +13,48 @@
 
           <gov-body>Access information by recieving updates on data such as site usage.</gov-body>
 
-          <gov-heading size="m">Comissioner report</gov-heading>
+          <ck-loader v-if="loadingReportSchedules"/>
+          <section v-else v-for="(reportType, index) in reportTypes" :key="reportType.type">
+            <gov-inset-text>
+              <gov-heading size="m">{{ reportType.type }}</gov-heading>
+              <gov-body>{{ reportType.description }}</gov-body>
 
-          <gov-button v-if="!submitting" type="submit" @click="onGenerate">Generate report</gov-button>
-          <gov-button v-else type="submit" disabled>Generating report...</gov-button>
+              <gov-heading size="s">Scheduled generation</gov-heading>
+              <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
+              <ck-radio-input
+                :id="`repeat_type[${reportType.type}]`"
+                v-model="reportType.scheduleForm.repeat_type"
+                :error="reportType.scheduleForm.$errors.get('repeat_type')"
+                @input="reportType.scheduleForm.$errors.clear('repeat_type')"
+                :options="repeatTypeOptions"
+              />
+              <gov-button v-if="!reportType.scheduleForm.$submitting" type="submit" @click="onSaveReportSchedule(reportType)">Save frequency</gov-button>
+              <gov-button v-else type="submit" disabled>Saving...</gov-button>
 
-          <gov-section-break size="l" />
+              <gov-heading size="s">Generate a report now</gov-heading>
+              <gov-body>This allows you to generate a one off report which will begin downloading immediately.</gov-body>
+              <template v-if="acceptsDateRange(reportType)">
+                <ck-date-input
+                  :id="`starts_at[${reportType.type}]`"
+                  v-model="reportType.generateForm.starts_at"
+                  :error="reportType.generateForm.$errors.get('starts_at')"
+                  @input="reportType.generateForm.$errors.clear('starts_at')"
+                  label="From date"
+                />
+                <ck-date-input
+                  :id="`ends_at[${reportType.type}]`"
+                  v-model="reportType.generateForm.ends_at"
+                  :error="reportType.generateForm.$errors.get('ends_at')"
+                  @input="reportType.generateForm.$errors.clear('ends_at')"
+                  label="To date"
+                />
+              </template>
+              <gov-button v-if="!reportType.generateForm.$submitting" type="submit" @click="onGenerate(reportType)">Generate and download</gov-button>
+              <gov-button v-else type="submit" disabled>Generating...</gov-button>
+            </gov-inset-text>
+            <gov-section-break v-if="index < reportTypes.length - 1" size="l" visible/>
+          </section>
 
-          <gov-heading size="m">Report schedule</gov-heading>
-
-          <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
-
-          <ck-select-input
-            v-model="form.repeat_type"
-            id="repeat_type"
-            label="Recieve these"
-            :options="options"
-            :error="null"
-            :width="20"
-          />
 
         </gov-grid-column>
       </gov-grid-row>
@@ -42,40 +65,144 @@
 <script>
 import http from "@/http";
 import Form from "@/classes/Form";
+import CkDateInput from "@/views/services/inputs/DateInput";
 
 export default {
   name: "ReportsPage",
+  components: { CkDateInput },
   data() {
     return {
-      submitting: false,
-      loading: false,
-      reportSchedule: null,
-      form: new Form({
-        report_type: "Commissioners Report",
-        repeat_type: null
-      }),
-      options: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Weekly", value: "weekly" },
-        { text: "Monthly", value: "monthly" }
+      loadingReportSchedules: false,
+      reportTypes: [
+        {
+          type: "Audit Logs Export",
+          description: "Lorem ipsum",
+          scheduleForm: new Form({
+            report_type: "Audit Logs Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Audit Logs Export",
+            starts_at: "",
+            ends_at: ""
+          })
+        },
+        {
+          type: "Feedback Export",
+          description: "Lorem ipsum",
+          scheduleForm: new Form({
+            report_type: "Feedback Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Feedback Export",
+            starts_at: "",
+            ends_at: ""
+          })
+        },
+        {
+          type: "Locations Export",
+          description: "Lorem ipsum",
+          scheduleForm: new Form({
+            report_type: "Locations Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Locations Export",
+            starts_at: "",
+            ends_at: ""
+          })
+        },
+        {
+          type: "Organisations Export",
+          description: "Lorem ipsum",
+          scheduleForm: new Form({
+            report_type: "Organisations Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Organisations Export",
+            starts_at: "",
+            ends_at: ""
+          })
+        },
+        {
+          type: "Referrals Export",
+          description: "Lorem ipsum",
+          scheduleForm: new Form({
+            report_type: "Referrals Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Referrals Export",
+            starts_at: "",
+            ends_at: ""
+          })
+        },
+        {
+          type: "Search Histories Export",
+          description: "Lorem ipsum",
+          scheduleForm: new Form({
+            report_type: "Search Histories Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Search Histories Export",
+            starts_at: "",
+            ends_at: ""
+          })
+        },
+        {
+          type: "Services Export",
+          description: "Lorem ipsum",
+          scheduleForm: new Form({
+            report_type: "Services Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Services Export",
+            starts_at: "",
+            ends_at: ""
+          })
+        },
+        {
+          type: "Users Export",
+          description: "Lorem ipsum",
+          scheduleForm: new Form({
+            report_type: "Users Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Users Export",
+            starts_at: "",
+            ends_at: ""
+          })
+         }
+      ],
+      repeatTypeOptions: [
+        { label: "Not scheduled", value: null },
+        { label: "Weekly", value: "weekly" },
+        { label: "Monthly", value: "monthly" }
       ]
     };
   },
-  watch: {
-    "form.repeat_type"(newRepeatType) {
-      if (newRepeatType !== null && !this.loading) {
-        this.saveReportSchedule();
-      }
-    }
-  },
   methods: {
-    async onGenerate() {
-      this.submitting = true;
+    async fetchReportSchedules() {
+      this.loadingReportSchedules = true;
 
-      const response = await http.post("/reports", {
-        report_type: "Commissioners Report"
+      const reportSchedules = await this.fetchAll("/report-schedules");
+      reportSchedules.forEach(reportSchedule => {
+        const reportType = this.reportTypes
+          .find(reportType => reportType.type === reportSchedule.report_type);
+
+        reportType.scheduleForm = new Form(reportSchedule);
       });
-      const reportId = response.data.data.id;
+
+      this.loadingReportSchedules = false;
+    },
+    async onGenerate(reportType) {
+      const data = await reportType.generateForm.post("/reports");
+      const reportId = data.data.id;
       const file = await http.get(`/reports/${reportId}/download`);
 
       const regex = /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/;
@@ -88,34 +215,60 @@ export default {
       link.setAttribute("download", filename);
       document.body.appendChild(link);
       link.click();
-
-      this.submitting = false;
     },
-    async fetchReportSchedule() {
-      this.loading = true;
+    async onSaveReportSchedule(reportType) {
+      if (reportType.scheduleForm.hasOwnProperty("id")) {
+        // Update or delete.
 
-      const { data } = await http.get("/report-schedules");
+        // If delete.
+        if (reportType.scheduleForm.repeat_type === null) {
+          await reportType.scheduleForm.delete(`/report-schedules/${reportType.scheduleForm.id}`);
+          reportType.scheduleForm = new Form({
+            report_type: reportType.scheduleForm.report_type,
+            repeat_type: null
+          });
 
-      if (data.data.length > 0) {
-        this.reportSchedule = data.data[0];
-        this.form.repeat_type = data.data[0].repeat_type;
-      }
+          return;
+        }
 
-      this.loading = false;
-    },
-    async saveReportSchedule() {
-      if (this.reportSchedule) {
-        // Update
-        await this.form.put(`/report-schedules/${this.reportSchedule.id}`);
+        // Else update.
+        const data = await reportType.scheduleForm.put(`/report-schedules/${reportType.scheduleForm.id}`);
+        reportType.scheduleForm = new Form(data.data);
       } else {
         // Create.
-        await this.form.post("/report-schedules");
-        this.fetchReportSchedule();
+
+        // Skip if repeat type is still null.
+        if (reportType.scheduleForm.repeat_type === null) {
+          return;
+        }
+
+        const data = await reportType.scheduleForm.post("/report-schedules");
+        reportType.scheduleForm = new Form(data.data);
+      }
+    },
+    acceptsDateRange(reportType) {
+      switch (reportType.type) {
+        case "Audit Logs Export":
+          return true;
+        case "Feedback Export":
+          return true;
+        case "Locations Export":
+          return false;
+        case "Organisations Export":
+          return false;
+        case "Referrals Export":
+          return true;
+        case "Search Histories Export":
+          return true;
+        case "Services Export":
+          return false;
+        case "Users Export":
+          return false;
       }
     }
   },
   created() {
-    this.fetchReportSchedule();
+    this.fetchReportSchedules();
   }
 };
 </script>
