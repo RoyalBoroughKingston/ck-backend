@@ -33,20 +33,22 @@
 
               <gov-heading size="s">Generate a report now</gov-heading>
               <gov-body>This allows you to generate a one off report which will begin downloading immediately.</gov-body>
-              <ck-date-input
-                :id="`starts_at[${reportType.type}]`"
-                v-model="reportType.generateForm.starts_at"
-                :error="reportType.generateForm.$errors.get('starts_at')"
-                @input="reportType.generateForm.$errors.clear('starts_at')"
-                label="From date"
-              />
-              <ck-date-input
-                :id="`ends_at[${reportType.type}]`"
-                v-model="reportType.generateForm.ends_at"
-                :error="reportType.generateForm.$errors.get('ends_at')"
-                @input="reportType.generateForm.$errors.clear('ends_at')"
-                label="To date"
-              />
+              <template v-if="acceptsDateRange(reportType)">
+                <ck-date-input
+                  :id="`starts_at[${reportType.type}]`"
+                  v-model="reportType.generateForm.starts_at"
+                  :error="reportType.generateForm.$errors.get('starts_at')"
+                  @input="reportType.generateForm.$errors.clear('starts_at')"
+                  label="From date"
+                />
+                <ck-date-input
+                  :id="`ends_at[${reportType.type}]`"
+                  v-model="reportType.generateForm.ends_at"
+                  :error="reportType.generateForm.$errors.get('ends_at')"
+                  @input="reportType.generateForm.$errors.clear('ends_at')"
+                  label="To date"
+                />
+              </template>
               <gov-button v-if="!reportType.generateForm.$submitting" type="submit" @click="onGenerate(reportType)">Generate and download</gov-button>
               <gov-button v-else type="submit" disabled>Generating...</gov-button>
             </gov-inset-text>
@@ -242,6 +244,26 @@ export default {
 
         const data = await reportType.scheduleForm.post("/report-schedules");
         reportType.scheduleForm = new Form(data.data);
+      }
+    },
+    acceptsDateRange(reportType) {
+      switch (reportType.type) {
+        case "Audit Logs Export":
+          return true;
+        case "Feedback Export":
+          return true;
+        case "Locations Export":
+          return false;
+        case "Organisations Export":
+          return false;
+        case "Referrals Export":
+          return true;
+        case "Search Histories Export":
+          return true;
+        case "Services Export":
+          return false;
+        case "Users Export":
+          return false;
       }
     }
   },
