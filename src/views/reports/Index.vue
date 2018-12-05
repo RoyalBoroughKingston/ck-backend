@@ -13,27 +13,35 @@
 
           <gov-body>Access information by recieving updates on data such as site usage.</gov-body>
 
-          <section v-for="reportType in reportTypes" :key="reportType.type">
+          <gov-inset-text v-for="reportType in reportTypes" :key="reportType.type">
             <gov-heading size="m">{{ reportType.type }}</gov-heading>
 
-            <gov-button v-if="!reportType.submitting" type="submit" @click="onGenerate(reportType)">Generate report</gov-button>
-            <gov-button v-else type="submit" disabled>Generating report...</gov-button>
+            <gov-heading size="s">Scheduled generation</gov-heading>
+            <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
+            <ck-radio-input
+              :id="`repeat_type[${reportType.type}]`"
+              :value="null"
+              :error="null"
+              :options="repeatTypeOptions"
+            />
 
-            <gov-section-break size="m"/>
-          </section>
-
-          <gov-heading size="m">Report schedule</gov-heading>
-
-          <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
-
-          <ck-select-input
-            v-model="form.repeat_type"
-            id="repeat_type"
-            label="Recieve these"
-            :options="options"
-            :error="null"
-            :width="20"
-          />
+            <gov-heading size="s">Generate a report now</gov-heading>
+            <gov-body>This allows you to generate a one off report which will begin downloading immediately.</gov-body>
+            <ck-date-input
+              :id="`starts_at[${reportType.type}]`"
+              :value="null"
+              :error="null"
+              label="From date"
+            />
+            <ck-date-input
+              :id="`ends_at[${reportType.type}]`"
+              :value="null"
+              :error="null"
+              label="To date"
+            />
+            <gov-button v-if="!reportType.submitting" type="submit" @click="onGenerate(reportType)">Generate</gov-button>
+            <gov-button v-else type="submit" disabled>Generating...</gov-button>
+          </gov-inset-text>
 
         </gov-grid-column>
       </gov-grid-row>
@@ -44,9 +52,11 @@
 <script>
 import http from "@/http";
 import Form from "@/classes/Form";
+import CkDateInput from "@/views/services/inputs/DateInput";
 
 export default {
   name: "ReportsPage",
+  components: { CkDateInput },
   data() {
     return {
       reportTypes: [
@@ -60,26 +70,16 @@ export default {
         { type: "Users Export", submitting: false }
       ],
 
-      submitting: false,
-      loading: false,
-      reportSchedule: null,
       form: new Form({
         report_type: "Commissioners Report",
         repeat_type: null
       }),
-      options: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Weekly", value: "weekly" },
-        { text: "Monthly", value: "monthly" }
+      repeatTypeOptions: [
+        { label: "Not scheduled", value: "" },
+        { label: "Weekly", value: "weekly" },
+        { label: "Monthly", value: "monthly" }
       ]
     };
-  },
-  watch: {
-    "form.repeat_type"(newRepeatType) {
-      if (newRepeatType !== null && !this.loading) {
-        this.saveReportSchedule();
-      }
-    }
   },
   methods: {
     async onGenerate(reportType) {
