@@ -13,12 +13,14 @@
 
           <gov-body>Access information by recieving updates on data such as site usage.</gov-body>
 
-          <gov-heading size="m">Comissioner report</gov-heading>
+          <section v-for="reportType in reportTypes" :key="reportType.type">
+            <gov-heading size="m">{{ reportType.type }}</gov-heading>
 
-          <gov-button v-if="!submitting" type="submit" @click="onGenerate">Generate report</gov-button>
-          <gov-button v-else type="submit" disabled>Generating report...</gov-button>
+            <gov-button v-if="!reportType.submitting" type="submit" @click="onGenerate(reportType)">Generate report</gov-button>
+            <gov-button v-else type="submit" disabled>Generating report...</gov-button>
 
-          <gov-section-break size="l" />
+            <gov-section-break size="m"/>
+          </section>
 
           <gov-heading size="m">Report schedule</gov-heading>
 
@@ -47,6 +49,17 @@ export default {
   name: "ReportsPage",
   data() {
     return {
+      reportTypes: [
+        { type: "Audit Logs Export", submitting: false },
+        { type: "Feedback Export", submitting: false },
+        { type: "Locations Export", submitting: false },
+        { type: "Organisations Export", submitting: false },
+        { type: "Referrals Export", submitting: false },
+        { type: "Search Histories Export", submitting: false },
+        { type: "Services Export", submitting: false },
+        { type: "Users Export", submitting: false }
+      ],
+
       submitting: false,
       loading: false,
       reportSchedule: null,
@@ -69,11 +82,11 @@ export default {
     }
   },
   methods: {
-    async onGenerate() {
-      this.submitting = true;
+    async onGenerate(reportType) {
+      reportType.submitting = true;
 
       const response = await http.post("/reports", {
-        report_type: "Commissioners Report"
+        report_type: reportType.type
       });
       const reportId = response.data.data.id;
       const file = await http.get(`/reports/${reportId}/download`);
@@ -89,7 +102,7 @@ export default {
       document.body.appendChild(link);
       link.click();
 
-      this.submitting = false;
+      reportType.submitting = false;
     },
     async fetchReportSchedule() {
       this.loading = true;
