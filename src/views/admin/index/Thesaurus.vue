@@ -7,6 +7,8 @@
         <gov-grid-column width="two-thirds">
           <gov-heading size="l">Thesaurus</gov-heading>
 
+          <gov-button @click="onExportCsv">Download thesaurus</gov-button>
+
           <ck-loader v-if="loading" />
           <ck-thesaurus-list v-else :synonyms="synonyms" />
         </gov-grid-column>
@@ -45,6 +47,18 @@ export default {
       this.synonyms = data.data;
 
       this.loading = false;
+    },
+
+    onExportCsv() {
+      let csvContent = "data:text/csv;charset=utf-8,";
+
+      this.synonyms.forEach(rowArray => {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      window.open(encodedUri, "_blank");
     }
   },
 
