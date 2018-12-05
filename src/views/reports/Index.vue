@@ -14,41 +14,45 @@
           <gov-body>Access information by recieving updates on data such as site usage.</gov-body>
 
           <ck-loader v-if="loadingReportSchedules"/>
-          <gov-inset-text v-else v-for="reportType in reportTypes" :key="reportType.type">
-            <gov-heading size="m">{{ reportType.type }}</gov-heading>
-            <gov-body>{{ reportType.description }}</gov-body>
+          <section v-else v-for="(reportType, index) in reportTypes" :key="reportType.type">
+            <gov-inset-text>
+              <gov-heading size="m">{{ reportType.type }}</gov-heading>
+              <gov-body>{{ reportType.description }}</gov-body>
 
-            <gov-heading size="s">Scheduled generation</gov-heading>
-            <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
-            <ck-radio-input
-              :id="`repeat_type[${reportType.type}]`"
-              v-model="reportType.scheduleForm.repeat_type"
-              :error="reportType.scheduleForm.$errors.get('repeat_type')"
-              @input="reportType.scheduleForm.$errors.clear('repeat_type')"
-              :options="repeatTypeOptions"
-            />
-            <gov-button v-if="!reportType.scheduleForm.$submitting" type="submit" @click="onSaveReportSchedule(reportType)">Save frequency</gov-button>
-            <gov-button v-else type="submit" disabled>Saving...</gov-button>
+              <gov-heading size="s">Scheduled generation</gov-heading>
+              <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
+              <ck-radio-input
+                :id="`repeat_type[${reportType.type}]`"
+                v-model="reportType.scheduleForm.repeat_type"
+                :error="reportType.scheduleForm.$errors.get('repeat_type')"
+                @input="reportType.scheduleForm.$errors.clear('repeat_type')"
+                :options="repeatTypeOptions"
+              />
+              <gov-button v-if="!reportType.scheduleForm.$submitting" type="submit" @click="onSaveReportSchedule(reportType)">Save frequency</gov-button>
+              <gov-button v-else type="submit" disabled>Saving...</gov-button>
 
-            <gov-heading size="s">Generate a report now</gov-heading>
-            <gov-body>This allows you to generate a one off report which will begin downloading immediately.</gov-body>
-            <ck-date-input
-              :id="`starts_at[${reportType.type}]`"
-              v-model="reportType.generateForm.starts_at"
-              :error="reportType.generateForm.$errors.get('starts_at')"
-              @input="reportType.generateForm.$errors.clear('starts_at')"
-              label="From date"
-            />
-            <ck-date-input
-              :id="`ends_at[${reportType.type}]`"
-              v-model="reportType.generateForm.ends_at"
-              :error="reportType.generateForm.$errors.get('ends_at')"
-              @input="reportType.generateForm.$errors.clear('ends_at')"
-              label="To date"
-            />
-            <gov-button v-if="!reportType.generateForm.$submitting" type="submit" @click="onGenerate(reportType)">Generate and download</gov-button>
-            <gov-button v-else type="submit" disabled>Generating...</gov-button>
-          </gov-inset-text>
+              <gov-heading size="s">Generate a report now</gov-heading>
+              <gov-body>This allows you to generate a one off report which will begin downloading immediately.</gov-body>
+              <ck-date-input
+                :id="`starts_at[${reportType.type}]`"
+                v-model="reportType.generateForm.starts_at"
+                :error="reportType.generateForm.$errors.get('starts_at')"
+                @input="reportType.generateForm.$errors.clear('starts_at')"
+                label="From date"
+              />
+              <ck-date-input
+                :id="`ends_at[${reportType.type}]`"
+                v-model="reportType.generateForm.ends_at"
+                :error="reportType.generateForm.$errors.get('ends_at')"
+                @input="reportType.generateForm.$errors.clear('ends_at')"
+                label="To date"
+              />
+              <gov-button v-if="!reportType.generateForm.$submitting" type="submit" @click="onGenerate(reportType)">Generate and download</gov-button>
+              <gov-button v-else type="submit" disabled>Generating...</gov-button>
+            </gov-inset-text>
+            <gov-section-break v-if="index < reportTypes.length - 1" size="l" visible/>
+          </section>
+
 
         </gov-grid-column>
       </gov-grid-row>
