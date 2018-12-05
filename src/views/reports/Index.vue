@@ -24,6 +24,8 @@
               :error="null"
               :options="repeatTypeOptions"
             />
+            <gov-button v-if="true" type="submit">Save</gov-button>
+            <gov-button v-else type="submit" disabled>Saving...</gov-button>
 
             <gov-heading size="s">Generate a report now</gov-heading>
             <gov-body>This allows you to generate a one off report which will begin downloading immediately.</gov-body>
@@ -70,10 +72,6 @@ export default {
         { type: "Users Export", submitting: false }
       ],
 
-      form: new Form({
-        report_type: "Commissioners Report",
-        repeat_type: null
-      }),
       repeatTypeOptions: [
         { label: "Not scheduled", value: "" },
         { label: "Weekly", value: "weekly" },
