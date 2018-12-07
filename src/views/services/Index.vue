@@ -52,8 +52,9 @@ export default {
   computed: {
     params() {
       let params = {
-        page: this.currentPage,
-        include: "organisation"
+        "page": this.currentPage,
+        "include": "organisation",
+        "filter[has_permission]": true,
       };
 
       if (this.query.length > 0) {

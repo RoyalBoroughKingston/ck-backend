@@ -51,7 +51,10 @@ export default {
   },
   computed: {
     params() {
-      let params = { page: this.currentPage };
+      let params = {
+        "page": this.currentPage,
+        "filter[has_permission]": true,
+      };
 
       if (this.query.length > 0) {
         params["filter[name]"] = this.query;
