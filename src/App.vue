@@ -55,7 +55,7 @@ export default {
         {
           text: "Users",
           to: { name: "users-index" },
-          hide: !Auth.isGlobalAdmin
+          hide: !Auth.isServiceAdmin()
         },
         {
           text: "Reports",
