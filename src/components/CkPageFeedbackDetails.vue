@@ -13,6 +13,18 @@
         <gov-table-header top scope="row">Feedback</gov-table-header>
         <gov-table-cell>{{ pageFeedback.feedback }}</gov-table-cell>
       </gov-table-row>
+      <gov-table-row v-if="pageFeedback.name">
+        <gov-table-header top scope="row">Name</gov-table-header>
+        <gov-table-cell>{{ pageFeedback.name }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row v-if="pageFeedback.email">
+        <gov-table-header top scope="row">Email</gov-table-header>
+        <gov-table-cell>{{ pageFeedback.email }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row v-if="pageFeedback.phone">
+        <gov-table-header top scope="row">Phone</gov-table-header>
+        <gov-table-cell>{{ pageFeedback.phone }}</gov-table-cell>
+      </gov-table-row>
     </template>
   </gov-table>
 </template>
