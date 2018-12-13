@@ -58,7 +58,11 @@ export default {
       });
 
       const encodedUri = encodeURI(csvContent);
-      window.open(encodedUri, "_blank");
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "thesaurus.csv");
+      document.body.appendChild(link);
+      link.click();
     }
   },
 
