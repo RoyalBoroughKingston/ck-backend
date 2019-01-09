@@ -83,7 +83,6 @@ Vue.component("CkReferralsTable", () =>
 Vue.component("CkServiceLocationsTable", () =>
   import("@/components/CkServiceLocationsTable")
 );
-Vue.component("CkServicesTable", () => import("@/components/CkServicesTable"));
 Vue.component("CkSubmitError", () => import("@/components/CkSubmitError"));
 Vue.component("CkUserDetails", () => import("@/components/CkUserDetails"));
 Vue.component("CkUsersTable", () => import("@/components/CkUsersTable"));
