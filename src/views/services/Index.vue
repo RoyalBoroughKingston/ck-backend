@@ -16,7 +16,7 @@
                 <form @submit.prevent="onSearch">
                   <gov-label for="search">Search for a service by name</gov-label>
                   <gov-input v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
-              --><gov-button type="submit">Search</gov-button>
+               --><gov-button type="submit">Search</gov-button>
                 </form>
               </gov-form-group>
             </gov-grid-column>
