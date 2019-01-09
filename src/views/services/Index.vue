@@ -13,9 +13,11 @@
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
               <gov-form-group>
-                <gov-label for="search">Search for a service by name</gov-label>
-                <gov-input @enter="onSearch" v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
-             --><gov-button @click="onSearch" type="submit">Search</gov-button>
+                <form @submit.prevent="onSearch">
+                  <gov-label for="search">Search for a service by name</gov-label>
+                  <gov-input v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
+              --><gov-button type="submit">Search</gov-button>
+                </form>
               </gov-form-group>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isOrganisationAdmin()" width="one-third">
