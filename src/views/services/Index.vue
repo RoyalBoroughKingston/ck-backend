@@ -17,12 +17,12 @@
 
                   <gov-form-group>
                     <gov-label for="filter[name]">Search for a service by name</gov-label>
-                    <gov-input v-model="name" id="filter[name]" name="filter[name]" type="search"/>
+                    <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
                     <gov-label for="filter[organisation_name]">Search for a service by organisation name</gov-label>
-                    <gov-input v-model="organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
+                    <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
@@ -73,8 +73,11 @@ export default {
   },
   data() {
     return {
-      name: "",
-      organisation_name: "",
+      filters: {
+        name: "",
+        organisation_name: "",
+        status: "",
+      }
     };
   },
   computed: {
@@ -84,12 +87,16 @@ export default {
         "filter[has_permission]": true,
       };
 
-      if (this.name.length > 0) {
-        params["filter[name]"] = this.name;
+      if (this.filters.name !== "") {
+        params["filter[name]"] = this.filters.name;
       }
 
-      if (this.organisation_name.length > 0) {
-        params["filter[organisation_name]"] = this.organisation_name;
+      if (this.filters.organisation_name.length !== "") {
+        params["filter[organisation_name]"] = this.filters.organisation_name;
+      }
+
+      if (this.filters.status.length !== "") {
+        params["filter[status]"] = this.filters.status;
       }
 
       return params;
