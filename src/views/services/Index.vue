@@ -31,7 +31,8 @@
             :columns="[
               { heading: 'Service name', render: (service) => service.name },
               { heading: 'Organisation', render: (service) => service.organisation.name },
-              { heading: 'Status', render: (service) => humanReadableStatus(service.status) },
+              { heading: 'Status', render: (service) => displayStatus(service.status) },
+              { heading: 'Referral method', render: (service) => displayReferralMethod(service.referral_method) },
             ]"
             :view-route="(service) => {
               return {
@@ -83,7 +84,7 @@ export default {
     onAddService() {
       this.$router.push({ name: "services-create" });
     },
-    humanReadableStatus(status) {
+    displayStatus(status) {
       switch (status) {
         case "active":
           return "Enabled";
@@ -93,6 +94,9 @@ export default {
           return status;
       }
     },
+    displayReferralMethod(referralMethod) {
+      return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);
+    }
   },
 };
 </script>
