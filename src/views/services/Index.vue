@@ -22,12 +22,22 @@
           </gov-grid-row>
           <ck-loader v-if="loading" />
           <template v-else>
-            <ck-services-table :services="services" />
-            <gov-body>
-              Page {{ currentPage }} of {{ lastPage }}
-              <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-           --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
-            </gov-body>
+            <ck-resource-listing-table
+              ref="servicesTable"
+              uri="/services"
+              :params="params"
+              :columns="[
+                { heading: 'Service name', render: (service) => service.name },
+                { heading: 'Organisation', render: (service) => service.organisation.name },
+                { heading: 'Status', render: (service) => humanReadableStatus(service.status) },
+              ]"
+              :view-route="(service) => {
+                return {
+                  name: 'services-show',
+                  params: { service: service.id }
+                }
+              }"
+            />
           </template>
         </gov-grid-column>
       </gov-grid-row>
@@ -37,9 +47,13 @@
 
 <script>
 import http from "@/http";
+import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
   name: "ListServices",
+  components: {
+    CkResourceListingTable,
+  },
   data() {
     return {
       loading: false,
@@ -65,34 +79,23 @@ export default {
     }
   },
   methods: {
-    fetchServices() {
-      this.loading = true;
-
-      http.get("/services", { params: this.params }).then(({ data }) => {
-        this.services = data.data;
-        this.currentPage = data.meta.current_page;
-        this.lastPage = data.meta.last_page;
-        this.loading = false;
-      });
-    },
-    onNext() {
-      this.currentPage++;
-      this.fetchServices();
-    },
-    onPrevious() {
-      this.currentPage--;
-      this.fetchServices();
-    },
     onSearch() {
-      this.currentPage = 1;
-      this.fetchServices();
+      this.$refs.servicesTable.currentPage = 1;
+      this.$refs.servicesTable.fetchResources();
     },
     onAddService() {
       this.$router.push({ name: "services-create" });
-    }
+    },
+    humanReadableStatus(status) {
+      switch (status) {
+        case "active":
+          return "Enabled";
+        case "inactive":
+          return "Disabled";
+        default:
+          return status;
+      }
+    },
   },
-  created() {
-    this.fetchServices();
-  }
 };
 </script>

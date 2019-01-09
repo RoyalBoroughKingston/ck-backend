@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import http from "@/http";
 import GovTable from '@/components/Gov/GovTable.vue';
 import GovTableCell from '@/components/Gov/GovTableCell.vue';
 import GovTableHeader from '@/components/Gov/GovTableHeader.vue';
@@ -56,8 +57,6 @@ export default {
 
   components: {
     GovTable,
-    GovTableHead,
-    GovTableBody,
     GovTableCell,
     GovTableHeader,
     GovTableRow,
@@ -102,7 +101,7 @@ export default {
     async fetchResources() {
       this.loading = true;
 
-      const response = await this.$http.get(this.uri, {
+      const response = await http.get(this.uri, {
         params: { ...this.params, page: this.currentPage },
       });
       this.resources = response.data.data;
