@@ -12,45 +12,44 @@
 
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-form-group>
-                <form @submit.prevent="onSearch">
+              <gov-heading size="m">Filters</gov-heading>
 
+              <form @submit.prevent="onSearch">
+
+                <gov-form-group>
+                  <gov-label for="filter[name]">Service name</gov-label>
+                  <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
+                </gov-form-group>
+
+                <template v-if="showAllFilters">
                   <gov-form-group>
-                    <gov-label for="filter[name]">Filter services by name</gov-label>
-                    <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
-                  </gov-form-group>
-
-                  <template v-if="showAllFilters">
-                    <gov-form-group>
-                      <gov-label for="filter[organisation_name]">Filter services by organisation name</gov-label>
-                      <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
-                    </gov-form-group>
-
-                    <gov-form-group>
-                      <gov-label for="filter[status]">Filter services by status</gov-label>
-                      <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
-                    </gov-form-group>
-
-                    <gov-form-group>
-                      <gov-label for="filter[referral_method]">Filter services by referral method</gov-label>
-                      <gov-select v-model="filters.referral_method" id="filter[referral_method]" name="filter[referral_method]" :options="referralMethods"/>
-                    </gov-form-group>
-                  </template>
-
-                  <gov-form-group>
-                    <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
-                    <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
+                    <gov-label for="filter[organisation_name]">Organisation name</gov-label>
+                    <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-button type="submit">Search</gov-button>
+                    <gov-label for="filter[status]">Status</gov-label>
+                    <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
                   </gov-form-group>
 
-                </form>
-              </gov-form-group>
+                  <gov-form-group>
+                    <gov-label for="filter[referral_method]">Referral method</gov-label>
+                    <gov-select v-model="filters.referral_method" id="filter[referral_method]" name="filter[referral_method]" :options="referralMethods"/>
+                  </gov-form-group>
+                </template>
+
+                <gov-form-group>
+                  <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
+                  <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
+                </gov-form-group>
+
+                <gov-form-group>
+                  <gov-button type="submit">Search</gov-button>
+                </gov-form-group>
+
+              </form>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isOrganisationAdmin()" width="one-third">
-              <gov-label for="empty">&nbsp;</gov-label>
               <gov-button @click="onAddService" type="submit" expand>Add service</gov-button>
             </gov-grid-column>
           </gov-grid-row>
