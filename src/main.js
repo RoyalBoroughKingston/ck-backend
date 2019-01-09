@@ -65,9 +65,6 @@ Vue.component("CkWysiwygInput", () => import("@/components/Ck/CkWysiwygInput"));
 
 Vue.component("CkDeleteButton", () => import("@/components/CkDeleteButton"));
 Vue.component("CkLoader", () => import("@/components/CkLoader"));
-Vue.component("CkLocationsTable", () =>
-  import("@/components/CkLocationsTable")
-);
 Vue.component("CkOrganisationDetails", () =>
   import("@/components/CkOrganisationDetails")
 );
