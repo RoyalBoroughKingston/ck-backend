@@ -3,10 +3,13 @@
     <vue-headful title="Connected Kingston - List Services" />
 
     <gov-back-link :to="{ name: 'dashboard' }">Back to dashboard</gov-back-link>
+
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
+
           <gov-heading size="xl">Services</gov-heading>
+
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
               <gov-form-group>
@@ -20,25 +23,24 @@
               <gov-button @click="onAddService" type="submit" expand>Add service</gov-button>
             </gov-grid-column>
           </gov-grid-row>
-          <ck-loader v-if="loading" />
-          <template v-else>
-            <ck-resource-listing-table
-              ref="servicesTable"
-              uri="/services"
-              :params="params"
-              :columns="[
-                { heading: 'Service name', render: (service) => service.name },
-                { heading: 'Organisation', render: (service) => service.organisation.name },
-                { heading: 'Status', render: (service) => humanReadableStatus(service.status) },
-              ]"
-              :view-route="(service) => {
-                return {
-                  name: 'services-show',
-                  params: { service: service.id }
-                }
-              }"
-            />
-          </template>
+
+          <ck-resource-listing-table
+            ref="servicesTable"
+            uri="/services"
+            :params="params"
+            :columns="[
+              { heading: 'Service name', render: (service) => service.name },
+              { heading: 'Organisation', render: (service) => service.organisation.name },
+              { heading: 'Status', render: (service) => humanReadableStatus(service.status) },
+            ]"
+            :view-route="(service) => {
+              return {
+                name: 'services-show',
+                params: { service: service.id }
+              }
+            }"
+          />
+
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -56,11 +58,7 @@ export default {
   },
   data() {
     return {
-      loading: false,
-      query: "",
-      services: [],
-      currentPage: 1,
-      lastPage: 1
+      query: ""
     };
   },
   computed: {
