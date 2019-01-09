@@ -20,19 +20,26 @@
                     <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
                   </gov-form-group>
 
-                  <gov-form-group>
-                    <gov-label for="filter[organisation_name]">Filter services by organisation name</gov-label>
-                    <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
-                  </gov-form-group>
+                  <template v-if="showAllFilters">
+                    <gov-form-group>
+                      <gov-label for="filter[organisation_name]">Filter services by organisation name</gov-label>
+                      <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
+                    </gov-form-group>
+
+                    <gov-form-group>
+                      <gov-label for="filter[status]">Filter services by status</gov-label>
+                      <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
+                    </gov-form-group>
+
+                    <gov-form-group>
+                      <gov-label for="filter[referral_method]">Filter services by referral method</gov-label>
+                      <gov-select v-model="filters.referral_method" id="filter[referral_method]" name="filter[referral_method]" :options="referralMethods"/>
+                    </gov-form-group>
+                  </template>
 
                   <gov-form-group>
-                    <gov-label for="filter[status]">Filter services by status</gov-label>
-                    <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
-                  </gov-form-group>
-
-                  <gov-form-group>
-                    <gov-label for="filter[referral_method]">Filter services by referral method</gov-label>
-                    <gov-select v-model="filters.referral_method" id="filter[referral_method]" name="filter[referral_method]" :options="referralMethods"/>
+                    <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
+                    <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
                   </gov-form-group>
 
                   <gov-form-group>
@@ -83,6 +90,7 @@ export default {
   },
   data() {
     return {
+      showAllFilters: false,
       filters: {
         name: "",
         organisation_name: "",
