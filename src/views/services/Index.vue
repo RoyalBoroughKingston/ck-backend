@@ -14,9 +14,21 @@
             <gov-grid-column width="two-thirds">
               <gov-form-group>
                 <form @submit.prevent="onSearch">
-                  <gov-label for="search">Search for a service by name</gov-label>
-                  <gov-input v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
-               --><gov-button type="submit">Search</gov-button>
+
+                  <gov-form-group>
+                    <gov-label for="filter[name]">Search for a service by name</gov-label>
+                    <gov-input v-model="name" id="filter[name]" name="filter[name]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[organisation_name]">Search for a service by organisation name</gov-label>
+                    <gov-input v-model="organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-button type="submit">Search</gov-button>
+                  </gov-form-group>
+
                 </form>
               </gov-form-group>
             </gov-grid-column>
@@ -61,7 +73,8 @@ export default {
   },
   data() {
     return {
-      query: ""
+      name: "",
+      organisation_name: "",
     };
   },
   computed: {
@@ -71,8 +84,12 @@ export default {
         "filter[has_permission]": true,
       };
 
-      if (this.query.length > 0) {
-        params["filter[name]"] = this.query;
+      if (this.name.length > 0) {
+        params["filter[name]"] = this.name;
+      }
+
+      if (this.organisation_name.length > 0) {
+        params["filter[organisation_name]"] = this.organisation_name;
       }
 
       return params;
