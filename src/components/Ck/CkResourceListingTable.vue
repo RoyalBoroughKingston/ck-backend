@@ -7,8 +7,13 @@
           <gov-table-header
             v-for="(column, index) in columns"
             :key="`ResourceListingTableHeading-${index}`"
+            @click="onSort(column)"
+            :clickable="column.hasOwnProperty('sort')"
           >
             {{ column.heading }}
+            <template v-if="column.hasOwnProperty('sort')">
+              {{ sortText(column) }}
+            </template>
           </gov-table-header>
           <gov-table-header>
           </gov-table-header>
@@ -86,6 +91,12 @@ export default {
       required: true,
       type: Function,
     },
+
+    defaultSort: {
+      required: false,
+      type: String,
+      default: "",
+    }
   },
 
   data() {
@@ -94,16 +105,30 @@ export default {
       loading: false,
       currentPage: 1,
       totalPages: 1,
+      sort: this.defaultSort,
     };
+  },
+
+  computed: {
+    allParams() {
+      const params = {
+        ...this.params,
+        page: this.currentPage
+      };
+
+      if (this.sort !== "") {
+        params.sort = this.sort;
+      }
+
+      return params;
+    },
   },
 
   methods: {
     async fetchResources() {
       this.loading = true;
 
-      const response = await http.get(this.uri, {
-        params: { ...this.params, page: this.currentPage },
-      });
+      const response = await http.get(this.uri, { params: this.allParams });
       this.resources = response.data.data;
       this.currentPage = response.data.meta.current_page;
       this.totalPages = response.data.meta.last_page;
@@ -119,6 +144,39 @@ export default {
     onNext() {
       this.currentPage = this.currentPage + 1;
       this.fetchResources();
+    },
+
+    onSort(column) {
+      const currentSortDirection = this.sort.charAt(0) === "-" ? "desc" : "asc";
+      const currentSortField = this.sort.charAt(0) === "-" ? this.sort.substr(1) : this.sort;
+
+      const columnSortField = column.sort;
+
+      if (currentSortField !== columnSortField) {
+        // If not the current sort.
+        this.sort = columnSortField;
+      } else {
+        // If it is the current sort (toggle asc/desc).
+        if (currentSortDirection === "asc") {
+          this.sort = `-${columnSortField}`;
+        } else {
+          this.sort = columnSortField;
+        }
+      }
+
+      // Refetch the resources.
+      this.fetchResources();
+    },
+
+    sortText(column) {
+      const currentSortDirection = this.sort.charAt(0) === "-" ? "desc" : "asc";
+      const currentSortField = this.sort.charAt(0) === "-" ? this.sort.substr(1) : this.sort;
+
+      if (currentSortField !== column.sort) {
+        return "";
+      }
+
+      return currentSortDirection === "asc" ? "(ASC)" : "(DESC)";
     },
   },
 

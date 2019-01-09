@@ -58,9 +58,10 @@
             ref="servicesTable"
             uri="/services"
             :params="params"
+            default-sort="name"
             :columns="[
-              { heading: 'Service name', render: (service) => service.name },
-              { heading: 'Organisation', render: (service) => service.organisation.name },
+              { heading: 'Service name', sort: 'name', render: (service) => service.name },
+              { heading: 'Organisation', sort: 'organisation_name', render: (service) => service.organisation.name },
               { heading: 'Status', render: (service) => displayStatus(service.status) },
               { heading: 'Referral method', render: (service) => displayReferralMethod(service.referral_method) },
             ]"
