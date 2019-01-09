@@ -2,7 +2,7 @@
   <ck-loader v-if="loading"/>
   <div v-else>
     <gov-table>
-      <template slot="head">
+      <template slot="header">
         <gov-table-row>
           <gov-table-header
             v-for="(column, index) in columns"
