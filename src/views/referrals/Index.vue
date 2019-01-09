@@ -7,24 +7,67 @@
       <gov-grid-row>
         <gov-grid-column width="full">
           <gov-heading size="xl">Referrals</gov-heading>
+
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-form-group>
-                <gov-label for="search">Search for a referral by reference</gov-label>
-                <gov-input @enter="onSearch" v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
-             --><gov-button @click="onSearch" type="submit">Search</gov-button>
-              </gov-form-group>
+              <gov-heading size="m">Filters</gov-heading>
+
+              <form @submit.prevent="onSearch">
+
+                <gov-form-group>
+                  <gov-label for="filter[reference]">Reference no.</gov-label>
+                  <gov-input v-model="filters.reference" id="filter[reference]" name="filter[reference]" type="search"/>
+                </gov-form-group>
+
+                <template v-if="showAllFilters">
+                  <gov-form-group>
+                    <gov-label for="filter[service_name]">Service name</gov-label>
+                    <gov-input v-model="filters.service_name" id="filter[service_name]" name="filter[service_name]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[organisation_name]">Organisation name</gov-label>
+                    <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[status]">Status</gov-label>
+                    <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
+                  </gov-form-group>
+                </template>
+
+                <gov-form-group>
+                  <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
+                  <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
+                </gov-form-group>
+
+                <gov-form-group>
+                  <gov-button type="submit">Search</gov-button>
+                </gov-form-group>
+
+              </form>
             </gov-grid-column>
           </gov-grid-row>
-          <ck-loader v-if="loading" />
-          <template v-else>
-            <ck-referrals-table :referrals="referrals" />
-            <gov-body>
-              Page {{ currentPage }} of {{ lastPage }}
-              <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-           --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
-            </gov-body>
-          </template>
+
+          <ck-resource-listing-table
+            ref="referralsTable"
+            uri="/referrals"
+            :params="params"
+            default-sort="-created_at"
+            :columns="[
+              { heading: 'Reference no.', sort: 'reference', render: (referral) => referral.reference },
+              { heading: 'Service', sort: 'service_name', render: (referral) => referral.service.name },
+              { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
+              { heading: 'Status', render: (referral) => displayStatus(referral.status) },
+              { heading: 'Date/time', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
+            ]"
+            :view-route="(referral) => {
+              return {
+                name: 'referrals-show',
+                params: { referral: referral.id }
+              }
+            }"
+          />
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -32,59 +75,64 @@
 </template>
 
 <script>
-import http from "@/http";
+import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
   name: "ListReferrals",
+  components: { CkResourceListingTable },
   data() {
     return {
-      loading: false,
-      query: "",
-      referrals: [],
-      currentPage: 1,
-      lastPage: 1
+      showAllFilters: false,
+      filters: {
+        reference: "",
+        service_name: "",
+        organisation_name: "",
+        status: "",
+      },
+      statuses: [
+        { value: "", text: "All" },
+        { value: "new", text: "New" },
+        { value: "in_progress", text: "In progress" },
+        { value: "completed", text: "Completed" },
+        { value: "incompleted", text: "Incompleted" },
+      ],
     };
   },
   computed: {
     params() {
-      let params = {
-        page: this.currentPage,
-        include: "service"
+      const params = {
+        include: "service.organisation"
       };
 
-      if (this.query.length > 0) {
-        params["filter[reference]"] = this.query;
+      if (this.filters.reference !== "") {
+        params["filter[reference]"] = this.filters.reference;
+      }
+
+      if (this.filters.service_name !== "") {
+        params["filter[service_name]"] = this.filters.service_name;
+      }
+
+      if (this.filters.organisation_name !== "") {
+        params["filter[organisation_name]"] = this.filters.organisation_name;
+      }
+
+      if (this.filters.status !== "") {
+        params["filter[status]"] = this.filters.status;
       }
 
       return params;
     }
   },
   methods: {
-    fetchReferrals() {
-      this.loading = true;
-
-      http.get("/referrals", { params: this.params }).then(({ data }) => {
-        this.referrals = data.data;
-        this.currentPage = data.meta.current_page;
-        this.lastPage = data.meta.last_page;
-        this.loading = false;
-      });
-    },
-    onNext() {
-      this.currentPage++;
-      this.fetchReferrals();
-    },
-    onPrevious() {
-      this.currentPage--;
-      this.fetchReferrals();
-    },
     onSearch() {
-      this.currentPage = 1;
-      this.fetchReferrals();
-    }
+      this.$refs.referralsTable.currentPage = 1;
+      this.$refs.referralsTable.fetchResources();
+    },
+    displayStatus(status) {
+      const string = status.replace("_", " ");
+
+      return string.charAt(0).toUpperCase() + string.substr(1);
+    },
   },
-  created() {
-    this.fetchReferrals();
-  }
 };
 </script>
