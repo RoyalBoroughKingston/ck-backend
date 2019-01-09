@@ -16,13 +16,18 @@
                 <form @submit.prevent="onSearch">
 
                   <gov-form-group>
-                    <gov-label for="filter[name]">Search for a service by name</gov-label>
+                    <gov-label for="filter[name]">Filter services by name</gov-label>
                     <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[organisation_name]">Search for a service by organisation name</gov-label>
+                    <gov-label for="filter[organisation_name]">Filter services by organisation name</gov-label>
                     <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[status]">Filter services by status</gov-label>
+                    <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
                   </gov-form-group>
 
                   <gov-form-group>
@@ -77,7 +82,12 @@ export default {
         name: "",
         organisation_name: "",
         status: "",
-      }
+      },
+      statuses: [
+        { value: "", text: "All" },
+        { value: "active", text: "Enabled" },
+        { value: "inactive", text: "Disabled" },
+      ],
     };
   },
   computed: {
@@ -91,11 +101,11 @@ export default {
         params["filter[name]"] = this.filters.name;
       }
 
-      if (this.filters.organisation_name.length !== "") {
+      if (this.filters.organisation_name !== "") {
         params["filter[organisation_name]"] = this.filters.organisation_name;
       }
 
-      if (this.filters.status.length !== "") {
+      if (this.filters.status !== "") {
         params["filter[status]"] = this.filters.status;
       }
 
