@@ -80,14 +80,11 @@
 </template>
 
 <script>
-import http from "@/http";
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
   name: "ListServices",
-  components: {
-    CkResourceListingTable,
-  },
+  components: { CkResourceListingTable },
   data() {
     return {
       showAllFilters: false,
