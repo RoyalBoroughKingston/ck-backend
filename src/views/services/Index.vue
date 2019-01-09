@@ -31,6 +31,11 @@
                   </gov-form-group>
 
                   <gov-form-group>
+                    <gov-label for="filter[referral_method]">Filter services by referral method</gov-label>
+                    <gov-select v-model="filters.referral_method" id="filter[referral_method]" name="filter[referral_method]" :options="referralMethods"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
                     <gov-button type="submit">Search</gov-button>
                   </gov-form-group>
 
@@ -82,11 +87,18 @@ export default {
         name: "",
         organisation_name: "",
         status: "",
+        referral_method: "",
       },
       statuses: [
         { value: "", text: "All" },
         { value: "active", text: "Enabled" },
         { value: "inactive", text: "Disabled" },
+      ],
+      referralMethods: [
+        { value: "", text: "All" },
+        { value: "internal", text: "Internal" },
+        { value: "external", text: "External" },
+        { value: "none", text: "None" },
       ],
     };
   },
@@ -107,6 +119,10 @@ export default {
 
       if (this.filters.status !== "") {
         params["filter[status]"] = this.filters.status;
+      }
+
+      if (this.filters.referral_method !== "") {
+        params["filter[referral_method]"] = this.filters.referral_method;
       }
 
       return params;
