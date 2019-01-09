@@ -65,8 +65,7 @@ export default {
   },
   computed: {
     params() {
-      let params = {
-        "page": this.currentPage,
+      const params = {
         "include": "organisation",
         "filter[has_permission]": true,
       };
