@@ -74,9 +74,6 @@ Vue.component("CkOrganisationsTable", () =>
 Vue.component("CkReferralDetails", () =>
   import("@/components/CkReferralDetails")
 );
-Vue.component("CkReferralsTable", () =>
-  import("@/components/CkReferralsTable")
-);
 Vue.component("CkServiceLocationsTable", () =>
   import("@/components/CkServiceLocationsTable")
 );
