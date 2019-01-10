@@ -44,7 +44,7 @@
 
               </form>
             </gov-grid-column>
-            <gov-grid-column v-if="auth.isOrganisationAdmin()" width="one-third">
+            <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third">
               <gov-button @click="onAddLocation" type="submit" expand>Add location</gov-button>
             </gov-grid-column>
           </gov-grid-row>
