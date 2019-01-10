@@ -59,7 +59,7 @@
               { heading: 'Service', sort: 'service_name', render: (referral) => referral.service.name },
               { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
               { heading: 'Status', render: (referral) => displayStatus(referral.status) },
-              { heading: 'Date/time', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
+              { heading: 'Date submitted', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
             ]"
             :view-route="(referral) => {
               return {
