@@ -17,8 +17,8 @@
 
           <template v-if="showAllFilters">
             <gov-form-group>
-              <gov-label for="filter[desription]">Description</gov-label>
-              <gov-input v-model="filters.description" id="filter[desription]" name="filter[desription]" type="search"/>
+              <gov-label for="filter[description]">Description</gov-label>
+              <gov-input v-model="filters.description" id="filter[description]" name="filter[description]" type="search"/>
             </gov-form-group>
 
             <gov-form-group>
