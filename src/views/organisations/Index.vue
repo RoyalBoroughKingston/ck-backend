@@ -26,7 +26,7 @@
 
               </form>
             </gov-grid-column>
-            <gov-grid-column v-if="auth.isGlobalAdmin()" width="one-third">
+            <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
               <gov-button @click="onAddOrganisation" type="submit" expand>Add organisation</gov-button>
             </gov-grid-column>
           </gov-grid-row>
