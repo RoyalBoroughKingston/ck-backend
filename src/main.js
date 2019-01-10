@@ -68,9 +68,6 @@ Vue.component("CkLoader", () => import("@/components/CkLoader"));
 Vue.component("CkOrganisationDetails", () =>
   import("@/components/CkOrganisationDetails")
 );
-Vue.component("CkOrganisationsTable", () =>
-  import("@/components/CkOrganisationsTable")
-);
 Vue.component("CkReferralDetails", () =>
   import("@/components/CkReferralDetails")
 );
