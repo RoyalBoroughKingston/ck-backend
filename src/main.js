@@ -76,7 +76,6 @@ Vue.component("CkServiceLocationsTable", () =>
 );
 Vue.component("CkSubmitError", () => import("@/components/CkSubmitError"));
 Vue.component("CkUserDetails", () => import("@/components/CkUserDetails"));
-Vue.component("CkUsersTable", () => import("@/components/CkUsersTable"));
 Vue.component("CkWysiwyg", () => import("@/components/CkWysiwyg"));
 
 // Gov.UK Vue Components
