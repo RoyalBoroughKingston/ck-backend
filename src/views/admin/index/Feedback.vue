@@ -3,57 +3,76 @@
     <vue-headful title="Connected Kingston - Admin: Page Feedback" />
 
     <gov-heading size="l">Feedback</gov-heading>
-    <ck-loader v-if="loading" />
-    <template v-else>
-      <ck-page-feedbacks-table :page-feedbacks="pageFeedbacks" />
-      <gov-body>
-        Page {{ currentPage }} of {{ lastPage }}
-        <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-      --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
-      </gov-body>
-    </template>
+
+    <gov-grid-row>
+      <gov-grid-column width="two-thirds">
+        <gov-heading size="m">Filters</gov-heading>
+
+        <form @submit.prevent="onSearch">
+
+          <gov-form-group>
+            <gov-label for="filter[url]">Page URL</gov-label>
+            <gov-input v-model="filters.url" id="filter[url]" name="filter[url]" type="search"/>
+          </gov-form-group>
+
+          <gov-form-group>
+            <gov-button type="submit">Search</gov-button>
+          </gov-form-group>
+
+        </form>
+      </gov-grid-column>
+    </gov-grid-row>
+
+    <ck-resource-listing-table
+      ref="pageFeedbacksTable"
+      uri="/page-feedbacks"
+      :params="params"
+      default-sort="-created_at"
+      :columns="[
+        { heading: 'Page URL', sort: 'url', render: (pageFeedback) => pageFeedback.url },
+        { heading: 'Contact name', render: (pageFeedback) => pageFeedback.name || '-' },
+        { heading: 'Contact details', render: (pageFeedback) => pageFeedback.email || pageFeedback.phone || '-' },
+        { heading: 'Date / Time', sort: 'created_at', render: (pageFeedback) => formatDateTime(pageFeedback.created_at) },
+      ]"
+      :view-route="(pageFeedback) => {
+        return {
+          name: 'page-feedbacks-show',
+          params: { pageFeedback: pageFeedback.id }
+        }
+      }"
+    />
   </div>
 </template>
 
 <script>
-import http from "@/http";
-import CkPageFeedbacksTable from "@/components/CkPageFeedbacksTable";
+import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
   name: "ListNotification",
-  components: { CkPageFeedbacksTable },
+  components: { CkResourceListingTable },
   data() {
     return {
-      loading: false,
-      pageFeedbacks: [],
-      currentPage: 1,
-      lastPage: 1
+      filters: {
+        url: "",
+      },
     };
   },
-  methods: {
-    async fetchPageFeedbacks() {
-      this.loading = true;
+  computed: {
+    params() {
+      const params = {};
 
-      const { data } = await http.get("/page-feedbacks", {
-        params: { page: this.currentPage }
-      });
-      this.pageFeedbacks = data.data;
-      this.currentPage = data.meta.current_page;
-      this.lastPage = data.meta.last_page;
+      if (this.filters.url !== "") {
+        params["filter[url]"] = this.filters.url;
+      }
 
-      this.loading = false;
-    },
-    onNext() {
-      this.currentPage++;
-      this.fetchPageFeedbacks();
-    },
-    onPrevious() {
-      this.currentPage--;
-      this.fetchPageFeedbacks();
+      return params;
     }
   },
-  created() {
-    this.fetchPageFeedbacks();
-  }
+  methods: {
+    onSearch() {
+      this.$refs.pageFeedbacksTable.currentPage = 1;
+      this.$refs.pageFeedbacksTable.fetchResources();
+    },
+  },
 };
 </script>
