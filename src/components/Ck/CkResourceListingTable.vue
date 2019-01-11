@@ -152,6 +152,11 @@ export default {
 
       const columnSortField = column.sort;
 
+      // Do nothing if the field is not sortable.
+      if (columnSortField === undefined) {
+        return;
+      }
+
       if (currentSortField !== columnSortField) {
         // If not the current sort.
         this.sort = columnSortField;
