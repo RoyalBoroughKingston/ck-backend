@@ -8,11 +8,11 @@
 
     <div class="govuk-width-container">
       <main class="govuk-main-wrapper" :class="mainClasses" id="main-content" role="main">
-        <router-view />
+        <router-view/>
       </main>
     </div>
 
-    <gov-footer :navigation="footerNav" :meta="footerMeta" />
+    <gov-footer/>
   </div>
 </template>
 
@@ -27,10 +27,6 @@ export default {
       bodyClasses: ["js-enabled"],
       mainClasses: [],
       headerNav: [],
-      footerNav: [],
-      footerMeta: {
-        items: []
-      }
     };
   },
   computed: {
