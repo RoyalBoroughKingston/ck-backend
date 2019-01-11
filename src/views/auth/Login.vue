@@ -7,15 +7,18 @@
       <gov-grid-row>
         <gov-grid-column width="two-thirds">
 
-          <gov-heading size="xl">Log in</gov-heading>
+          <gov-heading size="xl">Login</gov-heading>
 
           <template v-if="!validateRequest">
             <gov-body size="l">
-              Failed logging in.<br>
-              Please try login again using the link below.
+              Click below to login to the Connected Kingston admin portal:
             </gov-body>
 
             <gov-button :href="loginUrl">Login</gov-button>
+
+            <gov-body size="s">
+              For security reasons, you will be automatically logged out after 20 minutes.
+            </gov-body>
           </template>
 
         </gov-grid-column>
@@ -31,9 +34,8 @@ export default {
   name: "Login",
   data() {
     return {
-      accessToken:
-        Auth.parseQueryString(window.location.href).access_token || null,
-      expiresIn: Auth.parseQueryString(window.location.href).expires_in || null
+      accessToken: Auth.parseQueryString(window.location.href).access_token || null,
+      expiresIn: Auth.parseQueryString(window.location.href).expires_in || null,
     };
   },
   computed: {
