@@ -6,29 +6,71 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
+
           <gov-heading size="xl">Users</gov-heading>
+
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-form-group>
-                <gov-label for="search">Search for a user by first name</gov-label>
-                <gov-input @enter="onSearch" v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
-             --><gov-button @click="onSearch" type="submit">Search</gov-button>
-              </gov-form-group>
+              <gov-heading size="m">Filters</gov-heading>
+
+              <form @submit.prevent="onSearch">
+
+                <gov-form-group>
+                  <gov-label for="filter[first_name]">First name</gov-label>
+                  <gov-input v-model="filters.first_name" id="filter[first_name]" name="filter[first_name]" type="search"/>
+                </gov-form-group>
+
+                <template v-if="showAllFilters">
+                  <gov-form-group>
+                    <gov-label for="filter[last_name]">Last name</gov-label>
+                    <gov-input v-model="filters.last_name" id="filter[last_name]" name="filter[last_name]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[phone]">Phone number</gov-label>
+                    <gov-input v-model="filters.phone" id="filter[phone]" name="filter[phone]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[highest_role]">Highest permission level</gov-label>
+                    <gov-select v-model="filters.highest_role" id="filter[highest_role]" name="filter[highest_role]" :options="roles"/>
+                  </gov-form-group>
+                </template>
+
+                <gov-form-group>
+                  <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
+                  <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
+                </gov-form-group>
+
+                <gov-form-group>
+                  <gov-button type="submit">Search</gov-button>
+                </gov-form-group>
+
+              </form>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third">
-              <gov-label for="empty">&nbsp;</gov-label>
               <gov-button @click="onAddUser" type="submit" expand>Add user</gov-button>
             </gov-grid-column>
           </gov-grid-row>
-          <ck-loader v-if="loading" />
-          <template v-else>
-            <ck-users-table :users="users" />
-            <gov-body>
-              Page {{ currentPage }} of {{ lastPage }}
-              <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-           --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
-            </gov-body>
-          </template>
+
+          <ck-resource-listing-table
+            ref="usersTable"
+            uri="/users"
+            :params="params"
+            default-sort="first_name"
+            :columns="[
+              { heading: 'First name', sort: 'first_name', render: (user) => user.first_name },
+              { heading: 'Last name', sort: 'last_name', render: (user) => user.last_name },
+              { heading: 'Highest permission level', sort: 'highest_role', render: (user) => displayHighestRole(user.roles) },
+              { heading: 'Phone number', render: (user) => user.phone },
+            ]"
+            :view-route="(user) => {
+              return {
+                name: 'users-show',
+                params: { user: user.id }
+              }
+            }"
+          />
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -36,62 +78,92 @@
 </template>
 
 <script>
-import http from "@/http";
+import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
   name: "ListUsers",
+  components: { CkResourceListingTable },
   data() {
     return {
-      loading: false,
-      query: "",
-      users: [],
-      currentPage: 1,
-      lastPage: 1
+      showAllFilters: false,
+      filters: {
+        first_name: "",
+        last_name: "",
+        phone: "",
+        highest_role: "",
+      },
+      roles: [
+        { value: "", text: "All" },
+        { value: "Super Admin", text: "Super Admin" },
+        { value: "Global Admin", text: "Global Admin" },
+        { value: "Organisation Admin", text: "Organisation Admin" },
+        { value: "Service Admin", text: "Service Admin" },
+        { value: "Service Worker", text: "Service Worker" },
+      ],
     };
   },
   computed: {
     params() {
-      let params = {
-        "page": this.currentPage,
+      const params = {
+        include: "user-roles",
         "filter[has_permission]": true,
       };
 
-      if (this.query.length > 0) {
-        params["filter[first_name]"] = this.query;
+      if (this.filters.first_name !== "") {
+        params["filter[first_name]"] = this.filters.first_name;
+      }
+
+      if (this.filters.last_name !== "") {
+        params["filter[last_name]"] = this.filters.last_name;
+      }
+
+      if (this.filters.phone !== "") {
+        params["filter[phone]"] = this.filters.phone;
+      }
+
+      if (this.filters.highest_role !== "") {
+        params["filter[highest_role]"] = this.filters.highest_role;
       }
 
       return params;
     }
   },
   methods: {
-    fetchUsers() {
-      this.loading = true;
-
-      http.get("/users", { params: this.params }).then(({ data }) => {
-        this.users = data.data;
-        this.currentPage = data.meta.current_page;
-        this.lastPage = data.meta.last_page;
-        this.loading = false;
-      });
-    },
-    onNext() {
-      this.currentPage++;
-      this.fetchUsers();
-    },
-    onPrevious() {
-      this.currentPage--;
-      this.fetchUsers();
-    },
     onSearch() {
-      this.currentPage = 1;
-      this.fetchUsers();
+      this.$refs.usersTable.currentPage = 1;
+      this.$refs.usersTable.fetchResources();
     },
     onAddUser() {
       this.$router.push({ name: "users-create" });
-    }
+    },
+    displayHighestRole(roles) {
+      const isSuperAdmin = roles.find((role) => role.role === "Super Admin") !== undefined;
+      if (isSuperAdmin) {
+        return "Super Admin";
+      }
+
+      const isGlobalAdmin = roles.find((role) => role.role === "Global Admin") !== undefined;
+      if (isGlobalAdmin) {
+        return "Global Admin";
+      }
+
+      const isOrganisationAdmin = roles.find((role) => role.role === "Organisation Admin") !== undefined;
+      if (isOrganisationAdmin) {
+        return "Organisation Admin";
+      }
+
+      const isServiceAdmin = roles.find((role) => role.role === "Service Admin") !== undefined;
+      if (isServiceAdmin) {
+        return "Service Admin";
+      }
+
+      const isServiceWorker = roles.find((role) => role.role === "Service Worker") !== undefined;
+      if (isServiceWorker) {
+        return "Service Worker";
+      }
+
+      return "None";
+    },
   },
-  created() {
-    this.fetchUsers();
-  }
 };
 </script>

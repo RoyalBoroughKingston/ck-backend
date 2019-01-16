@@ -3,32 +3,76 @@
     <vue-headful title="Connected Kingston - List Services" />
 
     <gov-back-link :to="{ name: 'dashboard' }">Back to dashboard</gov-back-link>
+
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
+
           <gov-heading size="xl">Services</gov-heading>
+
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-form-group>
-                <gov-label for="search">Search for a service by name</gov-label>
-                <gov-input @enter="onSearch" v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
-             --><gov-button @click="onSearch" type="submit">Search</gov-button>
-              </gov-form-group>
+              <gov-heading size="m">Filters</gov-heading>
+
+              <form @submit.prevent="onSearch">
+
+                <gov-form-group>
+                  <gov-label for="filter[name]">Service name</gov-label>
+                  <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
+                </gov-form-group>
+
+                <template v-if="showAllFilters">
+                  <gov-form-group>
+                    <gov-label for="filter[organisation_name]">Organisation name</gov-label>
+                    <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[status]">Status</gov-label>
+                    <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[referral_method]">Referral method</gov-label>
+                    <gov-select v-model="filters.referral_method" id="filter[referral_method]" name="filter[referral_method]" :options="referralMethods"/>
+                  </gov-form-group>
+                </template>
+
+                <gov-form-group>
+                  <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
+                  <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
+                </gov-form-group>
+
+                <gov-form-group>
+                  <gov-button type="submit">Search</gov-button>
+                </gov-form-group>
+
+              </form>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isOrganisationAdmin()" width="one-third">
-              <gov-label for="empty">&nbsp;</gov-label>
               <gov-button @click="onAddService" type="submit" expand>Add service</gov-button>
             </gov-grid-column>
           </gov-grid-row>
-          <ck-loader v-if="loading" />
-          <template v-else>
-            <ck-services-table :services="services" />
-            <gov-body>
-              Page {{ currentPage }} of {{ lastPage }}
-              <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-           --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
-            </gov-body>
-          </template>
+
+          <ck-resource-listing-table
+            ref="servicesTable"
+            uri="/services"
+            :params="params"
+            default-sort="name"
+            :columns="[
+              { heading: 'Service name', sort: 'name', render: (service) => service.name },
+              { heading: 'Organisation', sort: 'organisation_name', render: (service) => service.organisation.name },
+              { heading: 'Status', render: (service) => displayStatus(service.status) },
+              { heading: 'Referral method', render: (service) => displayReferralMethod(service.referral_method) },
+            ]"
+            :view-route="(service) => {
+              return {
+                name: 'services-show',
+                params: { service: service.id }
+              }
+            }"
+          />
+
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -36,63 +80,80 @@
 </template>
 
 <script>
-import http from "@/http";
+import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
   name: "ListServices",
+  components: { CkResourceListingTable },
   data() {
     return {
-      loading: false,
-      query: "",
-      services: [],
-      currentPage: 1,
-      lastPage: 1
+      showAllFilters: false,
+      filters: {
+        name: "",
+        organisation_name: "",
+        status: "",
+        referral_method: "",
+      },
+      statuses: [
+        { value: "", text: "All" },
+        { value: "active", text: "Enabled" },
+        { value: "inactive", text: "Disabled" },
+      ],
+      referralMethods: [
+        { value: "", text: "All" },
+        { value: "internal", text: "Internal" },
+        { value: "external", text: "External" },
+        { value: "none", text: "None" },
+      ],
     };
   },
   computed: {
     params() {
-      let params = {
-        "page": this.currentPage,
+      const params = {
         "include": "organisation",
         "filter[has_permission]": true,
       };
 
-      if (this.query.length > 0) {
-        params["filter[name]"] = this.query;
+      if (this.filters.name !== "") {
+        params["filter[name]"] = this.filters.name;
+      }
+
+      if (this.filters.organisation_name !== "") {
+        params["filter[organisation_name]"] = this.filters.organisation_name;
+      }
+
+      if (this.filters.status !== "") {
+        params["filter[status]"] = this.filters.status;
+      }
+
+      if (this.filters.referral_method !== "") {
+        params["filter[referral_method]"] = this.filters.referral_method;
       }
 
       return params;
     }
   },
   methods: {
-    fetchServices() {
-      this.loading = true;
-
-      http.get("/services", { params: this.params }).then(({ data }) => {
-        this.services = data.data;
-        this.currentPage = data.meta.current_page;
-        this.lastPage = data.meta.last_page;
-        this.loading = false;
-      });
-    },
-    onNext() {
-      this.currentPage++;
-      this.fetchServices();
-    },
-    onPrevious() {
-      this.currentPage--;
-      this.fetchServices();
-    },
     onSearch() {
-      this.currentPage = 1;
-      this.fetchServices();
+      this.$refs.servicesTable.currentPage = 1;
+      this.$refs.servicesTable.fetchResources();
     },
     onAddService() {
       this.$router.push({ name: "services-create" });
+    },
+    displayStatus(status) {
+      switch (status) {
+        case "active":
+          return "Enabled";
+        case "inactive":
+          return "Disabled";
+        default:
+          return status;
+      }
+    },
+    displayReferralMethod(referralMethod) {
+      return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);
     }
   },
-  created() {
-    this.fetchServices();
-  }
 };
 </script>

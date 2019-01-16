@@ -1,5 +1,5 @@
 <template>
-  <th class="govuk-table__header" :class="computedClasses">
+  <th @click="$emit('click')" class="govuk-table__header" :class="computedClasses">
     <slot />
   </th>
 </template>
@@ -17,15 +17,30 @@ export default {
       type: Boolean,
       required: false,
       default: false
-    }
+    },
+    clickable: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
   },
   computed: {
     computedClasses() {
       return {
         "align-top": this.top,
-        "text-right": this.right
+        "text-right": this.right,
+        "ck-table__header--clickable": this.clickable,
       };
     }
   }
 };
 </script>
+
+<style lang="scss">
+.ck-table__header--clickable {
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+</style>

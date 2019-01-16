@@ -6,29 +6,49 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
+
           <gov-heading size="xl">Organisations</gov-heading>
+
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-form-group>
-                <gov-label for="search">Search for an organisation by name</gov-label>
-                <gov-input @enter="onSearch" v-model="query" id="search" name="search" type="search" class="govuk-!-width-three-quarters" />&nbsp;<!--
-             --><gov-button @click="onSearch" type="submit">Search</gov-button>
-              </gov-form-group>
+              <gov-heading size="m">Filters</gov-heading>
+
+              <form @submit.prevent="onSearch">
+
+                <gov-form-group>
+                  <gov-label for="filter[name]">Organisation name</gov-label>
+                  <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
+                </gov-form-group>
+
+                <gov-form-group>
+                  <gov-button type="submit">Search</gov-button>
+                </gov-form-group>
+
+              </form>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
-              <gov-label for="empty">&nbsp;</gov-label>
               <gov-button @click="onAddOrganisation" type="submit" expand>Add organisation</gov-button>
             </gov-grid-column>
           </gov-grid-row>
-          <ck-loader v-if="loading" />
-          <template v-else>
-            <ck-organisations-table :organisations="organisations" />
-            <gov-body>
-              Page {{ currentPage }} of {{ lastPage }}
-              <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-           --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
-            </gov-body>
-          </template>
+
+          <ck-resource-listing-table
+            ref="organisationsTable"
+            uri="/organisations"
+            :params="params"
+            default-sort="name"
+            :columns="[
+              { heading: 'Organisation name', sort: 'name', render: (organisation) => organisation.name },
+              { heading: 'Web address URL', render: (organisation) => organisation.url },
+              { heading: 'Phone number', render: (organisation) => organisation.phone },
+              { heading: 'Email', render: (organisation) => organisation.email },
+            ]"
+            :view-route="(organisation) => {
+              return {
+                name: 'organisations-show',
+                params: { organisation: organisation.id }
+              }
+            }"
+          />
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -36,62 +56,39 @@
 </template>
 
 <script>
-import http from "@/http";
+import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
   name: "ListOrganisations",
+  components: { CkResourceListingTable },
   data() {
     return {
-      loading: false,
-      query: "",
-      organisations: [],
-      currentPage: 1,
-      lastPage: 1
+      filters: {
+        name: "",
+      },
     };
   },
   computed: {
     params() {
-      let params = {
-        "page": this.currentPage,
+      const params = {
         "filter[has_permission]": true,
       };
 
-      if (this.query.length > 0) {
-        params["filter[name]"] = this.query;
+      if (this.filters.name !== "") {
+        params["filter[name]"] = this.filters.name;
       }
 
       return params;
     }
   },
   methods: {
-    fetchOrganisations() {
-      this.loading = true;
-
-      http.get("/organisations", { params: this.params }).then(({ data }) => {
-        this.organisations = data.data;
-        this.currentPage = data.meta.current_page;
-        this.lastPage = data.meta.last_page;
-        this.loading = false;
-      });
-    },
-    onNext() {
-      this.currentPage++;
-      this.fetchOrganisations();
-    },
-    onPrevious() {
-      this.currentPage--;
-      this.fetchOrganisations();
-    },
     onSearch() {
-      this.currentPage = 1;
-      this.fetchOrganisations();
+      this.$refs.organisationsTable.currentPage = 1;
+      this.$refs.organisationsTable.fetchResources();
     },
     onAddOrganisation() {
       this.$router.push({ name: "organisations-create" });
     }
   },
-  created() {
-    this.fetchOrganisations();
-  }
 };
 </script>

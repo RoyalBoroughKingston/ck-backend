@@ -11,7 +11,8 @@ let router = new Router({
     {
       path: "/login",
       name: "login",
-      component: () => import("@/views/auth/Login")
+      component: () => import("@/views/auth/Login"),
+      meta: { auth: false }
     },
     {
       path: "/logout",
@@ -396,7 +397,7 @@ router.beforeEach((to, from, next) => {
   // If user needs to be authenticated, then redirect them to the auth URL.
   if (to.matched.some(route => route.meta.auth)) {
     if (!Auth.isLoggedIn) {
-      return next({ name: "logout" });
+      return next({ name: "login" });
     }
   }
 

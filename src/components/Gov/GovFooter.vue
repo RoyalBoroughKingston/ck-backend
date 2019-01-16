@@ -2,7 +2,8 @@
     <footer class="govuk-footer" role="contentinfo">
         <div class="govuk-width-container" :class="containerClasses">
 
-            <div v-if="navigation" class="govuk-footer__navigation">
+            <template v-if="navigation">
+            <div class="govuk-footer__navigation">
                 <div v-for="(item, key) in navigation" :key="key" class="govuk-footer__section">
                     <h2 class="govuk-footer__heading govuk-heading-m">{{ item.title }}</h2>
                     <ul class="govuk-footer__list" :class="listClasses(item)">
@@ -16,6 +17,7 @@
             </div>
 
             <hr class="govuk-footer__section-break">
+            </template>
 
             <div class="govuk-footer__meta">
                 <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
