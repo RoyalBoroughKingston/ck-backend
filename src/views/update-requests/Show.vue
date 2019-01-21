@@ -6,7 +6,7 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <gov-grid-column width="two-thirds">
+        <gov-grid-column width="full">
 
           <gov-error-summary title="Check this page">
             The update request needs to be confirmed. Check the
