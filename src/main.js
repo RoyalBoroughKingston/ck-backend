@@ -165,7 +165,7 @@ Vue.mixin({
       );
     },
     formatDateTime(dateTime) {
-      return moment(dateTime, moment.ISO_8601).format("D/M/YY HH:mm");
+      return moment(dateTime, moment.ISO_8601).format("D/M/YYYY HH:mm");
     },
     toMarkdown(html) {
       return MarkdownConverter.toMarkdown(html);
