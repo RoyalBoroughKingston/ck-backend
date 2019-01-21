@@ -10,10 +10,10 @@
       <template slot="body">
 
         <gov-table-row>
-        <gov-table-header scope="column"></gov-table-header>
-        <gov-table-header scope="column">From</gov-table-header>
-        <gov-table-header scope="column">To</gov-table-header>
-      </gov-table-row>
+          <gov-table-header scope="column"></gov-table-header>
+          <gov-table-header scope="column">From</gov-table-header>
+          <gov-table-header scope="column">To</gov-table-header>
+        </gov-table-row>
 
         <gov-table-row v-if="serviceLocation.name">
           <gov-table-header top scope="row">Name</gov-table-header>
@@ -93,23 +93,6 @@ export default {
       service: null,
       location: null
     };
-  },
-  computed: {
-    fetching() {
-      if (this.loading.serviceLocation) {
-        return true;
-      }
-
-      if (this.loading.service) {
-        return true;
-      }
-
-      if (this.loading.location) {
-        return true;
-      }
-
-      return false;
-    }
   },
   methods: {
     async fetchAll() {
