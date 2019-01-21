@@ -19,7 +19,7 @@
           <gov-table-cell>
             <gov-list v-if="serviceLocation.regular_opening_hours.length > 0">
               <li
-                v-for="(openingHour, index) in serviceLocation.regular_opening_hours"
+                v-for="(regularOpeningHour, index) in serviceLocation.regular_opening_hours"
                 :key="index"
                 v-text="formatRegularOpeningHour(regularOpeningHour)"
               />
@@ -33,7 +33,7 @@
           <gov-table-cell>
             <gov-list v-if="serviceLocation.holiday_opening_hours.length > 0">
               <li
-                v-for="(openingHour, index) in serviceLocation.holiday_opening_hours"
+                v-for="(holidayOpeningHour, index) in serviceLocation.holiday_opening_hours"
                 :key="index"
                 v-text="formatHolidayOpeningHour(holidayOpeningHour)"
               />
