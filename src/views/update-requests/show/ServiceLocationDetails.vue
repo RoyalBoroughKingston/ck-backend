@@ -14,35 +14,31 @@
           <gov-table-cell>{{ serviceLocation.name }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row>
+        <gov-table-row v-if="serviceLocation.hasOwnProperty('regular_opening_hours')">
           <gov-table-header top scope="row">Regular opening hours</gov-table-header>
           <gov-table-cell>
-            <gov-list>
+            <gov-list v-if="serviceLocation.regular_opening_hours.length > 0">
               <li
-                v-for="(regularOpeningHour, index) in serviceLocation.regular_opening_hours"
+                v-for="(openingHour, index) in serviceLocation.regular_opening_hours"
                 :key="index"
                 v-text="formatRegularOpeningHour(regularOpeningHour)"
               />
-              <li v-if="serviceLocation.regular_opening_hours.length === 0">
-                No regular opening hours have been specifeid for this service
-              </li>
             </gov-list>
+            <template v-else>None</template>
           </gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row>
+        <gov-table-row v-if="serviceLocation.hasOwnProperty('holiday_opening_hours')">
           <gov-table-header top scope="row">Holiday opening hours</gov-table-header>
           <gov-table-cell>
-            <gov-list>
+            <gov-list v-if="serviceLocation.holiday_opening_hours.length > 0">
               <li
-                v-for="(holidayOpeningHour, index) in serviceLocation.holiday_opening_hours"
+                v-for="(openingHour, index) in serviceLocation.holiday_opening_hours"
                 :key="index"
                 v-text="formatHolidayOpeningHour(holidayOpeningHour)"
               />
-              <li v-if="serviceLocation.holiday_opening_hours.length === 0">
-                No holiday opening hours have been specifeid for this service
-              </li>
             </gov-list>
+            <template v-else>None</template>
           </gov-table-cell>
         </gov-table-row>
 
