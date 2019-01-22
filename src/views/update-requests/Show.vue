@@ -6,7 +6,7 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <gov-grid-column width="two-thirds">
+        <gov-grid-column width="full">
 
           <gov-error-summary title="Check this page">
             The update request needs to be confirmed. Check the
@@ -18,26 +18,27 @@
 
           <organisation-details
             v-if="updateRequest.updateable_type === 'organisations'"
+            :update-request-id="updateRequest.id"
             :organisation="updateRequest.data"
           />
           <service-details
             v-else-if="updateRequest.updateable_type === 'services'"
+            :update-request-id="updateRequest.id"
             :service="updateRequest.data"
           />
           <location-details
             v-else-if="updateRequest.updateable_type === 'locations'"
+            :update-request-id="updateRequest.id"
             :location="updateRequest.data"
           />
           <service-location-details
             v-else-if="updateRequest.updateable_type === 'service_locations'"
+            :update-request-id="updateRequest.id"
             :service-location="updateRequest.data"
           />
-          <update-request-details
-            v-else
-            :update-request="updateRequest"
-          />
+          <gov-body v-else>Update request is invalid</gov-body>
 
-          <gov-section-break size="xl" />
+          <gov-section-break size="xl"/>
 
           <gov-heading size="m">Do you approve these changes?</gov-heading>
 
@@ -71,7 +72,6 @@
 
 <script>
 import http from "@/http";
-import UpdateRequestDetails from "@/views/update-requests/show/UpdateRequestDetails";
 import OrganisationDetails from "@/views/update-requests/show/OrganisationDetails";
 import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
 import LocationDetails from "@/views/update-requests/show/LocationDetails";
@@ -80,7 +80,6 @@ import ServiceLocationDetails from "@/views/update-requests/show/ServiceLocation
 export default {
   name: "ShowUpdateRequest",
   components: {
-    UpdateRequestDetails,
     OrganisationDetails,
     ServiceDetails,
     LocationDetails,

@@ -95,15 +95,25 @@ export default class Form {
     return new Promise((resolve, reject) => {
       http[requestType](url, data, config)
         .then(response => {
+          this.onSuccess(response.data);
+
           resolve(response.data);
         })
         .catch(error => {
           this.onFail(error.response.data);
 
           reject(error.response.data);
-        })
-        .then(() => (this.$submitting = false));
+        });
     });
+  }
+
+  /**
+   * Handle a successful form submission.
+   *
+   * @param {object} data
+   */
+  onSuccess(data) {
+    this.$submitting = false;
   }
 
   /**
@@ -112,6 +122,8 @@ export default class Form {
    * @param {object} data
    */
   onFail(data) {
+    this.$submitting = false;
+
     // Only records errors if there is an error bag returned.
     if (data.hasOwnProperty("errors")) {
       this.$errors.record(data.errors);

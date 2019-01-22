@@ -157,7 +157,7 @@ Vue.mixin({
         .replace(/-+$/, ""); // Trim - from end of text
     },
     formatDate(date) {
-      return moment(date, moment.ISO_8601).format("D/M/YY");
+      return moment(date, moment.ISO_8601).format("D/M/YYYY");
     },
     formatTime(time) {
       return moment(time, moment.HTML5_FMT.TIME_SECONDS).format(
@@ -165,7 +165,7 @@ Vue.mixin({
       );
     },
     formatDateTime(dateTime) {
-      return moment(dateTime, moment.ISO_8601).format("D/M/YY HH:mm");
+      return moment(dateTime, moment.ISO_8601).format("D/M/YYYY HH:mm");
     },
     toMarkdown(html) {
       return MarkdownConverter.toMarkdown(html);
