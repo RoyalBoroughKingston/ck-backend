@@ -210,6 +210,105 @@ export default {
     },
     async onSubmit() {
       await this.form.put(`/services/${this.service.id}`, (config, data) => {
+        // Remove any unchanged values.
+        if (data.name === this.service.name) {
+          delete data.name;
+        }
+        if (data.slug === this.service.slug) {
+          delete data.slug;
+        }
+        if (data.status === this.service.status) {
+          delete data.status;
+        }
+        if (data.intro === this.service.intro) {
+          delete data.intro;
+        }
+        if (data.description === this.service.description) {
+          delete data.description;
+        }
+        if (data.wait_time === this.service.wait_time) {
+          delete data.wait_time;
+        }
+        if (data.is_free === this.service.is_free) {
+          delete data.is_free;
+        }
+        if (data.fees_text === (this.service.fees_text || "")) {
+          delete data.fees_text;
+        }
+        if (data.fees_url === (this.service.fees_url || "")) {
+          delete data.fees_url;
+        }
+        if (data.testimonial === (this.service.testimonial || "")) {
+          delete data.testimonial;
+        }
+        if (data.video_embed === (this.service.video_embed || "")) {
+          delete data.video_embed;
+        }
+        if (data.url === this.service.url) {
+          delete data.url;
+        }
+        if (data.contact_name === (this.service.contact_name || "")) {
+          delete data.contact_name;
+        }
+        if (data.contact_phone === (this.service.contact_phone || "")) {
+          delete data.contact_phone;
+        }
+        if (data.contact_email === (this.service.contact_email || "")) {
+          delete data.contact_email;
+        }
+        if (data.show_referral_disclaimer === this.service.show_referral_disclaimer) {
+          delete data.show_referral_disclaimer;
+        }
+        if (data.referral_method === this.service.referral_method) {
+          delete data.referral_method;
+        }
+        if (data.referral_button_text === (this.service.referral_button_text || "")) {
+          delete data.referral_button_text;
+        }
+        if (data.referral_email === (this.service.referral_email || "")) {
+          delete data.referral_email;
+        }
+        if (data.referral_url === (this.service.referral_url || "")) {
+          delete data.referral_url;
+        }
+        if (data.criteria.age_group === (this.service.criteria.age_group || "")) {
+          delete data.criteria.age_group;
+        }
+        if (data.criteria.disability === (this.service.criteria.disability || "")) {
+          delete data.criteria.disability;
+        }
+        if (data.criteria.employment === (this.service.criteria.employment || "")) {
+          delete data.criteria.employment;
+        }
+        if (data.criteria.gender === (this.service.criteria.gender || "")) {
+          delete data.criteria.gender;
+        }
+        if (data.criteria.housing === (this.service.criteria.housing || "")) {
+          delete data.criteria.housing;
+        }
+        if (data.criteria.income === (this.service.criteria.income || "")) {
+          delete data.criteria.income;
+        }
+        if (data.criteria.language === (this.service.criteria.language || "")) {
+          delete data.criteria.language;
+        }
+        if (data.criteria.other === (this.service.criteria.other || "")) {
+          delete data.criteria.other;
+        }
+        if (Object.keys(data.criteria).length === 0) {
+          delete data.criteria;
+        }
+        if (JSON.stringify(data.useful_infos) === JSON.stringify(this.service.useful_infos)) {
+          delete data.useful_infos;
+        }
+        if (JSON.stringify(data.social_medias) === JSON.stringify(this.service.social_medias)) {
+          delete data.social_medias;
+        }
+        if (JSON.stringify(data.category_taxonomies) === JSON.stringify(this.service.category_taxonomies.map(taxonomy => taxonomy.id))) {
+          delete data.category_taxonomies;
+        }
+
+        // Remove the logo from the request if null.
         if (data.logo === null) {
           delete data.logo;
         }
