@@ -2,8 +2,8 @@
   <ck-loader v-if="loading" />
   <div v-else>
     <gov-body>
-      For the <gov-link :to="{ name: 'services-show', params: { service: service.id } }" v-text="service.name" />
-      service at location <gov-link :to="{ name: 'locations-show', params: { location: location.id } }" v-text="location.address_line_1" />.
+      For service <gov-link :to="{ name: 'services-show', params: { service: service.id } }" v-text="service.name"/>
+      at location <gov-link :to="{ name: 'locations-show', params: { location: location.id } }" v-text="location.address_line_1"/>.
     </gov-body>
 
     <gov-table>
