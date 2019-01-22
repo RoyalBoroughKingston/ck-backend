@@ -106,8 +106,13 @@
                 :referral_email.sync="form.referral_email"
                 :referral_url.sync="form.referral_url"
               >
-                <gov-button v-if="form.$submitting" disabled type="submit">Updating...</gov-button>
-                <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
+                <gov-warning-text>
+                  Please be aware that by submitting this update request, any fields you have changed
+                  will overwrite the same fields for all pending update requests.
+                </gov-warning-text>
+
+                <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
+                <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
                 <ck-submit-error v-if="form.$errors.any()" />
               </referral-tab>
 
