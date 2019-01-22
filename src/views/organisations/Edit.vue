@@ -75,6 +75,26 @@ export default {
       await this.form.put(
         `/organisations/${this.organisation.id}`,
         (config, data) => {
+          // Remove any unchagned values.
+          if (data.name === this.organisation.name) {
+            delete data.name;
+          }
+          if (data.slug === this.organisation.slug) {
+            delete data.slug;
+          }
+          if (data.description === this.organisation.description) {
+            delete data.description;
+          }
+          if (data.url === this.organisation.url) {
+            delete data.url;
+          }
+          if (data.email === this.organisation.email) {
+            delete data.email;
+          }
+          if (data.phone === this.organisation.phone) {
+            delete data.phone;
+          }
+
           // Remove the logo from the request if null.
           if (data.logo === null) {
             delete data.logo;
