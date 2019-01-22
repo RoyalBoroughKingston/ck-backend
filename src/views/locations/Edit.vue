@@ -76,7 +76,7 @@ export default {
     },
     async onSubmit() {
       await this.form.put(`/locations/${this.location.id}`, (config, data) => {
-        // Remove any unchagned values.
+        // Remove any unchanged values.
         if (data.address_line_1 === this.location.address_line_1) {
           delete data.address_line_1;
         }

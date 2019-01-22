@@ -44,7 +44,7 @@ import http from "@/http";
 import ServiceLocationDetails from "@/views/service-locations/show/ServiceLocationDetails";
 
 export default {
-  name: "ShowOrganisation",
+  name: "ShowServiceLocation",
   components: { ServiceLocationDetails },
   data() {
     return {

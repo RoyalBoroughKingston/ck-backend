@@ -75,7 +75,7 @@ export default {
       await this.form.put(
         `/organisations/${this.organisation.id}`,
         (config, data) => {
-          // Remove any unchagned values.
+          // Remove any unchanged values.
           if (data.name === this.organisation.name) {
             delete data.name;
           }
