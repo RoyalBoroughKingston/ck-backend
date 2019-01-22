@@ -74,13 +74,45 @@ export default {
 
       this.loading = false;
     },
-    onSubmit() {
-      this.form.put(`/locations/${this.location.id}`).then(() =>
-        this.$router.push({
-          name: "locations-updated",
-          params: { location: this.location.id }
-        })
-      );
+    async onSubmit() {
+      await this.form.put(`/locations/${this.location.id}`, (config, data) => {
+        // Remove any unchagned values.
+        if (data.address_line_1 === this.location.address_line_1) {
+          delete data.address_line_1;
+        }
+        if (data.address_line_2 === (this.location.address_line_2 || "")) {
+          delete data.address_line_2;
+        }
+        if (data.address_line_3 === (this.location.address_line_3 || "")) {
+          delete data.address_line_3;
+        }
+        if (data.city === this.location.city) {
+          delete data.city;
+        }
+        if (data.county === this.location.county) {
+          delete data.county;
+        }
+        if (data.postcode === this.location.postcode) {
+          delete data.postcode;
+        }
+        if (data.country === this.location.country) {
+          delete data.country;
+        }
+        if (data.accessibility_info === (this.location.accessibility_info || "")) {
+          delete data.accessibility_info;
+        }
+        if (data.has_wheelchair_access === this.location.has_wheelchair_access) {
+          delete data.has_wheelchair_access;
+        }
+        if (data.has_induction_loop === this.location.has_induction_loop) {
+          delete data.has_induction_loop;
+        }
+      });
+
+      this.$router.push({
+        name: "locations-updated",
+        params: { location: this.location.id }
+      });
     }
   },
   created() {
