@@ -45,6 +45,16 @@
         <gov-table-cell v-html="toHtml(organisation.description)" />
       </gov-table-row>
 
+      <gov-table-row v-if="organisation.hasOwnProperty('logo_file_id')">
+        <gov-table-header top scope="row">Logo</gov-table-header>
+        <gov-table-cell>
+          <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?v=${organisation.updated_at}`)" alt="Organisation logo" class="ck-logo">
+        </gov-table-cell>
+        <gov-table-cell>
+          <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?update_request_id=${updateRequestId}`)" alt="Organisation logo" class="ck-logo">
+        </gov-table-cell>
+      </gov-table-row>
+
     </template>
   </gov-table>
 </template>
@@ -55,6 +65,11 @@ import http from "@/http";
 export default {
   name: "OrganisationDetails",
   props: {
+    updateRequestId: {
+      required: true,
+      type: String,
+    },
+
     organisation: {
       required: true,
       type: Object,

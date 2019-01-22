@@ -81,6 +81,11 @@ import http from "@/http";
 export default {
   name: "ServiceLocationDetails",
   props: {
+    updateRequestId: {
+      required: true,
+      type: String,
+    },
+
     serviceLocation: {
       required: true,
       type: Object

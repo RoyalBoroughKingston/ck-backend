@@ -251,6 +251,16 @@
         <gov-table-cell>{{ service.show_referral_disclaimer | showReferralDisclaimer }}</gov-table-cell>
       </gov-table-row>
 
+      <gov-table-row v-if="service.hasOwnProperty('logo_file_id')">
+        <gov-table-header top scope="row">Logo</gov-table-header>
+        <gov-table-cell>
+          <img :src="apiUrl(`/services/${service.id}/logo.png?v=${service.updated_at}`)" alt="Service logo" class="ck-logo">
+        </gov-table-cell>
+        <gov-table-cell>
+          <img :src="apiUrl(`/services/${service.id}/logo.png?update_request_id=${updateRequestId}`)" alt="Service logo" class="ck-logo">
+        </gov-table-cell>
+      </gov-table-row>
+
     </template>
   </gov-table>
 </template>
@@ -261,6 +271,11 @@ import http from "@/http";
 export default {
   name: "ServiceDetails",
   props: {
+    updateRequestId: {
+      required: true,
+      type: String,
+    },
+
     service: {
       required: true,
       type: Object

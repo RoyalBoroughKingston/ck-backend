@@ -18,18 +18,22 @@
 
           <organisation-details
             v-if="updateRequest.updateable_type === 'organisations'"
+            :update-request-id="updateRequest.id"
             :organisation="updateRequest.data"
           />
           <service-details
             v-else-if="updateRequest.updateable_type === 'services'"
+            :update-request-id="updateRequest.id"
             :service="updateRequest.data"
           />
           <location-details
             v-else-if="updateRequest.updateable_type === 'locations'"
+            :update-request-id="updateRequest.id"
             :location="updateRequest.data"
           />
           <service-location-details
             v-else-if="updateRequest.updateable_type === 'service_locations'"
+            :update-request-id="updateRequest.id"
             :service-location="updateRequest.data"
           />
           <gov-body v-else>Update request is invalid</gov-body>
