@@ -5,9 +5,13 @@
         <gov-heading size="l">Collection: Categories</gov-heading>
 
         <gov-body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac neque sed
-          lorem ullamcorper luctus. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus.
+          On this page, you can select which taxonomies apply for each category on the front page.
+          You can also add categories using the button above.
+        </gov-body>
+
+        <gov-body>
+          You can move categories up and down. This denotes the order in which the categories appear
+          on the home page. The category at the top of the list will appear on the upper-leftmost corner.
         </gov-body>
       </gov-grid-column>
 
