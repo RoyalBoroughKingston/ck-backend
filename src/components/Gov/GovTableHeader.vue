@@ -13,6 +13,11 @@ export default {
       required: false,
       default: false
     },
+    center: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     right: {
       type: Boolean,
       required: false,
@@ -28,6 +33,7 @@ export default {
     computedClasses() {
       return {
         "align-top": this.top,
+        "text-center": this.center,
         "text-right": this.right,
         "ck-table__header--clickable": this.clickable,
       };

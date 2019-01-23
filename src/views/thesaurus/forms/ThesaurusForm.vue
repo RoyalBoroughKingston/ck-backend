@@ -1,12 +1,13 @@
 <template>
-    <ck-file-input
-      :value="synonyms"
-      @input="onInput('synonyms', $event)"
-      id="synonyms"
-      label="Synonyms"
-      accept="text/csv"
-      :error="errors.get('synonyms')"
-    />
+  <ck-file-input
+    :value="synonyms"
+    @input="onInput('synonyms', $event)"
+    id="synonyms"
+    label="Upload new thesaurus"
+    hint="The CSV must be encoded using UTF-8 to prevent any errors when uploading."
+    accept="text/csv"
+    :error="errors.get('synonyms')"
+  />
 </template>
 
 <script>
