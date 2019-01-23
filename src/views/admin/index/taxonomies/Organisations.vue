@@ -5,9 +5,12 @@
         <gov-heading size="l">Taxonomy: Organisations</gov-heading>
 
         <gov-body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac neque sed
-          lorem ullamcorper luctus. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus.
+          This page shows the list of organisations a user can select from when referring a client to another service.
+          Essentially, these are the organisations a champion can refer 'from'.
+        </gov-body>
+
+        <gov-body>
+          From this page, you can edit, delete, and add the organisations that appear on the list.
         </gov-body>
       </gov-grid-column>
 
@@ -23,17 +26,20 @@
       <gov-grid-column width="two-thirds">
 
         <ck-loader v-if="loading" />
-        <gov-list bullet>
-          <li v-for="taxonomy in taxonomies" :key="taxonomy.id">
-            {{ taxonomy.name }}&nbsp;
-            <gov-link
-              v-if="auth.isSuperAdmin"
-              :to="{ name: 'taxonomies-organisations-edit', params: { taxonomy: taxonomy.id } }"
-            >
-              Edit
-            </gov-link>
-          </li>
-        </gov-list>
+        <template v-else>
+          <gov-list v-if="taxonomies.length > 0" bullet>
+            <li v-for="taxonomy in taxonomies" :key="taxonomy.id">
+              {{ taxonomy.name }}&nbsp;
+              <gov-link
+                v-if="auth.isSuperAdmin"
+                :to="{ name: 'taxonomies-organisations-edit', params: { taxonomy: taxonomy.id } }"
+              >
+                Edit
+              </gov-link>
+            </li>
+          </gov-list>
+          <gov-body v-else>No taxonomies.</gov-body>
+        </template>
 
       </gov-grid-column>
     </gov-grid-row>
