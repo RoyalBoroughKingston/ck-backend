@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import Auth from "@/classes/Auth";
 
 export default {
@@ -79,10 +80,22 @@ export default {
       this.headerNav = Auth.isLoggedIn
         ? this.loggedInItems
         : this.loggedOutItems;
-    }
+    },
+    bindActivityTracking() {
+      document.addEventListener('mousemove', this.trackActivity);
+      document.addEventListener('touchmove', this.trackActivity);
+      document.addEventListener('keypress', this.trackActivity);
+      document.addEventListener('scroll', this.trackActivity);
+    },
+    trackActivity: _.throttle(() => {
+      if (Auth.isLoggedIn) {
+        Auth.invokeActivity();
+      }
+    }, 1000),
   },
   created() {
     this.setHeaderItems();
+    this.bindActivityTracking();
     this.$root.$on("login", this.setHeaderItems);
     this.$root.$on("logout", this.setHeaderItems);
   }
