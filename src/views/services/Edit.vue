@@ -107,8 +107,7 @@
                 :referral_url.sync="form.referral_url"
               >
                 <gov-warning-text>
-                  Please be aware that by submitting this update request, any fields you have changed
-                  will overwrite the same fields for all pending update requests.
+                  Please be aware, by submitting these changes, any pending updates may be overwritten.
                 </gov-warning-text>
 
                 <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
