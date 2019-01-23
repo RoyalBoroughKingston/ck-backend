@@ -7,7 +7,15 @@
         <gov-grid-column width="two-thirds">
           <gov-heading size="l">Thesaurus</gov-heading>
 
+          <gov-body>
+            On this page, you can view and edit the thesaurus used when a user makes a
+            keyword search. The thesaurus means that when users enter in a search
+            term - if it appears in the thesaurus, all synonyms will also be searched.
+          </gov-body>
+
           <gov-button @click="onExportCsv">Download thesaurus</gov-button>
+
+          <gov-heading size="m">Synonyms</gov-heading>
 
           <ck-loader v-if="loading" />
           <ck-thesaurus-list v-else :synonyms="synonyms" />

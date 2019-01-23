@@ -12,7 +12,7 @@
             <location-details :location="location" />
 
             <template v-if="auth.isGlobalAdmin">
-              <gov-body>Please be certain of the action before deleting an organisation</gov-body>
+              <gov-body>Please be certain of the action before deleting a location</gov-body>
 
               <gov-section-break size="l" />
 

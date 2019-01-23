@@ -76,7 +76,7 @@ export default {
       reportTypes: [
         {
           type: "Audit Logs Export",
-          description: "Lorem ipsum",
+          description: "Generate a report of user and visitor activity from the audit logs between certain times.",
           scheduleForm: new Form({
             report_type: "Audit Logs Export",
             repeat_type: null
@@ -89,7 +89,7 @@ export default {
         },
         {
           type: "Feedback Export",
-          description: "Lorem ipsum",
+          description: "Generate a report of all the feedback posted to the site using the inbuilt feedback feature between certain times. ",
           scheduleForm: new Form({
             report_type: "Feedback Export",
             repeat_type: null
@@ -102,7 +102,7 @@ export default {
         },
         {
           type: "Locations Export",
-          description: "Lorem ipsum",
+          description: "Generate a report with all the locations of services on Connected Kingston, and the number of services delivered at each.",
           scheduleForm: new Form({
             report_type: "Locations Export",
             repeat_type: null
@@ -115,7 +115,7 @@ export default {
         },
         {
           type: "Organisations Export",
-          description: "Lorem ipsum",
+          description: "Generate a report of all the organisations on Connected Kingston with the number of services and attributed accounts.",
           scheduleForm: new Form({
             report_type: "Organisations Export",
             repeat_type: null
@@ -128,7 +128,7 @@ export default {
         },
         {
           type: "Referrals Export",
-          description: "Lorem ipsum",
+          description: "Generate a report of all referrals between a certain time period. The report contains no personal information.",
           scheduleForm: new Form({
             report_type: "Referrals Export",
             repeat_type: null
@@ -141,7 +141,7 @@ export default {
         },
         {
           type: "Search Histories Export",
-          description: "Lorem ipsum",
+          description: "Generate a report of all the keyword search queries entered on the site, between a certain time period.",
           scheduleForm: new Form({
             report_type: "Search Histories Export",
             repeat_type: null
@@ -154,7 +154,7 @@ export default {
         },
         {
           type: "Services Export",
-          description: "Lorem ipsum",
+          description: "Generate a list of all services, including contact details, whether they have referrals enabled, the last time updated, contact details etc.",
           scheduleForm: new Form({
             report_type: "Services Export",
             repeat_type: null
@@ -167,7 +167,7 @@ export default {
         },
         {
           type: "Users Export",
-          description: "Lorem ipsum",
+          description: "Generate a report of all users on the site, contact details, and last login times.",
           scheduleForm: new Form({
             report_type: "Users Export",
             repeat_type: null

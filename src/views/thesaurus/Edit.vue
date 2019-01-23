@@ -28,10 +28,48 @@
                   people,persons,,,
                 </ck-code>
 
+                <gov-heading size="s">Guidance on adding thesaurus entries:</gov-heading>
+
+                <gov-list bullet>
+                  <li>Synonyms should, if at all possible, be only singular words</li>
+                  <li>
+                    If you must use a multiple word synonym, it must appear on a row with only
+                    one other synonym. This other synonym can then appear later in the sheet
+                    with further synonyms. Example:
+
+                    <gov-table>
+                      <gov-table-row slot="header">
+                        <gov-table-header/>
+                        <gov-table-header center>A</gov-table-header>
+                        <gov-table-header center>B</gov-table-header>
+                        <gov-table-header center>C</gov-table-header>
+                        <gov-table-header center>D</gov-table-header>
+                      </gov-table-row>
+                      <template slot="body">
+                        <gov-table-row>
+                          <gov-table-header center>1</gov-table-header>
+                          <gov-table-cell>old people</gov-table-cell>
+                          <gov-table-cell>elderly</gov-table-cell>
+                          <gov-table-cell/>
+                          <gov-table-cell/>
+                        </gov-table-row>
+                        <gov-table-row>
+                          <gov-table-header center>2</gov-table-header>
+                          <gov-table-cell>elderly</gov-table-cell>
+                          <gov-table-cell>old</gov-table-cell>
+                          <gov-table-cell>elders</gov-table-cell>
+                          <gov-table-cell>pensioner</gov-table-cell>
+                        </gov-table-row>
+                      </template>
+                    </gov-table>
+                  </li>
+                  <li>The multi-word synonym must appear in column A, and it’s replacement in column B</li>
+                </gov-list>
+
                 <thesaurus-form
-                    :errors="form.$errors"
-                    :synonyms.sync="file"
-                    @clear="form.$errors.clear($event)"
+                  :errors="form.$errors"
+                  :synonyms.sync="file"
+                  @clear="form.$errors.clear($event)"
                 />
 
                 <gov-section-break size="l" />
