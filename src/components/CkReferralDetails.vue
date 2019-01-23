@@ -77,10 +77,10 @@ export default {
     type() {
       // Implies self-referral.
       if (this.isSelfReferral) {
-        return "Refered myself";
+        return "Referred myself";
       }
 
-      return "Refered by someone else";
+      return "Referred by someone else";
     },
     consented() {
       return this.referral.referral_consented_at === null ? "No" : "Yes";
