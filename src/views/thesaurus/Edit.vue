@@ -79,18 +79,24 @@ export default {
       this.$router.push({ name: "admin-index-thesaurus" });
     },
 
+    /**
+     * @link https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings/30106551
+     */
     base64Decode(string) {
       string = string.replace("data:text/csv;base64,", "");
-      return atob(string);
+      string = decodeURIComponent(atob(string).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      return string;
     },
 
     parseCsv(content) {
-      let synonyms = content.split(/\n/);
-      synonyms = synonyms.map(synonym => synonym.split(","));
-      synonyms = synonyms.map(synonym =>
-        synonym.filter(word => word.length > 1)
-      );
-      synonyms = synonyms.filter(synonym => synonym.length > 0);
+      const synonyms = content
+        .split(/\n/)
+        .map(synonym => synonym.split(","))
+        .map(synonym => synonym.filter(word => word.length > 1))
+        .filter(synonym => synonym.length > 0);
 
       return synonyms;
     }
