@@ -44,6 +44,10 @@
                 :fees_url.sync="form.fees_url"
                 :testimonial.sync="form.testimonial"
                 :video_embed.sync="form.video_embed"
+                :contact_name.sync="form.contact_name"
+                :contact_phone.sync="form.contact_phone"
+                :contact_email.sync="form.contact_email"
+                :social_medias.sync="form.social_medias"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </additional-info-tab>
@@ -56,18 +60,6 @@
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </useful-info-tab>
-
-              <contact-details-tab
-                v-if="tabs[3].active"
-                @clear="form.$errors.clear($event); errors = {}"
-                :errors="form.$errors"
-                :contact_name.sync="form.contact_name"
-                :contact_phone.sync="form.contact_phone"
-                :contact_email.sync="form.contact_email"
-                :social_medias.sync="form.social_medias"
-              >
-                <gov-button @click="onNext" start>Next</gov-button>
-              </contact-details-tab>
 
               <who-for-tab
                 v-if="tabs[4].active"
@@ -130,7 +122,6 @@ import http from "@/http";
 import DetailsTab from "@/views/services/forms/DetailsTab";
 import AdditionalInfoTab from "@/views/services/forms/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
-import ContactDetailsTab from "@/views/services/forms/ContactDetailsTab";
 import WhoForTab from "@/views/services/forms/WhoForTab";
 import ReferralTab from "@/views/services/forms/ReferralTab";
 import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
@@ -141,7 +132,6 @@ export default {
     DetailsTab,
     AdditionalInfoTab,
     UsefulInfoTab,
-    ContactDetailsTab,
     WhoForTab,
     ReferralTab,
     TaxonomiesTab
@@ -153,7 +143,6 @@ export default {
         { heading: "Details", active: true },
         { heading: "Additional info", active: false },
         { heading: "Useful info", active: false },
-        { heading: "Contact info", active: false },
         { heading: "Who is it for?", active: false },
         { heading: "Taxonomies", active: false },
         { heading: "Referral", active: false }
