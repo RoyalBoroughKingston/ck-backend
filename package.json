@@ -25,8 +25,8 @@
     "vue": "^2.5.17",
     "vue-headful": "^2.0.1",
     "vue-router": "^3.0.1",
-    "vue2-google-maps": "^0.10.2",
-    "vue2-medium-editor": "^1.1.5"
+    "vue-wysiwyg": "^1.7.2",
+    "vue2-google-maps": "^0.10.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",
