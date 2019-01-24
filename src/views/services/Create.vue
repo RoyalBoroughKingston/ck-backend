@@ -42,14 +42,22 @@
               :url.sync="form.url"
               :logo.sync="form.logo"
               :intro.sync="form.intro"
-              :description.sync="form.description"
               :status.sync="form.status"
             >
               <gov-button @click="onNext" start>Next</gov-button>
             </details-tab>
 
-            <additional-info-tab
+            <description-tab
               v-if="tabs[1].active"
+              @clear="form.$errors.clear($event); errors = {}"
+              :errors="form.$errors"
+              :description.sync="form.description"
+            >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </description-tab>
+
+            <additional-info-tab
+              v-if="tabs[2].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :wait_time.sync="form.wait_time"
@@ -67,7 +75,7 @@
             </additional-info-tab>
 
             <useful-info-tab
-              v-if="tabs[2].active"
+              v-if="tabs[3].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :useful_infos.sync="form.useful_infos"
@@ -76,7 +84,7 @@
             </useful-info-tab>
 
             <who-for-tab
-              v-if="tabs[3].active"
+              v-if="tabs[4].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :age_group.sync="form.criteria.age_group"
@@ -92,7 +100,7 @@
             </who-for-tab>
 
             <taxonomies-tab
-              v-if="tabs[4].active"
+              v-if="tabs[5].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :is-global-admin="auth.isGlobalAdmin"
@@ -102,7 +110,7 @@
             </taxonomies-tab>
 
             <referral-tab
-              v-if="tabs[5].active"
+              v-if="tabs[6].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :is-global-admin="auth.isGlobalAdmin"
@@ -127,6 +135,7 @@
 <script>
 import Form from "@/classes/Form";
 import DetailsTab from "@/views/services/forms/DetailsTab";
+import DescriptionTab from "@/views/services/forms/DescriptionTab";
 import AdditionalInfoTab from "@/views/services/forms/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
 import WhoForTab from "@/views/services/forms/WhoForTab";
@@ -137,6 +146,7 @@ export default {
   name: "CreateService",
   components: {
     DetailsTab,
+    DescriptionTab,
     AdditionalInfoTab,
     UsefulInfoTab,
     WhoForTab,
@@ -185,6 +195,7 @@ export default {
       }),
       tabs: [
         { heading: "Details", active: true },
+        { heading: "Description", active: false },
         { heading: "Additional info", active: false },
         { heading: "Useful info", active: false },
         { heading: "Who is it for?", active: false },
