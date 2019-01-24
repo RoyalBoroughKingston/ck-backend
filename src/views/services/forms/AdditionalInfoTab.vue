@@ -4,7 +4,10 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
-        <gov-body>Additional information regarding the service, If a question is not relevant to your service please skip it.</gov-body>
+        <gov-body>
+          This section allows you to add more information to your service page.
+          The more detail that can be provided, the better.
+        </gov-body>
 
         <gov-section-break size="l" />
 
@@ -12,21 +15,42 @@
           :value="wait_time"
           @input="$emit('update:wait_time', $event); $emit('clear', 'wait_time')"
           id="wait_time"
-          label="Average wait time (if applicable)"
-          hint="General indication as to how long someone may have to wait for an appointment/slot after initial contact has been made, if this is not relevant to your service, or service as a drop-in, please skip this question."
+          label="Usual wait time (if applicable)"
           :options="waitTimeOptions"
           :error="errors.get('wait_time')"
-        />
+        >
+          <template slot="hint">
+            <gov-hint for="wait_time">
+              Provide an indication of how long someone may have to wait to access your service
+              after initial contact has been made. You can amend this in future as and when
+              circumstances change.
+            </gov-hint>
+            <gov-hint for="wait_time">
+              If this is not relevant to your service, please skip this question.
+            </gov-hint>
+          </template>
+        </ck-select-input>
 
         <ck-radio-input
           :value="is_free"
           @input="$emit('update:is_free', $event); $emit('clear', 'is_free')"
           id="is_free"
-          label="Is the service free"
-          hint="Indicates if the service is free or not (used for filtering on search)"
+          label="Is the service free?"
           :options="isFreeOptions"
           :error="errors.get('is_free')"
-        />
+        >
+          <template slot="hint">
+            <gov-hint for="is_free">
+              Indicates whether your service is completely free, or if some elements of the
+              service must be paid for. Users can filter their searches based on the answer
+              you provide.
+            </gov-hint>
+            <gov-hint for="is_free">
+              If the cost of your services varies, you may want to split these into
+              different service listings.
+            </gov-hint>
+          </template>
+        </ck-radio-input>
 
         <!-- Extra fee info -->
         <gov-inset-text v-if="is_free === false">
@@ -56,21 +80,42 @@
           :value="testimonial"
           @input="$emit('update:testimonial', $event); $emit('clear', 'testimonial')"
           id="testimonial"
-          label="Please provide a user quote to display on your service page"
-          hint="Quote from a user of the service, including their first name. If you don't have a quote to use, please skip this question - you can always add one later on (max 150 characters)."
+          label="Quote from a satisfied user, client, beneficiary or customer"
           :maxlength="150"
           :error="errors.get('testimonial')"
-        />
+        >
+          <template slot="hint">
+              <gov-hint for="testimonial">
+                Please enter a quote from a service user highlighting a positive outcome to
+                help promote your good work. For example:
+              </gov-hint>
+              <gov-hint for="testimonial">
+                This service changed my life! - Dawn, a regular visitor
+              </gov-hint>
+          </template>
+        </ck-textarea-input>
 
         <ck-text-input
           :value="video_embed"
           @input="$emit('update:video_embed', $event); $emit('clear', 'video_embed')"
           id="video_embed"
-          label="If you have one, please provide a link to a video that describes your service"
-          hint="The video should be a short (less than 5 min) description of what the service is, and how it can be accessed. Can be a link to YouTube or Vimeo."
+          label="Service video"
           type="url"
           :error="errors.get('video_embed')"
-        />
+        >
+          <template slot="hint">
+            <gov-hint for="video_embed">
+              If you have a short video (less than 5 minutes) showcasing your service,
+              please add a link below to the site that hosts it.
+            </gov-hint>
+            <gov-hint for="video_embed">
+              Youtube and Vimeo links are accepted.
+            </gov-hint>
+            <gov-hint for="video_embed">
+              <gov-link :href="videoEmbedHelpHref">Need help editing or creating a service video?</gov-link>
+            </gov-hint>
+          </template>
+        </ck-text-input>
 
       </gov-grid-column>
     </gov-grid-row>
@@ -81,7 +126,10 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
-        <gov-body>A place to put in the public facing contact details of your service. These will be displayed on the service page on the website.</gov-body>
+        <gov-body>
+          Please provide your service’s public-facing contact details. These will
+          be displayed on your service’s page on the Connected Kingston website.
+        </gov-body>
 
         <gov-section-break size="l" />
 
@@ -90,7 +138,7 @@
           @input="$emit('update:contact_name', $event); $emit('clear', 'contact_name')"
           id="contact_name"
           label="Contact name"
-          hint="Please provide the contact name eg. Jane Bloggs or a function e.g. Enquiries"
+          hint="Provide the contact name (First name & Surname) for this service, or a generic entry if this isn’t applicable e.g. ‘Enquiries’, or ‘Helpdesk’."
           type="text"
           :error="errors.get('contact_name')"
         />
@@ -100,17 +148,27 @@
           @input="$emit('update:contact_phone', $event); $emit('clear', 'contact_phone')"
           id="contact_phone"
           label="Contact phone number"
-          hint="Please provide a public facing phone number"
           type="tel"
           :error="errors.get('contact_phone')"
-        />
+        >
+          <template slot="hint">
+            <gov-hint for="contact_phone">
+              Please provide a public facing phone number for people to contact you on.
+            </gov-hint>
+            <gov-hint for="contact_phone">
+              Please use the following formatting:
+              <br>
+              020 8XXX XXXX for landline or 07XXX XXXXXX for mobile.
+            </gov-hint>
+          </template>
+        </ck-text-input>
 
         <ck-text-input
           :value="contact_email"
           @input="$emit('update:contact_email', $event); $emit('clear', 'contact_email')"
           id="contact_email"
-          label="Public email address"
-          hint="Please provide a public facing email address"
+          label="Public service email address"
+          hint="Please provide the contact email address for the service."
           type="email"
           :error="errors.get('contact_email')"
         />
@@ -118,6 +176,16 @@
         <gov-section-break size="l" />
 
         <gov-heading size="m">Social media links</gov-heading>
+
+        <gov-body>
+          If you have any social media accounts for your service, please
+          select the appropriate platform from the dropdown and add the
+          relevant URL.
+        </gov-body>
+        <gov-body>
+          If you don’t have accounts for the specific service, please add
+          the accounts of the overall organisation.
+        </gov-body>
 
         <social-medias-input
           :social-medias="social_medias"
@@ -191,6 +259,15 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    videoEmbedHelpHref() {
+      const to = "info@connectedkingston.uk";
+      const subject = "Make a video for my service";
+      const body = "My service is: xxx\n\nI am interested in making a video for my service page on Connected Kingston.";
+
+      return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    },
   },
   watch: {
     is_free(newIsFree) {
