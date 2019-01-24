@@ -88,11 +88,12 @@ export default {
       document.addEventListener('scroll', this.trackActivity);
     },
     trackActivity: _.throttle(() => {
-      if (Auth.isLoggedIn) {
+      if (Auth.isLoggedIn && !Auth.inactive()) {
         Auth.invokeActivity();
       }
     }, 1000),
   },
+
   created() {
     this.setHeaderItems();
     this.bindActivityTracking();
