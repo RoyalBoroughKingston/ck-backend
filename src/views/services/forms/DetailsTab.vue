@@ -64,7 +64,7 @@
           <template slot="hint">
             <gov-hint for="logo">
               This can be different to the logo of your organisation.
-              <gov-link href="mailto:info@connectedkingston.uk?subject=Help%20Uploading%20Service%20Logo">Need help with your logo?</gov-link>
+              <gov-link :href="logoHelpHref">Need help with your logo?</gov-link>
             </gov-hint>
             <gov-hint for="logo">
               If your service doesn't have a logo, the site will use the organisation logo if there is one uploaded.
@@ -147,6 +147,12 @@ export default {
   computed: {
     isCreateForm() {
       return this.organisation_id !== undefined;
+    },
+    logoHelpHref() {
+      const to = "info@connectedkingston.uk";
+      const subject = "Help uploading service logo";
+
+      return `mailto:${to}?subject=${encodeURIComponent(subject)}`;
     }
   },
   methods: {

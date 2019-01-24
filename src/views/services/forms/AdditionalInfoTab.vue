@@ -112,7 +112,7 @@
               Youtube and Vimeo links are accepted.
             </gov-hint>
             <gov-hint for="video_embed">
-              <gov-link href="mailto:info@connectedkingston.uk?subject=Make%20a%20video%20for%20my%20service&body=My%20service%20is%3A%20XXX%0A%0AI%20am%20interested%20in%20making%20a%20video%20for%20my%20service%20page%20on%20Connected%20Kingston.">Need help editing or creating a service video?</gov-link>
+              <gov-link :href="videoEmbedHelpHref">Need help editing or creating a service video?</gov-link>
             </gov-hint>
           </template>
         </ck-text-input>
@@ -259,6 +259,15 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    videoEmbedHelpHref() {
+      const to = "info@connectedkingston.uk";
+      const subject = "Make a video for my service";
+      const body = "My service is: xxx\n\nI am interested in making a video for my service page on Connected Kingston.";
+
+      return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    },
   },
   watch: {
     is_free(newIsFree) {

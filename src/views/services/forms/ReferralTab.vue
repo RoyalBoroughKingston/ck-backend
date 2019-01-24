@@ -10,7 +10,7 @@
         </gov-body>
         <gov-body>
           If you are interested in turning on referrals for your organisation, please
-          <gov-link href="mailto:info@connectedkingston.uk?subject=Turn%20Referrals%20on%20for%20my%20Service&body=Service%20Name%3A%20XXX%0A%0AWe%20are%20interested%20in%20finding%20out%20more%20about%20accepting%20referrals%20through%20Connected%20Kingston.">contact the admin team</gov-link>.
+          <gov-link :href="contactAdminTeamEmail">contact the admin team</gov-link>.
         </gov-body>
         <gov-body>
           Further information on referrals can be found on the
@@ -141,6 +141,13 @@ export default {
   computed: {
     referralIsInternalOrExternal() {
       return this.referral_method !== null && this.referral_method !== "none";
+    },
+    contactAdminTeamEmail() {
+      const to = "info@connectedkingston.uk";
+      const subject = "Turn referrals on for my service";
+      const body = "Service Name: XXX\n\nWe are interested in finding out more about accepting referrals through Connected Kingston.";
+
+      return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
   },
   watch: {

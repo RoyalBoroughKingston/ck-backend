@@ -11,7 +11,7 @@
           On creation of a new service, the admin team will select the tags that
           they feel represent the service offer. If you believe the some of the
           tags are incorrectly applied or missing -
-          <gov-link href="mailto:info@connectedkingston.uk?subject=Incorrect%20Taxonomies%20applied%20to%20Service&body=Service%20Name%3A%20XXX%0A%0AI%20believe%20that%20the%20tags%20applied%20to%20the%20above%20service%20are%20incorrect.%20The%20following%20changes%20should%20be%20made%3A">please contact the team</gov-link>.
+          <gov-link :href="contactAdminTeamEmail">please contact the team</gov-link>.
         </gov-body>
 
         <gov-section-break size="l" />
@@ -53,6 +53,15 @@ export default {
     category_taxonomies: {
       required: true,
       type: Array
+    }
+  },
+  computed: {
+    contactAdminTeamEmail() {
+      const to = "info@connectedkingston.uk";
+      const subject = "Incorrect taxonomies applied to service";
+      const body = "Service Name: XXX\n\nI believe that the tags applied to the above service are incorrect. The following changes should be made:";
+
+      return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
   }
 };
