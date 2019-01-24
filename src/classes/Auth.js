@@ -119,7 +119,9 @@ class Auth {
    * Touches the last_active timestamp.
    */
   invokeActivity() {
-    localStorage.setItem("last_active", Date.now());
+    if (!this.inactive()) {
+      localStorage.setItem("last_active", Date.now());
+    }
   }
 
   /**
