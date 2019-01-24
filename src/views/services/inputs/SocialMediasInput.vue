@@ -5,7 +5,7 @@
         :value="socialMedia.type"
         @input="onTypeInput({ index, value: $event })"
         :id="`social_media.${index}.type`"
-        label="Social media platform"
+        label="Platform:"
         :options="socialMediaTypeOptions"
         :error="errors.get(`social_media.${index}.type`)"
       />
@@ -14,7 +14,8 @@
         :value="socialMedia.url"
         @input="onUrlInput({ index, value: $event })"
         :id="`social_medias.${index}.url`"
-        label="Enter url of your social page"
+        label="Link to your page:"
+        hint="Copy the link from your browser, e.g. https://www.twitter.com/ConnectedKings or https://www.facebook.com/ConnectedKingston"
         type="url"
         :error="errors.get(`social_medias.${index}.url`)"
       />

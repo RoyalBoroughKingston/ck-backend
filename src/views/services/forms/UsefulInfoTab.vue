@@ -4,9 +4,14 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
-        <gov-body>This is a space to add really useful information about your service. This could be tips on getting there, what you need to bring or anything else. Please select a title from the drop downs and add details below</gov-body>
-
-        <gov-body>If you can't think of anything, or have already included it elsewhere you can <gov-link @click="$emit('next')">skip this section</gov-link></gov-body>
+        <gov-body>
+          This section allows you to add information specifically related to your
+          service. Pick a title from the drop down and add detail below.
+        </gov-body>
+        <gov-body>
+          These tips will standout on your service page, so make sure key
+          information goes in here.
+        </gov-body>
 
         <gov-section-break size="l" />
 

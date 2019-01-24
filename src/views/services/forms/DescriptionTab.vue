@@ -8,17 +8,32 @@
           :value="description"
           @input="$emit('update:description', $event); $emit('clear', 'description')"
           id="description"
-          label="Service description"
+          label="Longer service description"
           :error="errors.get('description')"
         >
-          <gov-hint slot="hint" for="description">
-            Please enter a more detailed description of the service. This will be
-            the main body of text on the page - though it shouldn't be too long.
-            <br/><br/>
-            The description should contain details about accessing the service,
-            that sort of activities happen there, and who should get in touch
-            (max 1600 characters).
-          </gov-hint>
+          <template slot="hint">
+            <gov-hint for="description">
+              Please provide a detailed description of the service. This will
+              display on the service page and is the main way users will find
+              out about your service.
+            </gov-hint>
+            <gov-hint for="description">
+              You will want to include details of what you offer, what people
+              can expect when they sign up, and the best way to get in touch.
+              You can also include links to other sites or information.
+            </gov-hint>
+            <gov-hint for="description">
+              If you are describing multiple services or activities, it may be
+              better to add these to Connected Kingston as separate, individual
+              services.
+            </gov-hint>
+            <gov-hint for="description">
+              The best pages are ones formatted with bullet points, paragraphs and headers.
+            </gov-hint>
+            <gov-hint for="description">
+              (Maximum 1600 Characters)
+            </gov-hint>
+          </template>
         </ck-wysiwyg-input>
 
         <slot />
