@@ -10,8 +10,11 @@ class MarkdownConverter {
       b: "govuk-!-font-weight-bold",
       a: "govuk-link",
       strong: "govuk-!-font-weight-bold",
+      h1: "govuk-heading-xl",
       h2: "govuk-heading-l",
-      h3: "govuk-heading-m"
+      h3: "govuk-heading-m",
+      ul: "govuk-list govuk-list--bullet",
+      ol: "govuk-list govuk-list--number"
     };
     const bindings = Object.keys(classMap).map(key => ({
       type: "output",
