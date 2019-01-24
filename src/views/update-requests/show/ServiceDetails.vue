@@ -128,7 +128,7 @@
           <gov-table-cell>{{ service.wait_time }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row v-if="service.hasOwnProperty('descripttion')">
+        <gov-table-row v-if="service.hasOwnProperty('description')">
           <gov-table-header top scope="row">Description</gov-table-header>
           <gov-table-cell v-html="toHtml(original.description)" />
           <gov-table-cell v-html="toHtml(service.description)" />
