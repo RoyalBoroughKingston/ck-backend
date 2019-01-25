@@ -114,7 +114,7 @@ export default {
 
       await this.form.put("/thesaurus");
 
-      this.$router.push({ name: "admin-index-thesaurus" });
+      this.$router.push({ name: "admin-index-search-engine" });
     },
 
     /**
