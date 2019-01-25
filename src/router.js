@@ -299,6 +299,11 @@ let router = new Router({
               path: "",
               name: "admin-index-search-engine",
               component: () => import("@/views/admin/index/search-engine/Thesaurus")
+            },
+            {
+              path: "stop-words",
+              name: "admin-index-search-engine-stop-words",
+              component: () => import("@/views/admin/index/search-engine/StopWords")
             }
           ]
         },
@@ -374,6 +379,12 @@ let router = new Router({
       path: "/thesuarus/edit",
       name: "thesaurus-edit",
       component: () => import("@/views/thesaurus/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/stop-words/edit",
+      name: "stop-words-edit",
+      component: () => import("@/views/stop-words/Edit"),
       meta: { auth: true }
     },
     {

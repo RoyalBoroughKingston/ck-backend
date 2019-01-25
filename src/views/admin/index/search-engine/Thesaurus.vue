@@ -9,7 +9,8 @@
         term - if it appears in the thesaurus, all synonyms will also be searched.
       </gov-body>
 
-      <gov-button @click="onExportCsv">Download thesaurus</gov-button>
+      <ck-loader v-if="loading" />
+      <gov-button v-else @click="onExportCsv">Download thesaurus</gov-button>
 
       <gov-heading size="m">Synonyms</gov-heading>
 
