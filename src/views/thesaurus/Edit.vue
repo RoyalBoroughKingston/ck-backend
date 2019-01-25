@@ -3,7 +3,7 @@
 
         <vue-headful title="Connected Kingston - Edit Thesaurus" />
 
-        <gov-back-link :to="{ name: 'admin-index-thesaurus' }">Back to thesaurus</gov-back-link>
+        <gov-back-link :to="{ name: 'admin-index-search-engine' }">Back to thesaurus</gov-back-link>
         <gov-main-wrapper>
             <gov-grid-row>
             <gov-grid-column width="two-thirds">

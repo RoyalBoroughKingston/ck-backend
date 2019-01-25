@@ -292,10 +292,16 @@ let router = new Router({
           ]
         },
         {
-          path: "thesaurus",
-          name: "admin-index-thesaurus",
-          component: () => import("@/views/admin/index/Thesaurus")
-        }
+          path: "search-engine",
+          component: () => import("@/views/admin/index/SearchEngine"),
+          children: [
+            {
+              path: "",
+              name: "admin-index-search-engine",
+              component: () => import("@/views/admin/index/search-engine/Thesaurus")
+            }
+          ]
+        },
       ]
     },
     {

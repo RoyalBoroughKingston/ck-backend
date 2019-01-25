@@ -32,7 +32,7 @@ export default {
         { heading: "Feedback", to: { name: "admin-index-feedback" } },
         { heading: "Taxonomies", to: { name: "admin-index-taxonomies" } },
         { heading: "Collections", to: { name: "admin-index-collections" } },
-        { heading: "Thesaurus", to: { name: "admin-index-thesaurus" } }
+        { heading: "Search engine", to: { name: "admin-index-search-engine" } }
       ]
     };
   }
