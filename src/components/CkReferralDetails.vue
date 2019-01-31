@@ -57,11 +57,17 @@
         <gov-table-header top scope="row">Date/Time</gov-table-header>
         <gov-table-cell>{{ formatDateTime(referral.created_at) }}</gov-table-cell>
       </gov-table-row>
+      <gov-table-row v-if="referral.status === 'completed'">
+        <gov-table-header top scope="row">Scheduled for deletion</gov-table-header>
+        <gov-table-cell>{{ formatDate(autoDeleteDate(referral.updated_at)) }}</gov-table-cell>
+      </gov-table-row>
     </template>
   </gov-table>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: "CkReferralDetails",
   props: {
@@ -77,10 +83,10 @@ export default {
     type() {
       // Implies self-referral.
       if (this.isSelfReferral) {
-        return "Refered myself";
+        return "Referred myself";
       }
 
-      return "Refered by someone else";
+      return "Referred by someone else";
     },
     consented() {
       return this.referral.referral_consented_at === null ? "No" : "Yes";
@@ -90,7 +96,10 @@ export default {
     humanReadableStatus(status) {
       const string = status.replace("_", " ");
       return string.charAt(0).toUpperCase() + string.substr(1);
-    }
-  }
+    },
+    autoDeleteDate(updated_at) {
+      return moment(updated_at, moment.ISO_8601).add(6, 'months').format('Y-MM-DD[T]HH:mm:ssZ');
+    },
+  },
 };
 </script>

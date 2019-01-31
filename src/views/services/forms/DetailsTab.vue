@@ -12,7 +12,7 @@
           :value="name"
           @input="onNameInput($event)"
           id="name"
-          label="Name of service"
+          label="What is the name of your service (or activity)?"
           type="text"
           :error="errors.get('name')"
         />
@@ -47,8 +47,8 @@
           :value="url"
           @input="$emit('update:url', $event); $emit('clear', 'url')"
           id="url"
-          label="Service website address"
-          hint="or your organisation if you do not have a seperate service website/page"
+          label="What is the web address of your service?"
+          hint="This must start with ‘http://’ or ‘https://’. You can use your organisation’s website address if the service doesn’t have its own."
           type="url"
           :error="errors.get('url')"
         />
@@ -57,38 +57,30 @@
           :value="logo"
           @input="$emit('update:logo', $event); $emit('clear', 'logo')"
           id="logo"
-          label="Service logo"
-          hint="please upload a logo of the service, not the organisation."
+          label="Upload your service logo"
           accept="image/x-png"
           :error="errors.get('logo')"
-        />
+        >
+          <template slot="hint">
+            <gov-hint for="logo">
+              This can be different to the logo of your organisation.
+              <gov-link :href="logoHelpHref">Need help with your logo?</gov-link>
+            </gov-hint>
+            <gov-hint for="logo">
+              If your service doesn't have a logo, the site will use the organisation logo if there is one uploaded.
+            </gov-hint>
+          </template>
+        </ck-file-input>
 
         <ck-textarea-input
           :value="intro"
           @input="$emit('update:intro', $event); $emit('clear', 'intro')"
           id="intro"
-          label="Please provide a one-line summary of the service"
-          hint="This should be a short line or two that summarises what the service offers and will appear below the service name in search results (max 150 characters)."
+          label="What does your service do?"
+          hint="Please give a short summary of what your service offers. This will appear below the service name in search results. Try to use as many specific keywords as possible as this will help people find your service. Maximum 150 characters."
           :maxlength="150"
           :error="errors.get('intro')"
         />
-
-        <ck-wysiwyg-input
-          :value="description"
-          @input="$emit('update:description', $event); $emit('clear', 'description')"
-          id="description"
-          label="Service description"
-          :error="errors.get('description')"
-        >
-          <gov-hint slot="hint" for="description">
-            Please enter a more detailed description of the service. This will be
-            the main body of text on the page - though it shouldn't be too long.
-            <br/><br/>
-            The description should contain details about accessing the service,
-            that sort of activities happen there, and who should get in touch
-            (max 1600 characters).
-          </gov-hint>
-        </ck-wysiwyg-input>
 
         <ck-radio-input
           :value="status"
@@ -138,9 +130,6 @@ export default {
     intro: {
       required: true
     },
-    description: {
-      required: true
-    },
     status: {
       required: true
     }
@@ -158,6 +147,12 @@ export default {
   computed: {
     isCreateForm() {
       return this.organisation_id !== undefined;
+    },
+    logoHelpHref() {
+      const to = "info@connectedkingston.uk";
+      const subject = "Help uploading service logo";
+
+      return `mailto:${to}?subject=${encodeURIComponent(subject)}`;
     }
   },
   methods: {

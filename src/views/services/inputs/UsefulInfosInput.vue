@@ -5,8 +5,7 @@
         :value="usefulInfo.title"
         @input="onTitleInput({ index, value: $event })"
         :id="`useful_infos.${index}.title`"
-        label="Pick a title from the dropdown to describe the additional information below."
-        hint="Title of the helpful piece of information below"
+        label="Pick a title from the drop down:"
         :options="usefulInfoTitleOptions"
         :error="errors.get(`useful_infos.${index}.title`)"
       />
@@ -16,7 +15,7 @@
         @input="onDescriptionInput({ index, value: $event })"
         :id="`useful_infos.${index}.description`"
         label="Description"
-        hint='Space for service to add any helpful bits of information relating to the title above eg. "There is no free parking on site, however and display is available on [road]" (max. 150 characters)'
+        hint="Provide detail to the title above. For example, if you picked ‘Parking’ you might say “There is no parking available on site, however there is pay and display opposite”. Max 150 characters."
         :maxlength="150"
         :error="errors.get(`useful_infos.${index}.description`)"
       />

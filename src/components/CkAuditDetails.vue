@@ -27,19 +27,30 @@
         <gov-table-header top scope="row">User Agent</gov-table-header>
         <gov-table-cell>{{ audit.user_agent || "-" }}</gov-table-cell>
       </gov-table-row>
+      <gov-table-row>
+        <gov-table-header top scope="row">Scheduled for deletion</gov-table-header>
+        <gov-table-cell>{{ formatDate(autoDeleteDate(audit.updated_at)) }}</gov-table-cell>
+      </gov-table-row>
     </template>
   </gov-table>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: "CkAuditDetails",
   props: {
     audit: {
       type: Object,
       required: true
-    }
-  }
+    },
+  },
+  methods: {
+    autoDeleteDate(updated_at) {
+      return moment(updated_at, moment.ISO_8601).add(24, 'months').format('Y-MM-DD[T]HH:mm:ssZ');
+    },
+  },
 };
 </script>
 

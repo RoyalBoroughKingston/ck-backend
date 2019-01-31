@@ -1,12 +1,12 @@
 <template>
-    <ck-file-input
-      :value="synonyms"
-      @input="onInput('synonyms', $event)"
-      id="synonyms"
-      label="Synonyms"
-      accept="text/csv"
-      :error="errors.get('synonyms')"
-    />
+  <ck-file-input
+    :value="synonyms"
+    @input="onInput('synonyms', $event)"
+    id="synonyms"
+    label="Upload new thesaurus"
+    accept="text/csv"
+    :error="errors.get('synonyms')"
+  />
 </template>
 
 <script>

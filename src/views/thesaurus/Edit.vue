@@ -3,7 +3,7 @@
 
         <vue-headful title="Connected Kingston - Edit Thesaurus" />
 
-        <gov-back-link :to="{ name: 'admin-index-thesaurus' }">Back to thesaurus</gov-back-link>
+        <gov-back-link :to="{ name: 'admin-index-search-engine' }">Back to thesaurus</gov-back-link>
         <gov-main-wrapper>
             <gov-grid-row>
             <gov-grid-column width="two-thirds">
@@ -28,10 +28,48 @@
                   people,persons,,,
                 </ck-code>
 
+                <gov-heading size="s">Guidance on adding thesaurus entries:</gov-heading>
+
+                <gov-list bullet>
+                  <li>Synonyms should, if at all possible, be only singular words</li>
+                  <li>
+                    If you must use a multiple word synonym, it must appear on a row with only
+                    one other synonym. This other synonym can then appear later in the sheet
+                    with further synonyms. Example:
+
+                    <gov-table>
+                      <gov-table-row slot="header">
+                        <gov-table-header/>
+                        <gov-table-header center>A</gov-table-header>
+                        <gov-table-header center>B</gov-table-header>
+                        <gov-table-header center>C</gov-table-header>
+                        <gov-table-header center>D</gov-table-header>
+                      </gov-table-row>
+                      <template slot="body">
+                        <gov-table-row>
+                          <gov-table-header center>1</gov-table-header>
+                          <gov-table-cell>old people</gov-table-cell>
+                          <gov-table-cell>elderly</gov-table-cell>
+                          <gov-table-cell/>
+                          <gov-table-cell/>
+                        </gov-table-row>
+                        <gov-table-row>
+                          <gov-table-header center>2</gov-table-header>
+                          <gov-table-cell>elderly</gov-table-cell>
+                          <gov-table-cell>old</gov-table-cell>
+                          <gov-table-cell>elders</gov-table-cell>
+                          <gov-table-cell>pensioner</gov-table-cell>
+                        </gov-table-row>
+                      </template>
+                    </gov-table>
+                  </li>
+                  <li>The multi-word synonym must appear in column A, and it’s replacement in column B</li>
+                </gov-list>
+
                 <thesaurus-form
-                    :errors="form.$errors"
-                    :synonyms.sync="file"
-                    @clear="form.$errors.clear($event)"
+                  :errors="form.$errors"
+                  :synonyms.sync="file"
+                  @clear="form.$errors.clear($event)"
                 />
 
                 <gov-section-break size="l" />
@@ -76,21 +114,27 @@ export default {
 
       await this.form.put("/thesaurus");
 
-      this.$router.push({ name: "admin-index-thesaurus" });
+      this.$router.push({ name: "admin-index-search-engine" });
     },
 
+    /**
+     * @link https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings/30106551
+     */
     base64Decode(string) {
       string = string.replace("data:text/csv;base64,", "");
-      return atob(string);
+      string = decodeURIComponent(atob(string).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      return string;
     },
 
     parseCsv(content) {
-      let synonyms = content.split(/\n/);
-      synonyms = synonyms.map(synonym => synonym.split(","));
-      synonyms = synonyms.map(synonym =>
-        synonym.filter(word => word.length > 1)
-      );
-      synonyms = synonyms.filter(synonym => synonym.length > 0);
+      const synonyms = content
+        .split(/\n/)
+        .map(synonym => synonym.split(","))
+        .map(synonym => synonym.filter(word => word.length > 1))
+        .filter(synonym => synonym.length > 0);
 
       return synonyms;
     }

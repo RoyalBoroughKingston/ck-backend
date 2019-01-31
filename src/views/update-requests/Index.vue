@@ -36,7 +36,7 @@
             :columns="[
               { heading: 'User', render: (updateRequest) => `${updateRequest.user.first_name} ${updateRequest.user.last_name}` },
               { heading: 'Type', render: (updateRequest) => displayType(updateRequest.updateable_type) },
-              { heading: 'Entry', sort: 'entry', render: (updateRequest) => displayEntry(updateRequest) },
+              { heading: 'Entry', sort: 'entry', render: (updateRequest) => updateRequest.entry },
               { heading: 'Date / Time', sort: 'created_at', render: (updateRequest) => formatDateTime(updateRequest.created_at) },
             ]"
             :view-route="(updateRequest) => {
@@ -95,20 +95,6 @@ export default {
           return "Service location";
         default:
           return "Invalid type";
-      }
-    },
-    displayEntry(updateRequest) {
-      switch (updateRequest.updateable_type) {
-        case "services":
-          return updateRequest.data.name;
-        case "organisations":
-          return updateRequest.data.name;
-        case "locations":
-          return updateRequest.data.address_line_1;
-        case "service_locations":
-          return updateRequest.data.name || "-";
-        default:
-          return "-";
       }
     },
   },

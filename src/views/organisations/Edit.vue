@@ -24,10 +24,12 @@
               @clear="form.$errors.clear($event)"
             />
 
-            <gov-section-break size="l" />
+            <gov-warning-text>
+              Please be aware, by submitting these changes, any pending updates may be overwritten.
+            </gov-warning-text>
 
-            <gov-button v-if="form.$submitting" disabled type="submit">Updating...</gov-button>
-            <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
+            <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
+            <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
             <ck-submit-error v-if="form.$errors.any()" />
           </gov-grid-column>
         </gov-grid-row>
@@ -75,6 +77,26 @@ export default {
       await this.form.put(
         `/organisations/${this.organisation.id}`,
         (config, data) => {
+          // Remove any unchanged values.
+          if (data.name === this.organisation.name) {
+            delete data.name;
+          }
+          if (data.slug === this.organisation.slug) {
+            delete data.slug;
+          }
+          if (data.description === this.organisation.description) {
+            delete data.description;
+          }
+          if (data.url === this.organisation.url) {
+            delete data.url;
+          }
+          if (data.email === this.organisation.email) {
+            delete data.email;
+          }
+          if (data.phone === this.organisation.phone) {
+            delete data.phone;
+          }
+
           // Remove the logo from the request if null.
           if (data.logo === null) {
             delete data.logo;

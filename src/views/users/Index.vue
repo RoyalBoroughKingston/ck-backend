@@ -27,6 +27,11 @@
                   </gov-form-group>
 
                   <gov-form-group>
+                    <gov-label for="filter[email]">Email</gov-label>
+                    <gov-input v-model="filters.email" id="filter[email]" name="filter[email]" type="search"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
                     <gov-label for="filter[phone]">Phone number</gov-label>
                     <gov-input v-model="filters.phone" id="filter[phone]" name="filter[phone]" type="search"/>
                   </gov-form-group>
@@ -89,6 +94,7 @@ export default {
       filters: {
         first_name: "",
         last_name: "",
+        email: "",
         phone: "",
         highest_role: "",
       },
@@ -115,6 +121,10 @@ export default {
 
       if (this.filters.last_name !== "") {
         params["filter[last_name]"] = this.filters.last_name;
+      }
+
+      if (this.filters.email !== "") {
+        params["filter[email]"] = this.filters.email;
       }
 
       if (this.filters.phone !== "") {

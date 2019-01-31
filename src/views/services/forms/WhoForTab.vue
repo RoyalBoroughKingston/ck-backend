@@ -1,11 +1,11 @@
 <template>
   <div>
-    <gov-heading size="l">Who is it for?</gov-heading>
+    <gov-heading size="l">Who is your service for?</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>
-          Use this section to add details as to who this service is for. If any of these
-          criteria do not apply to your service, please leave them blank.
+          Use this section to help indicate who should be using your service. If any
+          of these criteria do not apply, please leave them blank.
         </gov-body>
         <gov-section-break size="l" />
 
@@ -16,7 +16,7 @@
           :error="errors.get('criteria.age_group')"
           id="criteria.age_group"
           label="Age of service user (if applicable)"
-          hint='e.g. "This service is for people 16+", or "This service is aimed at people nearig retirement"'
+          hint="E.g “This activity is for people 16+” or “This service is aimed at people nearing retirement”"
         />
         <!-- /Age group -->
 
@@ -71,7 +71,7 @@
           :error="errors.get('criteria.language')"
           id="criteria.language"
           label="Language accessability (if applicable)"
-          hint='e.g. "Instructors speak English, but open to all", or "This service is available in a number of languages - please contact me for more information"'
+          hint="E.g. “Instructors speak English, but open to all”, or “This service is available in a number of languages - please contact for more information”"
         />
         <!-- /Language -->
 
@@ -81,8 +81,8 @@
           @input="$emit('update:other', $event); $emit('clear', 'criteria.other')"
           :error="errors.get('criteria.other')"
           id="criteria.other"
-          label="Any other notes as to who the service is aimed at/not appropraite for?"
-          hint='e.g. "This service is open to all", or "This service is aimed at people living in Chessington"'
+          label="Any other notes as to who the service is aimed at/not appropriate for?"
+          hint="E.g. “This service is open to all”, or “This service is aimed at people living in Chessington”"
         />
         <!-- /Other -->
 

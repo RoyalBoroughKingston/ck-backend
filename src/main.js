@@ -53,6 +53,22 @@ if (process.env.VUE_APP_BUGSNAG_API_KEY) {
 import VueHeadful from "vue-headful";
 Vue.component("vue-headful", VueHeadful);
 
+// Vue WYSIWYG.
+import wysiwyg from "vue-wysiwyg";
+Vue.use(wysiwyg, {
+  hideModules: {
+    underline: true,
+    justifyLeft: true,
+    justifyCenter: true,
+    justifyRight: true,
+    code: true,
+    image: true,
+    table: true,
+    separator: true
+  },
+  forcePlainTextOnPaste: true
+});
+
 // Custom Vue Components
 Vue.component("CkFileInput", () => import("@/components/Ck/CkFileInput"));
 Vue.component("CkRadioInput", () => import("@/components/Ck/CkRadioInput"));
@@ -157,7 +173,7 @@ Vue.mixin({
         .replace(/-+$/, ""); // Trim - from end of text
     },
     formatDate(date) {
-      return moment(date, moment.ISO_8601).format("D/M/YY");
+      return moment(date, moment.ISO_8601).format("D/M/YYYY");
     },
     formatTime(time) {
       return moment(time, moment.HTML5_FMT.TIME_SECONDS).format(
@@ -165,7 +181,7 @@ Vue.mixin({
       );
     },
     formatDateTime(dateTime) {
-      return moment(dateTime, moment.ISO_8601).format("D/M/YY HH:mm");
+      return moment(dateTime, moment.ISO_8601).format("D/M/YYYY HH:mm");
     },
     toMarkdown(html) {
       return MarkdownConverter.toMarkdown(html);
