@@ -8,37 +8,37 @@
 </template>
 
 <script>
-import GovBody from '@/components/Gov/GovBody.vue';
-import GovLink from '@/components/Gov/GovLink.vue';
+import GovBody from "@/components/Gov/GovBody.vue";
+import GovLink from "@/components/Gov/GovLink.vue";
 
 export default {
-  name: 'Pagination',
+  name: "Pagination",
 
   components: {
     GovBody,
-    GovLink,
+    GovLink
   },
 
   props: {
     currentPage: {
       required: true,
-      type: Number,
+      type: Number
     },
 
     totalPages: {
       required: true,
-      type: Number,
-    },
+      type: Number
+    }
   },
 
   methods: {
     onPrevious() {
-      this.$emit('previous');
+      this.$emit("previous");
     },
 
     onNext() {
-      this.$emit('next');
-    },
-  },
+      this.$emit("next");
+    }
+  }
 };
 </script>
