@@ -28,8 +28,8 @@
             {{ column.render(resource) }}
           </gov-table-cell>
           <gov-table-cell right>
-            <gov-link :to="viewRoute(resource)">
-              View
+            <gov-link @click="onAction(resource)" :to="viewRoute ? viewRoute(resource) : null">
+              {{ actionText }}
             </gov-link>
           </gov-table-cell>
         </gov-table-row>
@@ -88,7 +88,7 @@ export default {
     },
 
     viewRoute: {
-      required: true,
+      required: false,
       type: Function,
     },
 
@@ -96,6 +96,12 @@ export default {
       required: false,
       type: String,
       default: "",
+    },
+
+    actionText: {
+      required: false,
+      type: String,
+      default: "View"
     }
   },
 
@@ -183,6 +189,10 @@ export default {
 
       return currentSortDirection === "asc" ? "(ASC)" : "(DESC)";
     },
+
+    onAction(resource) {
+      this.$emit('action', resource);
+    }
   },
 
   created() {
