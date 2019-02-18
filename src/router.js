@@ -231,9 +231,20 @@ let router = new Router({
     },
     {
       path: "/reports",
-      name: "reports-index",
       component: () => import("@/views/reports/Index"),
-      meta: { auth: true }
+      meta: { auth: true },
+      children: [
+        {
+          path: "",
+          name: "reports-index",
+          component: () => import("@/views/reports/View")
+        },
+        {
+          path: "edit",
+          name: "reports-edit",
+          component: () => import("@/views/reports/Edit")
+        }
+      ]
     },
     {
       path: "/admin",
@@ -298,15 +309,17 @@ let router = new Router({
             {
               path: "",
               name: "admin-index-search-engine",
-              component: () => import("@/views/admin/index/search-engine/Thesaurus")
+              component: () =>
+                import("@/views/admin/index/search-engine/Thesaurus")
             },
             {
               path: "stop-words",
               name: "admin-index-search-engine-stop-words",
-              component: () => import("@/views/admin/index/search-engine/StopWords")
+              component: () =>
+                import("@/views/admin/index/search-engine/StopWords")
             }
           ]
-        },
+        }
       ]
     },
     {
