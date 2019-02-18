@@ -29,12 +29,12 @@ export default {
       tabs: [
         {
           heading: "View all",
-          to: { name: "reports-index" } ,
+          to: { name: "reports-index" }
         },
         {
           heading: "Manage",
-          to: { name: "reports-edit" },
-        },
+          to: { name: "reports-edit" }
+        }
       ]
     };
   }

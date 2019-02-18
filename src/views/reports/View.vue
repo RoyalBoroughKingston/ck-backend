@@ -22,7 +22,7 @@ import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
   name: "ViewReportsPage",
-  components: {CkResourceListingTable},
+  components: { CkResourceListingTable },
   methods: {
     async onDownload(report) {
       const file = await http.get(`/reports/${report.id}/download`);
@@ -38,6 +38,6 @@ export default {
       document.body.appendChild(link);
       link.click();
     }
-  },
-}
+  }
+};
 </script>
