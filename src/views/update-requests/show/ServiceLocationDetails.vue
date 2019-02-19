@@ -85,6 +85,11 @@ export default {
       type: String
     },
 
+    requestedAt: {
+      required: true,
+      type: String
+    },
+
     serviceLocation: {
       required: true,
       type: Object

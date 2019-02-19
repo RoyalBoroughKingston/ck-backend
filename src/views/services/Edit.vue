@@ -29,6 +29,7 @@
                 :logo.sync="form.logo"
                 :intro.sync="form.intro"
                 :status.sync="form.status"
+                :id="service.id"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </details-tab>
@@ -335,9 +336,11 @@ export default {
           delete data.category_taxonomies;
         }
 
-        // Remove the logo from the request if null.
+        // Remove the logo from the request if null, or delete if false.
         if (data.logo === null) {
           delete data.logo;
+        } else if (data.logo === false) {
+          data.logo = null;
         }
       });
       this.$router.push({
