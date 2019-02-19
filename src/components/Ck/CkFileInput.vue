@@ -11,7 +11,7 @@
 
     <gov-file-upload
       :value="value"
-      @change="$emit('input', $event)"
+      @change="$emit('input', $event); removeExisting = false;"
       :id="id"
       :name="id"
       :accept="accept"
@@ -20,13 +20,35 @@
 
     <slot name="after-input" />
 
+    <!-- Existing image -->
+    <template v-if="image">
+      <img
+        v-if="existingUrl && !value && !removeExisting"
+        :src="existingUrl"
+        :key="`ExistingImage::${_uid}`"
+        alt="Organisation logo"
+      >
+      <!-- Uploaded image -->
+      <img
+        v-else-if="value"
+        :src="value"
+        :key="`UploadedImage::${_uid}`"
+        alt="Uploaded organisation logo"
+      >
+    </template>
+
     <gov-error-message
       v-if="error !== null"
       v-text="error"
       :for="id"
     />
 
-    <div v-if="value" class="govuk-!-margin-top-2">
+    <slot name="after-error-message" />
+
+    <div
+      v-if="(existingUrl && !removeExisting) || (value)"
+      class="govuk-!-margin-top-2"
+    >
       <gov-button @click="onRemove" type="button" error>Remove file</gov-button>
     </div>
 
@@ -58,13 +80,36 @@ export default {
     id: {
       required: true,
       type: String
+    },
+    existingUrl: {
+      required: false,
+      type: String
+    },
+    image: {
+      required: false,
+      type: Boolean,
+      default: false
     }
+  },
+
+  data() {
+    return {
+      removeExisting: false
+    };
   },
 
   methods: {
     onRemove() {
-      this.$refs.file.$el.value = "";
-      this.$emit('input', null);
+      // For uploaded file.
+      if (this.value) {
+        this.$refs.file.$el.value = "";
+        this.$emit("input", null);
+        return;
+      }
+
+      // For existing file.
+      this.removeExisting = true;
+      this.$emit("input", false);
     }
   }
 };
