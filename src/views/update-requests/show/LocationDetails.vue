@@ -90,6 +90,11 @@ export default {
       type: String
     },
 
+    requestedAt: {
+      required: true,
+      type: String
+    },
+
     location: {
       required: true,
       type: Object
