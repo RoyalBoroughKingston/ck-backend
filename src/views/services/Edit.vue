@@ -337,11 +337,11 @@ export default {
         }
 
         // Remove the logo from the request if null, or delete if false.
-          if (data.logo === null) {
-            delete data.logo;
-          } else if (data.logo === false) {
-            data.logo = null;
-          }
+        if (data.logo === null) {
+          delete data.logo;
+        } else if (data.logo === false) {
+          data.logo = null;
+        }
       });
       this.$router.push({
         name: "services-updated",

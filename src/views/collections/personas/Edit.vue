@@ -29,6 +29,7 @@
               :sidebox_content.sync="form.sidebox_content"
               :category_taxonomies.sync="form.category_taxonomies"
               :image.sync="form.image"
+              :id="collection.id"
               @clear="form.$errors.clear($event)"
             />
 
@@ -92,8 +93,11 @@ export default {
       await this.form.put(
         `/collections/personas/${this.collection.id}`,
         (config, data) => {
+          // Remove the logo from the request if null, or delete if false.
           if (data.image === null) {
             delete data.image;
+          } else if (data.image === false) {
+            data.image = null;
           }
         }
       );
