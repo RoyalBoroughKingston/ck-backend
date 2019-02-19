@@ -102,10 +102,14 @@ export default {
         if (data.country === this.location.country) {
           delete data.country;
         }
-        if (data.accessibility_info === (this.location.accessibility_info || "")) {
+        if (
+          data.accessibility_info === (this.location.accessibility_info || "")
+        ) {
           delete data.accessibility_info;
         }
-        if (data.has_wheelchair_access === this.location.has_wheelchair_access) {
+        if (
+          data.has_wheelchair_access === this.location.has_wheelchair_access
+        ) {
           delete data.has_wheelchair_access;
         }
         if (data.has_induction_loop === this.location.has_induction_loop) {

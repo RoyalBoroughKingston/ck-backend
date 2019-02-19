@@ -87,7 +87,7 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String,
+      type: String
     },
 
     location: {
@@ -98,19 +98,21 @@ export default {
   data() {
     return {
       loading: false,
-      original: null,
+      original: null
     };
   },
   methods: {
     async fetchOriginal() {
       this.loading = true;
-      const { data: { data: original } } = await http.get(`/locations/${this.location.id}`);
+      const {
+        data: { data: original }
+      } = await http.get(`/locations/${this.location.id}`);
       this.original = original;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.fetchOriginal();
-  },
+  }
 };
 </script>

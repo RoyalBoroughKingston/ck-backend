@@ -84,8 +84,8 @@ export default {
       filters: {
         address_line_1: "",
         city: "",
-        postcode: "",
-      },
+        postcode: ""
+      }
     };
   },
   computed: {
@@ -114,7 +114,7 @@ export default {
     },
     onAddLocation() {
       this.$router.push({ name: "locations-create" });
-    },
-  },
+    }
+  }
 };
 </script>

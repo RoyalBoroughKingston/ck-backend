@@ -92,26 +92,26 @@ export default {
         name: "",
         organisation_name: "",
         status: "",
-        referral_method: "",
+        referral_method: ""
       },
       statuses: [
         { value: "", text: "All" },
         { value: "active", text: "Enabled" },
-        { value: "inactive", text: "Disabled" },
+        { value: "inactive", text: "Disabled" }
       ],
       referralMethods: [
         { value: "", text: "All" },
         { value: "internal", text: "Internal" },
         { value: "external", text: "External" },
-        { value: "none", text: "None" },
-      ],
+        { value: "none", text: "None" }
+      ]
     };
   },
   computed: {
     params() {
       const params = {
-        "include": "organisation",
-        "filter[has_permission]": true,
+        include: "organisation",
+        "filter[has_permission]": true
       };
 
       if (this.filters.name !== "") {
@@ -154,6 +154,6 @@ export default {
     displayReferralMethod(referralMethod) {
       return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);
     }
-  },
+  }
 };
 </script>

@@ -264,10 +264,13 @@ export default {
     videoEmbedHelpHref() {
       const to = "info@connectedkingston.uk";
       const subject = "Make a video for my service";
-      const body = "My service is: xxx\n\nI am interested in making a video for my service page on Connected Kingston.";
+      const body =
+        "My service is: xxx\n\nI am interested in making a video for my service page on Connected Kingston.";
 
-      return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    },
+      return `mailto:${to}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
+    }
   },
   watch: {
     is_free(newIsFree) {

@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import http from "@/http";
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 
 export default {
@@ -76,22 +75,22 @@ export default {
       filters: {
         action: "",
         description: "",
-        user_id: "",
+        user_id: ""
       },
       actions: [
         { value: "", text: "All" },
         { value: "create", text: "Create" },
         { value: "read", text: "Read" },
         { value: "update", text: "Update" },
-        { value: "delete", text: "Delete" },
+        { value: "delete", text: "Delete" }
       ],
-      users: [],
+      users: []
     };
   },
   computed: {
     params() {
       const params = {
-        include: "user",
+        include: "user"
       };
 
       if (this.filters.action !== "") {
@@ -114,13 +113,10 @@ export default {
       this.loadingUsers = true;
 
       let users = await this.fetchAll("/users");
-      users = users.map((user) => {
+      users = users.map(user => {
         return { value: user.id, text: `${user.first_name} ${user.last_name}` };
       });
-      this.users = [
-        { value: "", text: "All" },
-        ...users,
-      ];
+      this.users = [{ value: "", text: "All" }, ...users];
 
       this.loadingUsers = false;
     },
@@ -133,11 +129,11 @@ export default {
         return `${user.first_name} ${user.last_name}`;
       }
 
-      return 'Guest';
+      return "Guest";
     },
     formatAction(action) {
       return action.charAt(0).toUpperCase() + action.substr(1);
-    },
+    }
   },
   created() {
     this.fetchUsers();

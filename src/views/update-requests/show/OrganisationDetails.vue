@@ -73,30 +73,32 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String,
+      type: String
     },
 
     organisation: {
       required: true,
-      type: Object,
-    },
+      type: Object
+    }
   },
   data() {
     return {
       loading: false,
-      original: null,
+      original: null
     };
   },
   methods: {
     async fetchOriginal() {
       this.loading = true;
-      const { data: { data: original } } = await http.get(`/organisations/${this.organisation.id}`);
+      const {
+        data: { data: original }
+      } = await http.get(`/organisations/${this.organisation.id}`);
       this.original = original;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.fetchOriginal();
-  },
+  }
 };
 </script>

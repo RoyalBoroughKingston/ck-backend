@@ -53,8 +53,8 @@ export default {
   data() {
     return {
       filters: {
-        url: "",
-      },
+        url: ""
+      }
     };
   },
   computed: {
@@ -72,7 +72,7 @@ export default {
     onSearch() {
       this.$refs.pageFeedbacksTable.currentPage = 1;
       this.$refs.pageFeedbacksTable.fetchResources();
-    },
-  },
+    }
+  }
 };
 </script>

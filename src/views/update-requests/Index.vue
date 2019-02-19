@@ -61,14 +61,14 @@ export default {
   data() {
     return {
       filters: {
-        entry: "",
-      },
+        entry: ""
+      }
     };
   },
   computed: {
     params() {
       const params = {
-        "include": "user",
+        include: "user"
       };
 
       if (this.filters.entry !== "") {
@@ -96,7 +96,7 @@ export default {
         default:
           return "Invalid type";
       }
-    },
-  },
+    }
+  }
 };
 </script>
