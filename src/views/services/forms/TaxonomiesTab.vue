@@ -59,9 +59,12 @@ export default {
     contactAdminTeamEmail() {
       const to = "info@connectedkingston.uk";
       const subject = "Incorrect taxonomies applied to service";
-      const body = "Service Name: XXX\n\nI believe that the tags applied to the above service are incorrect. The following changes should be made:";
+      const body =
+        "Service Name: XXX\n\nI believe that the tags applied to the above service are incorrect. The following changes should be made:";
 
-      return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return `mailto:${to}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
     }
   }
 };

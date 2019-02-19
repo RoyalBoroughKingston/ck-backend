@@ -70,7 +70,7 @@ export default {
 
       await http.put(`/collections/personas/${collection.id}`, {
         ...this.parseCollectionForUpdate(collection),
-        order: collection.order - 1,
+        order: collection.order - 1
       });
 
       this.fetchCollections();
@@ -80,7 +80,7 @@ export default {
 
       await http.put(`/collections/personas/${collection.id}`, {
         ...this.parseCollectionForUpdate(collection),
-        order: collection.order + 1,
+        order: collection.order + 1
       });
 
       this.fetchCollections();
@@ -93,9 +93,11 @@ export default {
         order: collection.order,
         sidebox_title: collection.sidebox_title,
         sidebox_content: collection.sidebox_content,
-        category_taxonomies: collection.category_taxonomies.map((taxonomy) => taxonomy.id),
+        category_taxonomies: collection.category_taxonomies.map(
+          taxonomy => taxonomy.id
+        )
       };
-    },
+    }
   },
   created() {
     this.fetchCollections();

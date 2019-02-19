@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   name: "CkReferralDetails",
@@ -98,8 +98,10 @@ export default {
       return string.charAt(0).toUpperCase() + string.substr(1);
     },
     autoDeleteDate(updated_at) {
-      return moment(updated_at, moment.ISO_8601).add(6, 'months').format('Y-MM-DD[T]HH:mm:ssZ');
-    },
-  },
+      return moment(updated_at, moment.ISO_8601)
+        .add(6, "months")
+        .format("Y-MM-DD[T]HH:mm:ssZ");
+    }
+  }
 };
 </script>

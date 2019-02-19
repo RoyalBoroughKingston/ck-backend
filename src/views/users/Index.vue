@@ -96,7 +96,7 @@ export default {
         last_name: "",
         email: "",
         phone: "",
-        highest_role: "",
+        highest_role: ""
       },
       roles: [
         { value: "", text: "All" },
@@ -104,15 +104,15 @@ export default {
         { value: "Global Admin", text: "Global Admin" },
         { value: "Organisation Admin", text: "Organisation Admin" },
         { value: "Service Admin", text: "Service Admin" },
-        { value: "Service Worker", text: "Service Worker" },
-      ],
+        { value: "Service Worker", text: "Service Worker" }
+      ]
     };
   },
   computed: {
     params() {
       const params = {
         include: "user-roles",
-        "filter[has_permission]": true,
+        "filter[has_permission]": true
       };
 
       if (this.filters.first_name !== "") {
@@ -147,33 +147,38 @@ export default {
       this.$router.push({ name: "users-create" });
     },
     displayHighestRole(roles) {
-      const isSuperAdmin = roles.find((role) => role.role === "Super Admin") !== undefined;
+      const isSuperAdmin =
+        roles.find(role => role.role === "Super Admin") !== undefined;
       if (isSuperAdmin) {
         return "Super Admin";
       }
 
-      const isGlobalAdmin = roles.find((role) => role.role === "Global Admin") !== undefined;
+      const isGlobalAdmin =
+        roles.find(role => role.role === "Global Admin") !== undefined;
       if (isGlobalAdmin) {
         return "Global Admin";
       }
 
-      const isOrganisationAdmin = roles.find((role) => role.role === "Organisation Admin") !== undefined;
+      const isOrganisationAdmin =
+        roles.find(role => role.role === "Organisation Admin") !== undefined;
       if (isOrganisationAdmin) {
         return "Organisation Admin";
       }
 
-      const isServiceAdmin = roles.find((role) => role.role === "Service Admin") !== undefined;
+      const isServiceAdmin =
+        roles.find(role => role.role === "Service Admin") !== undefined;
       if (isServiceAdmin) {
         return "Service Admin";
       }
 
-      const isServiceWorker = roles.find((role) => role.role === "Service Worker") !== undefined;
+      const isServiceWorker =
+        roles.find(role => role.role === "Service Worker") !== undefined;
       if (isServiceWorker) {
         return "Service Worker";
       }
 
       return "None";
-    },
-  },
+    }
+  }
 };
 </script>

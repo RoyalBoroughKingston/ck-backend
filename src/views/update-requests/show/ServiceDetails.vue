@@ -279,7 +279,7 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String,
+      type: String
     },
 
     service: {
@@ -317,11 +317,15 @@ export default {
       this.loading = false;
     },
     async fetchOriginal() {
-      const { data: { data: original } } = await http.get(`/services/${this.service.id}`);
+      const {
+        data: { data: original }
+      } = await http.get(`/services/${this.service.id}`);
       this.original = original;
     },
     async fetchTaxonomies() {
-      const { data: { data: taxonomies } } = await http.get("/taxonomies/categories");
+      const {
+        data: { data: taxonomies }
+      } = await http.get("/taxonomies/categories");
       this.taxonomies = taxonomies;
       this.setFlattenedTaxonomies();
     },
@@ -341,7 +345,7 @@ export default {
     },
     findTaxonomy(id) {
       return this.flattenedTaxonomies.find(taxonomy => taxonomy.id === id);
-    },
+    }
   },
   filters: {
     status(status) {
@@ -369,7 +373,7 @@ export default {
     },
     showReferralDisclaimer(showReferralDisclaimer) {
       return showReferralDisclaimer ? "Show" : "Hide";
-    },
+    }
   },
   created() {
     this.fetchAll();

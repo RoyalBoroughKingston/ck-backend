@@ -64,14 +64,14 @@ export default {
   data() {
     return {
       filters: {
-        name: "",
-      },
+        name: ""
+      }
     };
   },
   computed: {
     params() {
       const params = {
-        "filter[has_permission]": true,
+        "filter[has_permission]": true
       };
 
       if (this.filters.name !== "") {
@@ -89,6 +89,6 @@ export default {
     onAddOrganisation() {
       this.$router.push({ name: "organisations-create" });
     }
-  },
+  }
 };
 </script>

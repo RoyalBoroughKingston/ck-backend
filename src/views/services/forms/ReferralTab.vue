@@ -145,9 +145,12 @@ export default {
     contactAdminTeamEmail() {
       const to = "info@connectedkingston.uk";
       const subject = "Turn referrals on for my service";
-      const body = "Service Name: XXX\n\nWe are interested in finding out more about accepting referrals through Connected Kingston.";
+      const body =
+        "Service Name: XXX\n\nWe are interested in finding out more about accepting referrals through Connected Kingston.";
 
-      return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return `mailto:${to}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
     }
   },
   watch: {

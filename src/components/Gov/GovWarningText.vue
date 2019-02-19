@@ -19,5 +19,5 @@ export default {
       default: "Warning"
     }
   }
-}
+};
 </script>

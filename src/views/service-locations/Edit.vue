@@ -63,18 +63,27 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      await this.form.put(`/service-locations/${this.serviceLocation.id}`, (config, data) => {
-        // Remove any unchanged values.
-        if (data.name === (this.serviceLocation.name || "")) {
-          delete data.name;
+      await this.form.put(
+        `/service-locations/${this.serviceLocation.id}`,
+        (config, data) => {
+          // Remove any unchanged values.
+          if (data.name === (this.serviceLocation.name || "")) {
+            delete data.name;
+          }
+          if (
+            JSON.stringify(data.regular_opening_hours) ===
+            JSON.stringify(this.serviceLocation.regular_opening_hours)
+          ) {
+            delete data.regular_opening_hours;
+          }
+          if (
+            JSON.stringify(data.holiday_opening_hours) ===
+            JSON.stringify(this.serviceLocation.holiday_opening_hours)
+          ) {
+            delete data.holiday_opening_hours;
+          }
         }
-        if (JSON.stringify(data.regular_opening_hours) === JSON.stringify(this.serviceLocation.regular_opening_hours)) {
-          delete data.regular_opening_hours;
-        }
-        if (JSON.stringify(data.holiday_opening_hours) === JSON.stringify(this.serviceLocation.holiday_opening_hours)) {
-          delete data.holiday_opening_hours;
-        }
-      });
+      );
 
       this.$router.push({
         name: "service-locations-updated",
