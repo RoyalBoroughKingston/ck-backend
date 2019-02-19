@@ -65,11 +65,11 @@ export default {
 
 .govuk-button {
   &.govuk-button--error {
-    background-color: $govuk-error-colour;
+    background-color: $govuk-error-colour !important;
 
     &:hover,
     &:focus {
-      background-color: darken($govuk-error-colour, 5%);
+      background-color: darken($govuk-error-colour, 5%) !important;
     }
   }
 }
