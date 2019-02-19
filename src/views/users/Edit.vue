@@ -86,7 +86,7 @@ export default {
         });
         let services = await this.fetchAll("/services/index", {
           "filter[id]": serviceIds.join(",")
-        }, 'POST');
+        }, "POST");
         this.form.roles.forEach(role => {
           if (role.hasOwnProperty("service_id")) {
             const service = services.find(
