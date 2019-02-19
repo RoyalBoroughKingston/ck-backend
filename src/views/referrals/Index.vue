@@ -63,7 +63,7 @@
             ]"
             :view-route="(referral) => {
               return {
-                name: 'referrals-show',
+                name: 'referrals-confirmation',
                 params: { referral: referral.id }
               }
             }"
@@ -87,15 +87,15 @@ export default {
         reference: "",
         service_name: "",
         organisation_name: "",
-        status: "",
+        status: ""
       },
       statuses: [
         { value: "", text: "All" },
         { value: "new", text: "New" },
         { value: "in_progress", text: "In progress" },
         { value: "completed", text: "Completed" },
-        { value: "incompleted", text: "Incompleted" },
-      ],
+        { value: "incompleted", text: "Incompleted" }
+      ]
     };
   },
   computed: {
@@ -132,7 +132,7 @@ export default {
       const string = status.replace("_", " ");
 
       return string.charAt(0).toUpperCase() + string.substr(1);
-    },
-  },
+    }
+  }
 };
 </script>
