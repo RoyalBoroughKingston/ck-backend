@@ -189,15 +189,19 @@ Vue.mixin({
     toHtml(markdown) {
       return MarkdownConverter.toHtml(markdown);
     },
-    async fetchAll(uri, params = {}) {
+    async fetchAll(uri, params = {}, method = "get") {
       let page = 1;
       let perPage = 100;
       let mergedParams = { ...params, page, per_page: perPage };
       let allFetched = false;
       let resources = [];
 
+      method = method.toLowerCase();
+      const payload =
+        method === "get" ? { params: mergedParams } : mergedParams;
+
       do {
-        const { data } = await http.get(uri, { params: mergedParams });
+        const { data } = await http[method](uri, payload);
         resources = [...resources, ...data.data];
         allFetched = data.meta.current_page === data.meta.last_page;
         mergedParams.page++;
