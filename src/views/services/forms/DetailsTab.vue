@@ -60,7 +60,7 @@
           label="Upload your service logo"
           accept="image/x-png"
           :error="errors.get('logo')"
-          :existing-url="id ? apiUrl(`/services/${id}/logo.png`) : undefined"
+          :existing-url="id ? apiUrl(`/services/${id}/logo.png?v=${now}`) : undefined"
           image
         >
           <template slot="hint">

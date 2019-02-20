@@ -158,6 +158,11 @@ Vue.mixin({
       auth: Auth
     };
   },
+  computed: {
+    now() {
+      return moment().format(moment.HTML5_FMT.DATE_TIME_SECONDS);
+    }
+  },
   methods: {
     apiUrl(path) {
       return process.env.VUE_APP_API_URI + path;
