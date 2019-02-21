@@ -87,7 +87,7 @@
           label="Show referral disclaimer?"
           :options="[{ value: true, label: 'Display' }, { value: false, label: 'Don\'t display' }]"
           :error="errors.get('show_referral_disclaimer')"
-          :disabled="!isGlobalAdmin"
+          :disabled="!isSuperAdmin"
         />
 
         <slot />
@@ -104,13 +104,17 @@ export default {
     errors: {
       required: true
     },
-    isNew: {
-      required: false,
-      type: Boolean,
-      default: false
-    },
     isGlobalAdmin: {
-      required: true
+      required: true,
+      type: Boolean
+    },
+    isSuperAdmin: {
+      required: true,
+      type: Boolean
+    },
+    originalData: {
+      required: false,
+      type: Object
     },
     show_referral_disclaimer: {
       required: true
@@ -180,11 +184,23 @@ export default {
       }
 
       if (
-        this.isNew &&
         (oldReferralMethod === null || oldReferralMethod === "none") &&
         (newReferralMethod !== null && newReferralMethod !== "none")
       ) {
-        this.$emit("update:show_referral_disclaimer", true);
+        if (this.originalData === undefined) {
+          // Create service.
+          this.$emit("update:show_referral_disclaimer", true);
+        } else {
+          // Edit service.
+          if (
+            this.originalData.referral_method !== "none" &&
+            this.originalData.show_referral_disclaimer === false
+          ) {
+            this.$emit("update:show_referral_disclaimer", false);
+          } else {
+            this.$emit("update:show_referral_disclaimer", true);
+          }
+        }
 
         this.$emit("clear", "show_referral_disclaimer");
       }

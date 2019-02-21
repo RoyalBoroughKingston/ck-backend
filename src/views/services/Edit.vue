@@ -101,6 +101,8 @@
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
                 :is-global-admin="auth.isGlobalAdmin"
+                :is-super-admin="auth.isSuperAdmin"
+                :original-data="form.$originalData"
                 :show_referral_disclaimer.sync="form.show_referral_disclaimer"
                 :referral_method.sync="form.referral_method"
                 :referral_button_text.sync="form.referral_button_text"
