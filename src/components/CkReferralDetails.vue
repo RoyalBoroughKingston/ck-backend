@@ -31,19 +31,9 @@
         <gov-table-cell>{{ referral.service.name }}</gov-table-cell>
       </gov-table-row>
 
-      <gov-table-row v-if="referral.service.contact_name">
-        <gov-table-header top scope="row">Signposted To Name</gov-table-header>
-        <gov-table-cell>{{ referral.service.contact_name }}</gov-table-cell>
-      </gov-table-row>
-
-      <gov-table-row v-if="referral.service.contact_email">
+      <gov-table-row>
         <gov-table-header top scope="row">Signposted To Email</gov-table-header>
-        <gov-table-cell>{{ referral.service.contact_email }}</gov-table-cell>
-      </gov-table-row>
-
-      <gov-table-row v-if="referral.service.contact_phone">
-        <gov-table-header top scope="row">Signposted To Phone</gov-table-header>
-        <gov-table-cell>{{ referral.service.contact_phone }}</gov-table-cell>
+        <gov-table-cell>{{ referral.service.referral_email }}</gov-table-cell>
       </gov-table-row>
 
       <template v-if="!isSelfReferral">
