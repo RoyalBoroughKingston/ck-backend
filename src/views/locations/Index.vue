@@ -12,16 +12,13 @@
 
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-heading size="m">Filters</gov-heading>
-
-              <form @submit.prevent="onSearch">
-
+              <ck-table-filters @search="onSearch">
                 <gov-form-group>
                   <gov-label for="filter[address_line_1]">Address line 1</gov-label>
                   <gov-input v-model="filters.address_line_1" id="filter[address_line_1]" name="filter[address_line_1]" type="search"/>
                 </gov-form-group>
 
-                <template v-if="showAllFilters">
+                <template slot="extra-filters">
                   <gov-form-group>
                     <gov-label for="filter[city]">City</gov-label>
                     <gov-input v-model="filters.city" id="filter[city]" name="filter[city]" type="search"/>
@@ -32,17 +29,7 @@
                     <gov-input v-model="filters.postcode" id="filter[postcode]" name="filter[postcode]" type="search"/>
                   </gov-form-group>
                 </template>
-
-                <gov-form-group>
-                  <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
-                  <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
-                </gov-form-group>
-
-                <gov-form-group>
-                  <gov-button type="submit">Search</gov-button>
-                </gov-form-group>
-
-              </form>
+              </ck-table-filters>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third">
               <gov-button @click="onAddLocation" type="submit" expand>Add location</gov-button>
@@ -74,13 +61,13 @@
 
 <script>
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
+import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
 
 export default {
   name: "ListLocations",
-  components: { CkResourceListingTable },
+  components: { CkResourceListingTable, CkTableFilters },
   data() {
     return {
-      showAllFilters: false,
       filters: {
         address_line_1: "",
         city: "",
