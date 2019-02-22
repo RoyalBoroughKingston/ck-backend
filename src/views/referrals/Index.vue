@@ -10,16 +10,13 @@
 
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-heading size="m">Filters</gov-heading>
-
-              <form @submit.prevent="onSearch">
-
+              <ck-table-filters @search="onSearch">
                 <gov-form-group>
                   <gov-label for="filter[reference]">Reference no.</gov-label>
                   <gov-input v-model="filters.reference" id="filter[reference]" name="filter[reference]" type="search"/>
                 </gov-form-group>
 
-                <template v-if="showAllFilters">
+                <template slot="extra-filters">
                   <gov-form-group>
                     <gov-label for="filter[service_name]">Service name</gov-label>
                     <gov-input v-model="filters.service_name" id="filter[service_name]" name="filter[service_name]" type="search"/>
@@ -35,17 +32,7 @@
                     <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
                   </gov-form-group>
                 </template>
-
-                <gov-form-group>
-                  <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
-                  <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
-                </gov-form-group>
-
-                <gov-form-group>
-                  <gov-button type="submit">Search</gov-button>
-                </gov-form-group>
-
-              </form>
+              </ck-table-filters>
             </gov-grid-column>
           </gov-grid-row>
 
@@ -76,13 +63,13 @@
 
 <script>
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
+import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
 
 export default {
   name: "ListReferrals",
-  components: { CkResourceListingTable },
+  components: { CkResourceListingTable, CkTableFilters },
   data() {
     return {
-      showAllFilters: false,
       filters: {
         reference: "",
         service_name: "",

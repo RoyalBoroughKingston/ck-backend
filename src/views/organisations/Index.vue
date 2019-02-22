@@ -11,20 +11,12 @@
 
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-heading size="m">Filters</gov-heading>
-
-              <form @submit.prevent="onSearch">
-
+              <ck-table-filters @search="onSearch" hide-extra>
                 <gov-form-group>
                   <gov-label for="filter[name]">Organisation name</gov-label>
                   <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
                 </gov-form-group>
-
-                <gov-form-group>
-                  <gov-button type="submit">Search</gov-button>
-                </gov-form-group>
-
-              </form>
+              </ck-table-filters>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
               <gov-button @click="onAddOrganisation" type="submit" expand>Add organisation</gov-button>
@@ -57,10 +49,11 @@
 
 <script>
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
+import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
 
 export default {
   name: "ListOrganisations",
-  components: { CkResourceListingTable },
+  components: { CkResourceListingTable, CkTableFilters },
   data() {
     return {
       filters: {
