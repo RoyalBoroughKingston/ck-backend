@@ -229,7 +229,7 @@
           <gov-table-cell>
             <gov-list bullet v-if="original.category_taxonomies.length > 0">
               <li v-for="(taxonomy, index) in original.category_taxonomies" :key="`category_taxonomies.${index}`">
-                {{ taxonomyName(findTaxonomy(taxonomy)) }}
+                {{ taxonomyName(findTaxonomy(taxonomy.id)) }}
               </li>
             </gov-list>
             <template v-else>None</template>
