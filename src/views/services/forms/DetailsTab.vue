@@ -60,6 +60,8 @@
           label="Upload your service logo"
           accept="image/x-png"
           :error="errors.get('logo')"
+          :existing-url="id ? apiUrl(`/services/${id}/logo.png?v=${now}`) : undefined"
+          image
         >
           <template slot="hint">
             <gov-hint for="logo">
@@ -132,6 +134,10 @@ export default {
     },
     status: {
       required: true
+    },
+    id: {
+      required: false,
+      type: String
     }
   },
   data() {

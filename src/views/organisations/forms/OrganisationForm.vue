@@ -66,6 +66,8 @@
       label="Organisation logo"
       accept="image/x-png"
       :error="errors.get('logo')"
+      :existing-url="id ? apiUrl(`/organisations/${id}/logo.png?v=${now}`) : undefined"
+      image
     />
   </div>
 </template>
@@ -104,6 +106,10 @@ export default {
     },
     logo: {
       required: true
+    },
+    id: {
+      required: false,
+      type: String
     }
   },
   methods: {

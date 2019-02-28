@@ -37,6 +37,8 @@
       label="Persona image"
       accept="image/x-png"
       :error="errors.get('image')"
+      :existing-url="id ? apiUrl(`/collections/personas/${id}/image.png?v=${now}`) : undefined"
+      image
     />
 
     <ck-text-input
@@ -103,6 +105,10 @@ export default {
     },
     image: {
       required: true
+    },
+    id: {
+      required: false,
+      type: String
     }
   },
   methods: {

@@ -27,7 +27,7 @@ export default {
       type: Boolean,
       required: false,
       default: false
-    },
+    }
   },
   computed: {
     computedClasses() {
@@ -35,7 +35,7 @@ export default {
         "align-top": this.top,
         "text-center": this.center,
         "text-right": this.right,
-        "ck-table__header--clickable": this.clickable,
+        "ck-table__header--clickable": this.clickable
       };
     }
   }

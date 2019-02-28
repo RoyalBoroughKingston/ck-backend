@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   name: "CkAuditDetails",
@@ -44,13 +44,15 @@ export default {
     audit: {
       type: Object,
       required: true
-    },
+    }
   },
   methods: {
     autoDeleteDate(updated_at) {
-      return moment(updated_at, moment.ISO_8601).add(24, 'months').format('Y-MM-DD[T]HH:mm:ssZ');
-    },
-  },
+      return moment(updated_at, moment.ISO_8601)
+        .add(24, "months")
+        .format("Y-MM-DD[T]HH:mm:ssZ");
+    }
+  }
 };
 </script>
 

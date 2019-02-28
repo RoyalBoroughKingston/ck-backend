@@ -41,7 +41,6 @@
 <script>
 import Form from "@/classes/Form";
 import StopWordsForm from "@/views/stop-words/forms/StopWordsForm";
-import CkCode from "@/components/CkCode";
 
 export default {
   name: "EditStopWords",
@@ -75,9 +74,14 @@ export default {
      */
     base64Decode(string) {
       string = string.replace("data:text/csv;base64,", "");
-      string = decodeURIComponent(atob(string).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+      string = decodeURIComponent(
+        atob(string)
+          .split("")
+          .map(function(c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
 
       return string;
     },

@@ -53,7 +53,7 @@
         <gov-table-row v-if="organisation.hasOwnProperty('logo_file_id')">
           <gov-table-header top scope="row">Logo</gov-table-header>
           <gov-table-cell>
-            <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?v=${organisation.updated_at}`)" alt="Organisation logo" class="ck-logo">
+            <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?v=${requestedAt}`)" alt="Organisation logo" class="ck-logo">
           </gov-table-cell>
           <gov-table-cell>
             <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?update_request_id=${updateRequestId}`)" alt="Organisation logo" class="ck-logo">
@@ -73,30 +73,37 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String,
+      type: String
+    },
+
+    requestedAt: {
+      required: true,
+      type: String
     },
 
     organisation: {
       required: true,
-      type: Object,
-    },
+      type: Object
+    }
   },
   data() {
     return {
       loading: false,
-      original: null,
+      original: null
     };
   },
   methods: {
     async fetchOriginal() {
       this.loading = true;
-      const { data: { data: original } } = await http.get(`/organisations/${this.organisation.id}`);
+      const {
+        data: { data: original }
+      } = await http.get(`/organisations/${this.organisation.id}`);
       this.original = original;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.fetchOriginal();
-  },
+  }
 };
 </script>

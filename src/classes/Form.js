@@ -112,7 +112,7 @@ export default class Form {
    *
    * @param {object} data
    */
-  onSuccess(data) {
+  onSuccess(/*data*/) {
     this.$submitting = false;
   }
 

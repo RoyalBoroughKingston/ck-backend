@@ -28,8 +28,8 @@
             {{ column.render(resource) }}
           </gov-table-cell>
           <gov-table-cell right>
-            <gov-link :to="viewRoute(resource)">
-              View
+            <gov-link @click="onAction(resource)" :to="viewRoute ? viewRoute(resource) : null">
+              {{ actionText }}
             </gov-link>
           </gov-table-cell>
         </gov-table-row>
@@ -49,16 +49,16 @@
 
 <script>
 import http from "@/http";
-import GovTable from '@/components/Gov/GovTable.vue';
-import GovTableCell from '@/components/Gov/GovTableCell.vue';
-import GovTableHeader from '@/components/Gov/GovTableHeader.vue';
-import GovTableRow from '@/components/Gov/GovTableRow.vue';
-import GovLink from '@/components/Gov/GovLink.vue';
-import CkLoader from '@/components/CkLoader.vue';
-import CkPagination from '@/components/Ck/CkPagination.vue';
+import GovTable from "@/components/Gov/GovTable.vue";
+import GovTableCell from "@/components/Gov/GovTableCell.vue";
+import GovTableHeader from "@/components/Gov/GovTableHeader.vue";
+import GovTableRow from "@/components/Gov/GovTableRow.vue";
+import GovLink from "@/components/Gov/GovLink.vue";
+import CkLoader from "@/components/CkLoader.vue";
+import CkPagination from "@/components/Ck/CkPagination.vue";
 
 export default {
-  name: 'ResourceListingTable',
+  name: "ResourceListingTable",
 
   components: {
     GovTable,
@@ -67,35 +67,41 @@ export default {
     GovTableRow,
     GovLink,
     CkLoader,
-    CkPagination,
+    CkPagination
   },
 
   props: {
     uri: {
       required: true,
-      type: String,
+      type: String
     },
 
     params: {
       required: false,
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
 
     columns: {
       required: true,
-      type: Array,
+      type: Array
     },
 
     viewRoute: {
-      required: true,
-      type: Function,
+      required: false,
+      type: Function
     },
 
     defaultSort: {
       required: false,
       type: String,
-      default: "",
+      default: ""
+    },
+
+    actionText: {
+      required: false,
+      type: String,
+      default: "View"
     }
   },
 
@@ -105,7 +111,7 @@ export default {
       loading: false,
       currentPage: 1,
       totalPages: 1,
-      sort: this.defaultSort,
+      sort: this.defaultSort
     };
   },
 
@@ -121,7 +127,7 @@ export default {
       }
 
       return params;
-    },
+    }
   },
 
   methods: {
@@ -148,7 +154,8 @@ export default {
 
     onSort(column) {
       const currentSortDirection = this.sort.charAt(0) === "-" ? "desc" : "asc";
-      const currentSortField = this.sort.charAt(0) === "-" ? this.sort.substr(1) : this.sort;
+      const currentSortField =
+        this.sort.charAt(0) === "-" ? this.sort.substr(1) : this.sort;
 
       const columnSortField = column.sort;
 
@@ -175,7 +182,8 @@ export default {
 
     sortText(column) {
       const currentSortDirection = this.sort.charAt(0) === "-" ? "desc" : "asc";
-      const currentSortField = this.sort.charAt(0) === "-" ? this.sort.substr(1) : this.sort;
+      const currentSortField =
+        this.sort.charAt(0) === "-" ? this.sort.substr(1) : this.sort;
 
       if (currentSortField !== column.sort) {
         return "";
@@ -183,10 +191,14 @@ export default {
 
       return currentSortDirection === "asc" ? "(ASC)" : "(DESC)";
     },
+
+    onAction(resource) {
+      this.$emit("action", resource);
+    }
   },
 
   created() {
     this.fetchResources();
-  },
+  }
 };
 </script>

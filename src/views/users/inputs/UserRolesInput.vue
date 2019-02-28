@@ -244,9 +244,11 @@ export default {
         };
       }
 
-      let services = await this.fetchAll("/services", {
-        "filter[organisation_id]": organisationIds.join(",")
-      });
+      let services = await this.fetchAll(
+        "/services/index",
+        { "filter[organisation_id]": organisationIds.join(",") },
+        "POST"
+      );
 
       for (let organisationId of organisationIds) {
         this.services[organisationId].items = [

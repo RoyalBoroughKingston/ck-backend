@@ -68,10 +68,14 @@ export default {
       // TODO: Filter down the roles.
       if (this.form.roles.find(role => role.role === "Super Admin")) {
         // If the user is a super admin.
-        this.form.roles = this.form.roles.filter(role => role.role === "Super Admin");
+        this.form.roles = this.form.roles.filter(
+          role => role.role === "Super Admin"
+        );
       } else if (this.form.roles.find(role => role.role === "Global Admin")) {
         // Else if, the user is a global admin.
-        this.form.roles = this.form.roles.filter(role => role.role === "Global Admin");
+        this.form.roles = this.form.roles.filter(
+          role => role.role === "Global Admin"
+        );
       } else {
         // Else, fetch the services for each role and embed them.
         let serviceIds = [];
@@ -80,9 +84,11 @@ export default {
             serviceIds.push(role.service_id);
           }
         });
-        let services = await this.fetchAll("/services", {
-          "filter[id]": serviceIds.join(",")
-        });
+        let services = await this.fetchAll(
+          "/services/index",
+          { "filter[id]": serviceIds.join(",") },
+          "POST"
+        );
         this.form.roles.forEach(role => {
           if (role.hasOwnProperty("service_id")) {
             const service = services.find(
@@ -100,7 +106,10 @@ export default {
           }
         });
         this.form.roles = this.form.roles.filter(role => {
-          return role.role === "Organisation Admin" || !organisationIds.includes(role.organisation_id);
+          return (
+            role.role === "Organisation Admin" ||
+            !organisationIds.includes(role.organisation_id)
+          );
         });
 
         // Filter down the roles for service admins.
@@ -111,7 +120,10 @@ export default {
           }
         });
         this.form.roles = this.form.roles.filter(role => {
-          return role.role === "Service Admin" || !serviceAdminIds.includes(role.service_id);
+          return (
+            role.role === "Service Admin" ||
+            !serviceAdminIds.includes(role.service_id)
+          );
         });
       }
 

@@ -14,11 +14,11 @@ export default {
       type: String,
       required: false,
       default: ""
-    },
+    }
   },
   data() {
     return {
-      initialValue: null,
+      initialValue: null
     };
   },
   created() {

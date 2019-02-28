@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import _ from "lodash";
 import Auth from "@/classes/Auth";
 
 export default {
@@ -27,7 +27,7 @@ export default {
       themeColor: "#0b0c0c",
       bodyClasses: ["js-enabled"],
       mainClasses: [],
-      headerNav: [],
+      headerNav: []
     };
   },
   computed: {
@@ -51,7 +51,7 @@ export default {
         { text: "Organisations", to: { name: "organisations-index" } },
         {
           text: "Users",
-          to: { name: "users-index" },
+          to: { name: "users-index" }
         },
         {
           text: "Reports",
@@ -82,16 +82,16 @@ export default {
         : this.loggedOutItems;
     },
     bindActivityTracking() {
-      document.addEventListener('mousemove', this.trackActivity);
-      document.addEventListener('touchmove', this.trackActivity);
-      document.addEventListener('keypress', this.trackActivity);
-      document.addEventListener('scroll', this.trackActivity);
+      document.addEventListener("mousemove", this.trackActivity);
+      document.addEventListener("touchmove", this.trackActivity);
+      document.addEventListener("keypress", this.trackActivity);
+      document.addEventListener("scroll", this.trackActivity);
     },
     trackActivity: _.throttle(() => {
       if (Auth.isLoggedIn && !Auth.inactive()) {
         Auth.invokeActivity();
       }
-    }, 1000),
+    }, 1000)
   },
 
   created() {

@@ -53,6 +53,6 @@ export default {
     description: {
       required: true
     }
-  },
+  }
 };
 </script>

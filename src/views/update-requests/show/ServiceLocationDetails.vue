@@ -82,7 +82,12 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String,
+      type: String
+    },
+
+    requestedAt: {
+      required: true,
+      type: String
     },
 
     serviceLocation: {
@@ -119,7 +124,9 @@ export default {
       this.service = data.data;
     },
     async fetchLocation() {
-      const { data } = await http.get(`/locations/${this.original.location_id}`);
+      const { data } = await http.get(
+        `/locations/${this.original.location_id}`
+      );
       this.location = data.data;
     },
     formatRegularOpeningHour(openingHour) {

@@ -21,6 +21,7 @@
               :email.sync="form.email"
               :phone.sync="form.phone"
               :logo.sync="form.logo"
+              :id="organisation.id"
               @clear="form.$errors.clear($event)"
             />
 
@@ -97,9 +98,11 @@ export default {
             delete data.phone;
           }
 
-          // Remove the logo from the request if null.
+          // Remove the logo from the request if null, or delete if false.
           if (data.logo === null) {
             delete data.logo;
+          } else if (data.logo === false) {
+            data.logo = null;
           }
         }
       );

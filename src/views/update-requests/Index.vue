@@ -11,20 +11,12 @@
 
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-heading size="m">Filters</gov-heading>
-
-              <form @submit.prevent="onSearch">
-
+              <ck-table-filters @search="onSearch" hide-extra>
                 <gov-form-group>
                   <gov-label for="filter[entry]">Entry</gov-label>
                   <gov-input v-model="filters.entry" id="filter[entry]" name="filter[entry]" type="search"/>
                 </gov-form-group>
-
-                <gov-form-group>
-                  <gov-button type="submit">Search</gov-button>
-                </gov-form-group>
-
-              </form>
+              </ck-table-filters>
             </gov-grid-column>
           </gov-grid-row>
 
@@ -54,21 +46,22 @@
 
 <script>
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
+import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
 
 export default {
   name: "ListUpdateRequests",
-  components: { CkResourceListingTable },
+  components: { CkResourceListingTable, CkTableFilters },
   data() {
     return {
       filters: {
-        entry: "",
-      },
+        entry: ""
+      }
     };
   },
   computed: {
     params() {
       const params = {
-        "include": "user",
+        include: "user"
       };
 
       if (this.filters.entry !== "") {
@@ -96,7 +89,7 @@ export default {
         default:
           return "Invalid type";
       }
-    },
-  },
+    }
+  }
 };
 </script>

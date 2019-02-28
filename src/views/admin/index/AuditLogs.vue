@@ -6,16 +6,13 @@
 
     <gov-grid-row>
       <gov-grid-column width="two-thirds">
-        <gov-heading size="m">Filters</gov-heading>
-
-        <form @submit.prevent="onSearch">
-
+        <ck-table-filters @search="onSearch">
           <gov-form-group>
             <gov-label for="filter[action]">Action</gov-label>
             <gov-select v-model="filters.action" id="filter[action]" name="filter[action]" :options="actions"/>
           </gov-form-group>
 
-          <template v-if="showAllFilters">
+          <template slot="extra-filters">
             <gov-form-group>
               <gov-label for="filter[description]">Description</gov-label>
               <gov-input v-model="filters.description" id="filter[description]" name="filter[description]" type="search"/>
@@ -27,17 +24,7 @@
               <gov-select v-else v-model="filters.user_id" id="filter[user_id]" name="filter[user_id]" :options="users"/>
             </gov-form-group>
           </template>
-
-          <gov-form-group>
-            <gov-link v-if="!showAllFilters" @click="showAllFilters = true">Show extra filters</gov-link>
-            <gov-link v-else @click="showAllFilters = false">Hide extra filters</gov-link>
-          </gov-form-group>
-
-          <gov-form-group>
-            <gov-button type="submit">Search</gov-button>
-          </gov-form-group>
-
-        </form>
+        </ck-table-filters>
       </gov-grid-column>
     </gov-grid-row>
 
@@ -63,35 +50,34 @@
 </template>
 
 <script>
-import http from "@/http";
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
+import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
 
 export default {
   name: "ListAuditLogs",
-  components: { CkResourceListingTable },
+  components: { CkResourceListingTable, CkTableFilters },
   data() {
     return {
       loadingUsers: false,
-      showAllFilters: false,
       filters: {
         action: "",
         description: "",
-        user_id: "",
+        user_id: ""
       },
       actions: [
         { value: "", text: "All" },
         { value: "create", text: "Create" },
         { value: "read", text: "Read" },
         { value: "update", text: "Update" },
-        { value: "delete", text: "Delete" },
+        { value: "delete", text: "Delete" }
       ],
-      users: [],
+      users: []
     };
   },
   computed: {
     params() {
       const params = {
-        include: "user",
+        include: "user"
       };
 
       if (this.filters.action !== "") {
@@ -114,13 +100,10 @@ export default {
       this.loadingUsers = true;
 
       let users = await this.fetchAll("/users");
-      users = users.map((user) => {
+      users = users.map(user => {
         return { value: user.id, text: `${user.first_name} ${user.last_name}` };
       });
-      this.users = [
-        { value: "", text: "All" },
-        ...users,
-      ];
+      this.users = [{ value: "", text: "All" }, ...users];
 
       this.loadingUsers = false;
     },
@@ -133,11 +116,11 @@ export default {
         return `${user.first_name} ${user.last_name}`;
       }
 
-      return 'Guest';
+      return "Guest";
     },
     formatAction(action) {
       return action.charAt(0).toUpperCase() + action.substr(1);
-    },
+    }
   },
   created() {
     this.fetchUsers();

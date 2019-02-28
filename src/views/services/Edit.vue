@@ -29,6 +29,7 @@
                 :logo.sync="form.logo"
                 :intro.sync="form.intro"
                 :status.sync="form.status"
+                :id="service.id"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </details-tab>
@@ -100,6 +101,8 @@
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
                 :is-global-admin="auth.isGlobalAdmin"
+                :is-super-admin="auth.isSuperAdmin"
+                :original-data="form.$originalData"
                 :show_referral_disclaimer.sync="form.show_referral_disclaimer"
                 :referral_method.sync="form.referral_method"
                 :referral_button_text.sync="form.referral_button_text"
@@ -260,13 +263,19 @@ export default {
         if (data.contact_email === (this.service.contact_email || "")) {
           delete data.contact_email;
         }
-        if (data.show_referral_disclaimer === this.service.show_referral_disclaimer) {
+        if (
+          data.show_referral_disclaimer ===
+          this.service.show_referral_disclaimer
+        ) {
           delete data.show_referral_disclaimer;
         }
         if (data.referral_method === this.service.referral_method) {
           delete data.referral_method;
         }
-        if (data.referral_button_text === (this.service.referral_button_text || "")) {
+        if (
+          data.referral_button_text ===
+          (this.service.referral_button_text || "")
+        ) {
           delete data.referral_button_text;
         }
         if (data.referral_email === (this.service.referral_email || "")) {
@@ -275,13 +284,19 @@ export default {
         if (data.referral_url === (this.service.referral_url || "")) {
           delete data.referral_url;
         }
-        if (data.criteria.age_group === (this.service.criteria.age_group || "")) {
+        if (
+          data.criteria.age_group === (this.service.criteria.age_group || "")
+        ) {
           delete data.criteria.age_group;
         }
-        if (data.criteria.disability === (this.service.criteria.disability || "")) {
+        if (
+          data.criteria.disability === (this.service.criteria.disability || "")
+        ) {
           delete data.criteria.disability;
         }
-        if (data.criteria.employment === (this.service.criteria.employment || "")) {
+        if (
+          data.criteria.employment === (this.service.criteria.employment || "")
+        ) {
           delete data.criteria.employment;
         }
         if (data.criteria.gender === (this.service.criteria.gender || "")) {
@@ -302,19 +317,32 @@ export default {
         if (Object.keys(data.criteria).length === 0) {
           delete data.criteria;
         }
-        if (JSON.stringify(data.useful_infos) === JSON.stringify(this.service.useful_infos)) {
+        if (
+          JSON.stringify(data.useful_infos) ===
+          JSON.stringify(this.service.useful_infos)
+        ) {
           delete data.useful_infos;
         }
-        if (JSON.stringify(data.social_medias) === JSON.stringify(this.service.social_medias)) {
+        if (
+          JSON.stringify(data.social_medias) ===
+          JSON.stringify(this.service.social_medias)
+        ) {
           delete data.social_medias;
         }
-        if (JSON.stringify(data.category_taxonomies) === JSON.stringify(this.service.category_taxonomies.map(taxonomy => taxonomy.id))) {
+        if (
+          JSON.stringify(data.category_taxonomies) ===
+          JSON.stringify(
+            this.service.category_taxonomies.map(taxonomy => taxonomy.id)
+          )
+        ) {
           delete data.category_taxonomies;
         }
 
-        // Remove the logo from the request if null.
+        // Remove the logo from the request if null, or delete if false.
         if (data.logo === null) {
           delete data.logo;
+        } else if (data.logo === false) {
+          data.logo = null;
         }
       });
       this.$router.push({
