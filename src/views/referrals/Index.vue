@@ -29,7 +29,16 @@
 
                   <gov-form-group>
                     <gov-label for="filter[status]">Status</gov-label>
-                    <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
+                    <gov-checkboxes>
+                      <gov-checkbox
+                        v-for="status in filters.status"
+                        :key="`Referrals::Index::Filters::Status::${status.text}`"
+                        v-model="status.enabled"
+                        :id="`filter[status][${status.value}]`"
+                        :name="`filter[status][${status.value}]`"
+                        :label="status.text"
+                      />
+                    </gov-checkboxes>
                   </gov-form-group>
                 </template>
               </ck-table-filters>
@@ -74,15 +83,13 @@ export default {
         reference: "",
         service_name: "",
         organisation_name: "",
-        status: ""
-      },
-      statuses: [
-        { value: "", text: "All" },
-        { value: "new", text: "New" },
-        { value: "in_progress", text: "In progress" },
-        { value: "completed", text: "Completed" },
-        { value: "incompleted", text: "Incompleted" }
-      ]
+        status: [
+          { value: "new", text: "New", enabled: true },
+          { value: "in_progress", text: "In progress", enabled: true },
+          { value: "completed", text: "Completed", enabled: true },
+          { value: "incompleted", text: "Incompleted", enabled: true }
+        ]
+      }
     };
   },
   computed: {
@@ -103,8 +110,13 @@ export default {
         params["filter[organisation_name]"] = this.filters.organisation_name;
       }
 
-      if (this.filters.status !== "") {
-        params["filter[status]"] = this.filters.status;
+      const status = this.filters.status
+        .filter(status => status.enabled)
+        .map(status => status.value)
+        .join(',');
+
+      if (status !== "") {
+        params["filter[status]"] = status;
       }
 
       return params;
