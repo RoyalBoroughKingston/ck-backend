@@ -113,7 +113,7 @@ export default {
       const status = this.filters.status
         .filter(status => status.enabled)
         .map(status => status.value)
-        .join(',');
+        .join(",");
 
       if (status !== "") {
         params["filter[status]"] = status;
