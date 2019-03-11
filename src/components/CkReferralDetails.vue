@@ -66,7 +66,7 @@
       <gov-table-row>
         <gov-table-header top scope="row">Status</gov-table-header>
         <gov-table-cell>
-          <gov-tag>{{ humanReadableStatus(referral.status) }}</gov-tag>
+          <gov-tag>{{ referral.status | status }}</gov-tag>
         </gov-table-cell>
       </gov-table-row>
 
@@ -111,14 +111,26 @@ export default {
     }
   },
   methods: {
-    humanReadableStatus(status) {
-      const string = status.replace("_", " ");
-      return string.charAt(0).toUpperCase() + string.substr(1);
-    },
     autoDeleteDate(updated_at) {
       return moment(updated_at, moment.ISO_8601)
         .add(6, "months")
         .format("Y-MM-DD[T]HH:mm:ssZ");
+    }
+  },
+  filters: {
+    status(status) {
+      switch (status) {
+        case "new":
+          return "New";
+        case "in_progress":
+          return "In progress";
+        case "completed":
+          return "Completed";
+        case "incompleted":
+          return "Incomplete";
+        default:
+          return "Invalid status";
+      }
     }
   }
 };
