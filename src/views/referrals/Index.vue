@@ -54,7 +54,7 @@
               { heading: 'Reference no.', sort: 'reference', render: (referral) => referral.reference },
               { heading: 'Service', sort: 'service_name', render: (referral) => referral.service.name },
               { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
-              { heading: 'Status', render: (referral) => displayStatus(referral.status) },
+              { heading: 'Status', render: (referral) => $options.filters.status(referral.status) },
               { heading: 'Date submitted', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
             ]"
             :view-route="(referral) => {
@@ -87,7 +87,7 @@ export default {
           { value: "new", text: "New", enabled: true },
           { value: "in_progress", text: "In progress", enabled: true },
           { value: "completed", text: "Completed", enabled: true },
-          { value: "incompleted", text: "Incompleted", enabled: true }
+          { value: "incompleted", text: "Incomplete", enabled: true }
         ]
       }
     };
@@ -126,11 +126,22 @@ export default {
     onSearch() {
       this.$refs.referralsTable.currentPage = 1;
       this.$refs.referralsTable.fetchResources();
-    },
-    displayStatus(status) {
-      const string = status.replace("_", " ");
-
-      return string.charAt(0).toUpperCase() + string.substr(1);
+    }
+  },
+  filters: {
+    status(status) {
+      switch (status) {
+        case "new":
+          return "New";
+        case "in_progress":
+          return "In progress";
+        case "completed":
+          return "Completed";
+        case "incompleted":
+          return "Incomplete";
+        default:
+          return "Invalid status";
+      }
     }
   }
 };
