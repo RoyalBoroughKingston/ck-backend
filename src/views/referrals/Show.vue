@@ -150,6 +150,7 @@ export default {
     onSubmit() {
       this.form.put(`/referrals/${this.referral.id}`).then(() => {
         this.form.comments = "";
+        this.form.$errors.clear();
         this.fetchReferral();
         this.fetchStatusUpdates();
       });

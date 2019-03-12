@@ -155,7 +155,8 @@ Vue.component("GovWidthContainer", () =>
 Vue.mixin({
   data() {
     return {
-      auth: Auth
+      auth: Auth,
+      moment
     };
   },
   computed: {

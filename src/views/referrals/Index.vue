@@ -56,6 +56,7 @@
               { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
               { heading: 'Status', render: (referral) => $options.filters.status(referral.status) },
               { heading: 'Date submitted', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
+              { heading: 'Status last updated', render: (referral) => diffInBusinessDays(referral.status_last_updated_at) > 2 ? '❌' : '✅' },
             ]"
             :view-route="(referral) => {
               return {
@@ -95,6 +96,7 @@ export default {
   computed: {
     params() {
       const params = {
+        append: "status_last_updated_at",
         include: "service.organisation"
       };
 
@@ -126,6 +128,24 @@ export default {
     onSearch() {
       this.$refs.referralsTable.currentPage = 1;
       this.$refs.referralsTable.fetchResources();
+    },
+    diffInBusinessDays(date) {
+      const start = this.moment(date, this.moment.ISO_8601);
+      const end = this.moment();
+      const duration = end.diff(start, "days");
+
+      let businessDays = 0;
+      for (var i = 0; i < duration; i++){
+          const day = start.add(i, "days").isoWeekday();
+
+          if (day < 6) {
+            businessDays += 1;
+        }
+      };
+
+      console.log(duration, businessDays);
+
+      return businessDays;
     }
   },
   filters: {
