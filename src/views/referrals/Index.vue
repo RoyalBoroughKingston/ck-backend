@@ -55,8 +55,8 @@
               { heading: 'Service', sort: 'service_name', render: (referral) => referral.service.name },
               { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
               { heading: 'Status', render: (referral) => $options.filters.status(referral.status) },
+              { heading: 'Days remaining', render: (referral) => statusLastUpdated(referral) },
               { heading: 'Date submitted', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
-              { heading: 'Status last updated', render: (referral) => diffInBusinessDays(referral.status_last_updated_at) > 2 ? '❌' : '✅' },
             ]"
             :view-route="(referral) => {
               return {
@@ -143,9 +143,16 @@ export default {
         }
       };
 
-      console.log(duration, businessDays);
-
       return businessDays;
+    },
+    statusLastUpdated(referral) {
+      if (!["new", "in_progress"].includes(referral.status)) {
+        return 'N/A';
+      }
+
+      const workingDays = this.diffInBusinessDays(referral.status_last_updated_at);
+
+      return workingDays >= 10 ? 'Due' : 10 - workingDays;
     }
   },
   filters: {
