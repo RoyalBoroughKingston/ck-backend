@@ -114,7 +114,10 @@ export default {
 
       http
         .get(`/referrals/${this.$route.params.referral}`, {
-          params: { include: "service" }
+          params: {
+            append: "status_last_updated_at",
+            include: "service"
+          }
         })
         .then(({ data }) => {
           this.referral = data.data;
