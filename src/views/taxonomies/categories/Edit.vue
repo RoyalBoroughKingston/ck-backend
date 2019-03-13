@@ -14,9 +14,9 @@
             </gov-heading>
             <gov-heading size="m">Edit category</gov-heading>
             <gov-body>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At facilis reprehenderit aperiam,
-              magnam vitae, perspiciatis veniam necessitatibus pariatur dolore omnis explicabo quisquam
-              excepturi iusto. Facere mollitia sapiente fuga possimus repellat!
+              From this page you can change the name of the taxonomy 'tags' on
+              the site and how they relate to each other. These should not be
+              changed without reviewing wider impact on the site
             </gov-body>
 
             <taxonomy-form

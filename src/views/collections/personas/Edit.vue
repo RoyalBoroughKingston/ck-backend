@@ -14,9 +14,10 @@
             </gov-heading>
             <gov-heading size="m">Edit persona</gov-heading>
             <gov-body>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At facilis reprehenderit aperiam,
-              magnam vitae, perspiciatis veniam necessitatibus pariatur dolore omnis explicabo quisquam
-              excepturi iusto. Facere mollitia sapiente fuga possimus repellat!
+              From this page, you can edit the persona groups that appear
+              on the homepage. You can change which taxonomies they refer to,
+              the icon used, and the information provided in the description
+              and sidebox.
             </gov-body>
 
             <collection-form

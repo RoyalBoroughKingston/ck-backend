@@ -12,9 +12,9 @@
           </gov-heading>
           <gov-heading size="m">Add category</gov-heading>
           <gov-body>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error sed, labore accusantium culpa
-            praesentium illo assumenda eveniet dignissimos explicabo libero quibusdam ab a quia, vitae
-            odio. Laborum delectus quidem voluptatibus.
+            From this page, you can add the categories that appear on the
+            homepage. You can specify which taxonomies they refer to, the icon
+            used, and the information provided in the description and sidebox.
           </gov-body>
 
           <collection-form
