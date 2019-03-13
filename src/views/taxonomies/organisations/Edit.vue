@@ -14,9 +14,8 @@
             </gov-heading>
             <gov-heading size="m">Edit organisation</gov-heading>
             <gov-body>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At facilis reprehenderit aperiam,
-              magnam vitae, perspiciatis veniam necessitatibus pariatur dolore omnis explicabo quisquam
-              excepturi iusto. Facere mollitia sapiente fuga possimus repellat!
+              From this page, you can edit the names of the Organisations
+              referrers can select from when completing a referral.
             </gov-body>
 
             <taxonomy-form

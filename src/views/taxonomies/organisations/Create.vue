@@ -12,9 +12,8 @@
           </gov-heading>
           <gov-heading size="m">Add organisation</gov-heading>
           <gov-body>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error sed, labore accusantium culpa
-            praesentium illo assumenda eveniet dignissimos explicabo libero quibusdam ab a quia, vitae
-            odio. Laborum delectus quidem voluptatibus.
+            From this page, you can add the names of the Organisations
+            referrers can select from when completing a referral.
           </gov-body>
 
           <taxonomy-form
