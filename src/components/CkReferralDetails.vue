@@ -71,6 +71,13 @@
       </gov-table-row>
 
       <gov-table-row>
+        <gov-table-header top scope="row">Days Remaining</gov-table-header>
+        <gov-table-cell>
+          {{ statusLastUpdated(referral) }}
+        </gov-table-cell>
+      </gov-table-row>
+
+      <gov-table-row>
         <gov-table-header top scope="row">Date/Time</gov-table-header>
         <gov-table-cell>{{ formatDateTime(referral.created_at) }}</gov-table-cell>
       </gov-table-row>
@@ -115,6 +122,31 @@ export default {
       return moment(updated_at, moment.ISO_8601)
         .add(6, "months")
         .format("Y-MM-DD[T]HH:mm:ssZ");
+    },
+    diffInBusinessDays(date) {
+      const start = this.moment(date, this.moment.ISO_8601);
+      const end = this.moment();
+      const duration = end.diff(start, "days");
+
+      let businessDays = 0;
+      for (var i = 0; i < duration; i++){
+          const day = start.add(i, "days").isoWeekday();
+
+          if (day < 6) {
+            businessDays += 1;
+        }
+      };
+
+      return businessDays;
+    },
+    statusLastUpdated(referral) {
+      if (!["new", "in_progress"].includes(referral.status)) {
+        return 'N/A';
+      }
+
+      const workingDays = this.diffInBusinessDays(referral.status_last_updated_at);
+
+      return workingDays >= 10 ? 'Due' : 10 - workingDays;
     }
   },
   filters: {
