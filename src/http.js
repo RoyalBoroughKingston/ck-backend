@@ -3,7 +3,7 @@ import Auth from "@/classes/Auth";
 import router from "@/router";
 
 const http = axios.create({
-  baseURL: process.env.VUE_APP_API_URI
+  baseURL: `${process.env.VUE_APP_API_URI}/core/v1`
 });
 
 http.defaults.headers.post["Content-Type"] = "application/json";
