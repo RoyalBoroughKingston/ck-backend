@@ -105,7 +105,7 @@ class Auth {
    */
   async clearSessions() {
     await this.http.delete(
-      `${process.env.VUE_APP_API_URI}/users/user/sessions`,
+      `${process.env.VUE_APP_API_URI}/core/v1/users/user/sessions`,
       {
         headers: {
           "Content-Type": "application/json",
