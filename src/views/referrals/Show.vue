@@ -77,6 +77,24 @@
             </template>
           </gov-grid-column>
         </gov-grid-row>
+        <template v-if="auth.isSuperAdmin">
+          <gov-section-break size="l" />
+          <gov-grid-row width="two-thirds">
+            <gov-grid-column width="two-thirds">
+              <gov-heading size="m">Delete referral</gov-heading>
+
+              <gov-body>Please be certain of the action before deleting a referral</gov-body>
+
+              <gov-section-break size="l" />
+
+              <ck-delete-button
+                resource="referral"
+                :endpoint="`/referrals/${this.referral.id}`"
+                @deleted="onDelete"
+              />
+            </gov-grid-column>
+          </gov-grid-row>
+        </template>
       </template>
     </gov-main-wrapper>
   </gov-width-container>
@@ -157,6 +175,9 @@ export default {
         this.fetchReferral();
         this.fetchStatusUpdates();
       });
+    },
+    onDelete() {
+      this.$router.push({ name: "referrals-index" });
     }
   },
   filters: {
