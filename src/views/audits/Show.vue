@@ -34,7 +34,7 @@ export default {
   methods: {
     async fetchAudit() {
       this.loading = true;
-      const { data } = await http.get(`/audits/${this.$route.params.audit}`);
+      const { data } = await http.get(`/audits/${this.$route.params.audit}?include=user`);
       this.audit = data.data;
       this.loading = false;
     }
