@@ -125,14 +125,14 @@ export default {
       this.loadingOauthClients = true;
 
       let { data: oauthClients } = await http({
-        method: 'get',
-        url: '/oauth/clients',
+        method: "get",
+        url: "/oauth/clients",
         baseURL: process.env.VUE_APP_API_URI
       });
 
       oauthClients = oauthClients.map(oauthClient => ({
         value: oauthClient.id,
-        text: oauthClient.name,
+        text: oauthClient.name
       }));
 
       this.oauthClients = [{ value: "", text: "All" }, ...oauthClients];

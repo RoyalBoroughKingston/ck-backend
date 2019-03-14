@@ -129,24 +129,26 @@ export default {
       const duration = end.diff(start, "days");
 
       let businessDays = 0;
-      for (var i = 0; i < duration; i++){
-          const day = start.add(i, "days").isoWeekday();
+      for (var i = 0; i < duration; i++) {
+        const day = start.add(i, "days").isoWeekday();
 
-          if (day < 6) {
-            businessDays += 1;
+        if (day < 6) {
+          businessDays += 1;
         }
-      };
+      }
 
       return businessDays;
     },
     statusLastUpdated(referral) {
       if (!["new", "in_progress"].includes(referral.status)) {
-        return 'N/A';
+        return "N/A";
       }
 
-      const workingDays = this.diffInBusinessDays(referral.status_last_updated_at);
+      const workingDays = this.diffInBusinessDays(
+        referral.status_last_updated_at
+      );
 
-      return workingDays >= 10 ? 'Due' : 10 - workingDays;
+      return workingDays >= 10 ? "Due" : 10 - workingDays;
     }
   },
   filters: {
