@@ -10,6 +10,8 @@
           id="description"
           label="Longer service description"
           :error="errors.get('description')"
+          large
+          :maxlength="1600"
         >
           <template slot="hint">
             <gov-hint for="description">

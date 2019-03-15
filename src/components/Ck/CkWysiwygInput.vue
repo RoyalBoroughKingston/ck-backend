@@ -9,11 +9,20 @@
         <gov-hint v-if="hint" :for="id" v-text="hint" />
       </slot>
 
-      <ck-wysiwyg
-        :value="value"
-        @input="$emit('input', $event)"
-        :id="id"
-      />
+      <ck-character-count-group>
+        <ck-wysiwyg
+          :value="value"
+          @input="$emit('input', $event)"
+          @count="onCount"
+          :id="id"
+          :large="large"
+        />
+        <ck-character-count
+          v-if="maxlength"
+          :count="count"
+          :max-length="maxlength"
+        />
+      </ck-character-count-group>
 
       <slot name="after-input" />
 
@@ -27,8 +36,12 @@
 </template>
 
 <script>
+import CkCharacterCount from '@/components/Ck/CkCharacterCount.vue';
+import CkCharacterCountGroup from '@/components/Ck/CkCharacterCountGroup.vue';
+
 export default {
   name: "CkWysiwygInput",
+  components: { CkCharacterCount, CkCharacterCountGroup },
   props: {
     value: {
       required: true,
@@ -48,6 +61,25 @@ export default {
     id: {
       required: true,
       type: String
+    },
+    large: {
+      required: false,
+      type: Boolean,
+      deafult: false
+    },
+    maxlength: {
+      required: false,
+      type: Number
+    }
+  },
+  data() {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    onCount(count) {
+      this.count = count;
     }
   }
 };

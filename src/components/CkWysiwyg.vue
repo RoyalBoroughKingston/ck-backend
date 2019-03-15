@@ -1,8 +1,10 @@
 <template>
   <wysiwyg
     class="ck-wysiwyg"
+    :class="{ 'ck-wysiwyg--lg': large }"
     :html="initialValue"
     @html="onEdit"
+    ref="wysiwyg"
   />
 </template>
 
@@ -14,6 +16,11 @@ export default {
       type: String,
       required: false,
       default: ""
+    },
+    large: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -26,10 +33,16 @@ export default {
   },
   methods: {
     onEdit(html) {
-      const markdown = this.toMarkdown(html);
+      const div = document.createElement("div");
+      div.innerHTML = html;
+      this.$emit("count", div.textContent.length);
 
+      const markdown = this.toMarkdown(html);
       this.$emit("input", markdown);
     }
+  },
+  mounted() {
+    this.$emit("count", this.$refs.wysiwyg.$refs.content.textContent.length);
   }
 };
 </script>
@@ -42,6 +55,10 @@ export default {
   @extend .govuk-textarea;
   padding: 0;
   min-height: 10rem;
+
+  &--lg {
+    min-height: 30rem;
+  }
 
   p {
     @extend .govuk-body;

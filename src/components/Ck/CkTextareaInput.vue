@@ -9,14 +9,21 @@
         <gov-hint v-if="hint" :for="id" v-text="hint" />
       </slot>
 
-      <gov-textarea
-        :value="value"
-        @input="$emit('input', $event)"
-        :id="id"
-        :name="id"
-        :rows="rows"
-        :maxlength="maxlength"
-      />
+      <ck-character-count-group>
+        <gov-textarea
+          :value="value"
+          @input="$emit('input', $event)"
+          :id="id"
+          :name="id"
+          :rows="rows"
+          :maxlength="maxlength"
+        />
+        <ck-character-count
+          v-if="maxlength"
+          :count="value.length"
+          :max-length="maxlength"
+        />
+      </ck-character-count-group>
 
       <slot name="after-input" />
 
@@ -30,8 +37,12 @@
 </template>
 
 <script>
+import CkCharacterCount from '@/components/Ck/CkCharacterCount.vue';
+import CkCharacterCountGroup from '@/components/Ck/CkCharacterCountGroup.vue';
+
 export default {
   name: "CkTextareaInput",
+  components: { CkCharacterCount, CkCharacterCountGroup },
   props: {
     value: {
       required: true,

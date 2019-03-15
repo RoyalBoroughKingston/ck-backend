@@ -108,18 +108,22 @@
                 :referral_button_text.sync="form.referral_button_text"
                 :referral_email.sync="form.referral_email"
                 :referral_url.sync="form.referral_url"
-              >
-                <gov-warning-text>
-                  Please be aware, by submitting these changes, any pending updates may be overwritten.
-                </gov-warning-text>
-
-                <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
-                <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
-                <ck-submit-error v-if="form.$errors.any()" />
-              </referral-tab>
+              />
 
             </gov-tabs>
 
+          </gov-grid-column>
+        </gov-grid-row>
+
+        <gov-grid-row>
+          <gov-grid-column width="two-thirds">
+            <gov-warning-text>
+              Please be aware, by submitting these changes, any pending updates may be overwritten.
+            </gov-warning-text>
+
+            <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
+            <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
+            <ck-submit-error v-if="form.$errors.any()" />
           </gov-grid-column>
         </gov-grid-row>
       </gov-main-wrapper>
