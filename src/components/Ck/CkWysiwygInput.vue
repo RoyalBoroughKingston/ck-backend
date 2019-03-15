@@ -13,6 +13,7 @@
         :value="value"
         @input="$emit('input', $event)"
         :id="id"
+        :large="large"
       />
 
       <slot name="after-input" />
@@ -48,6 +49,11 @@ export default {
     id: {
       required: true,
       type: String
+    },
+    large: {
+      required: false,
+      type: Boolean,
+      deafult: false
     }
   }
 };

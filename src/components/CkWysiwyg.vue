@@ -1,6 +1,7 @@
 <template>
   <wysiwyg
     class="ck-wysiwyg"
+    :class="{ 'ck-wysiwyg--lg': large }"
     :html="initialValue"
     @html="onEdit"
   />
@@ -14,6 +15,11 @@ export default {
       type: String,
       required: false,
       default: ""
+    },
+    large: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -42,6 +48,10 @@ export default {
   @extend .govuk-textarea;
   padding: 0;
   min-height: 10rem;
+
+  &--lg {
+    min-height: 30rem;
+  }
 
   p {
     @extend .govuk-body;
