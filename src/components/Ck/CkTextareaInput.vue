@@ -20,7 +20,7 @@
         />
         <ck-character-count
           v-if="maxlength"
-          :content="value"
+          :count="value.length"
           :max-length="maxlength"
         />
       </ck-character-count-group>

@@ -1,6 +1,6 @@
 <template>
   <div class="ck-character-count">
-    {{ content.length }}/{{ maxLength }}
+    {{ count }}/{{ maxLength }}
   </div>
 </template>
 
@@ -9,8 +9,8 @@ export default {
   name: 'CkCharacterCount',
 
   props: {
-    content: {
-      type: String,
+    count: {
+      type: Number,
       required: true
     },
 

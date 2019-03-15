@@ -4,6 +4,7 @@
     :class="{ 'ck-wysiwyg--lg': large }"
     :html="initialValue"
     @html="onEdit"
+    ref="wysiwyg"
   />
 </template>
 
@@ -32,10 +33,16 @@ export default {
   },
   methods: {
     onEdit(html) {
-      const markdown = this.toMarkdown(html);
+      const div = document.createElement("div");
+      div.innerHTML = html;
+      this.$emit("count", div.textContent.length);
 
+      const markdown = this.toMarkdown(html);
       this.$emit("input", markdown);
     }
+  },
+  mounted() {
+    this.$emit("count", this.$refs.wysiwyg.$refs.content.textContent.length);
   }
 };
 </script>
