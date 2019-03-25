@@ -67,8 +67,7 @@ export default {
           text: "Update requests",
           to: { name: "update-requests-index" },
           hide: !Auth.isGlobalAdmin
-        },
-        { text: "Logout", to: { name: "logout" } }
+        }
       ];
     },
     loggedOutItems() {

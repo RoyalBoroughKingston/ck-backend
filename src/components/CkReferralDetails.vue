@@ -66,7 +66,14 @@
       <gov-table-row>
         <gov-table-header top scope="row">Status</gov-table-header>
         <gov-table-cell>
-          <gov-tag>{{ humanReadableStatus(referral.status) }}</gov-tag>
+          <gov-tag>{{ referral.status | status }}</gov-tag>
+        </gov-table-cell>
+      </gov-table-row>
+
+      <gov-table-row>
+        <gov-table-header top scope="row">Days Remaining</gov-table-header>
+        <gov-table-cell>
+          {{ statusLastUpdated(referral) }}
         </gov-table-cell>
       </gov-table-row>
 
@@ -111,14 +118,53 @@ export default {
     }
   },
   methods: {
-    humanReadableStatus(status) {
-      const string = status.replace("_", " ");
-      return string.charAt(0).toUpperCase() + string.substr(1);
-    },
     autoDeleteDate(updated_at) {
       return moment(updated_at, moment.ISO_8601)
         .add(6, "months")
         .format("Y-MM-DD[T]HH:mm:ssZ");
+    },
+    diffInBusinessDays(date) {
+      const start = this.moment(date, this.moment.ISO_8601);
+      const end = this.moment();
+      const duration = end.diff(start, "days");
+
+      let businessDays = 0;
+      for (var i = 0; i < duration; i++) {
+        const day = start.add(i, "days").isoWeekday();
+
+        if (day < 6) {
+          businessDays += 1;
+        }
+      }
+
+      return businessDays;
+    },
+    statusLastUpdated(referral) {
+      if (!["new", "in_progress"].includes(referral.status)) {
+        return "N/A";
+      }
+
+      const workingDays = this.diffInBusinessDays(
+        referral.status_last_updated_at
+      );
+
+      return workingDays >= 10 ? "Due" : 10 - workingDays;
+    }
+  },
+  filters: {
+    status(status) {
+      switch (status) {
+        case "new":
+          return "New";
+        case "in_progress":
+          return "In progress";
+        case "completed":
+          return "Completed";
+        case "incompleted":
+          return "Incomplete";
+        default:
+          return "Invalid status";
+      }
     }
   }
 };

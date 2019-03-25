@@ -29,7 +29,7 @@
 
           <gov-body>Please be certain of the action before deleting a service</gov-body>
 
-          <template v-if="auth.isSuperAdmin">
+          <template v-if="auth.isGlobalAdmin">
             <gov-section-break size="l" />
 
             <ck-delete-button

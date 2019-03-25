@@ -23,6 +23,12 @@
               <ck-loader v-if="loadingUsers"/>
               <gov-select v-else v-model="filters.user_id" id="filter[user_id]" name="filter[user_id]" :options="users"/>
             </gov-form-group>
+
+            <gov-form-group>
+              <gov-label for="filter[oauth_client_id]">Client</gov-label>
+              <ck-loader v-if="loadingOauthClients"/>
+              <gov-select v-else v-model="filters.oauth_client_id" id="filter[oauth_client_id]" name="filter[oauth_client_id]" :options="oauthClients"/>
+            </gov-form-group>
           </template>
         </ck-table-filters>
       </gov-grid-column>
@@ -50,6 +56,7 @@
 </template>
 
 <script>
+import http from "@/http";
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
 
@@ -59,10 +66,12 @@ export default {
   data() {
     return {
       loadingUsers: false,
+      loadingOauthClients: false,
       filters: {
         action: "",
         description: "",
-        user_id: ""
+        user_id: "",
+        oauth_client_id: ""
       },
       actions: [
         { value: "", text: "All" },
@@ -71,7 +80,8 @@ export default {
         { value: "update", text: "Update" },
         { value: "delete", text: "Delete" }
       ],
-      users: []
+      users: [],
+      oauthClients: []
     };
   },
   computed: {
@@ -92,6 +102,10 @@ export default {
         params["filter[user_id]"] = this.filters.user_id;
       }
 
+      if (this.filters.oauth_client_id !== "") {
+        params["filter[oauth_client_id]"] = this.filters.oauth_client_id;
+      }
+
       return params;
     }
   },
@@ -106,6 +120,24 @@ export default {
       this.users = [{ value: "", text: "All" }, ...users];
 
       this.loadingUsers = false;
+    },
+    async fetchOauthClients() {
+      this.loadingOauthClients = true;
+
+      let { data: oauthClients } = await http({
+        method: "get",
+        url: "/oauth/clients",
+        baseURL: process.env.VUE_APP_API_URI
+      });
+
+      oauthClients = oauthClients.map(oauthClient => ({
+        value: oauthClient.id,
+        text: oauthClient.name
+      }));
+
+      this.oauthClients = [{ value: "", text: "All" }, ...oauthClients];
+
+      this.loadingOauthClients = false;
     },
     onSearch() {
       this.$refs.auditsTable.currentPage = 1;
@@ -124,6 +156,7 @@ export default {
   },
   created() {
     this.fetchUsers();
+    this.fetchOauthClients();
   }
 };
 </script>

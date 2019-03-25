@@ -11,7 +11,7 @@ class Auth {
   }
 
   get authorizeUrl() {
-    return `${process.env.VUE_APP_API_OAUTH_AUTHORIZE_URI}?client_id=${
+    return `${process.env.VUE_APP_API_URI}/oauth/authorize?client_id=${
       process.env.VUE_APP_API_CLIENT_ID
     }&redirect_uri=${encodeURI(
       process.env.VUE_APP_URI + "/login"
@@ -76,7 +76,7 @@ class Auth {
 
   async fetchUser() {
     const { data } = await this.http.get(
-      `${process.env.VUE_APP_API_URI}/users/user`,
+      `${process.env.VUE_APP_API_URI}/core/v1/users/user`,
       {
         params: { include: "user-roles" },
         headers: {
@@ -105,7 +105,7 @@ class Auth {
    */
   async clearSessions() {
     await this.http.delete(
-      `${process.env.VUE_APP_API_URI}/users/user/sessions`,
+      `${process.env.VUE_APP_API_URI}/core/v1/users/user/sessions`,
       {
         headers: {
           "Content-Type": "application/json",

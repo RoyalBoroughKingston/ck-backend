@@ -12,9 +12,9 @@
           </gov-heading>
           <gov-heading size="m">Add category</gov-heading>
           <gov-body>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error sed, labore accusantium culpa
-            praesentium illo assumenda eveniet dignissimos explicabo libero quibusdam ab a quia, vitae
-            odio. Laborum delectus quidem voluptatibus.
+            From this page you can add the name of the taxonomy 'tags' on
+            the site and how they relate to each other. These should not be
+            added without reviewing wider impact on the site
           </gov-body>
 
           <taxonomy-form

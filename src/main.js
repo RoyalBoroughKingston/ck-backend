@@ -155,7 +155,8 @@ Vue.component("GovWidthContainer", () =>
 Vue.mixin({
   data() {
     return {
-      auth: Auth
+      auth: Auth,
+      moment
     };
   },
   computed: {
@@ -165,7 +166,7 @@ Vue.mixin({
   },
   methods: {
     apiUrl(path) {
-      return process.env.VUE_APP_API_URI + path;
+      return `${process.env.VUE_APP_API_URI}/core/v1/${path}`;
     },
     slugify(text) {
       return text

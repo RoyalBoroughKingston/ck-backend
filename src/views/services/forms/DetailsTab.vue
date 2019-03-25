@@ -80,7 +80,7 @@
           id="intro"
           label="What does your service do?"
           hint="Please give a short summary of what your service offers. This will appear below the service name in search results. Try to use as many specific keywords as possible as this will help people find your service. Maximum 150 characters."
-          :maxlength="150"
+          :maxlength="300"
           :error="errors.get('intro')"
         />
 

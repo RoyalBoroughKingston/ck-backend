@@ -16,6 +16,10 @@
         <gov-table-cell>{{ audit.user ? `${audit.user.first_name} ${audit.user.last_name}` : 'Guest' }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
+        <gov-table-header top scope="row">Client</gov-table-header>
+        <gov-table-cell>{{ audit.oauth_client || "-" }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
         <gov-table-header top scope="row">Date / Time</gov-table-header>
         <gov-table-cell>{{ formatDateTime(audit.created_at) }}</gov-table-cell>
       </gov-table-row>

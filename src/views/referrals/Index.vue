@@ -29,7 +29,16 @@
 
                   <gov-form-group>
                     <gov-label for="filter[status]">Status</gov-label>
-                    <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
+                    <gov-checkboxes>
+                      <gov-checkbox
+                        v-for="status in filters.status"
+                        :key="`Referrals::Index::Filters::Status::${status.text}`"
+                        v-model="status.enabled"
+                        :id="`filter[status][${status.value}]`"
+                        :name="`filter[status][${status.value}]`"
+                        :label="status.text"
+                      />
+                    </gov-checkboxes>
                   </gov-form-group>
                 </template>
               </ck-table-filters>
@@ -45,7 +54,8 @@
               { heading: 'Reference no.', sort: 'reference', render: (referral) => referral.reference },
               { heading: 'Service', sort: 'service_name', render: (referral) => referral.service.name },
               { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
-              { heading: 'Status', render: (referral) => displayStatus(referral.status) },
+              { heading: 'Status', render: (referral) => $options.filters.status(referral.status) },
+              { heading: 'Days remaining', render: (referral) => statusLastUpdated(referral) },
               { heading: 'Date submitted', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
             ]"
             :view-route="(referral) => {
@@ -74,20 +84,19 @@ export default {
         reference: "",
         service_name: "",
         organisation_name: "",
-        status: ""
-      },
-      statuses: [
-        { value: "", text: "All" },
-        { value: "new", text: "New" },
-        { value: "in_progress", text: "In progress" },
-        { value: "completed", text: "Completed" },
-        { value: "incompleted", text: "Incompleted" }
-      ]
+        status: [
+          { value: "new", text: "New", enabled: true },
+          { value: "in_progress", text: "In progress", enabled: true },
+          { value: "completed", text: "Completed", enabled: true },
+          { value: "incompleted", text: "Incomplete", enabled: true }
+        ]
+      }
     };
   },
   computed: {
     params() {
       const params = {
+        append: "status_last_updated_at",
         include: "service.organisation"
       };
 
@@ -103,8 +112,13 @@ export default {
         params["filter[organisation_name]"] = this.filters.organisation_name;
       }
 
-      if (this.filters.status !== "") {
-        params["filter[status]"] = this.filters.status;
+      const status = this.filters.status
+        .filter(status => status.enabled)
+        .map(status => status.value)
+        .join(",");
+
+      if (status !== "") {
+        params["filter[status]"] = status;
       }
 
       return params;
@@ -115,10 +129,48 @@ export default {
       this.$refs.referralsTable.currentPage = 1;
       this.$refs.referralsTable.fetchResources();
     },
-    displayStatus(status) {
-      const string = status.replace("_", " ");
+    diffInBusinessDays(date) {
+      const start = this.moment(date, this.moment.ISO_8601);
+      const end = this.moment();
+      const duration = end.diff(start, "days");
 
-      return string.charAt(0).toUpperCase() + string.substr(1);
+      let businessDays = 0;
+      for (var i = 0; i < duration; i++) {
+        const day = start.add(i, "days").isoWeekday();
+
+        if (day < 6) {
+          businessDays += 1;
+        }
+      }
+
+      return businessDays;
+    },
+    statusLastUpdated(referral) {
+      if (!["new", "in_progress"].includes(referral.status)) {
+        return "N/A";
+      }
+
+      const workingDays = this.diffInBusinessDays(
+        referral.status_last_updated_at
+      );
+
+      return workingDays >= 10 ? "Due" : 10 - workingDays;
+    }
+  },
+  filters: {
+    status(status) {
+      switch (status) {
+        case "new":
+          return "New";
+        case "in_progress":
+          return "In progress";
+        case "completed":
+          return "Completed";
+        case "incompleted":
+          return "Incomplete";
+        default:
+          return "Invalid status";
+      }
     }
   }
 };
