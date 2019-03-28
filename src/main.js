@@ -166,7 +166,9 @@ Vue.mixin({
   },
   methods: {
     apiUrl(path) {
-      return `${process.env.VUE_APP_API_URI}/core/v1/${path}`;
+      const trimmedPath = path.replace(/^\//, "");
+
+      return `${process.env.VUE_APP_API_URI}/core/v1/${trimmedPath}`;
     },
     slugify(text) {
       return text

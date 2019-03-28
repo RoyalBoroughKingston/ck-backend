@@ -35,7 +35,7 @@
       id="image"
       label="Persona image"
       accept="image/x-png"
-      :existing-url="id ? apiUrl(`collections/personas/${id}/image.png?v=${now}`) : undefined"
+      :existing-url="id ? apiUrl(`/collections/personas/${id}/image.png?v=${now}`) : undefined"
     />
 
     <ck-text-input

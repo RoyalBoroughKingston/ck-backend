@@ -18,7 +18,7 @@
             :url.sync="form.url"
             :email.sync="form.email"
             :phone.sync="form.phone"
-            :logo.sync="form.logo"
+            @update:logo_file_id="form.logo_file_id = $event"
             @clear="form.$errors.clear($event)"
           />
 
@@ -49,7 +49,7 @@ export default {
         url: "",
         email: "",
         phone: "",
-        logo: null
+        logo_file_id: null
       })
     };
   },
