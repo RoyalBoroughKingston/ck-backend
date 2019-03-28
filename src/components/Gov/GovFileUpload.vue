@@ -44,7 +44,11 @@ export default {
 
       const file = files[0];
       this.fileReader.onloadend = () =>
-        this.$emit("change", this.fileReader.result);
+        this.$emit("change", {
+          mime_type: file.type,
+          bytes: file.size,
+          content: this.fileReader.result
+        });
       this.fileReader.readAsDataURL(file);
     }
   }

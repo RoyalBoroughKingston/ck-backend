@@ -24,10 +24,15 @@ export default {
 
 
 <style lang="scss">
+@import "../../scss/app.scss";
+
 .ck-character-count {
+  @extend .govuk-body;
+
   position: absolute;
   bottom: -1.6rem;
   right: 0;
-  color: #6f777b;
+  color: $govuk-secondary-text-colour;
+  margin: 0;
 }
 </style>

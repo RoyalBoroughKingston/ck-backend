@@ -1,5 +1,7 @@
 <template>
-  <gov-body>Loading<span v-for="(dot, index) in dots" :key="index">.</span></gov-body>
+  <gov-body>
+    <slot>Loading</slot><span v-for="(dot, index) in dots" :key="index">.</span>
+  </gov-body>
 </template>
 
 <script>
