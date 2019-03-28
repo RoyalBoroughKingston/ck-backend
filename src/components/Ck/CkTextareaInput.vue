@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import CkCharacterCount from '@/components/Ck/CkCharacterCount.vue';
-import CkCharacterCountGroup from '@/components/Ck/CkCharacterCountGroup.vue';
+import CkCharacterCount from "@/components/Ck/CkCharacterCount.vue";
+import CkCharacterCountGroup from "@/components/Ck/CkCharacterCountGroup.vue";
 
 export default {
   name: "CkTextareaInput",

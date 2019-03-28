@@ -125,7 +125,9 @@ export default {
       this.form.file = content;
 
       // Upload the file and retrieve the ID.
-      const { data: { id } } = await this.form.post("/files");
+      const {
+        data: { id }
+      } = await this.form.post("/files");
 
       // Emit the file ID.
       this.$emit("input", id);

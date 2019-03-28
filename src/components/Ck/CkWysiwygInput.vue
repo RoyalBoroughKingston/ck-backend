@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import CkCharacterCount from '@/components/Ck/CkCharacterCount.vue';
-import CkCharacterCountGroup from '@/components/Ck/CkCharacterCountGroup.vue';
+import CkCharacterCount from "@/components/Ck/CkCharacterCount.vue";
+import CkCharacterCountGroup from "@/components/Ck/CkCharacterCountGroup.vue";
 
 export default {
   name: "CkWysiwygInput",
@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       count: 0
-    }
+    };
   },
   methods: {
     onCount(count) {

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'CkCharacterCount',
+  name: "CkCharacterCount",
 
   props: {
     count: {
@@ -19,7 +19,7 @@ export default {
       required: true
     }
   }
-}
+};
 </script>
 
 
