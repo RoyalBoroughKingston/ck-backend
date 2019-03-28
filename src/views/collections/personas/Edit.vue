@@ -22,6 +22,7 @@
 
             <collection-form
               :errors="form.$errors"
+              :id="collection.id"
               :name.sync="form.name"
               :subtitle.sync="form.subtitle"
               :intro.sync="form.intro"
@@ -29,8 +30,7 @@
               :sidebox_title.sync="form.sidebox_title"
               :sidebox_content.sync="form.sidebox_content"
               :category_taxonomies.sync="form.category_taxonomies"
-              :image.sync="form.image"
-              :id="collection.id"
+              @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
             />
 
@@ -85,7 +85,7 @@ export default {
         category_taxonomies: this.collection.category_taxonomies.map(
           taxonomy => taxonomy.id
         ),
-        image: null
+        image_file_id: null
       });
 
       this.loading = false;
