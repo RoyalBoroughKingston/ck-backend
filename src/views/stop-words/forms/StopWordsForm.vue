@@ -1,7 +1,7 @@
 <template>
   <ck-file-input
     :value="stopWords"
-    @input="onInput('stopWords', $event)"
+    @input="onInput('stopWords', $event === null ? null : $event.content)"
     id="stop_words"
     label="Upload a new set of stop words"
     accept="text/csv"
