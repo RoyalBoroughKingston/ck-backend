@@ -40,7 +40,7 @@
               :slug.sync="form.slug"
               :organisation_id.sync="form.organisation_id"
               :url.sync="form.url"
-              :logo.sync="form.logo"
+              @update:logo_file_id="form.logo_file_id = $event"
               :intro.sync="form.intro"
               :status.sync="form.status"
             >
@@ -192,7 +192,7 @@ export default {
         useful_infos: [],
         social_medias: [],
         category_taxonomies: [],
-        logo: null
+        logo_file_id: null
       }),
       tabs: [
         { heading: "Details", active: true },
