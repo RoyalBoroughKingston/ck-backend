@@ -53,15 +53,12 @@
           :error="errors.get('url')"
         />
 
-        <ck-file-input
-          :value="logo"
-          @input="$emit('update:logo', $event); $emit('clear', 'logo')"
+        <ck-image-input
+          @input="$emit('update:logo_file_id', $event)"
           id="logo"
           label="Upload your service logo"
           accept="image/x-png"
-          :error="errors.get('logo')"
           :existing-url="id ? apiUrl(`/services/${id}/logo.png?v=${now}`) : undefined"
-          image
         >
           <template slot="hint">
             <gov-hint for="logo">
@@ -72,7 +69,7 @@
               If your service doesn't have a logo, the site will use the organisation logo if there is one uploaded.
             </gov-hint>
           </template>
-        </ck-file-input>
+        </ck-image-input>
 
         <ck-textarea-input
           :value="intro"
@@ -103,8 +100,11 @@
 </template>
 
 <script>
+import CkImageInput from "@/components/Ck/CkImageInput";
+
 export default {
   name: "DetailsTab",
+  components: { CkImageInput },
   props: {
     errors: {
       required: true
@@ -124,9 +124,6 @@ export default {
       required: false
     },
     url: {
-      required: true
-    },
-    logo: {
       required: true
     },
     intro: {

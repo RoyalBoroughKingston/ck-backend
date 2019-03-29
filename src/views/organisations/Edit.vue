@@ -14,14 +14,14 @@
 
             <organisation-form
               :errors="form.$errors"
+              :id="organisation.id"
               :name.sync="form.name"
               :slug.sync="form.slug"
               :description.sync="form.description"
               :url.sync="form.url"
               :email.sync="form.email"
               :phone.sync="form.phone"
-              :logo.sync="form.logo"
-              :id="organisation.id"
+              @update:logo_file_id="form.logo_file_id = $event"
               @clear="form.$errors.clear($event)"
             />
 
@@ -69,7 +69,7 @@ export default {
         url: this.organisation.url,
         email: this.organisation.email,
         phone: this.organisation.phone,
-        logo: null
+        logo_file_id: null
       });
 
       this.loading = false;

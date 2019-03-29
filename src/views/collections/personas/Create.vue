@@ -27,12 +27,18 @@
             :sidebox_title.sync="form.sidebox_title"
             :sidebox_content.sync="form.sidebox_content"
             :category_taxonomies.sync="form.category_taxonomies"
-            :image.sync="form.image"
+            @update:image_file_id="form.image_file_id = $event"
             @clear="form.$errors.clear($event)"
           />
 
           <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
-          <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
+          <gov-button
+            v-else
+            @click="onSubmit"
+            type="submit"
+          >
+            Create
+          </gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
         </gov-grid-column>
       </gov-grid-row>
@@ -57,7 +63,7 @@ export default {
         sidebox_title: "",
         sidebox_content: "",
         category_taxonomies: [],
-        image: null
+        image_file_id: null
       })
     };
   },

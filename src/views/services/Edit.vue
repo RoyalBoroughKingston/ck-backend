@@ -26,7 +26,7 @@
                 :name.sync="form.name"
                 :slug.sync="form.slug"
                 :url.sync="form.url"
-                :logo.sync="form.logo"
+                @update:logo_file_id="form.logo_file_id = $event"
                 :intro.sync="form.intro"
                 :status.sync="form.status"
                 :id="service.id"
@@ -214,7 +214,7 @@ export default {
         category_taxonomies: this.service.category_taxonomies.map(
           taxonomy => taxonomy.id
         ),
-        logo: null
+        logo_file_id: null
       });
 
       this.loading = false;
