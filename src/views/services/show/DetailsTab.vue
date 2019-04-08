@@ -29,18 +29,36 @@
           <gov-table-header top scope="row">Status</gov-table-header>
           <gov-table-cell v-html="service.status === 'active' ? 'Enabled' : 'Disabled'" />
         </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Gallery items ({{ imageUrls.length }})</gov-table-header>
+          <gov-table-cell style="width: 50%;">
+            <ck-carousel v-if="imageUrls.length > 0" :image-urls="imageUrls"/>
+            <gov-body v-else>-</gov-body>
+          </gov-table-cell>
+        </gov-table-row>
       </template>
     </gov-table>
   </div>
 </template>
 
 <script>
+import CkCarousel from "@/components/Ck/CkCarousel";
+
 export default {
   name: "DetailsTab",
+
+  components: { CkCarousel },
+
   props: {
     service: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    imageUrls() {
+      return this.service.gallery_items.map(galleryItem => galleryItem.url);
     }
   }
 };

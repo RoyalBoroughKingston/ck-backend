@@ -65,7 +65,7 @@ export default {
         roles: this.user.roles
       });
 
-      // TODO: Filter down the roles.
+      // Filter down the roles.
       if (this.form.roles.find(role => role.role === "Super Admin")) {
         // If the user is a super admin.
         this.form.roles = this.form.roles.filter(

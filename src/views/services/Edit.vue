@@ -29,6 +29,7 @@
                 @update:logo_file_id="form.logo_file_id = $event"
                 :intro.sync="form.intro"
                 :status.sync="form.status"
+                :gallery_items.sync="form.gallery_items"
                 :id="service.id"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
@@ -211,6 +212,7 @@ export default {
         },
         useful_infos: this.service.useful_infos,
         social_medias: this.service.social_medias,
+        gallery_items: this.service.gallery_items,
         category_taxonomies: this.service.category_taxonomies.map(
           taxonomy => taxonomy.id
         ),
@@ -343,10 +345,10 @@ export default {
         }
 
         // Remove the logo from the request if null, or delete if false.
-        if (data.logo === null) {
-          delete data.logo;
-        } else if (data.logo === false) {
-          data.logo = null;
+        if (data.logo_file_id === null) {
+          delete data.logo_file_id;
+        } else if (data.logo_file_id === false) {
+          data.logo_file_id = null;
         }
       });
       this.$router.push({

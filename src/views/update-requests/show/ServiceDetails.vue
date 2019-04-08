@@ -266,6 +266,18 @@
           </gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="service.hasOwnProperty('gallery_items')">
+          <gov-table-header top scope="row">Gallery items</gov-table-header>
+          <gov-table-cell style="width: 25%;">
+            <ck-carousel v-if="original.gallery_items.length > 0" :image-urls="imageUrls(original)"/>
+            <gov-body v-else>-</gov-body>
+          </gov-table-cell>
+          <gov-table-cell style="width: 25%;">
+            <ck-carousel v-if="service.gallery_items.length > 0" :image-urls="imageUrls(service)"/>
+            <gov-body v-else>-</gov-body>
+          </gov-table-cell>
+        </gov-table-row>
+
       </template>
     </gov-table>
   </div>
@@ -273,9 +285,11 @@
 
 <script>
 import http from "@/http";
+import CkCarousel from "@/components/Ck/CkCarousel";
 
 export default {
   name: "ServiceDetails",
+
   props: {
     updateRequestId: {
       required: true,
@@ -292,6 +306,9 @@ export default {
       type: Object
     }
   },
+
+  components: { CkCarousel },
+
   data() {
     return {
       loading: false,
@@ -300,6 +317,7 @@ export default {
       flattenedTaxonomies: []
     };
   },
+
   methods: {
     taxonomyName(taxonomy) {
       let name = taxonomy.name;
@@ -313,6 +331,7 @@ export default {
 
       return name;
     },
+
     async fetchAll() {
       this.loading = true;
 
@@ -321,12 +340,14 @@ export default {
 
       this.loading = false;
     },
+
     async fetchOriginal() {
       const {
         data: { data: original }
       } = await http.get(`/services/${this.service.id}`);
       this.original = original;
     },
+
     async fetchTaxonomies() {
       const {
         data: { data: taxonomies }
@@ -334,6 +355,7 @@ export default {
       this.taxonomies = taxonomies;
       this.setFlattenedTaxonomies();
     },
+
     setFlattenedTaxonomies(taxonomies = null) {
       if (taxonomies === null) {
         this.flattenedTaxonomies = [];
@@ -348,17 +370,31 @@ export default {
         }
       });
     },
+
     findTaxonomy(id) {
       return this.flattenedTaxonomies.find(taxonomy => taxonomy.id === id);
+    },
+
+    imageUrls(service) {
+      return service.gallery_items.map((galleryItem) => {
+        if (galleryItem.hasOwnProperty('url')) {
+          return galleryItem.url;
+        }
+
+        return this.apiUrl(`/services/${service.id}/gallery-items/${galleryItem.file_id}?update_request_id=${this.updateRequestId}`);
+      });
     }
   },
+
   filters: {
     status(status) {
       return status === "active" ? "Enabled" : "Disabled";
     },
+
     isFree(isFree) {
       return isFree ? "Yes" : "No";
     },
+
     socialMediaType(type) {
       switch (type) {
         case "twitter":
@@ -373,13 +409,16 @@ export default {
           return "Other";
       }
     },
+
     referralMethod(referralMethod) {
       return referralMethod.charAt(0).toUpperCase() + referralMethod.slice(1);
     },
+
     showReferralDisclaimer(showReferralDisclaimer) {
       return showReferralDisclaimer ? "Show" : "Hide";
     }
   },
+
   created() {
     this.fetchAll();
   }
