@@ -32,7 +32,7 @@
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
 
             <details-tab
-              v-if="tabs[0].active"
+              v-show="tabs[0].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :is-new="true"
@@ -43,6 +43,7 @@
               @update:logo_file_id="form.logo_file_id = $event"
               :intro.sync="form.intro"
               :status.sync="form.status"
+              :gallery_items.sync="form.gallery_items"
             >
               <gov-button @click="onNext" start>Next</gov-button>
             </details-tab>
@@ -191,6 +192,7 @@ export default {
         },
         useful_infos: [],
         social_medias: [],
+        gallery_items: [],
         category_taxonomies: [],
         logo_file_id: null
       }),

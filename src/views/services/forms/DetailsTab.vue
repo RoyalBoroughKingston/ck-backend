@@ -92,6 +92,17 @@
           :disabled="!auth.isGlobalAdmin"
         />
 
+        <gov-heading size="m">Gallery items</gov-heading>
+
+        <gov-body>Upload images of the service to the service's gallery.</gov-body>
+
+        <ck-gallery-items-input
+          :gallery-items="gallery_items"
+          @input="$emit('update:gallery_items', $event)"
+          @clear="$emit('clear', $event)"
+          :errors="errors"
+        />
+
         <slot />
 
       </gov-grid-column>
@@ -101,10 +112,11 @@
 
 <script>
 import CkImageInput from "@/components/Ck/CkImageInput";
+import CkGalleryItemsInput from "@/views/services/inputs/GalleryItemsInput";
 
 export default {
   name: "DetailsTab",
-  components: { CkImageInput },
+  components: { CkImageInput, CkGalleryItemsInput },
   props: {
     errors: {
       required: true
@@ -130,6 +142,9 @@ export default {
       required: true
     },
     status: {
+      required: true
+    },
+    gallery_items: {
       required: true
     },
     id: {
@@ -176,7 +191,7 @@ export default {
         this.$emit("update:slug", this.slugify(name));
         this.$emit("clear", "slug");
       }
-    }
+    },
   },
   created() {
     this.fetchOrganisations();
