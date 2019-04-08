@@ -350,6 +350,14 @@ export default {
         } else if (data.logo_file_id === false) {
           data.logo_file_id = null;
         }
+
+        // Remove the gallery items from the request if null, or delete if false.
+        if (
+          JSON.stringify(data.gallery_items.map(galleryItem => ({ file_id: galleryItem.file_id }))) ===
+          JSON.stringify(this.service.gallery_items.map(galleryItem => ({ file_id: galleryItem.file_id })))
+        ) {
+          delete data.gallery_items;
+        }
       });
       this.$router.push({
         name: "services-updated",

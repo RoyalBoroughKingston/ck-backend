@@ -15,8 +15,8 @@
         @input="$emit('input', $event)"
         :id="id"
         label="Criteria details"
-        hint="(max. 75 characters)"
-        :maxlength="75"
+        :hint="`(max. ${maxLength} characters)`"
+        :maxlength="maxLength"
         :error="error"
       />
     </gov-inset-text>
@@ -49,7 +49,8 @@ export default {
   },
   data() {
     return {
-      enabled: this.value !== ""
+      enabled: this.value !== "",
+      maxLength: 150
     };
   },
   watch: {
