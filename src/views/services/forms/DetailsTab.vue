@@ -176,7 +176,9 @@ export default {
   methods: {
     async fetchOrganisations() {
       this.loading = true;
-      let fetchedOrganisations = await this.fetchAll("/organisations");
+      let fetchedOrganisations = await this.fetchAll("/organisations", {
+        'filter[has_permission]': true
+      });
       fetchedOrganisations = fetchedOrganisations.map(organisation => {
         return { text: organisation.name, value: organisation.id };
       });
