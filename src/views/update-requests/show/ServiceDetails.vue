@@ -54,29 +54,29 @@
           <gov-table-header top scope="row">Criteria</gov-table-header>
           <gov-table-cell>
             <gov-list>
-              <li v-if="original.criteria.hasOwnProperty('age_group')">
-                <span class="govuk-!-font-weight-bold">Age group:</span> {{ original.criteria.age_group }}
+              <li v-if="service.criteria.hasOwnProperty('age_group')">
+                <span class="govuk-!-font-weight-bold">Age group:</span> {{ original.criteria.age_group || "-" }}
               </li>
-              <li v-if="original.criteria.hasOwnProperty('disability')">
-                <span class="govuk-!-font-weight-bold">Disability:</span> {{ original.criteria.disability }}
+              <li v-if="service.criteria.hasOwnProperty('disability')">
+                <span class="govuk-!-font-weight-bold">Disability:</span> {{ original.criteria.disability || "-" }}
               </li>
-              <li v-if="original.criteria.hasOwnProperty('employment')">
-                <span class="govuk-!-font-weight-bold">Employment:</span> {{ original.criteria.employment }}
+              <li v-if="service.criteria.hasOwnProperty('employment')">
+                <span class="govuk-!-font-weight-bold">Employment:</span> {{ original.criteria.employment || "-" }}
               </li>
-              <li v-if="original.criteria.hasOwnProperty('gender')">
-                <span class="govuk-!-font-weight-bold">Gender:</span> {{ original.criteria.gender }}
+              <li v-if="service.criteria.hasOwnProperty('gender')">
+                <span class="govuk-!-font-weight-bold">Gender:</span> {{ original.criteria.gender || "-" }}
               </li>
-              <li v-if="original.criteria.hasOwnProperty('housing')">
-                <span class="govuk-!-font-weight-bold">Housing:</span> {{ original.criteria.housing }}
+              <li v-if="service.criteria.hasOwnProperty('housing')">
+                <span class="govuk-!-font-weight-bold">Housing:</span> {{ original.criteria.housing || "-" }}
               </li>
-              <li v-if="original.criteria.hasOwnProperty('income')">
-                <span class="govuk-!-font-weight-bold">Income:</span> {{ original.criteria.income }}
+              <li v-if="service.criteria.hasOwnProperty('income')">
+                <span class="govuk-!-font-weight-bold">Income:</span> {{ original.criteria.income || "-" }}
               </li>
-              <li v-if="original.criteria.hasOwnProperty('language')">
-                <span class="govuk-!-font-weight-bold">Language:</span> {{ original.criteria.language }}
+              <li v-if="service.criteria.hasOwnProperty('language')">
+                <span class="govuk-!-font-weight-bold">Language:</span> {{ original.criteria.language || "-" }}
               </li>
-              <li v-if="original.criteria.hasOwnProperty('other')">
-                <span class="govuk-!-font-weight-bold">Other:</span> {{ original.criteria.other }}
+              <li v-if="service.criteria.hasOwnProperty('other')">
+                <span class="govuk-!-font-weight-bold">Other:</span> {{ original.criteria.other || "-" }}
               </li>
             </gov-list>
           </gov-table-cell>
