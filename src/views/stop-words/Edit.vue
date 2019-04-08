@@ -73,7 +73,7 @@ export default {
      * @link https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings/30106551
      */
     base64Decode(string) {
-      string = string.replace("data:text/csv;base64,", "");
+      string = string.split(',').pop()
       string = decodeURIComponent(
         atob(string)
           .split("")
