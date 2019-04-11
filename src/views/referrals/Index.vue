@@ -96,7 +96,6 @@ export default {
   computed: {
     params() {
       const params = {
-        append: "status_last_updated_at",
         include: "service.organisation"
       };
 
@@ -151,7 +150,7 @@ export default {
       }
 
       const workingDays = this.diffInBusinessDays(
-        referral.status_last_updated_at
+        referral.created_at
       );
 
       return workingDays >= 10 ? "Due" : 10 - workingDays;

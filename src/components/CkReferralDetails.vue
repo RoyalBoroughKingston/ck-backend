@@ -145,7 +145,7 @@ export default {
       }
 
       const workingDays = this.diffInBusinessDays(
-        referral.status_last_updated_at
+        referral.created_at
       );
 
       return workingDays >= 10 ? "Due" : 10 - workingDays;
