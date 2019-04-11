@@ -164,7 +164,12 @@
             <gov-list v-if="original.useful_infos.length > 0">
               <li v-for="(usefulInfo, index) in original.useful_infos" :key="`useful_info.${index}`">
                 <gov-heading>{{ usefulInfo.title }}</gov-heading>
-                <gov-body>{{ usefulInfo.description }}</gov-body>
+                <div v-html="toHtml(usefulInfo.description)" />
+                <gov-section-break
+                  v-if="index < original.useful_infos.length - 1"
+                  visible
+                  size="l"
+                />
               </li>
             </gov-list>
             <template v-else>None</template>
@@ -173,7 +178,12 @@
             <gov-list v-if="service.useful_infos.length > 0">
               <li v-for="(usefulInfo, index) in service.useful_infos" :key="`useful_info.${index}`">
                 <gov-heading>{{ usefulInfo.title }}</gov-heading>
-                <gov-body>{{ usefulInfo.description }}</gov-body>
+                <div v-html="toHtml(usefulInfo.description)" />
+                <gov-section-break
+                  v-if="index < service.useful_infos.length - 1"
+                  visible
+                  size="l"
+                />
               </li>
             </gov-list>
             <template v-else>None</template>

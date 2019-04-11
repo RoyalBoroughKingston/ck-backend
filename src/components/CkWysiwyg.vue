@@ -97,5 +97,11 @@ export default {
     @extend .govuk-list;
     @extend .govuk-list--number;
   }
+
+  .editr--toolbar a svg {
+    width: 16px;
+    height: 16px;
+    margin: 8px auto;
+  }
 }
 </style>
