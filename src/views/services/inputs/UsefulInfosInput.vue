@@ -10,7 +10,7 @@
         :error="errors.get(`useful_infos.${index}.title`)"
       />
 
-      <ck-textarea-input
+      <ck-wysiwyg-input
         :value="usefulInfo.description"
         @input="onDescriptionInput({ index, value: $event })"
         :id="`useful_infos.${index}.description`"
