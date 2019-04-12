@@ -205,6 +205,7 @@ export default {
 
   a {
     @extend .govuk-link;
+    @extend .govuk-link--no-visited-state;
   }
 
   h1 {
