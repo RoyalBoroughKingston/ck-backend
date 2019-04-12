@@ -41,6 +41,11 @@ export default {
     },
     href: {
       required: false
+    },
+    active: {
+      type: Boolean,
+      required: false,
+      default: false,
     }
   },
   methods: {
@@ -53,7 +58,8 @@ export default {
       return {
         expand: this.expand,
         "govuk-button--error": this.error,
-        "govuk-button--start": this.start
+        "govuk-button--start": this.start,
+        "ck-button--active": this.active
       };
     }
   }
@@ -64,6 +70,11 @@ export default {
 @import "@/scss/app.scss";
 
 .govuk-button {
+  &.ck-button--active {
+    @extend .govuk-button:hover, .govuk-button:focus;
+    z-index: 1;
+  }
+
   &.govuk-button--error {
     background-color: $govuk-error-colour !important;
 

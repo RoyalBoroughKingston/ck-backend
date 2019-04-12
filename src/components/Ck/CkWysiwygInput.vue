@@ -16,6 +16,7 @@
           @count="onCount"
           :id="id"
           :large="large"
+          :extensions="extensions"
         />
         <ck-character-count
           v-if="maxlength"
@@ -38,6 +39,16 @@
 <script>
 import CkCharacterCount from "@/components/Ck/CkCharacterCount.vue";
 import CkCharacterCountGroup from "@/components/Ck/CkCharacterCountGroup.vue";
+import {
+  Blockquote,
+  Heading,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Bold,
+  Italic,
+  Link,
+} from "tiptap-extensions";
 
 export default {
   name: "CkWysiwygInput",
@@ -70,6 +81,22 @@ export default {
     maxlength: {
       required: false,
       type: Number
+    },
+    extensions: {
+      required: false,
+      type: Array,
+      default() {
+        return [
+          new Blockquote(),
+          new Heading({ levels: [1, 2, 3] }),
+          new BulletList(),
+          new OrderedList(),
+          new ListItem(),
+          new Bold(),
+          new Italic(),
+          new Link(),
+        ];
+      }
     }
   },
   data() {
