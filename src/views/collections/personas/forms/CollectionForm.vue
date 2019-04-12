@@ -53,6 +53,7 @@
       id="sidebox_content"
       label="Sidebox Content"
       :error="errors.get('sidebox_content')"
+      :extensions="extensions"
     />
 
     <gov-label class="govuk-!-font-weight-bold">Taxonomies</gov-label>
@@ -71,6 +72,7 @@
 <script>
 import CkImageInput from "@/components/Ck/CkImageInput";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
+import { Link } from "tiptap-extensions";
 
 export default {
   name: "CollectionForm",
@@ -105,6 +107,11 @@ export default {
       required: false,
       type: String
     }
+  },
+  data() {
+    return {
+      extensions: [new Link()],
+    };
   },
   methods: {
     onInput(field, value) {

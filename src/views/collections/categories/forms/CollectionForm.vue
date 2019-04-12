@@ -55,6 +55,7 @@
       id="sidebox_content"
       label="Sidebox Content"
       :error="errors.get('sidebox_content')"
+      :extensions="extensions"
     />
 
     <gov-label class="govuk-!-font-weight-bold">Taxonomies</gov-label>
@@ -73,6 +74,7 @@
 <script>
 import icons from "@/storage/icons";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
+import { Link } from "tiptap-extensions";
 
 export default {
   name: "CollectionForm",
@@ -109,7 +111,8 @@ export default {
       icons: [
         { text: "Please select...", value: null, disabled: true },
         ...icons
-      ]
+      ],
+      extensions: [new Link()],
     };
   },
   methods: {

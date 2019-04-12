@@ -6,6 +6,7 @@
     <editor-menu-bar class="ck-wysiwyg__toolbar" :editor="editor">
       <div class="ck-wysiwyg__toolbar-buttons-wrapper" slot-scope="{ commands, isActive }">
         <gov-button
+          v-if="isActive.bold"
           class="ck-wysiwyg__toolbar-button"
           :class="{ 'is-active': isActive.bold() }"
           @click="commands.bold"
@@ -15,6 +16,7 @@
         </gov-button>
 
         <gov-button
+          v-if="isActive.italic"
           class="ck-wysiwyg__toolbar-button"
           :class="{ 'is-active': isActive.italic() }"
           @click="commands.italic"
@@ -24,6 +26,7 @@
         </gov-button>
 
         <gov-button
+          v-if="isActive.heading"
           class="ck-wysiwyg__toolbar-button"
           :class="{ 'is-active': isActive.heading({ level: 1 }) }"
           @click="commands.heading({ level: 1 })"
@@ -33,6 +36,7 @@
         </gov-button>
 
         <gov-button
+          v-if="isActive.heading"
           class="ck-wysiwyg__toolbar-button"
           :class="{ 'is-active': isActive.heading({ level: 2 }) }"
           @click="commands.heading({ level: 2 })"
@@ -42,6 +46,7 @@
         </gov-button>
 
         <gov-button
+          v-if="isActive.heading"
           class="ck-wysiwyg__toolbar-button"
           :class="{ 'is-active': isActive.heading({ level: 3 }) }"
           @click="commands.heading({ level: 3 })"
@@ -51,6 +56,7 @@
         </gov-button>
 
         <gov-button
+          v-if="isActive.bullet_list"
           class="ck-wysiwyg__toolbar-button"
           :class="{ 'is-active': isActive.bullet_list() }"
           @click="commands.bullet_list"
@@ -60,6 +66,7 @@
         </gov-button>
 
         <gov-button
+          v-if="isActive.ordered_list"
           class="ck-wysiwyg__toolbar-button"
           :class="{ 'is-active': isActive.ordered_list() }"
           @click="commands.ordered_list"
@@ -69,6 +76,7 @@
         </gov-button>
 
         <gov-button
+          v-if="isActive.link"
           class="ck-wysiwyg__toolbar-button"
           :class="{ 'is-active': isActive.link() }"
           @click="commands.link({ href: promptUrl() })"
@@ -166,8 +174,9 @@ export default {
   },
 
   mounted() {
-    console.log(this.editor.getHTML());
-    // this.$emit("count", this.$refs.wysiwyg.$refs.content.textContent.length);
+    const element = document.createElement('div');
+    element.innerHTML = this.editor.getHTML();
+    this.$emit("count", element.textContent.length);
   },
 
   beforeDestroy() {
@@ -240,8 +249,8 @@ export default {
   }
 
   &__toolbar-button {
-    margin-bottom: 0;
-    width: 3rem;
+    margin-bottom: 0 !important;
+    width: 3rem !important;
   }
 
   &__content {
