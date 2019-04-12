@@ -32,6 +32,30 @@
           <gov-table-cell>{{ service.slug }}</gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="service.hasOwnProperty('organisation_id')">
+          <gov-table-header top scope="row">Organisation</gov-table-header>
+          <gov-table-cell>
+            <gov-link
+              :to="{
+                name: 'organisations-show',
+                params: { organisation: original.organisation_id }
+              }"
+            >
+              {{ original.organisation.name }}
+            </gov-link>
+          </gov-table-cell>
+          <gov-table-cell>
+            <gov-link
+              :to="{
+                name: 'organisations-show',
+                params: { organisation: service.organisation_id }
+              }"
+            >
+              {{ service.organisation.name }}
+            </gov-link>
+          </gov-table-cell>
+        </gov-table-row>
+
         <gov-table-row v-if="service.hasOwnProperty('intro')">
           <gov-table-header top scope="row">Intro</gov-table-header>
           <gov-table-cell>{{ original.intro }}</gov-table-cell>
@@ -354,7 +378,9 @@ export default {
     async fetchOriginal() {
       const {
         data: { data: original }
-      } = await http.get(`/services/${this.service.id}`);
+      } = await http.get(`/services/${this.service.id}`, {
+        params: { include: 'organisation' }
+      });
       this.original = original;
     },
 
