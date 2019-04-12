@@ -33,7 +33,7 @@
         </ck-text-input>
 
         <ck-select-input
-          v-if="isCreateForm"
+          v-if="isNew || auth.isGlobalAdmin"
           :value="organisation_id"
           @input="$emit('update:organisation_id', $event); $emit('clear', 'organisation_id')"
           id="organisation_id"
@@ -163,9 +163,6 @@ export default {
     };
   },
   computed: {
-    isCreateForm() {
-      return this.organisation_id !== undefined;
-    },
     logoHelpHref() {
       const to = "info@connectedkingston.uk";
       const subject = "Help uploading service logo";

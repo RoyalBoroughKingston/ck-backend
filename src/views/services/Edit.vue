@@ -23,6 +23,7 @@
                 v-if="tabs[0].active"
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
+                :organisation_id.sync="form.organisation_id"
                 :name.sync="form.name"
                 :slug.sync="form.slug"
                 :url.sync="form.url"
@@ -180,6 +181,7 @@ export default {
       );
       this.service = response.data.data;
       this.form = new Form({
+        organisation_id: this.service.organisation_id,
         name: this.service.name,
         slug: this.service.slug,
         status: this.service.status,
@@ -224,6 +226,9 @@ export default {
     async onSubmit() {
       await this.form.put(`/services/${this.service.id}`, (config, data) => {
         // Remove any unchanged values.
+        if (data.organisation_id === this.service.organisation_id) {
+          delete data.organisation_id;
+        }
         if (data.name === this.service.name) {
           delete data.name;
         }

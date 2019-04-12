@@ -100,7 +100,9 @@ export default class Form {
           resolve(response.data);
         })
         .catch(error => {
-          this.onFail(error.response.data);
+          if (error.response.hasOwnProperty("data")) {
+            this.onFail(error.response.data);
+          }
 
           reject(error.response.data);
         });
