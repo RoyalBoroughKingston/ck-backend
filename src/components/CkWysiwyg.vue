@@ -177,7 +177,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "node_modules/vue-wysiwyg/dist/vueWysiwyg";
 @import "@/scss/app.scss";
 
 .ck-wysiwyg {
@@ -256,12 +255,6 @@ export default {
       width: 100%;
       outline: none;
     }
-  }
-
-  .editr--toolbar a svg {
-    width: 16px;
-    height: 16px;
-    margin: 8px auto;
   }
 }
 </style>
