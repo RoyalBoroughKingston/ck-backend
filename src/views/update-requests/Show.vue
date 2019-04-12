@@ -107,6 +107,18 @@ export default {
       this.updateRequest = data;
       this.updateRequest.data.id = data.updateable_id;
 
+      // If the update request is for a service, and the organisation has been
+      // updated, then eager load the organisation and append to the data.
+      if (
+        this.updateRequest.updateable_type === 'services'
+        && this.updateRequest.data.hasOwnProperty('organisation_id')
+      ) {
+        const { data: { data: organisation } } = await http.get(
+          `/organisations/${this.updateRequest.data.organisation_id}`
+        );
+        this.updateRequest.data.organisation = organisation;
+      }
+
       this.loading = false;
     },
     async onSubmit() {

@@ -32,16 +32,19 @@
           </gov-hint>
         </ck-text-input>
 
-        <ck-select-input
-          v-if="isCreateForm"
-          :value="organisation_id"
-          @input="$emit('update:organisation_id', $event); $emit('clear', 'organisation_id')"
-          id="organisation_id"
-          label="Organisation"
-          hint="Which organisation provides this service?"
-          :options="organisations"
-          :error="errors.get('organisation_id')"
-        />
+        <template v-if="isNew || auth.isGlobalAdmin">
+          <ck-loader v-if="loading" />
+          <ck-select-input
+            v-else
+            :value="organisation_id"
+            @input="$emit('update:organisation_id', $event); $emit('clear', 'organisation_id')"
+            id="organisation_id"
+            label="Organisation"
+            hint="Which organisation provides this service?"
+            :options="organisations"
+            :error="errors.get('organisation_id')"
+          />
+        </template>
 
         <ck-text-input
           :value="url"
@@ -163,9 +166,6 @@ export default {
     };
   },
   computed: {
-    isCreateForm() {
-      return this.organisation_id !== undefined;
-    },
     logoHelpHref() {
       const to = "info@connectedkingston.uk";
       const subject = "Help uploading service logo";

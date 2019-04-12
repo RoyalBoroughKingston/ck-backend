@@ -8,6 +8,10 @@
           <gov-table-cell>{{ service.name }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
+          <gov-table-header top scope="row">Organisation for service</gov-table-header>
+          <gov-table-cell>{{ service.organisation.name }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
           <gov-table-header top scope="row">Service website address</gov-table-header>
           <gov-table-cell break>{{ service.url }}</gov-table-cell>
         </gov-table-row>
