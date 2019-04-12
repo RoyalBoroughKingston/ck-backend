@@ -8,7 +8,7 @@
         <gov-button
           v-if="isActive.bold"
           class="ck-wysiwyg__toolbar-button"
-          :class="{ 'is-active': isActive.bold() }"
+          :active="isActive.bold()"
           @click="commands.bold"
           title="Bold"
         >
@@ -18,7 +18,7 @@
         <gov-button
           v-if="isActive.italic"
           class="ck-wysiwyg__toolbar-button"
-          :class="{ 'is-active': isActive.italic() }"
+          :active="isActive.italic()"
           @click="commands.italic"
           title="Italic"
         >
@@ -28,7 +28,7 @@
         <gov-button
           v-if="isActive.heading"
           class="ck-wysiwyg__toolbar-button"
-          :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+          :active="isActive.heading({ level: 1 })"
           @click="commands.heading({ level: 1 })"
           title="Heading 1"
         >
@@ -38,7 +38,7 @@
         <gov-button
           v-if="isActive.heading"
           class="ck-wysiwyg__toolbar-button"
-          :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+          :active="isActive.heading({ level: 2 })"
           @click="commands.heading({ level: 2 })"
           title="Heading 2"
         >
@@ -48,7 +48,7 @@
         <gov-button
           v-if="isActive.heading"
           class="ck-wysiwyg__toolbar-button"
-          :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+          :active="isActive.heading({ level: 3 })"
           @click="commands.heading({ level: 3 })"
           title="Heading 3"
         >
@@ -58,7 +58,7 @@
         <gov-button
           v-if="isActive.bullet_list"
           class="ck-wysiwyg__toolbar-button"
-          :class="{ 'is-active': isActive.bullet_list() }"
+          :active="isActive.bullet_list()"
           @click="commands.bullet_list"
           title="Bullet list"
         >
@@ -68,7 +68,7 @@
         <gov-button
           v-if="isActive.ordered_list"
           class="ck-wysiwyg__toolbar-button"
-          :class="{ 'is-active': isActive.ordered_list() }"
+          :active="isActive.ordered_list()"
           @click="commands.ordered_list"
           title="Ordered list"
         >
@@ -78,7 +78,7 @@
         <gov-button
           v-if="isActive.link"
           class="ck-wysiwyg__toolbar-button"
-          :class="{ 'is-active': isActive.link() }"
+          :active="isActive.link()"
           @click="commands.link({ href: promptUrl() })"
           title="Link"
         >
@@ -240,20 +240,24 @@ export default {
   }
 
   &__toolbar {
+    box-sizing: border-box;
     background-color: #000;
     padding-bottom: 2px;
   }
 
   &__toolbar-buttons-wrapper {
+    box-sizing: border-box;
     display: flex;
   }
 
   &__toolbar-button {
+    box-sizing: border-box;
     margin-bottom: 0 !important;
     width: 3rem !important;
   }
 
   &__content {
+    box-sizing: border-box;
     flex: 1;
     display: flex;
     flex-direction: column;
