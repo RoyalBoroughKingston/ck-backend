@@ -95,16 +95,18 @@
           :disabled="!auth.isGlobalAdmin"
         />
 
-        <gov-heading size="m">Gallery items</gov-heading>
+        <template v-if="false">
+          <gov-heading size="m">Gallery items</gov-heading>
 
-        <gov-body>Upload images of the service to the service's gallery.</gov-body>
+          <gov-body>Upload images of the service to the service's gallery.</gov-body>
 
-        <ck-gallery-items-input
-          :gallery-items="gallery_items"
-          @input="$emit('update:gallery_items', $event)"
-          @clear="$emit('clear', $event)"
-          :errors="errors"
-        />
+          <ck-gallery-items-input
+            :gallery-items="gallery_items"
+            @input="$emit('update:gallery_items', $event)"
+            @clear="$emit('clear', $event)"
+            :errors="errors"
+          />
+        </template>
 
         <slot />
 
