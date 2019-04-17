@@ -10,7 +10,7 @@
         :error="errors.get(`useful_infos.${index}.title`)"
       />
 
-      <ck-textarea-input
+      <ck-wysiwyg-input
         :value="usefulInfo.description"
         @input="onDescriptionInput({ index, value: $event })"
         :id="`useful_infos.${index}.description`"
@@ -18,6 +18,7 @@
         hint="Provide detail to the title above. For example, if you picked ‘Parking’ you might say “There is no parking available on site, however there is pay and display opposite”. Max 150 characters."
         :maxlength="150"
         :error="errors.get(`useful_infos.${index}.description`)"
+        :extensions="extensions"
       />
 
       <gov-button @click="onDeleteUsefulInfo(index)" error>Delete</gov-button>
@@ -33,6 +34,8 @@
 </template>
 
 <script>
+import { Link } from "tiptap-extensions";
+
 export default {
   name: "UsefulInfosInput",
   model: {
@@ -63,7 +66,8 @@ export default {
         { text: "Keeping updated", value: "Keeping updated" },
         { text: "Additional information", value: "Additional information" }
       ],
-      usefulInfosIndex: 1
+      usefulInfosIndex: 1,
+      extensions: [new Link()],
     };
   },
   methods: {

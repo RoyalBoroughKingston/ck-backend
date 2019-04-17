@@ -59,22 +59,23 @@
       :error="errors.get('email')"
     />
 
-    <ck-file-input
-      :value="logo"
-      @input="onInput('logo', $event)"
+    <ck-image-input
+      @input="onInput('logo_file_id', $event)"
       id="logo"
       label="Organisation logo"
       accept="image/x-png"
-      :error="errors.get('logo')"
       :existing-url="id ? apiUrl(`/organisations/${id}/logo.png?v=${now}`) : undefined"
-      image
     />
+
   </div>
 </template>
 
 <script>
+import CkImageInput from "@/components/Ck/CkImageInput";
+
 export default {
   name: "OrganisationForm",
+  components: { CkImageInput },
   props: {
     errors: {
       required: true,
@@ -103,9 +104,6 @@ export default {
     email: {
       required: true,
       type: String
-    },
-    logo: {
-      required: true
     },
     id: {
       required: false,

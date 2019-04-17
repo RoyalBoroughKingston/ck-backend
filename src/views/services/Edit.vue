@@ -23,12 +23,14 @@
                 v-if="tabs[0].active"
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
+                :organisation_id.sync="form.organisation_id"
                 :name.sync="form.name"
                 :slug.sync="form.slug"
                 :url.sync="form.url"
-                :logo.sync="form.logo"
+                @update:logo_file_id="form.logo_file_id = $event"
                 :intro.sync="form.intro"
                 :status.sync="form.status"
+                :gallery_items.sync="form.gallery_items"
                 :id="service.id"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
@@ -179,6 +181,7 @@ export default {
       );
       this.service = response.data.data;
       this.form = new Form({
+        organisation_id: this.service.organisation_id,
         name: this.service.name,
         slug: this.service.slug,
         status: this.service.status,
@@ -211,10 +214,11 @@ export default {
         },
         useful_infos: this.service.useful_infos,
         social_medias: this.service.social_medias,
+        gallery_items: this.service.gallery_items,
         category_taxonomies: this.service.category_taxonomies.map(
           taxonomy => taxonomy.id
         ),
-        logo: null
+        logo_file_id: null
       });
 
       this.loading = false;
@@ -222,6 +226,9 @@ export default {
     async onSubmit() {
       await this.form.put(`/services/${this.service.id}`, (config, data) => {
         // Remove any unchanged values.
+        if (data.organisation_id === this.service.organisation_id) {
+          delete data.organisation_id;
+        }
         if (data.name === this.service.name) {
           delete data.name;
         }
@@ -343,10 +350,18 @@ export default {
         }
 
         // Remove the logo from the request if null, or delete if false.
-        if (data.logo === null) {
-          delete data.logo;
-        } else if (data.logo === false) {
-          data.logo = null;
+        if (data.logo_file_id === null) {
+          delete data.logo_file_id;
+        } else if (data.logo_file_id === false) {
+          data.logo_file_id = null;
+        }
+
+        // Remove the gallery items from the request if null, or delete if false.
+        if (
+          JSON.stringify(data.gallery_items.map(galleryItem => ({ file_id: galleryItem.file_id }))) ===
+          JSON.stringify(this.service.gallery_items.map(galleryItem => ({ file_id: galleryItem.file_id })))
+        ) {
+          delete data.gallery_items;
         }
       });
       this.$router.push({

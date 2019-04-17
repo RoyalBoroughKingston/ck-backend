@@ -1,7 +1,7 @@
 <template>
   <ck-file-input
     :value="synonyms"
-    @input="onInput('synonyms', $event)"
+    @input="onInput('synonyms', $event === null ? null : $event.content)"
     id="synonyms"
     label="Upload new thesaurus"
     accept="text/csv"

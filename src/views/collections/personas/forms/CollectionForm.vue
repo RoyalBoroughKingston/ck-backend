@@ -30,15 +30,12 @@
       :error="errors.get('intro')"
     />
 
-    <ck-file-input
-      :value="image"
-      @input="onInput('image', $event)"
+    <ck-image-input
+      @input="onInput('image_file_id', $event)"
       id="image"
       label="Persona image"
       accept="image/x-png"
-      :error="errors.get('image')"
       :existing-url="id ? apiUrl(`/collections/personas/${id}/image.png?v=${now}`) : undefined"
-      image
     />
 
     <ck-text-input
@@ -72,11 +69,12 @@
 </template>
 
 <script>
+import CkImageInput from "@/components/Ck/CkImageInput";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 
 export default {
   name: "CollectionForm",
-  components: { CategoryTaxonomyInput },
+  components: { CkImageInput, CategoryTaxonomyInput },
   props: {
     errors: {
       required: true,
@@ -101,9 +99,6 @@ export default {
       required: true
     },
     category_taxonomies: {
-      required: true
-    },
-    image: {
       required: true
     },
     id: {

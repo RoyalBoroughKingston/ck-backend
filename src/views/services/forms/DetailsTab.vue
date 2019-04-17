@@ -32,16 +32,19 @@
           </gov-hint>
         </ck-text-input>
 
-        <ck-select-input
-          v-if="isCreateForm"
-          :value="organisation_id"
-          @input="$emit('update:organisation_id', $event); $emit('clear', 'organisation_id')"
-          id="organisation_id"
-          label="Organisation"
-          hint="Which organisation provides this service?"
-          :options="organisations"
-          :error="errors.get('organisation_id')"
-        />
+        <template v-if="isNew || auth.isGlobalAdmin">
+          <ck-loader v-if="loading" />
+          <ck-select-input
+            v-else
+            :value="organisation_id"
+            @input="$emit('update:organisation_id', $event); $emit('clear', 'organisation_id')"
+            id="organisation_id"
+            label="Organisation"
+            hint="Which organisation provides this service?"
+            :options="organisations"
+            :error="errors.get('organisation_id')"
+          />
+        </template>
 
         <ck-text-input
           :value="url"
@@ -53,15 +56,12 @@
           :error="errors.get('url')"
         />
 
-        <ck-file-input
-          :value="logo"
-          @input="$emit('update:logo', $event); $emit('clear', 'logo')"
+        <ck-image-input
+          @input="$emit('update:logo_file_id', $event)"
           id="logo"
           label="Upload your service logo"
           accept="image/x-png"
-          :error="errors.get('logo')"
           :existing-url="id ? apiUrl(`/services/${id}/logo.png?v=${now}`) : undefined"
-          image
         >
           <template slot="hint">
             <gov-hint for="logo">
@@ -72,7 +72,7 @@
               If your service doesn't have a logo, the site will use the organisation logo if there is one uploaded.
             </gov-hint>
           </template>
-        </ck-file-input>
+        </ck-image-input>
 
         <ck-textarea-input
           :value="intro"
@@ -95,6 +95,19 @@
           :disabled="!auth.isGlobalAdmin"
         />
 
+        <template v-if="false">
+          <gov-heading size="m">Gallery items</gov-heading>
+
+          <gov-body>Upload images of the service to the service's gallery.</gov-body>
+
+          <ck-gallery-items-input
+            :gallery-items="gallery_items"
+            @input="$emit('update:gallery_items', $event)"
+            @clear="$emit('clear', $event)"
+            :errors="errors"
+          />
+        </template>
+
         <slot />
 
       </gov-grid-column>
@@ -103,8 +116,12 @@
 </template>
 
 <script>
+import CkImageInput from "@/components/Ck/CkImageInput";
+import CkGalleryItemsInput from "@/views/services/inputs/GalleryItemsInput";
+
 export default {
   name: "DetailsTab",
+  components: { CkImageInput, CkGalleryItemsInput },
   props: {
     errors: {
       required: true
@@ -126,13 +143,13 @@ export default {
     url: {
       required: true
     },
-    logo: {
-      required: true
-    },
     intro: {
       required: true
     },
     status: {
+      required: true
+    },
+    gallery_items: {
       required: true
     },
     id: {
@@ -151,9 +168,6 @@ export default {
     };
   },
   computed: {
-    isCreateForm() {
-      return this.organisation_id !== undefined;
-    },
     logoHelpHref() {
       const to = "info@connectedkingston.uk";
       const subject = "Help uploading service logo";
@@ -164,7 +178,9 @@ export default {
   methods: {
     async fetchOrganisations() {
       this.loading = true;
-      let fetchedOrganisations = await this.fetchAll("/organisations");
+      let fetchedOrganisations = await this.fetchAll("/organisations", {
+        'filter[has_permission]': true
+      });
       fetchedOrganisations = fetchedOrganisations.map(organisation => {
         return { text: organisation.name, value: organisation.id };
       });
@@ -179,7 +195,7 @@ export default {
         this.$emit("update:slug", this.slugify(name));
         this.$emit("clear", "slug");
       }
-    }
+    },
   },
   created() {
     this.fetchOrganisations();

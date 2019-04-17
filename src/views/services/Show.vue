@@ -74,7 +74,8 @@ export default {
 
       // Fetch the services.
       const servicesResponse = await http.get(
-        `/services/${this.$route.params.service}`
+        `/services/${this.$route.params.service}`,
+        { params: { include: 'organisation' } }
       );
       this.service = servicesResponse.data.data;
 

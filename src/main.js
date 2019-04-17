@@ -53,22 +53,6 @@ if (process.env.VUE_APP_BUGSNAG_API_KEY) {
 import VueHeadful from "vue-headful";
 Vue.component("vue-headful", VueHeadful);
 
-// Vue WYSIWYG.
-import wysiwyg from "vue-wysiwyg";
-Vue.use(wysiwyg, {
-  hideModules: {
-    underline: true,
-    justifyLeft: true,
-    justifyCenter: true,
-    justifyRight: true,
-    code: true,
-    image: true,
-    table: true,
-    separator: true
-  },
-  forcePlainTextOnPaste: true
-});
-
 // Custom Vue Components
 Vue.component("CkFileInput", () => import("@/components/Ck/CkFileInput"));
 Vue.component("CkRadioInput", () => import("@/components/Ck/CkRadioInput"));
@@ -166,7 +150,9 @@ Vue.mixin({
   },
   methods: {
     apiUrl(path) {
-      return `${process.env.VUE_APP_API_URI}/core/v1/${path}`;
+      const trimmedPath = path.replace(/^\//, "");
+
+      return `${process.env.VUE_APP_API_URI}/core/v1/${trimmedPath}`;
     },
     slugify(text) {
       return text
