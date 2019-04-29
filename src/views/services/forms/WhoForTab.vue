@@ -1,10 +1,10 @@
 <template>
   <div>
-    <gov-heading size="l">Who is your service for?</gov-heading>
+    <gov-heading size="l">Who is your {{ type }} for?</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>
-          Use this section to help indicate who should be using your service. If any
+          Use this section to help indicate who should be using your {{ type }}. If any
           of these criteria do not apply, please leave them blank.
         </gov-body>
         <gov-section-break size="l" />
@@ -16,7 +16,7 @@
           :error="errors.get('criteria.age_group')"
           id="criteria.age_group"
           label="Age of service user (if applicable)"
-          hint="E.g “This activity is for people 16+” or “This service is aimed at people nearing retirement”"
+          :hint="`E.g “This ${type} is for people 16+” or “This ${type} is aimed at people nearing retirement”`"
         />
         <!-- /Age group -->
 
@@ -27,7 +27,7 @@
           :error="errors.get('criteria.disability')"
           id="criteria.disability"
           label="Disability Requirements / Restrictions (if applicable)"
-          hint='e.g. "This service is for those with MS and their carers", or "For all people with disabilities and their carers"'
+          :hint='`e.g. "This ${type} is for those with MS and their carers", or "For all people with disabilities and their carers"`'
         />
         <!-- /Disability -->
 
@@ -60,7 +60,7 @@
           :error="errors.get('criteria.income')"
           id="criteria.income"
           label="Income level (if applicable)"
-          hint='e.g. "Service is aimed at people claiming benefits or with Income support"'
+          :hint='`e.g. "This ${type} is aimed at people claiming benefits or with Income support"`'
         />
         <!-- /Income -->
 
@@ -71,7 +71,7 @@
           :error="errors.get('criteria.language')"
           id="criteria.language"
           label="Language accessability (if applicable)"
-          hint="E.g. “Instructors speak English, but open to all”, or “This service is available in a number of languages - please contact for more information”"
+          :hint="`E.g. “Instructors speak English, but open to all”, or “This ${type} is available in a number of languages - please contact for more information”`"
         />
         <!-- /Language -->
 
@@ -81,8 +81,8 @@
           @input="$emit('update:other', $event); $emit('clear', 'criteria.other')"
           :error="errors.get('criteria.other')"
           id="criteria.other"
-          label="Any other notes as to who the service is aimed at/not appropriate for?"
-          hint="E.g. “This service is open to all”, or “This service is aimed at people living in Chessington”"
+          :label="`Any other notes as to who the ${type} is aimed at/not appropriate for?`"
+          :hint="`E.g. “This ${type} is open to all”, or “This ${type} is aimed at people living in Chessington”`"
         />
         <!-- /Other -->
 
@@ -102,6 +102,10 @@ export default {
   props: {
     errors: {
       required: true
+    },
+    type: {
+      required: true,
+      type: String
     },
     age_group: {
       required: true

@@ -10,14 +10,14 @@
 
           <template v-if="!auth.isGlobalAdmin">
             <gov-body class="govuk-!-font-weight-bold">
-              Please review the process below on how to create a service.
+              Please review the process below on how to create a {{ form.type }}.
             </gov-body>
 
             <gov-list bullet>
-              <li>To create a service, fill in the form below.</li>
-              <li>The service won't be made active until an admin has reviewed it.</li>
+              <li>To create a {{ form.type }}, fill in the form below.</li>
+              <li>The {{ form.type }} won't be made active until an admin has reviewed it.</li>
               <li>If there are any issues upon review, an admin will get directly in touch with you.</li>
-              <li>You can return to edit this service at any time.</li>
+              <li>You can return to edit this {{ form.type }} at any time.</li>
             </gov-list>
           </template>
 
@@ -53,6 +53,7 @@
               v-if="tabs[1].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
+              :type="form.type"
               :description.sync="form.description"
             >
               <gov-button @click="onNext" start>Next</gov-button>
@@ -62,6 +63,7 @@
               v-if="tabs[2].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
+              :type="form.type"
               :wait_time.sync="form.wait_time"
               :is_free.sync="form.is_free"
               :fees_text.sync="form.fees_text"
@@ -80,6 +82,7 @@
               v-if="tabs[3].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
+              :type="form.type"
               :useful_infos.sync="form.useful_infos"
             >
               <gov-button @click="onNext" start>Next</gov-button>
@@ -89,6 +92,7 @@
               v-if="tabs[4].active"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
+              :type="form.type"
               :age_group.sync="form.criteria.age_group"
               :disability.sync="form.criteria.disability"
               :employment.sync="form.criteria.employment"
@@ -106,6 +110,7 @@
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :is-global-admin="auth.isGlobalAdmin"
+              :type="form.type"
               :category_taxonomies.sync="form.category_taxonomies"
             >
               <gov-button @click="onNext" start>Next</gov-button>
@@ -117,6 +122,7 @@
               :errors="form.$errors"
               :is-global-admin="auth.isGlobalAdmin"
               :is-super-admin="auth.isSuperAdmin"
+              :type="form.type"
               :show_referral_disclaimer.sync="form.show_referral_disclaimer"
               :referral_method.sync="form.referral_method"
               :referral_button_text.sync="form.referral_button_text"

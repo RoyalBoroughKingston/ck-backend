@@ -4,29 +4,29 @@
     <gov-table>
       <template slot="body">
         <gov-table-row>
-          <gov-table-header top scope="row">Name of service</gov-table-header>
+          <gov-table-header top scope="row">Name of {{ service.type }}</gov-table-header>
           <gov-table-cell>{{ service.name }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header top scope="row">Organisation for service</gov-table-header>
+          <gov-table-header top scope="row">Organisation for {{ service.type }}</gov-table-header>
           <gov-table-cell>{{ service.organisation.name }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header top scope="row">Service website address</gov-table-header>
+          <gov-table-header top scope="row">{{ service.type | ucfirst }} website address</gov-table-header>
           <gov-table-cell break>{{ service.url }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header top scope="row">Service logo</gov-table-header>
+          <gov-table-header top scope="row">{{ service.type | ucfirst }} logo</gov-table-header>
           <gov-table-cell>
-            <img :src="apiUrl(`/services/${service.id}/logo.png?v=${service.updated_at}`)" alt="Service logo" class="ck-logo">
+            <img :src="apiUrl(`/services/${service.id}/logo.png?v=${service.updated_at}`)" :alt="`${service.type} logo`" class="ck-logo">
           </gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header top scope="row">Summary of service</gov-table-header>
+          <gov-table-header top scope="row">Summary of {{ service.type }}</gov-table-header>
           <gov-table-cell>{{ service.intro }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header top scope="row">Service description</gov-table-header>
+          <gov-table-header top scope="row">{{ service.type | ucfirst }} description</gov-table-header>
           <gov-table-cell v-html="toHtml(service.description)" />
         </gov-table-row>
         <gov-table-row>

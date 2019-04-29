@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gov-heading size="l">Service description</gov-heading>
+    <gov-heading size="l">{{ type | ucfirst }} description</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
@@ -8,16 +8,16 @@
           :value="description"
           @input="$emit('update:description', $event); $emit('clear', 'description')"
           id="description"
-          label="Longer service description"
+          :label="`Longer ${type} description`"
           :error="errors.get('description')"
           large
           :maxlength="1600"
         >
           <template slot="hint">
             <gov-hint for="description">
-              Please provide a detailed description of the service. This will
-              display on the service page and is the main way users will find
-              out about your service.
+              Please provide a detailed description of the {{ type }}. This will
+              display on the {{ type }} page and is the main way users will find
+              out about your {{ type }}.
             </gov-hint>
             <gov-hint for="description">
               You will want to include details of what you offer, what people
@@ -25,9 +25,9 @@
               You can also include links to other sites or information.
             </gov-hint>
             <gov-hint for="description">
-              If you are describing multiple services or activities, it may be
+              If you are describing multiple {{ type }}s, it may be
               better to add these to Connected Kingston as separate, individual
-              services.
+              {{ type }}s.
             </gov-hint>
             <gov-hint for="description">
               The best pages are ones formatted with bullet points, paragraphs and headers.
@@ -51,6 +51,10 @@ export default {
   props: {
     errors: {
       required: true
+    },
+    type: {
+      required: true,
+      type: String
     },
     description: {
       required: true
