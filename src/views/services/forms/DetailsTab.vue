@@ -8,6 +8,16 @@
 
         <gov-section-break size="l" />
 
+        <ck-select-input
+          :value="type"
+          @input="$emit('update:type', $event); $emit('clear', 'type')"
+          id="type"
+          label="What is it?"
+          hint="This option changes how your page is described on Connected Kingston"
+          :options="typeOptions"
+          :error="errors.get('type')"
+        />
+
         <ck-text-input
           :value="name"
           @input="onNameInput($event)"
@@ -31,16 +41,6 @@
             e.g. example.com/services/{{ slug }}
           </gov-hint>
         </ck-text-input>
-
-        <ck-select-input
-          :value="type"
-          @input="$emit('update:type', $event); $emit('clear', 'type')"
-          id="type"
-          label="What is it?"
-          hint="This option changes how your page is described on Connected Kingston"
-          :options="typeOptions"
-          :error="errors.get('type')"
-        />
 
         <template v-if="isNew || auth.isGlobalAdmin">
           <ck-loader v-if="loading" />
