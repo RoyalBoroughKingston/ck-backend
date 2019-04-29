@@ -4,12 +4,12 @@
     <template v-else>
       <vue-headful :title="`Connected Kingston - Edit Service: ${service.name}`" />
 
-      <gov-back-link :to="{ name: 'services-show', params: { service: service.id } }">Back to service</gov-back-link>
+      <gov-back-link :to="{ name: 'services-show', params: { service: service.id } }">Back to {{ service.type }}</gov-back-link>
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="full">
             <gov-heading size="xl">Services</gov-heading>
-            <gov-heading size="m">Edit service</gov-heading>
+            <gov-heading size="m">Edit {{ form.type }}</gov-heading>
 
             <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
               <gov-list>
@@ -26,6 +26,7 @@
                 :organisation_id.sync="form.organisation_id"
                 :name.sync="form.name"
                 :slug.sync="form.slug"
+                :type.sync="form.type"
                 :url.sync="form.url"
                 @update:logo_file_id="form.logo_file_id = $event"
                 :intro.sync="form.intro"
@@ -40,6 +41,7 @@
                 v-if="tabs[1].active"
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
+                :type="form.type"
                 :description.sync="form.description"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
@@ -49,6 +51,7 @@
                 v-if="tabs[2].active"
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
+                :type="form.type"
                 :wait_time.sync="form.wait_time"
                 :is_free.sync="form.is_free"
                 :fees_text.sync="form.fees_text"
@@ -67,6 +70,7 @@
                 v-if="tabs[3].active"
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
+                :type="form.type"
                 :useful_infos.sync="form.useful_infos"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
@@ -76,6 +80,7 @@
                 v-if="tabs[4].active"
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
+                :type="form.type"
                 :age_group.sync="form.criteria.age_group"
                 :disability.sync="form.criteria.disability"
                 :employment.sync="form.criteria.employment"
@@ -93,6 +98,7 @@
                 @clear="form.$errors.clear($event); errors = {}"
                 :errors="form.$errors"
                 :is-global-admin="auth.isGlobalAdmin"
+                :type="form.type"
                 :category_taxonomies.sync="form.category_taxonomies"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
@@ -105,6 +111,7 @@
                 :is-global-admin="auth.isGlobalAdmin"
                 :is-super-admin="auth.isSuperAdmin"
                 :original-data="form.$originalData"
+                :type="form.type"
                 :show_referral_disclaimer.sync="form.show_referral_disclaimer"
                 :referral_method.sync="form.referral_method"
                 :referral_button_text.sync="form.referral_button_text"
@@ -184,6 +191,7 @@ export default {
         organisation_id: this.service.organisation_id,
         name: this.service.name,
         slug: this.service.slug,
+        type: this.service.type,
         status: this.service.status,
         intro: this.service.intro,
         description: this.service.description,
@@ -234,6 +242,9 @@ export default {
         }
         if (data.slug === this.service.slug) {
           delete data.slug;
+        }
+        if (data.type === this.service.type) {
+          delete data.type;
         }
         if (data.status === this.service.status) {
           delete data.status;

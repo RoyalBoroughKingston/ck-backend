@@ -6,10 +6,10 @@
 
         <gov-body>
           This section allows you to add information specifically related to your
-          service. Pick a title from the drop down and add detail below.
+          {{ type }}. Pick a title from the drop down and add detail below.
         </gov-body>
         <gov-body>
-          These tips will standout on your service page, so make sure key
+          These tips will standout on your {{ type }} page, so make sure key
           information goes in here.
         </gov-body>
 
@@ -39,6 +39,10 @@ export default {
     errors: {
       required: true,
       type: Object
+    },
+    type: {
+      required: true,
+      type: String
     },
     useful_infos: {
       type: Array,

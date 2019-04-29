@@ -14,6 +14,12 @@
           <gov-table-header scope="column">To</gov-table-header>
         </gov-table-row>
 
+        <gov-table-row v-if="service.hasOwnProperty('type')">
+          <gov-table-header top scope="row">Type</gov-table-header>
+          <gov-table-cell break>{{ original.type | ucfirst }}</gov-table-cell>
+          <gov-table-cell break>{{ service.type | ucfirst }}</gov-table-cell>
+        </gov-table-row>
+
         <gov-table-row v-if="service.hasOwnProperty('url')">
           <gov-table-header top scope="row">URL</gov-table-header>
           <gov-table-cell break>{{ original.url }}</gov-table-cell>

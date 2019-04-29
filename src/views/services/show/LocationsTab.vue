@@ -2,7 +2,7 @@
   <div>
     <gov-grid-row>
       <gov-grid-column width="two-thirds">
-        <gov-heading size="l">Service locations</gov-heading>
+        <gov-heading size="l">{{ service.type | ucfirst }} locations</gov-heading>
       </gov-grid-column>
       <gov-grid-column v-if="auth.isServiceAdmin(service)" width="one-third text-right">
         <gov-button

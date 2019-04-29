@@ -28,7 +28,7 @@
           <gov-table-cell>{{ service.criteria.language || "No specific requirement" }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header scope="row" top>Any other notes as to whom the service is aimed at/not appropriate for?</gov-table-header>
+          <gov-table-header scope="row" top>Any other notes as to whom the {{ service.type }} is aimed at/not appropriate for?</gov-table-header>
           <gov-table-cell>{{ service.criteria.other || "No specific requirement" }}</gov-table-cell>
         </gov-table-row>
       </template>

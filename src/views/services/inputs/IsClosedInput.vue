@@ -4,7 +4,7 @@
     <gov-radios>
 
       <gov-label :for="id">
-        Is this service open or closed during these holiday hours?
+        Is this {{ type }} open or closed during these holiday hours?
       </gov-label>
 
       <gov-radio
@@ -47,6 +47,10 @@ export default {
       required: true
     },
     id: {
+      type: String,
+      required: true
+    },
+    type: {
       type: String,
       required: true
     }

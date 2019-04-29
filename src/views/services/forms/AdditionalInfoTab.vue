@@ -1,11 +1,11 @@
 <template>
   <div>
-    <gov-heading size="l">Additional service information</gov-heading>
+    <gov-heading size="l">Additional {{ type }} information</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
         <gov-body>
-          This section allows you to add more information to your service page.
+          This section allows you to add more information to your {{ type }} page.
           The more detail that can be provided, the better.
         </gov-body>
 
@@ -21,12 +21,12 @@
         >
           <template slot="hint">
             <gov-hint for="wait_time">
-              Provide an indication of how long someone may have to wait to access your service
+              Provide an indication of how long someone may have to wait to access your {{ type }}
               after initial contact has been made. You can amend this in future as and when
               circumstances change.
             </gov-hint>
             <gov-hint for="wait_time">
-              If this is not relevant to your service, please skip this question.
+              If this is not relevant to your {{ type }}, please skip this question.
             </gov-hint>
           </template>
         </ck-select-input>
@@ -35,19 +35,19 @@
           :value="is_free"
           @input="$emit('update:is_free', $event); $emit('clear', 'is_free')"
           id="is_free"
-          label="Is the service free?"
+          :label="`Is the ${type} free?`"
           :options="isFreeOptions"
           :error="errors.get('is_free')"
         >
           <template slot="hint">
             <gov-hint for="is_free">
-              Indicates whether your service is completely free, or if some elements of the
+              Indicates whether your {{ type }} is completely free, or if some elements of the
               service must be paid for. Users can filter their searches based on the answer
               you provide.
             </gov-hint>
             <gov-hint for="is_free">
-              If the cost of your services varies, you may want to split these into
-              different service listings.
+              If the cost of your {{ type }} varies, you may want to split these into
+              different {{ type }} listings.
             </gov-hint>
           </template>
         </ck-radio-input>
@@ -59,7 +59,7 @@
             @input="$emit('update:fees_text', $event); $emit('clear', 'fees_text')"
             id="fees_text"
             label="How much does it cost? (if applicable)"
-            hint='Please indicate the basic cost of the service. If there are multiple price points, please provide an indicative range (eg. "5-10 per session") (max 75 characters).'
+            :hint='`Please indicate the basic cost of the ${type}. If there are multiple price points, please provide an indicative range (eg. "5-10 per session") (max 75 characters).`'
             type="text"
             :error="errors.get('fees_text')"
             :maxlength="75"
@@ -90,7 +90,7 @@
                 help promote your good work. For example:
               </gov-hint>
               <gov-hint for="testimonial">
-                This service changed my life! - Dawn, a regular visitor
+                This {{ type }} changed my life! - Dawn, a regular visitor
               </gov-hint>
           </template>
         </ck-textarea-input>
@@ -99,20 +99,20 @@
           :value="video_embed"
           @input="$emit('update:video_embed', $event); $emit('clear', 'video_embed')"
           id="video_embed"
-          label="Service video"
+          :label="`${$options.filters.ucfirst(type)} video`"
           type="url"
           :error="errors.get('video_embed')"
         >
           <template slot="hint">
             <gov-hint for="video_embed">
-              If you have a short video (less than 5 minutes) showcasing your service,
+              If you have a short video (less than 5 minutes) showcasing your {{ type }},
               please add a link below to the site that hosts it.
             </gov-hint>
             <gov-hint for="video_embed">
               Youtube and Vimeo links are accepted.
             </gov-hint>
             <gov-hint for="video_embed">
-              <gov-link :href="videoEmbedHelpHref">Need help editing or creating a service video?</gov-link>
+              <gov-link :href="videoEmbedHelpHref">Need help editing or creating a {{ type }} video?</gov-link>
             </gov-hint>
           </template>
         </ck-text-input>
@@ -127,8 +127,8 @@
       <gov-grid-column width="one-half">
 
         <gov-body>
-          Please provide your service’s public-facing contact details. These will
-          be displayed on your service’s page on the Connected Kingston website.
+          Please provide your {{ type }}’s public-facing contact details. These will
+          be displayed on your {{ type }}’s page on the Connected Kingston website.
         </gov-body>
 
         <gov-section-break size="l" />
@@ -138,7 +138,7 @@
           @input="$emit('update:contact_name', $event); $emit('clear', 'contact_name')"
           id="contact_name"
           label="Contact name"
-          hint="Provide the contact name (First name & Surname) for this service, or a generic entry if this isn’t applicable e.g. ‘Enquiries’, or ‘Helpdesk’."
+          :hint="`Provide the contact name (First name & Surname) for this ${type}, or a generic entry if this isn’t applicable e.g. ‘Enquiries’, or ‘Helpdesk’.`"
           type="text"
           :error="errors.get('contact_name')"
         />
@@ -167,8 +167,8 @@
           :value="contact_email"
           @input="$emit('update:contact_email', $event); $emit('clear', 'contact_email')"
           id="contact_email"
-          label="Public service email address"
-          hint="Please provide the contact email address for the service."
+          :label="`Public ${type} email address`"
+          :hint="`Please provide the contact email address for the ${type}.`"
           type="email"
           :error="errors.get('contact_email')"
         />
@@ -178,12 +178,12 @@
         <gov-heading size="m">Social media links</gov-heading>
 
         <gov-body>
-          If you have any social media accounts for your service, please
+          If you have any social media accounts for your {{ type }}, please
           select the appropriate platform from the dropdown and add the
           relevant URL.
         </gov-body>
         <gov-body>
-          If you don’t have accounts for the specific service, please add
+          If you don’t have accounts for the specific {{ type }}, please add
           the accounts of the overall organisation.
         </gov-body>
 
@@ -208,6 +208,9 @@ export default {
   components: { SocialMediasInput },
   props: {
     errors: {
+      required: true
+    },
+    type: {
       required: true
     },
     wait_time: {
@@ -241,31 +244,31 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      waitTimeOptions: [
-        { text: "Not applicable for this service", value: null },
+  computed: {
+    waitTimeOptions() {
+      return [
+        { text: `Not applicable for this ${this.type}`, value: null },
         { text: "One week", value: "one_week" },
         { text: "Two weeks", value: "two_weeks" },
         { text: "Three weeks", value: "three_weeks" },
         { text: "One month", value: "month" },
         { text: "Longer than a month", value: "longer" }
-      ],
-      isFreeOptions: [
-        { value: true, label: "Yes - The service is free" },
+      ]
+    },
+    isFreeOptions() {
+      return [
+        { value: true, label: `Yes - The ${this.type} is free` },
         {
           value: false,
-          label: "No - there are elements of this service that must be paid for"
+          label: `No - there are elements of this ${this.type} that must be paid for`
         }
-      ]
-    };
-  },
-  computed: {
+      ];
+    },
     videoEmbedHelpHref() {
       const to = "info@connectedkingston.uk";
-      const subject = "Make a video for my service";
+      const subject = `Make a video for my ${this.type}`;
       const body =
-        "My service is: xxx\n\nI am interested in making a video for my service page on Connected Kingston.";
+        `My ${this.type} is: xxx\n\nI am interested in making a video for my ${this.type} page on Connected Kingston.`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject

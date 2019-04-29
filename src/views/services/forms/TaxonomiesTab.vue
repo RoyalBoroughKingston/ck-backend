@@ -4,12 +4,12 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>
-          These are a list of ‘tags’ that are applied to a service. These tags
-          help the service be found in categories and keyword searches.
+          These are a list of ‘tags’ that are applied to a {{ type }}. These tags
+          help the {{ type }} be found in categories and keyword searches.
         </gov-body>
         <gov-body>
-          On creation of a new service, the admin team will select the tags that
-          they feel represent the service offer. If you believe the some of the
+          On creation of a new {{ type }}, the admin team will select the tags that
+          they feel represent the {{ type }} offer. If you believe the some of the
           tags are incorrectly applied or missing -
           <gov-link :href="contactAdminTeamEmail">please contact the team</gov-link>.
         </gov-body>
@@ -50,6 +50,10 @@ export default {
     isGlobalAdmin: {
       required: true
     },
+    type: {
+      required: true,
+      type: String
+    },
     category_taxonomies: {
       required: true,
       type: Array
@@ -58,9 +62,9 @@ export default {
   computed: {
     contactAdminTeamEmail() {
       const to = "info@connectedkingston.uk";
-      const subject = "Incorrect taxonomies applied to service";
+      const subject = `Incorrect taxonomies applied to ${this.type}`;
       const body =
-        "Service Name: XXX\n\nI believe that the tags applied to the above service are incorrect. The following changes should be made:";
+        `${this.$options.filters.ucfirst(this.type)} Name: XXX\n\nI believe that the tags applied to the above ${this.type} are incorrect. The following changes should be made:`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject

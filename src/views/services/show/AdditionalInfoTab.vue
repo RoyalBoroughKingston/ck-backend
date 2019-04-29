@@ -8,7 +8,7 @@
           <gov-table-cell>{{ waitTime }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header scope="row" top>Is this service free?</gov-table-header>
+          <gov-table-header scope="row" top>Is this {{ service.type }} free?</gov-table-header>
           <gov-table-cell>{{ isFree }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
@@ -37,7 +37,7 @@ export default {
     waitTime() {
       switch (this.service.wait_time) {
         case null:
-          return "Not applicable for this service";
+          return `Not applicable for this ${this.service.type}`;
         case "one_week":
         case "two_weeks":
         case "three_weeks":
