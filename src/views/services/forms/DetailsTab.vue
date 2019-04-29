@@ -99,7 +99,7 @@
           @input="$emit('update:status', $event); $emit('clear', 'status')"
           id="status"
           :label="`Is the ${type} enabled`"
-          :hint="`Indicates if the ${type} is enabled or disabled (disabled ${type}s will not be shown in search results)`"
+          :hint="`Indicates if the ${type} is enabled or disabled (disabled ${$options.filters.plural(type)} will not be shown in search results)`"
           :options="statusOptions"
           :error="errors.get('status')"
           :disabled="!auth.isGlobalAdmin"

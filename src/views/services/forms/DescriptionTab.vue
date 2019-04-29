@@ -25,9 +25,9 @@
               You can also include links to other sites or information.
             </gov-hint>
             <gov-hint for="description">
-              If you are describing multiple {{ type }}s, it may be
+              If you are describing multiple {{ type | plural }}, it may be
               better to add these to Connected Kingston as separate, individual
-              {{ type }}s.
+              {{ type | plural }}.
             </gov-hint>
             <gov-hint for="description">
               The best pages are ones formatted with bullet points, paragraphs and headers.

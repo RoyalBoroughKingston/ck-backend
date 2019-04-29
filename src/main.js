@@ -205,6 +205,16 @@ Vue.mixin({
   filters: {
     ucfirst(string) {
       return string.charAt(0).toUpperCase() + string.substr(1);
+    },
+    plural(string) {
+      const plurals = {
+        service: "services",
+        activity: "activities",
+        club: "clubs",
+        group: "groups"
+      };
+
+      return plurals[string];
     }
   }
 });
