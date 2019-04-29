@@ -32,6 +32,16 @@
           </gov-hint>
         </ck-text-input>
 
+        <ck-select-input
+          :value="type"
+          @input="$emit('update:type', $event); $emit('clear', 'type')"
+          id="type"
+          label="What is it?"
+          hint="This option changes how your page is described on Connected Kingston"
+          :options="typeOptions"
+          :error="errors.get('type')"
+        />
+
         <template v-if="isNew || auth.isGlobalAdmin">
           <ck-loader v-if="loading" />
           <ck-select-input
@@ -137,6 +147,9 @@ export default {
     slug: {
       required: true
     },
+    type: {
+      required: true
+    },
     organisation_id: {
       required: false
     },
@@ -161,6 +174,12 @@ export default {
     return {
       organisations: [{ text: "Please select", value: null, disabled: true }],
       loading: false,
+      typeOptions: [
+        { text: "It is a Service", value: "service" },
+        { text: "It is an Activity", value: "activity" },
+        { text: "It is a Club", value: "club" },
+        { text: "It is a Group", value: "group" }
+      ],
       statusOptions: [
         { label: "Enabled", value: "active" },
         { label: "Disabled", value: "inactive" }

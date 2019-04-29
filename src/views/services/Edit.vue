@@ -26,6 +26,7 @@
                 :organisation_id.sync="form.organisation_id"
                 :name.sync="form.name"
                 :slug.sync="form.slug"
+                :type.sync="form.type"
                 :url.sync="form.url"
                 @update:logo_file_id="form.logo_file_id = $event"
                 :intro.sync="form.intro"
@@ -184,6 +185,7 @@ export default {
         organisation_id: this.service.organisation_id,
         name: this.service.name,
         slug: this.service.slug,
+        type: this.service.type,
         status: this.service.status,
         intro: this.service.intro,
         description: this.service.description,
@@ -234,6 +236,9 @@ export default {
         }
         if (data.slug === this.service.slug) {
           delete data.slug;
+        }
+        if (data.type === this.service.type) {
+          delete data.type;
         }
         if (data.status === this.service.status) {
           delete data.status;

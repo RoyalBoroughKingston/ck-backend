@@ -38,6 +38,7 @@
               :is-new="true"
               :name.sync="form.name"
               :slug.sync="form.slug"
+              :type.sync="form.type"
               :organisation_id.sync="form.organisation_id"
               :url.sync="form.url"
               @update:logo_file_id="form.logo_file_id = $event"
@@ -162,6 +163,7 @@ export default {
         organisation_id: null,
         name: "",
         slug: "",
+        type: "service",
         status: "inactive",
         intro: "",
         description: "",
