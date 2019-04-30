@@ -29,10 +29,10 @@
             </gov-list>
           </gov-error-summary>
 
-          <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
+          <gov-tabs @tab-changed="onTabChange" :tabs="allowedTabs" no-router>
 
             <details-tab
-              v-show="tabs[0].active"
+              v-show="isTabActive('details')"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :is-new="true"
@@ -50,7 +50,7 @@
             </details-tab>
 
             <description-tab
-              v-if="tabs[1].active"
+              v-if="isTabActive('description')"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :type="form.type"
@@ -60,7 +60,7 @@
             </description-tab>
 
             <additional-info-tab
-              v-if="tabs[2].active"
+              v-if="isTabActive('additional-info')"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :type="form.type"
@@ -79,7 +79,7 @@
             </additional-info-tab>
 
             <useful-info-tab
-              v-if="tabs[3].active"
+              v-if="isTabActive('useful-info')"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :type="form.type"
@@ -89,7 +89,7 @@
             </useful-info-tab>
 
             <who-for-tab
-              v-if="tabs[4].active"
+              v-if="isTabActive('who-for')"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :type="form.type"
@@ -106,7 +106,7 @@
             </who-for-tab>
 
             <taxonomies-tab
-              v-if="tabs[5].active"
+              v-if="isTabActive('taxonomies')"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :is-global-admin="auth.isGlobalAdmin"
@@ -117,7 +117,7 @@
             </taxonomies-tab>
 
             <referral-tab
-              v-if="tabs[6].active"
+              v-if="isTabActive('referral')"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
               :is-global-admin="auth.isGlobalAdmin"
@@ -204,17 +204,29 @@ export default {
         category_taxonomies: [],
         logo_file_id: null
       }),
+      errors: {},
       tabs: [
-        { heading: "Details", active: true },
-        { heading: "Description", active: false },
-        { heading: "Additional info", active: false },
-        { heading: "Useful info", active: false },
-        { heading: "Who is it for?", active: false },
-        { heading: "Taxonomies", active: false },
-        { heading: "Referral", active: false }
-      ],
-      errors: {}
+        { id: "details", heading: "Details", active: true },
+        { id: "description", heading: "Description", active: false },
+        { id: "additional-info", heading: "Additional info", active: false },
+        { id: "useful-info", heading: "Useful info", active: false },
+        { id: "who-for", heading: "Who is it for?", active: false },
+        { id: "taxonomies", heading: "Taxonomies", active: false },
+        { id: "referral", heading: "Referral", active: false }
+      ]
     };
+  },
+  computed: {
+    allowedTabs() {
+      if (!this.auth.isGlobalAdmin) {
+        const tabs = this.tabs.slice();
+        tabs.splice(5, 1);
+
+        return tabs;
+      }
+
+      return this.tabs;
+    }
   },
   methods: {
     async onSubmit() {
@@ -231,16 +243,23 @@ export default {
     },
     onTabChange({ index }) {
       this.tabs.forEach(tab => (tab.active = false));
-      this.tabs[index].active = true;
+      const tabId = this.allowedTabs[index].id;
+      this.tabs.find(tab => tab.id === tabId).active = true;
     },
     onNext() {
-      const currentTabIndex = this.tabs.findIndex(tab => tab.active === true);
+      const currentTabIndex = this.allowedTabs.findIndex(tab => tab.active === true);
       this.tabs.forEach(tab => (tab.active = false));
-      this.tabs[currentTabIndex + 1].active = true;
+      const newTabId = this.allowedTabs[currentTabIndex + 1].id;
+      this.tabs.find(tab => tab.id === newTabId).active = true;
       this.scrollToTop();
     },
     scrollToTop() {
       document.getElementById("main-content").scrollIntoView();
+    },
+    isTabActive(id) {
+      const tab = this.allowedTabs.find(tab => tab.id === id);
+
+      return tab === undefined ? false : tab.active;
     }
   }
 };
