@@ -9,9 +9,7 @@
         </gov-body>
         <gov-body>
           On creation of a new {{ type }}, the admin team will select the tags that
-          they feel represent the {{ type }} offer. If you believe the some of the
-          tags are incorrectly applied or missing -
-          <gov-link :href="contactAdminTeamEmail">please contact the team</gov-link>.
+          they feel represent the {{ type }} offer.
         </gov-body>
 
         <gov-section-break size="l" />
