@@ -67,7 +67,7 @@
         />
 
         <ck-image-input
-          @input="$emit('update:logo_file_id', $event)"
+          @input="$emit('update:logo_file_id', $event.file_id); $emit('update:logo', $event.image);"
           id="logo"
           :label="`Upload your ${type} logo`"
           accept="image/x-png"

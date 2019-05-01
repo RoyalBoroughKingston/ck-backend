@@ -60,7 +60,7 @@
     />
 
     <ck-image-input
-      @input="onInput('logo_file_id', $event)"
+      @input="onInput('logo_file_id', $event.file_id)"
       id="logo"
       label="Organisation logo"
       accept="image/x-png"
