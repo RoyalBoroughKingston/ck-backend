@@ -2,7 +2,7 @@
   <div>
     <gov-inset-text v-for="(galleryItem, index) in galleryItems" :key="galleryItem.$index">
       <ck-image-input
-        @input="onGalleryItemInput($event.file_id, index)"
+        @input="onGalleryItemInput($event, index)"
         :id="`Ck::GalleryItem::${galleryItem.$index}`"
         label="Upload an item to the gallery"
         accept="image/x-png"
@@ -63,9 +63,10 @@ export default {
       return JSON.parse(JSON.stringify(this.galleryItems));
     },
 
-    onGalleryItemInput(fileId, index) {
+    onGalleryItemInput(event, index) {
       const galleryItems = this.clone();
-      galleryItems[index].file_id = fileId;
+      galleryItems[index].file_id = event.file_id;
+      galleryItems[index].image = event.iamge;
       this.$emit("input", galleryItems);
     },
 
@@ -73,6 +74,7 @@ export default {
       const galleryItems = this.clone();
       galleryItems.push({
         file_id: null,
+        image: null,
         $index: this.index
       });
       this.$emit("input", galleryItems);

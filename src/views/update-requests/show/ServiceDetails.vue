@@ -302,7 +302,7 @@
             <img :src="apiUrl(`/services/${service.id}/logo.png?v=${requestedAt}`)" alt="Service logo" class="ck-logo">
           </gov-table-cell>
           <gov-table-cell>
-            <img :src="apiUrl(`/services/${service.id}/logo.png?update_request_id=${updateRequestId}`)" alt="Service logo" class="ck-logo">
+            <img :src="logoDataUri || apiUrl(`/services/${service.id}/logo.png?update_request_id=${updateRequestId}`)" alt="Service logo" class="ck-logo">
           </gov-table-cell>
         </gov-table-row>
 
@@ -313,7 +313,7 @@
             <gov-body v-else>-</gov-body>
           </gov-table-cell>
           <gov-table-cell style="width: 25%;">
-            <ck-carousel v-if="service.gallery_items.length > 0" :image-urls="imageUrls(service)"/>
+            <ck-carousel v-if="service.gallery_items.length > 0" :image-urls="galleryItemsDataUris || imageUrls(service)"/>
             <gov-body v-else>-</gov-body>
           </gov-table-cell>
         </gov-table-row>
@@ -344,6 +344,16 @@ export default {
     service: {
       required: true,
       type: Object
+    },
+
+    logoDataUri: {
+      required: false,
+      type: String
+    },
+
+    galleryItemsDataUris: {
+      required: false,
+      type: Array
     }
   },
 
