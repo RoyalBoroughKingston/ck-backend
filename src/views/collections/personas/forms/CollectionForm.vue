@@ -31,7 +31,7 @@
     />
 
     <ck-image-input
-      @input="onInput('image_file_id', $event)"
+      @input="onInput('image_file_id', $event.file_id)"
       id="image"
       label="Persona image"
       accept="image/x-png"

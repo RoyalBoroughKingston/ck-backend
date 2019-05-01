@@ -2,7 +2,7 @@
   <div>
     <gov-inset-text v-for="(galleryItem, index) in galleryItems" :key="galleryItem.$index">
       <ck-image-input
-        @input="onGalleryItemInput($event, index)"
+        @input="onGalleryItemInput($event.file_id, index)"
         :id="`Ck::GalleryItem::${galleryItem.$index}`"
         label="Upload an item to the gallery"
         accept="image/x-png"
