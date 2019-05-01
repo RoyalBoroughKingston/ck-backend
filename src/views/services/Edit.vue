@@ -131,8 +131,8 @@
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
               <gov-warning-text>
-                By clicking below, you will first need to review your changes
-                before finishing your request.
+                You will be able to preview your changes before you submit them
+                as an update request.
               </gov-warning-text>
 
               <gov-button v-if="form.$submitting" disabled type="submit">Validating...</gov-button>
