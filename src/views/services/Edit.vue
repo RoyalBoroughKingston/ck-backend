@@ -135,8 +135,8 @@
                 before finishing your request.
               </gov-warning-text>
 
-              <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
-              <gov-button v-else @click="onPreview" type="submit">Request update</gov-button>
+              <gov-button v-if="form.$submitting" disabled type="submit">Validating...</gov-button>
+              <gov-button v-else @click="onPreview" type="submit">Review changes</gov-button>
               <ck-submit-error v-if="form.$errors.any()" />
             </gov-grid-column>
           </gov-grid-row>
