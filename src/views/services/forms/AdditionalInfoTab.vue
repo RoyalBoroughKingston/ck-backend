@@ -91,7 +91,7 @@
                 help promote your good work. For example:
               </gov-hint>
               <gov-hint for="testimonial">
-                This {{ type }} changed my life! - Dawn, a regular visitor
+                This {{ type }} changed my life!
               </gov-hint>
           </template>
         </ck-textarea-input>
