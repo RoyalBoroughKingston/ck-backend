@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gov-heading size="l">Uesful info</gov-heading>
+    <gov-heading size="l">Good to know</gov-heading>
     <gov-table>
       <template slot="body">
         <gov-table-row v-for="usefulInfo in usefulInfos" :key="usefulInfo.order">
