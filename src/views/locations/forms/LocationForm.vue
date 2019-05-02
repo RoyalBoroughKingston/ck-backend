@@ -102,14 +102,24 @@
       </gov-checkboxes>
     </gov-form-group>
 
+    <ck-image-input
+      @input="onInput('image_file_id', $event.file_id)"
+      id="image"
+      label="Location image"
+      accept="image/x-png"
+      :existing-url="id ? apiUrl(`/locations/${id}/image.png?v=${now}`) : undefined"
+    />
+
   </div>
 </template>
 
 <script>
 import countries from "@/storage/countries";
+import CkImageInput from "@/components/Ck/CkImageInput";
 
 export default {
   name: "CreateLocationForm",
+  components: { CkImageInput },
   data() {
     return {
       countries
@@ -155,6 +165,10 @@ export default {
     has_wheelchair_access: {
       required: true,
       type: Boolean
+    },
+    id: {
+      required: false,
+      type: String
     }
   },
   methods: {

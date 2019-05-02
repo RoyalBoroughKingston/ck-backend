@@ -74,6 +74,16 @@
           <gov-table-cell>{{ location.has_wheelchair_access ? "Yes" : "No" }}</gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="location.hasOwnProperty('image_file_id')">
+          <gov-table-header top scope="row">Logo</gov-table-header>
+          <gov-table-cell>
+            <img :src="apiUrl(`/locations/${location.id}/image.png?v=${requestedAt}`)" alt="Location image" class="ck-logo">
+          </gov-table-cell>
+          <gov-table-cell>
+            <img :src="apiUrl(`/locations/${location.id}/image.png?update_request_id=${updateRequestId}`)" alt="Location image" class="ck-logo">
+          </gov-table-cell>
+        </gov-table-row>
+
       </template>
     </gov-table>
   </div>
