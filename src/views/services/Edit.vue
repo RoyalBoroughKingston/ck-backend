@@ -221,8 +221,9 @@ export default {
   computed: {
     allowedTabs() {
       if (!this.auth.isGlobalAdmin) {
+        const taxonomiesTabIndex = this.tabs.findIndex(tab => tab.id === "taxonomies");
         const tabs = this.tabs.slice();
-        tabs.splice(5, 1);
+        tabs.splice(taxonomiesTabIndex, 1);
 
         return tabs;
       }
