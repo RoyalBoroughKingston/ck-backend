@@ -21,6 +21,23 @@
           :error="errors.get('intro')"
         />
 
+        <gov-heading size="m">What you offer</gov-heading>
+
+        <gov-body>
+          Include a bullet list of some of the things you do as a {{ type }}.
+        </gov-body>
+
+        <gov-body>
+          For example: (Weekly Meetups, Peer Support, Group Therapy)
+        </gov-body>
+
+        <ck-offerings-input
+          :offerings="offerings"
+          @input="$emit('update:offerings', $event)"
+          @clear="$emit('clear', $event)"
+          :errors="errors"
+        />
+
         <ck-wysiwyg-input
           :value="description"
           @input="$emit('update:description', $event); $emit('clear', 'description')"
@@ -40,8 +57,13 @@
 </template>
 
 <script>
+import CkOfferingsInput from '@/views/services/inputs/OfferingsInput.vue';
+
 export default {
   name: "DescriptionTab",
+  components: {
+    CkOfferingsInput
+  },
   props: {
     errors: {
       required: true
