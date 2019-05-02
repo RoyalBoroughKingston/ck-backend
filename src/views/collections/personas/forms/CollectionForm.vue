@@ -15,7 +15,7 @@
       @input="$emit('update:subtitle', $event); $emit('clear', 'subtitle')"
       id="subtitle"
       label="Subtitle"
-      hint="A one line summary of the persona (max 150 characters)."
+      hint="A one line summary of the persona."
       :maxlength="150"
       :error="errors.get('subtitle')"
     />
@@ -25,7 +25,7 @@
       @input="$emit('update:intro', $event); $emit('clear', 'intro')"
       id="intro"
       label="Description of category"
-      hint="A short summary detailing what type of services the persona includes (max 150 characters)."
+      hint="A short summary detailing what type of services the persona includes."
       :maxlength="150"
       :error="errors.get('intro')"
     />
