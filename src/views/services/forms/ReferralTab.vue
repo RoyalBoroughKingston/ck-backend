@@ -5,8 +5,9 @@
       <gov-grid-column width="one-half">
 
         <gov-body>
-          Your {{ type }} can be set up to accept referrals through Connected Kingston.
-          These referrals directly connect your {{ type }} to residents.
+          Your {{ type }} can be set up to accept referrals through Connected
+          Kingston. These referrals directly connect your {{ type }} to
+          residents.
         </gov-body>
         <gov-body>
           If you are interested in turning on referrals for your organisation, please

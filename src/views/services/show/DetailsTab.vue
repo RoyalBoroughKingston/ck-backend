@@ -30,6 +30,20 @@
           <gov-table-cell v-html="toHtml(service.description)" />
         </gov-table-row>
         <gov-table-row>
+          <gov-table-header top scope="row">Offerings</gov-table-header>
+          <gov-table-cell>
+            <gov-list v-if="service.offerings.length > 0" bullet>
+              <li
+                v-for="{ offering, order } in service.offerings"
+                :key="`ServiceOffering::${order}`"
+              >
+                {{ offering }}
+              </li>
+            </gov-list>
+            <template v-else>None</template>
+          </gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
           <gov-table-header top scope="row">Status</gov-table-header>
           <gov-table-cell v-html="service.status === 'active' ? 'Enabled' : 'Disabled'" />
         </gov-table-row>

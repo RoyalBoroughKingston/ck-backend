@@ -4,8 +4,8 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>
-          Use this section to help indicate who should be using your {{ type }}. If any
-          of these criteria do not apply, please leave them blank.
+          Use this section to help indicate who should be using your {{ type }}.
+          If any of these criteria do not apply, please leave them blank.
         </gov-body>
         <gov-section-break size="l" />
 

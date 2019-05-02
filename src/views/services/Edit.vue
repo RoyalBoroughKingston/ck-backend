@@ -33,23 +33,12 @@
                   :url.sync="form.url"
                   @update:logo_file_id="form.logo_file_id = $event"
                   @update:logo="form.logo = $event"
-                  :intro.sync="form.intro"
                   :status.sync="form.status"
                   :gallery_items.sync="form.gallery_items"
                   :id="service.id"
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
                 </details-tab>
-
-                <description-tab
-                  v-if="isTabActive('description')"
-                  @clear="form.$errors.clear($event); errors = {}"
-                  :errors="form.$errors"
-                  :type="form.type"
-                  :description.sync="form.description"
-                >
-                  <gov-button @click="onNext" start>Next</gov-button>
-                </description-tab>
 
                 <additional-info-tab
                   v-if="isTabActive('additional-info')"
@@ -107,6 +96,18 @@
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
                 </taxonomies-tab>
+
+                <description-tab
+                  v-if="isTabActive('description')"
+                  @clear="form.$errors.clear($event); errors = {}"
+                  :errors="form.$errors"
+                  :type="form.type"
+                  :intro.sync="form.intro"
+                  :offerings.sync="form.offerings"
+                  :description.sync="form.description"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </description-tab>
 
                 <referral-tab
                   v-if="isTabActive('referral')"
@@ -205,11 +206,11 @@ export default {
       form: null,
       tabs: [
         { id: "details", heading: "Details", active: true },
-        { id: "description", heading: "Description", active: false },
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Useful info", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
+        { id: "description", heading: "Description", active: false },
         { id: "referral", heading: "Referral", active: false }
       ],
       errors: {},
@@ -221,8 +222,9 @@ export default {
   computed: {
     allowedTabs() {
       if (!this.auth.isGlobalAdmin) {
+        const taxonomiesTabIndex = this.tabs.findIndex(tab => tab.id === "taxonomies");
         const tabs = this.tabs.slice();
-        tabs.splice(5, 1);
+        tabs.splice(taxonomiesTabIndex, 1);
 
         return tabs;
       }
@@ -272,6 +274,7 @@ export default {
           other: this.service.criteria.other || ""
         },
         useful_infos: this.service.useful_infos,
+        offerings: this.service.offerings,
         social_medias: this.service.social_medias,
         gallery_items: this.service.gallery_items.map(galleryItem => ({
           file_id: galleryItem.file_id,
@@ -402,6 +405,12 @@ export default {
           JSON.stringify(this.service.useful_infos)
         ) {
           delete data.useful_infos;
+        }
+        if (
+          JSON.stringify(data.offerings) ===
+          JSON.stringify(this.service.offerings)
+        ) {
+          delete data.offerings;
         }
         if (
           JSON.stringify(data.social_medias) ===
