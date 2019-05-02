@@ -199,7 +199,13 @@ export default {
           language: "",
           other: ""
         },
-        useful_infos: [],
+        useful_infos: [
+          {
+            title: "",
+            description: "",
+            order: 1
+          }
+        ],
         offerings: [],
         social_medias: [],
         gallery_items: [],
@@ -233,7 +239,16 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const data = await this.form.post("/services");
+      const data = await this.form.post("/services", (config, data) => {
+        // Remove useful info if only item and empty.
+        if (
+          data.useful_infos.length === 1
+          && data.useful_infos[0].title === ""
+          && data.useful_infos[0].description === ""
+        ) {
+          data.useful_infos = [];
+        }
+      });
       const serviceId = data.data.id;
 
       // Refetch the user as new permissions added for the new service.
