@@ -76,7 +76,7 @@ export default {
     },
     onOfferingInput({ index, value }) {
       let offerings = this.cloneOfferings();
-      offerings[index].title = value;
+      offerings[index].offering = value;
       this.$emit("input", offerings);
       this.$emit("clear", `offerings.${index}.offering`);
     }

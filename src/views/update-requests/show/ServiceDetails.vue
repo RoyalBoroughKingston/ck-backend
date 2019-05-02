@@ -220,6 +220,32 @@
           </gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="service.hasOwnProperty('offerings')">
+          <gov-table-header top scope="row">Offerings</gov-table-header>
+          <gov-table-cell>
+            <gov-list v-if="original.offerings.length > 0" bullet>
+              <li
+                v-for="{ offering, order } in original.offerings"
+                :key="`ServiceOffering::Original::${order}`"
+              >
+                {{ offering }}
+              </li>
+            </gov-list>
+            <template v-else>None</template>
+          </gov-table-cell>
+          <gov-table-cell>
+            <gov-list v-if="service.offerings.length > 0" bullet>
+              <li
+                v-for="{ offering, order } in service.offerings"
+                :key="`ServiceOffering::New::${order}`"
+              >
+                {{ offering }}
+              </li>
+            </gov-list>
+            <template v-else>None</template>
+          </gov-table-cell>
+        </gov-table-row>
+
         <gov-table-row v-if="service.hasOwnProperty('contact_email')">
           <gov-table-header top scope="row">Contact email</gov-table-header>
           <gov-table-cell>{{ original.contact_email }}</gov-table-cell>
