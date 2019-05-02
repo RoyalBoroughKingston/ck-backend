@@ -36,7 +36,8 @@
                   <gov-form-group>
                     <gov-label for="filter[highest_role]">Highest permission level</gov-label>
                     <gov-hint id="filter[highest_role]">
-                      This doesn't work in combination with the next two filters.
+                      Please note - you cannot filter by Permission Level and
+                      Service/Organisation at the same time.
                     </gov-hint>
                     <gov-select v-model="filters.highest_role" id="filter[highest_role]" name="filter[highest_role]" :options="roles"/>
                   </gov-form-group>
