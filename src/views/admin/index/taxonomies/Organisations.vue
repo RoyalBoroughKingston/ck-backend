@@ -15,7 +15,7 @@
       </gov-grid-column>
 
       <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
-        <gov-button :to="{ name: 'taxonomies-organisations-create' }" expand>Add a new organisation</gov-button>
+        <gov-button :to="{ name: 'taxonomies-organisations-create' }" success expand>Add a new organisation</gov-button>
       </gov-grid-column>
     </gov-grid-row>
 

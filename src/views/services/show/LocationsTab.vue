@@ -7,6 +7,7 @@
       <gov-grid-column v-if="auth.isServiceAdmin(service)" width="one-third text-right">
         <gov-button
           :to="{ name: 'service-locations-create', params: { service: service.id } }"
+          success
           expand
         >
           Add location
