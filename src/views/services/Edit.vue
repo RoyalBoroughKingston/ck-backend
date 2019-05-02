@@ -103,6 +103,7 @@
                   :errors="form.$errors"
                   :type="form.type"
                   :intro.sync="form.intro"
+                  :offerings.sync="form.offerings"
                   :description.sync="form.description"
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
@@ -273,6 +274,7 @@ export default {
           other: this.service.criteria.other || ""
         },
         useful_infos: this.service.useful_infos,
+        offerings: this.service.offerings,
         social_medias: this.service.social_medias,
         gallery_items: this.service.gallery_items.map(galleryItem => ({
           file_id: galleryItem.file_id,
@@ -403,6 +405,12 @@ export default {
           JSON.stringify(this.service.useful_infos)
         ) {
           delete data.useful_infos;
+        }
+        if (
+          JSON.stringify(data.offerings) ===
+          JSON.stringify(this.service.offerings)
+        ) {
+          delete data.offerings;
         }
         if (
           JSON.stringify(data.social_medias) ===

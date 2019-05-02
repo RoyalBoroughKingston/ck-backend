@@ -53,6 +53,9 @@ export default {
     intro: {
       required: true
     },
+    offerings: {
+      required: true
+    },
     description: {
       required: true
     }

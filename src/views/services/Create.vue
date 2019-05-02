@@ -111,6 +111,7 @@
               :errors="form.$errors"
               :type="form.type"
               :intro.sync="form.intro"
+              :offerings.sync="form.offerings"
               :description.sync="form.description"
             >
               <gov-button @click="onNext" start>Next</gov-button>
@@ -199,6 +200,7 @@ export default {
           other: ""
         },
         useful_infos: [],
+        offerings: [],
         social_medias: [],
         gallery_items: [],
         category_taxonomies: [],
