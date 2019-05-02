@@ -210,7 +210,7 @@ export default {
       tabs: [
         { id: "details", heading: "Details", active: true },
         { id: "additional-info", heading: "Additional info", active: false },
-        { id: "useful-info", heading: "Useful info", active: false },
+        { id: "useful-info", heading: "Good to know", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
         { id: "description", heading: "Description", active: false },

@@ -60,7 +60,7 @@ export default {
           heading: "Additional info",
           to: { name: "services-show-additional-info" }
         },
-        { heading: "Useful info", to: { name: "services-show-useful-info" } },
+        { heading: "Good to know", to: { name: "services-show-useful-info" } },
         { heading: "Contact info", to: { name: "services-show-contact-info" } },
         { heading: "Who is it for?", to: { name: "services-show-who-for" } },
         { heading: "Locations", to: { name: "services-show-locations" } },

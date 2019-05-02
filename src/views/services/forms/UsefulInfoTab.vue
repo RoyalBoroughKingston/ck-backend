@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gov-heading size="l">Useful information</gov-heading>
+    <gov-heading size="l">Good to know</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
