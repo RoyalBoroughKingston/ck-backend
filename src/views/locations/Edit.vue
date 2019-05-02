@@ -14,6 +14,7 @@
 
             <location-form
               :errors="form.$errors"
+              :id="location.id"
               :address_line_1.sync="form.address_line_1"
               :address_line_2.sync="form.address_line_2"
               :address_line_3.sync="form.address_line_3"
@@ -23,6 +24,7 @@
               :country.sync="form.country"
               :has_induction_loop.sync="form.has_induction_loop"
               :has_wheelchair_access.sync="form.has_wheelchair_access"
+              @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
             />
 
@@ -73,7 +75,8 @@ export default {
         country: this.location.country,
         accessibility_info: this.location.accessibility_info || "",
         has_wheelchair_access: this.location.has_wheelchair_access,
-        has_induction_loop: this.location.has_induction_loop
+        has_induction_loop: this.location.has_induction_loop,
+        image_file_id: null
       });
 
       this.loading = false;
@@ -114,6 +117,12 @@ export default {
         }
         if (data.has_induction_loop === this.location.has_induction_loop) {
           delete data.has_induction_loop;
+        }
+        // Remove the logo from the request if null, or delete if false.
+        if (data.image_file_id === null) {
+          delete data.image_file_id;
+        } else if (data.image_file_id === false) {
+          data.image_file_id = null;
         }
       });
 

@@ -99,10 +99,10 @@ export default {
           }
 
           // Remove the logo from the request if null, or delete if false.
-          if (data.logo === null) {
-            delete data.logo;
-          } else if (data.logo === false) {
-            data.logo = null;
+          if (data.logo_file_id === null) {
+            delete data.logo_file_id;
+          } else if (data.logo_file_id === false) {
+            data.logo_file_id = null;
           }
         }
       );
