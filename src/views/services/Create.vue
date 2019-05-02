@@ -255,7 +255,7 @@ export default {
       await this.auth.fetchUser();
 
       this.$router.push({
-        name: "services-show",
+        name: "services-post-create",
         params: { service: serviceId }
       });
     },
