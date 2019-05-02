@@ -42,22 +42,11 @@
               :organisation_id.sync="form.organisation_id"
               :url.sync="form.url"
               @update:logo_file_id="form.logo_file_id = $event"
-              :intro.sync="form.intro"
               :status.sync="form.status"
               :gallery_items.sync="form.gallery_items"
             >
               <gov-button @click="onNext" start>Next</gov-button>
             </details-tab>
-
-            <description-tab
-              v-if="isTabActive('description')"
-              @clear="form.$errors.clear($event); errors = {}"
-              :errors="form.$errors"
-              :type="form.type"
-              :description.sync="form.description"
-            >
-              <gov-button @click="onNext" start>Next</gov-button>
-            </description-tab>
 
             <additional-info-tab
               v-if="isTabActive('additional-info')"
@@ -115,6 +104,17 @@
             >
               <gov-button @click="onNext" start>Next</gov-button>
             </taxonomies-tab>
+
+            <description-tab
+              v-if="isTabActive('description')"
+              @clear="form.$errors.clear($event); errors = {}"
+              :errors="form.$errors"
+              :type="form.type"
+              :intro.sync="form.intro"
+              :description.sync="form.description"
+            >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </description-tab>
 
             <referral-tab
               v-if="isTabActive('referral')"
@@ -207,11 +207,11 @@ export default {
       errors: {},
       tabs: [
         { id: "details", heading: "Details", active: true },
-        { id: "description", heading: "Description", active: false },
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Useful info", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
+        { id: "description", heading: "Description", active: false },
         { id: "referral", heading: "Referral", active: false }
       ]
     };

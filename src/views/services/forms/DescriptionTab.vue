@@ -4,6 +4,16 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
+        <ck-textarea-input
+          :value="intro"
+          @input="$emit('update:intro', $event); $emit('clear', 'intro')"
+          id="intro"
+          :label="`What does your ${type} do?`"
+          :hint="`Please give a short summary of what your ${type} offers. This will appear below the ${type} name in search results. Try to use as many specific keywords as possible as this will help people find your ${type}. Maximum 150 characters.`"
+          :maxlength="300"
+          :error="errors.get('intro')"
+        />
+
         <ck-wysiwyg-input
           :value="description"
           @input="$emit('update:description', $event); $emit('clear', 'description')"
@@ -55,6 +65,9 @@ export default {
     type: {
       required: true,
       type: String
+    },
+    intro: {
+      required: true
     },
     description: {
       required: true

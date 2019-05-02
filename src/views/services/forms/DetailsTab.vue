@@ -84,16 +84,6 @@
           </template>
         </ck-image-input>
 
-        <ck-textarea-input
-          :value="intro"
-          @input="$emit('update:intro', $event); $emit('clear', 'intro')"
-          id="intro"
-          :label="`What does your ${type} do?`"
-          :hint="`Please give a short summary of what your ${type} offers. This will appear below the ${type} name in search results. Try to use as many specific keywords as possible as this will help people find your ${type}. Maximum 150 characters.`"
-          :maxlength="300"
-          :error="errors.get('intro')"
-        />
-
         <ck-radio-input
           :value="status"
           @input="$emit('update:status', $event); $emit('clear', 'status')"
@@ -154,9 +144,6 @@ export default {
       required: false
     },
     url: {
-      required: true
-    },
-    intro: {
       required: true
     },
     status: {
