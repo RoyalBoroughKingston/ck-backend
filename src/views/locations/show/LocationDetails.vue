@@ -39,7 +39,7 @@
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row>
-        <gov-table-header top scope="row">Logo</gov-table-header>
+        <gov-table-header top scope="row">Image</gov-table-header>
         <gov-table-cell>
           <img :src="apiUrl(`/locations/${location.id}/image.png?v=${location.created_at}`)" alt="Location image" class="ck-logo">
         </gov-table-cell>

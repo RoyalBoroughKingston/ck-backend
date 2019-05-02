@@ -75,7 +75,7 @@
         </gov-table-row>
 
         <gov-table-row v-if="location.hasOwnProperty('image_file_id')">
-          <gov-table-header top scope="row">Logo</gov-table-header>
+          <gov-table-header top scope="row">Image</gov-table-header>
           <gov-table-cell>
             <img :src="apiUrl(`/locations/${location.id}/image.png?v=${requestedAt}`)" alt="Location image" class="ck-logo">
           </gov-table-cell>
