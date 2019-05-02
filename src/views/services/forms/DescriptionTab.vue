@@ -16,7 +16,7 @@
           @input="$emit('update:intro', $event); $emit('clear', 'intro')"
           id="intro"
           :label="`Your ${type}, an overview?`"
-          :hint="`Write a brief description of what your ${type} does. Maximum 300 characters.`"
+          :hint="`Write a brief description of what your ${type} does.`"
           :maxlength="300"
           :error="errors.get('intro')"
         />
@@ -26,21 +26,11 @@
           @input="$emit('update:description', $event); $emit('clear', 'description')"
           id="description"
           label="Long description"
+          :hint="`This is the largest body of text on your page. Fill it with everything else someone should know about your ${type}. Use headers, bullets and formatting for the maximum effect.`"
           :error="errors.get('description')"
           large
           :maxlength="1600"
-        >
-          <template slot="hint">
-            <gov-hint for="description">
-              This is the largest body of text on your page. Fill it with
-              everything else someone should know about your {{ type }}. Use
-              headers, bullets and formatting for the maximum effect.
-            </gov-hint>
-            <gov-hint for="description">
-              (Maximum 1600 Characters)
-            </gov-hint>
-          </template>
-        </ck-wysiwyg-input>
+        />
 
         <slot />
 

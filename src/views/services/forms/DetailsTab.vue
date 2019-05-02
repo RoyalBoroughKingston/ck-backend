@@ -4,7 +4,10 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
-        <gov-body>General details about the {{ type }}. (We use {{ type }} in the broadcast sense, This could be counciling or weekly yoga classes).</gov-body>
+        <gov-body>
+          General details about the {{ type }}. (We use {{ type }} in the
+          broadcast sense, This could be counciling or weekly yoga classes).
+        </gov-body>
 
         <gov-section-break size="l" />
 
@@ -79,7 +82,8 @@
               <gov-link :href="logoHelpHref">Need help with your logo?</gov-link>
             </gov-hint>
             <gov-hint for="logo">
-              If your {{ type }} doesn't have a logo, the site will use the organisation logo if there is one uploaded.
+              If your {{ type }} doesn't have a logo, the site will use the
+              organisation logo if there is one uploaded.
             </gov-hint>
           </template>
         </ck-image-input>
@@ -98,7 +102,9 @@
         <template v-if="false">
           <gov-heading size="m">Gallery items</gov-heading>
 
-          <gov-body>Upload images of the {{ type }} to the {{ type }}'s gallery.</gov-body>
+          <gov-body>
+            Upload images of the {{ type }} to the {{ type }}'s gallery.
+          </gov-body>
 
           <ck-gallery-items-input
             :gallery-items="gallery_items"

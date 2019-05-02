@@ -21,12 +21,13 @@
         >
           <template slot="hint">
             <gov-hint for="wait_time">
-              Provide an indication of how long someone may have to wait to access your {{ type }}
-              after initial contact has been made. You can amend this in future as and when
-              circumstances change.
+              Provide an indication of how long someone may have to wait to
+              access your {{ type }} after initial contact has been made. You
+              can amend this in future as and when circumstances change.
             </gov-hint>
             <gov-hint for="wait_time">
-              If this is not relevant to your {{ type }}, please skip this question.
+              If this is not relevant to your {{ type }}, please skip this
+              question.
             </gov-hint>
           </template>
         </ck-select-input>
@@ -41,13 +42,13 @@
         >
           <template slot="hint">
             <gov-hint for="is_free">
-              Indicates whether your {{ type }} is completely free, or if some elements of the
-              service must be paid for. Users can filter their searches based on the answer
-              you provide.
+              Indicates whether your {{ type }} is completely free, or if some
+              elements of the service must be paid for. Users can filter their
+              searches based on the answer you provide.
             </gov-hint>
             <gov-hint for="is_free">
-              If the cost of your {{ type }} varies, you may want to split these into
-              different {{ type }} listings.
+              If the cost of your {{ type }} varies, you may want to split these
+              into different {{ type }} listings.
             </gov-hint>
           </template>
         </ck-radio-input>
@@ -59,7 +60,7 @@
             @input="$emit('update:fees_text', $event); $emit('clear', 'fees_text')"
             id="fees_text"
             label="How much does it cost? (if applicable)"
-            :hint='`Please indicate the basic cost of the ${type}. If there are multiple price points, please provide an indicative range (eg. "5-10 per session") (max 75 characters).`'
+            :hint='`Please indicate the basic cost of the ${type}. If there are multiple price points, please provide an indicative range (eg. "5-10 per session").`'
             type="text"
             :error="errors.get('fees_text')"
             :maxlength="75"
@@ -105,14 +106,16 @@
         >
           <template slot="hint">
             <gov-hint for="video_embed">
-              If you have a short video (less than 5 minutes) showcasing your {{ type }},
-              please add a link below to the site that hosts it.
+              If you have a short video (less than 5 minutes) showcasing your
+              {{ type }}, please add a link below to the site that hosts it.
             </gov-hint>
             <gov-hint for="video_embed">
               Youtube and Vimeo links are accepted.
             </gov-hint>
             <gov-hint for="video_embed">
-              <gov-link :href="videoEmbedHelpHref">Need help editing or creating a {{ type }} video?</gov-link>
+              <gov-link :href="videoEmbedHelpHref">
+                Need help editing or creating a {{ type }} video?
+              </gov-link>
             </gov-hint>
           </template>
         </ck-text-input>
@@ -127,8 +130,9 @@
       <gov-grid-column width="one-half">
 
         <gov-body>
-          Please provide your {{ type }}’s public-facing contact details. These will
-          be displayed on your {{ type }}’s page on the Connected Kingston website.
+          Please provide your {{ type }}’s public-facing contact details. These
+          will be displayed on your {{ type }}’s page on the Connected Kingston
+          website.
         </gov-body>
 
         <gov-section-break size="l" />
@@ -153,7 +157,8 @@
         >
           <template slot="hint">
             <gov-hint for="contact_phone">
-              Please provide a public facing phone number for people to contact you on.
+              Please provide a public facing phone number for people to contact
+              you on.
             </gov-hint>
             <gov-hint for="contact_phone">
               Please use the following formatting:
