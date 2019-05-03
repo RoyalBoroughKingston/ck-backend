@@ -185,6 +185,14 @@
       <template v-else>Add more holiday times</template>
     </gov-button>
     <!-- /Holiday opening hours -->
+
+    <ck-image-input
+      @input="onInput({ field: 'image_file_id', value: $event.file_id })"
+      id="image"
+      label="Service location image"
+      accept="image/x-png"
+      :existing-url="id ? apiUrl(`/service-locations/${id}/image.png?v=${now}`) : undefined"
+    />
   </div>
 </template>
 
@@ -195,6 +203,7 @@ import DateInput from "@/views/services/inputs/DateInput";
 import TimePeriodInput from "@/views/services/inputs/TimePeriodInput";
 import IsClosedInput from "@/views/services/inputs/IsClosedInput";
 import LocationForm from "@/views/locations/forms/LocationForm";
+import CkImageInput from "@/components/Ck/CkImageInput";
 
 export default {
   name: "ServiceLocationForm",
@@ -202,7 +211,8 @@ export default {
     LocationForm,
     DateInput,
     TimePeriodInput,
-    IsClosedInput
+    IsClosedInput,
+    CkImageInput
   },
   props: {
     errors: {
@@ -266,6 +276,10 @@ export default {
     has_wheelchair_access: {
       required: false,
       type: Boolean
+    },
+    id: {
+      required: false,
+      type: String
     }
   },
   data() {
