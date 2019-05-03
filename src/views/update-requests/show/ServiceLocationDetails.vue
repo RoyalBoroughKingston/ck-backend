@@ -68,6 +68,16 @@
           </gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="serviceLocation.hasOwnProperty('image_file_id')">
+          <gov-table-header top scope="row">Image</gov-table-header>
+          <gov-table-cell>
+            <img :src="apiUrl(`/service-locations/${serviceLocation.id}/image.png?v=${requestedAt}`)" alt="Service location image" class="ck-logo">
+          </gov-table-cell>
+          <gov-table-cell>
+            <img :src="apiUrl(`/service-locations/${serviceLocation.id}/image.png?update_request_id=${updateRequestId}`)" alt="Service location image" class="ck-logo">
+          </gov-table-cell>
+        </gov-table-row>
+
       </template>
     </gov-table>
   </div>

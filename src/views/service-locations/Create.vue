@@ -28,6 +28,7 @@
               :has_wheelchair_access.sync="locationForm.has_wheelchair_access"
               :regular_opening_hours.sync="form.regular_opening_hours"
               :holiday_opening_hours.sync="form.holiday_opening_hours"
+              @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
               @clear-location="locationForm.$errors.clear($event)"
             />
@@ -60,7 +61,8 @@ export default {
         location_id: null,
         name: "",
         regular_opening_hours: [],
-        holiday_opening_hours: []
+        holiday_opening_hours: [],
+        image_file_id: null
       }),
       locationForm: new Form({
         address_line_1: "",

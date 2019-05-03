@@ -85,6 +85,13 @@
       </gov-table-row>
 
       <gov-table-row>
+        <gov-table-header top scope="row">Image</gov-table-header>
+        <gov-table-cell>
+          <img :src="apiUrl(`/service-locations/${serviceLocation.id}/image.png?v=${serviceLocation.created_at}`)" alt="Service location image" class="ck-logo">
+        </gov-table-cell>
+      </gov-table-row>
+
+      <gov-table-row>
         <gov-table-header scope="row" top>Map</gov-table-header>
         <gov-table-cell>
           <gmap-map
