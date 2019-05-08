@@ -35,13 +35,29 @@
 
                   <gov-form-group>
                     <gov-label for="filter[highest_role]">Highest permission level</gov-label>
+                    <gov-hint id="filter[highest_role]">
+                      Please note - you cannot filter by Permission Level and
+                      Service/Organisation at the same time.
+                    </gov-hint>
                     <gov-select v-model="filters.highest_role" id="filter[highest_role]" name="filter[highest_role]" :options="roles"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[at_organisation]">Organisation</gov-label>
+                    <ck-loader v-if="loadingOrganisations" />
+                    <gov-select v-else v-model="filters.at_organisation" id="filter[at_organisation]" name="filter[at_organisation]" :options="organisations"/>
+                  </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[at_service]">Service</gov-label>
+                    <ck-loader v-if="loadingServices" />
+                    <gov-select v-else v-model="filters.at_service" id="filter[at_service]" name="filter[at_service]" :options="services"/>
                   </gov-form-group>
                 </template>
               </ck-table-filters>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third">
-              <gov-button @click="onAddUser" type="submit" expand>Add user</gov-button>
+              <gov-button @click="onAddUser" type="submit" success expand>Add user</gov-button>
             </gov-grid-column>
           </gov-grid-row>
 
@@ -83,7 +99,9 @@ export default {
         last_name: "",
         email: "",
         phone: "",
-        highest_role: ""
+        highest_role: "",
+        at_organisation: "",
+        at_service: "",
       },
       roles: [
         { value: "", text: "All" },
@@ -92,7 +110,11 @@ export default {
         { value: "Organisation Admin", text: "Organisation Admin" },
         { value: "Service Admin", text: "Service Admin" },
         { value: "Service Worker", text: "Service Worker" }
-      ]
+      ],
+      loadingOrganisations: false,
+      organisations: [],
+      loadingServices: false,
+      services: [{ value: "", text: "First select an organisation..." }]
     };
   },
   computed: {
@@ -122,7 +144,27 @@ export default {
         params["filter[highest_role]"] = this.filters.highest_role;
       }
 
+      if (this.filters.at_organisation !== "") {
+        params["filter[at_organisation]"] = this.filters.at_organisation;
+      }
+
+      if (this.filters.at_service !== "") {
+        params["filter[at_service]"] = this.filters.at_service;
+        delete params["filter[at_organisation]"];
+      }
+
       return params;
+    }
+  },
+  watch: {
+    "filters.at_organisation"(organisationId) {
+      this.filters.at_service = "";
+
+      if (organisationId === "") {
+        this.services = [{ value: "", text: "First select an organisation..." }];
+      } else {
+        this.fetchServices(organisationId);
+      }
     }
   },
   methods: {
@@ -165,7 +207,44 @@ export default {
       }
 
       return "None";
+    },
+    async fetchOrganisations() {
+      this.loadingOrganisations = true;
+
+      let organisation = await this.fetchAll("/organisations");
+      organisation = organisation.map(organisation => {
+        return {
+          value: organisation.id,
+          text: organisation.name
+        };
+      });
+      organisation.unshift({ value: "", text: "All" });
+
+      this.organisations = organisation;
+
+      this.loadingOrganisations = false;
+    },
+    async fetchServices(organisationId) {
+      this.loadingServices = true;
+
+      let services = await this.fetchAll("/services", {
+        "filter[organisation_id]": organisationId
+      });
+      services = services.map(service => {
+        return {
+          value: service.id,
+          text: service.name
+        };
+      });
+      services.unshift({ value: "", text: "All" });
+
+      this.services = services;
+
+      this.loadingServices = false;
     }
+  },
+  created() {
+    this.fetchOrganisations();
   }
 };
 </script>

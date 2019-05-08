@@ -12,13 +12,13 @@
 
               <gov-heading size="m">
                 <gov-caption size="m">{{ service.name }}</gov-caption>
-                View service
+                View {{ service.type }}
               </gov-heading>
 
             </gov-grid-column>
             <gov-grid-column v-if="auth.isServiceAdmin(service)" width="one-third" class="text-right">
 
-              <gov-button :to="{ name: 'services-edit', params: { service: service.id } }">Edit service</gov-button>
+              <gov-button :to="{ name: 'services-edit', params: { service: service.id } }">Edit {{ service.type }}</gov-button>
 
             </gov-grid-column>
           </gov-grid-row>
@@ -27,13 +27,13 @@
             <router-view :service="service" />
           </gov-tabs>
 
-          <gov-body>Please be certain of the action before deleting a service</gov-body>
+          <gov-body>Please be certain of the action before deleting a {{ service.type }}</gov-body>
 
           <template v-if="auth.isGlobalAdmin">
             <gov-section-break size="l" />
 
             <ck-delete-button
-              resource="service"
+              :resource="service.type"
               :endpoint="`/services/${this.service.id}`"
               @deleted="onDelete"
             />
@@ -60,7 +60,7 @@ export default {
           heading: "Additional info",
           to: { name: "services-show-additional-info" }
         },
-        { heading: "Useful info", to: { name: "services-show-useful-info" } },
+        { heading: "Good to know", to: { name: "services-show-useful-info" } },
         { heading: "Contact info", to: { name: "services-show-contact-info" } },
         { heading: "Who is it for?", to: { name: "services-show-who-for" } },
         { heading: "Locations", to: { name: "services-show-locations" } },

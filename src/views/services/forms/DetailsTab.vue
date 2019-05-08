@@ -1,18 +1,31 @@
 <template>
   <div>
-    <gov-heading size="l">Service details</gov-heading>
+    <gov-heading size="l">{{ type | ucfirst }} details</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
-        <gov-body>General details about the service. (We use service in the broadcast sense, This could be counciling or weekly yoga classes).</gov-body>
+        <gov-body>
+          General details about the {{ type }}. (We use {{ type }} in the
+          broadcast sense, This could be counciling or weekly yoga classes).
+        </gov-body>
 
         <gov-section-break size="l" />
+
+        <ck-select-input
+          :value="type"
+          @input="$emit('update:type', $event); $emit('clear', 'type')"
+          id="type"
+          label="What is it?"
+          hint="This option changes how your page is described on Connected Kingston"
+          :options="typeOptions"
+          :error="errors.get('type')"
+        />
 
         <ck-text-input
           :value="name"
           @input="onNameInput($event)"
           id="name"
-          label="What is the name of your service (or activity)?"
+          :label="`What is the name of your ${type}?`"
           type="text"
           :error="errors.get('name')"
         />
@@ -27,7 +40,7 @@
           :disabled="!auth.isGlobalAdmin"
         >
           <gov-hint slot="hint" for="slug">
-            This will be used to access the service page.<br>
+            This will be used to access the {{ type }} page.<br>
             e.g. example.com/services/{{ slug }}
           </gov-hint>
         </ck-text-input>
@@ -40,7 +53,7 @@
             @input="$emit('update:organisation_id', $event); $emit('clear', 'organisation_id')"
             id="organisation_id"
             label="Organisation"
-            hint="Which organisation provides this service?"
+            :hint="`Which organisation hosts this ${type}?`"
             :options="organisations"
             :error="errors.get('organisation_id')"
           />
@@ -50,16 +63,16 @@
           :value="url"
           @input="$emit('update:url', $event); $emit('clear', 'url')"
           id="url"
-          label="What is the web address of your service?"
-          hint="This must start with ‘http://’ or ‘https://’. You can use your organisation’s website address if the service doesn’t have its own."
+          :label="`What is the web address of your ${type}?`"
+          :hint="`This must start with ‘http://’ or ‘https://’. You can use your organisation’s website address if the ${type} doesn’t have its own.`"
           type="url"
           :error="errors.get('url')"
         />
 
         <ck-image-input
-          @input="$emit('update:logo_file_id', $event)"
+          @input="$emit('update:logo_file_id', $event.file_id); $emit('update:logo', $event.image);"
           id="logo"
-          label="Upload your service logo"
+          :label="`Upload your ${type} logo`"
           accept="image/x-png"
           :existing-url="id ? apiUrl(`/services/${id}/logo.png?v=${now}`) : undefined"
         >
@@ -69,27 +82,18 @@
               <gov-link :href="logoHelpHref">Need help with your logo?</gov-link>
             </gov-hint>
             <gov-hint for="logo">
-              If your service doesn't have a logo, the site will use the organisation logo if there is one uploaded.
+              If your {{ type }} doesn't have a logo, the site will use the
+              organisation logo if there is one uploaded.
             </gov-hint>
           </template>
         </ck-image-input>
-
-        <ck-textarea-input
-          :value="intro"
-          @input="$emit('update:intro', $event); $emit('clear', 'intro')"
-          id="intro"
-          label="What does your service do?"
-          hint="Please give a short summary of what your service offers. This will appear below the service name in search results. Try to use as many specific keywords as possible as this will help people find your service. Maximum 150 characters."
-          :maxlength="300"
-          :error="errors.get('intro')"
-        />
 
         <ck-radio-input
           :value="status"
           @input="$emit('update:status', $event); $emit('clear', 'status')"
           id="status"
-          label="Is the service enabled"
-          hint="Indicates if the service is enabled or disabled (disabled services will not be shown in search results)"
+          :label="`Is the ${type} enabled`"
+          :hint="`Indicates if the ${type} is enabled or disabled (disabled ${$options.filters.plural(type)} will not be shown in search results)`"
           :options="statusOptions"
           :error="errors.get('status')"
           :disabled="!auth.isGlobalAdmin"
@@ -98,7 +102,9 @@
         <template v-if="false">
           <gov-heading size="m">Gallery items</gov-heading>
 
-          <gov-body>Upload images of the service to the service's gallery.</gov-body>
+          <gov-body>
+            Upload images of the {{ type }} to the {{ type }}'s gallery.
+          </gov-body>
 
           <ck-gallery-items-input
             :gallery-items="gallery_items"
@@ -137,13 +143,13 @@ export default {
     slug: {
       required: true
     },
+    type: {
+      required: true
+    },
     organisation_id: {
       required: false
     },
     url: {
-      required: true
-    },
-    intro: {
       required: true
     },
     status: {
@@ -161,6 +167,12 @@ export default {
     return {
       organisations: [{ text: "Please select", value: null, disabled: true }],
       loading: false,
+      typeOptions: [
+        { text: "It is a Service", value: "service" },
+        { text: "It is an Activity", value: "activity" },
+        { text: "It is a Club", value: "club" },
+        { text: "It is a Group", value: "group" }
+      ],
       statusOptions: [
         { label: "Enabled", value: "active" },
         { label: "Disabled", value: "inactive" }

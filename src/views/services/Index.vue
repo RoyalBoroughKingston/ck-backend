@@ -37,7 +37,7 @@
               </ck-table-filters>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isOrganisationAdmin()" width="one-third">
-              <gov-button @click="onAddService" type="submit" expand>Add service</gov-button>
+              <gov-button @click="onAddService" type="submit" success expand>Add service</gov-button>
             </gov-grid-column>
           </gov-grid-row>
 
@@ -126,7 +126,7 @@ export default {
       this.$refs.servicesTable.fetchResources();
     },
     onAddService() {
-      this.$router.push({ name: "services-create" });
+      this.$router.push({ name: "services-pre-create" });
     },
     displayStatus(status) {
       switch (status) {

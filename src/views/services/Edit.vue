@@ -4,131 +4,175 @@
     <template v-else>
       <vue-headful :title="`Connected Kingston - Edit Service: ${service.name}`" />
 
-      <gov-back-link :to="{ name: 'services-show', params: { service: service.id } }">Back to service</gov-back-link>
-      <gov-main-wrapper>
-        <gov-grid-row>
-          <gov-grid-column width="full">
-            <gov-heading size="xl">Services</gov-heading>
-            <gov-heading size="m">Edit service</gov-heading>
+      <!-- Edit form -->
+      <div v-show="updateRequest === null">
+        <gov-back-link :to="{ name: 'services-show', params: { service: service.id } }">Back to {{ service.type }}</gov-back-link>
+        <gov-main-wrapper>
+          <gov-grid-row>
+            <gov-grid-column width="full">
+              <gov-heading size="xl">Services</gov-heading>
 
-            <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
-              <gov-list>
-                <li v-for="(error, field) in form.$errors.all()" :key="field" v-text="error[0]" />
-              </gov-list>
-            </gov-error-summary>
+              <gov-heading size="m">Edit {{ form.type }}</gov-heading>
 
-            <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
+              <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
+                <gov-list>
+                  <li v-for="(error, field) in form.$errors.all()" :key="field" v-text="error[0]" />
+                </gov-list>
+              </gov-error-summary>
 
-              <details-tab
-                v-if="tabs[0].active"
-                @clear="form.$errors.clear($event); errors = {}"
-                :errors="form.$errors"
-                :organisation_id.sync="form.organisation_id"
-                :name.sync="form.name"
-                :slug.sync="form.slug"
-                :url.sync="form.url"
-                @update:logo_file_id="form.logo_file_id = $event"
-                :intro.sync="form.intro"
-                :status.sync="form.status"
-                :gallery_items.sync="form.gallery_items"
-                :id="service.id"
-              >
-                <gov-button @click="onNext" start>Next</gov-button>
-              </details-tab>
+              <gov-tabs @tab-changed="onTabChange" :tabs="allowedTabs" no-router>
 
-              <description-tab
-                v-if="tabs[1].active"
-                @clear="form.$errors.clear($event); errors = {}"
-                :errors="form.$errors"
-                :description.sync="form.description"
-              >
-                <gov-button @click="onNext" start>Next</gov-button>
-              </description-tab>
+                <details-tab
+                  v-show="isTabActive('details')"
+                  @clear="form.$errors.clear($event); errors = {}"
+                  :errors="form.$errors"
+                  :organisation_id.sync="form.organisation_id"
+                  :name.sync="form.name"
+                  :slug.sync="form.slug"
+                  :type.sync="form.type"
+                  :url.sync="form.url"
+                  @update:logo_file_id="form.logo_file_id = $event"
+                  @update:logo="form.logo = $event"
+                  :status.sync="form.status"
+                  :gallery_items.sync="form.gallery_items"
+                  :id="service.id"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </details-tab>
 
-              <additional-info-tab
-                v-if="tabs[2].active"
-                @clear="form.$errors.clear($event); errors = {}"
-                :errors="form.$errors"
-                :wait_time.sync="form.wait_time"
-                :is_free.sync="form.is_free"
-                :fees_text.sync="form.fees_text"
-                :fees_url.sync="form.fees_url"
-                :testimonial.sync="form.testimonial"
-                :video_embed.sync="form.video_embed"
-                :contact_name.sync="form.contact_name"
-                :contact_phone.sync="form.contact_phone"
-                :contact_email.sync="form.contact_email"
-                :social_medias.sync="form.social_medias"
-              >
-                <gov-button @click="onNext" start>Next</gov-button>
-              </additional-info-tab>
+                <additional-info-tab
+                  v-if="isTabActive('additional-info')"
+                  @clear="form.$errors.clear($event); errors = {}"
+                  :errors="form.$errors"
+                  :type="form.type"
+                  :wait_time.sync="form.wait_time"
+                  :is_free.sync="form.is_free"
+                  :fees_text.sync="form.fees_text"
+                  :fees_url.sync="form.fees_url"
+                  :testimonial.sync="form.testimonial"
+                  :video_embed.sync="form.video_embed"
+                  :contact_name.sync="form.contact_name"
+                  :contact_phone.sync="form.contact_phone"
+                  :contact_email.sync="form.contact_email"
+                  :social_medias.sync="form.social_medias"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </additional-info-tab>
 
-              <useful-info-tab
-                v-if="tabs[3].active"
-                @clear="form.$errors.clear($event); errors = {}"
-                :errors="form.$errors"
-                :useful_infos.sync="form.useful_infos"
-              >
-                <gov-button @click="onNext" start>Next</gov-button>
-              </useful-info-tab>
+                <useful-info-tab
+                  v-if="isTabActive('useful-info')"
+                  @clear="form.$errors.clear($event); errors = {}"
+                  :errors="form.$errors"
+                  :type="form.type"
+                  :useful_infos.sync="form.useful_infos"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </useful-info-tab>
 
-              <who-for-tab
-                v-if="tabs[4].active"
-                @clear="form.$errors.clear($event); errors = {}"
-                :errors="form.$errors"
-                :age_group.sync="form.criteria.age_group"
-                :disability.sync="form.criteria.disability"
-                :employment.sync="form.criteria.employment"
-                :gender.sync="form.criteria.gender"
-                :housing.sync="form.criteria.housing"
-                :income.sync="form.criteria.income"
-                :language.sync="form.criteria.language"
-                :other.sync="form.criteria.other"
-              >
-                <gov-button @click="onNext" start>Next</gov-button>
-              </who-for-tab>
+                <who-for-tab
+                  v-if="isTabActive('who-for')"
+                  @clear="form.$errors.clear($event); errors = {}"
+                  :errors="form.$errors"
+                  :type="form.type"
+                  :age_group.sync="form.criteria.age_group"
+                  :disability.sync="form.criteria.disability"
+                  :employment.sync="form.criteria.employment"
+                  :gender.sync="form.criteria.gender"
+                  :housing.sync="form.criteria.housing"
+                  :income.sync="form.criteria.income"
+                  :language.sync="form.criteria.language"
+                  :other.sync="form.criteria.other"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </who-for-tab>
 
-              <taxonomies-tab
-                v-if="tabs[5].active"
-                @clear="form.$errors.clear($event); errors = {}"
-                :errors="form.$errors"
-                :is-global-admin="auth.isGlobalAdmin"
-                :category_taxonomies.sync="form.category_taxonomies"
-              >
-                <gov-button @click="onNext" start>Next</gov-button>
-              </taxonomies-tab>
+                <taxonomies-tab
+                  v-if="isTabActive('taxonomies')"
+                  @clear="form.$errors.clear($event); errors = {}"
+                  :errors="form.$errors"
+                  :is-global-admin="auth.isGlobalAdmin"
+                  :type="form.type"
+                  :category_taxonomies.sync="form.category_taxonomies"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </taxonomies-tab>
 
-              <referral-tab
-                v-if="tabs[6].active"
-                @clear="form.$errors.clear($event); errors = {}"
-                :errors="form.$errors"
-                :is-global-admin="auth.isGlobalAdmin"
-                :is-super-admin="auth.isSuperAdmin"
-                :original-data="form.$originalData"
-                :show_referral_disclaimer.sync="form.show_referral_disclaimer"
-                :referral_method.sync="form.referral_method"
-                :referral_button_text.sync="form.referral_button_text"
-                :referral_email.sync="form.referral_email"
-                :referral_url.sync="form.referral_url"
+                <description-tab
+                  v-if="isTabActive('description')"
+                  @clear="form.$errors.clear($event); errors = {}"
+                  :errors="form.$errors"
+                  :type="form.type"
+                  :intro.sync="form.intro"
+                  :offerings.sync="form.offerings"
+                  :description.sync="form.description"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </description-tab>
+
+                <referral-tab
+                  v-if="isTabActive('referral')"
+                  @clear="form.$errors.clear($event); errors = {}"
+                  :errors="form.$errors"
+                  :is-global-admin="auth.isGlobalAdmin"
+                  :is-super-admin="auth.isSuperAdmin"
+                  :original-data="form.$originalData"
+                  :type="form.type"
+                  :show_referral_disclaimer.sync="form.show_referral_disclaimer"
+                  :referral_method.sync="form.referral_method"
+                  :referral_button_text.sync="form.referral_button_text"
+                  :referral_email.sync="form.referral_email"
+                  :referral_url.sync="form.referral_url"
+                />
+
+              </gov-tabs>
+
+            </gov-grid-column>
+          </gov-grid-row>
+
+          <gov-grid-row>
+            <gov-grid-column width="two-thirds">
+              <gov-warning-text>
+                You will be able to preview your changes before you submit them
+                as an update request.
+              </gov-warning-text>
+
+              <gov-button v-if="form.$submitting" disabled type="submit">Validating...</gov-button>
+              <gov-button v-else @click="onPreview" type="submit">Review changes</gov-button>
+              <ck-submit-error v-if="form.$errors.any()" />
+            </gov-grid-column>
+          </gov-grid-row>
+        </gov-main-wrapper>
+      </div>
+
+      <!-- Preview changes -->
+      <template v-if="updateRequest !== null">
+        <gov-back-link @click="updateRequest = null">Edit {{ service.type }}</gov-back-link>
+        <gov-main-wrapper>
+          <gov-grid-row>
+            <gov-grid-column width="full">
+              <gov-heading size="xl">Services</gov-heading>
+
+              <gov-heading size="m">Preview changes</gov-heading>
+
+              <service-details
+                update-request-id="PREVIEW"
+                requested-at="PREVIEW"
+                :service="updateRequest.data"
+                :logo-data-uri="form.logo"
+                :gallery-items-data-uris="form.gallery_items.map(galleryItem => galleryItem.image)"
               />
 
-            </gov-tabs>
+              <gov-warning-text>
+                Please be aware, by submitting these changes, any pending
+                updates may be overwritten.
+              </gov-warning-text>
 
-          </gov-grid-column>
-        </gov-grid-row>
-
-        <gov-grid-row>
-          <gov-grid-column width="two-thirds">
-            <gov-warning-text>
-              Please be aware, by submitting these changes, any pending updates may be overwritten.
-            </gov-warning-text>
-
-            <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
-            <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
-            <ck-submit-error v-if="form.$errors.any()" />
-          </gov-grid-column>
-        </gov-grid-row>
-      </gov-main-wrapper>
+              <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
+              <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
+            </gov-grid-column>
+          </gov-grid-row>
+        </gov-main-wrapper>
+      </template>
     </template>
   </gov-width-container>
 </template>
@@ -143,6 +187,7 @@ import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
 import WhoForTab from "@/views/services/forms/WhoForTab";
 import ReferralTab from "@/views/services/forms/ReferralTab";
 import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
+import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
 
 export default {
   name: "EditService",
@@ -153,24 +198,39 @@ export default {
     UsefulInfoTab,
     WhoForTab,
     ReferralTab,
-    TaxonomiesTab
+    TaxonomiesTab,
+    ServiceDetails
   },
   data() {
     return {
       form: null,
       tabs: [
-        { heading: "Details", active: true },
-        { heading: "Description", active: false },
-        { heading: "Additional info", active: false },
-        { heading: "Useful info", active: false },
-        { heading: "Who is it for?", active: false },
-        { heading: "Taxonomies", active: false },
-        { heading: "Referral", active: false }
+        { id: "details", heading: "Details", active: true },
+        { id: "additional-info", heading: "Additional info", active: false },
+        { id: "useful-info", heading: "Good to know", active: false },
+        { id: "who-for", heading: "Who is it for?", active: false },
+        { id: "taxonomies", heading: "Taxonomies", active: false },
+        { id: "description", heading: "Description", active: false },
+        { id: "referral", heading: "Referral", active: false }
       ],
       errors: {},
       service: null,
-      loading: false
+      loading: false,
+      updateRequest: null
     };
+  },
+  computed: {
+    allowedTabs() {
+      if (!this.auth.isGlobalAdmin) {
+        const taxonomiesTabIndex = this.tabs.findIndex(tab => tab.id === "taxonomies");
+        const tabs = this.tabs.slice();
+        tabs.splice(taxonomiesTabIndex, 1);
+
+        return tabs;
+      }
+
+      return this.tabs;
+    }
   },
   methods: {
     async fetchService() {
@@ -184,6 +244,7 @@ export default {
         organisation_id: this.service.organisation_id,
         name: this.service.name,
         slug: this.service.slug,
+        type: this.service.type,
         status: this.service.status,
         intro: this.service.intro,
         description: this.service.description,
@@ -213,18 +274,26 @@ export default {
           other: this.service.criteria.other || ""
         },
         useful_infos: this.service.useful_infos,
+        offerings: this.service.offerings,
         social_medias: this.service.social_medias,
-        gallery_items: this.service.gallery_items,
+        gallery_items: this.service.gallery_items.map(galleryItem => ({
+          file_id: galleryItem.file_id,
+          image: null
+        })),
         category_taxonomies: this.service.category_taxonomies.map(
           taxonomy => taxonomy.id
         ),
-        logo_file_id: null
+        logo_file_id: null,
+        logo: null
       });
 
       this.loading = false;
     },
-    async onSubmit() {
-      await this.form.put(`/services/${this.service.id}`, (config, data) => {
+    async onSubmit(preview = false) {
+      const response = await this.form.put(`/services/${this.service.id}`, (config, data) => {
+        // Append preview mode if enabled.
+        data.preview = preview;
+
         // Remove any unchanged values.
         if (data.organisation_id === this.service.organisation_id) {
           delete data.organisation_id;
@@ -234,6 +303,9 @@ export default {
         }
         if (data.slug === this.service.slug) {
           delete data.slug;
+        }
+        if (data.type === this.service.type) {
+          delete data.type;
         }
         if (data.status === this.service.status) {
           delete data.status;
@@ -335,6 +407,12 @@ export default {
           delete data.useful_infos;
         }
         if (
+          JSON.stringify(data.offerings) ===
+          JSON.stringify(this.service.offerings)
+        ) {
+          delete data.offerings;
+        }
+        if (
           JSON.stringify(data.social_medias) ===
           JSON.stringify(this.service.social_medias)
         ) {
@@ -364,23 +442,41 @@ export default {
           delete data.gallery_items;
         }
       });
+
+      // Return the response if only a preview.
+      if (preview) {
+        response.data.id = this.service.id;
+        return response;
+      }
+
+      // Otherwise, forward the user to the service page.
       this.$router.push({
         name: "services-updated",
         params: { service: this.service.id }
       });
     },
+    async onPreview() {
+      this.updateRequest = await this.onSubmit(true);
+    },
     onTabChange({ index }) {
       this.tabs.forEach(tab => (tab.active = false));
-      this.tabs[index].active = true;
+      const tabId = this.allowedTabs[index].id;
+      this.tabs.find(tab => tab.id === tabId).active = true;
     },
     onNext() {
-      const currentTabIndex = this.tabs.findIndex(tab => tab.active === true);
+      const currentTabIndex = this.allowedTabs.findIndex(tab => tab.active === true);
       this.tabs.forEach(tab => (tab.active = false));
-      this.tabs[currentTabIndex + 1].active = true;
+      const newTabId = this.allowedTabs[currentTabIndex + 1].id;
+      this.tabs.find(tab => tab.id === newTabId).active = true;
       this.scrollToTop();
     },
     scrollToTop() {
       document.getElementById("main-content").scrollIntoView();
+    },
+    isTabActive(id) {
+      const tab = this.allowedTabs.find(tab => tab.id === id);
+
+      return tab === undefined ? false : tab.active;
     }
   },
   created() {

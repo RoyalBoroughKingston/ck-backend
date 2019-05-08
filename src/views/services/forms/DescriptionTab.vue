@@ -1,42 +1,53 @@
 <template>
   <div>
-    <gov-heading size="l">Service description</gov-heading>
+    <gov-heading size="l">What does your {{ type }} offer</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
+
+        <gov-body>
+          These sections should describe what your {{ type }} offers and is the
+          main body of content on your page on Connected Kingston.
+        </gov-body>
+
+        <gov-section-break size="l" />
+
+        <ck-textarea-input
+          :value="intro"
+          @input="$emit('update:intro', $event); $emit('clear', 'intro')"
+          id="intro"
+          :label="`Your ${type}, an overview?`"
+          :hint="`Write a brief description of what your ${type} does.`"
+          :maxlength="300"
+          :error="errors.get('intro')"
+        />
+
+        <gov-heading size="m">What you offer</gov-heading>
+
+        <gov-body>
+          Include a bullet list of some of the things you do as a {{ type }}.
+        </gov-body>
+
+        <gov-body>
+          For example: (Weekly Meetups, Peer Support, Group Therapy)
+        </gov-body>
+
+        <ck-offerings-input
+          :offerings="offerings"
+          @input="$emit('update:offerings', $event)"
+          @clear="$emit('clear', $event)"
+          :errors="errors"
+        />
 
         <ck-wysiwyg-input
           :value="description"
           @input="$emit('update:description', $event); $emit('clear', 'description')"
           id="description"
-          label="Longer service description"
+          label="Long description"
+          :hint="`This is the largest body of text on your page. Fill it with everything else someone should know about your ${type}. Use headers, bullets and formatting for the maximum effect.`"
           :error="errors.get('description')"
           large
           :maxlength="1600"
-        >
-          <template slot="hint">
-            <gov-hint for="description">
-              Please provide a detailed description of the service. This will
-              display on the service page and is the main way users will find
-              out about your service.
-            </gov-hint>
-            <gov-hint for="description">
-              You will want to include details of what you offer, what people
-              can expect when they sign up, and the best way to get in touch.
-              You can also include links to other sites or information.
-            </gov-hint>
-            <gov-hint for="description">
-              If you are describing multiple services or activities, it may be
-              better to add these to Connected Kingston as separate, individual
-              services.
-            </gov-hint>
-            <gov-hint for="description">
-              The best pages are ones formatted with bullet points, paragraphs and headers.
-            </gov-hint>
-            <gov-hint for="description">
-              (Maximum 1600 Characters)
-            </gov-hint>
-          </template>
-        </ck-wysiwyg-input>
+        />
 
         <slot />
 
@@ -46,10 +57,25 @@
 </template>
 
 <script>
+import CkOfferingsInput from '@/views/services/inputs/OfferingsInput.vue';
+
 export default {
   name: "DescriptionTab",
+  components: {
+    CkOfferingsInput
+  },
   props: {
     errors: {
+      required: true
+    },
+    type: {
+      required: true,
+      type: String
+    },
+    intro: {
+      required: true
+    },
+    offerings: {
       required: true
     },
     description: {

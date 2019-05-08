@@ -134,9 +134,21 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/services/pre-create",
+      name: "services-pre-create",
+      component: () => import("@/views/services/PreCreate"),
+      meta: { auth: true }
+    },
+    {
       path: "/services/create",
       name: "services-create",
       component: () => import("@/views/services/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/services/:service/created",
+      name: "services-post-create",
+      component: () => import("@/views/services/PostCreate"),
       meta: { auth: true }
     },
     {

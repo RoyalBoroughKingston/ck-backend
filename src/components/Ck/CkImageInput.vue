@@ -106,7 +106,7 @@ export default {
         this.form.mime_type = null;
         this.form.file = null;
 
-        this.$emit("input", null);
+        this.$emit("input", { file_id: null, image: null });
 
         return;
       }
@@ -130,7 +130,7 @@ export default {
       } = await this.form.post("/files");
 
       // Emit the file ID.
-      this.$emit("input", id);
+      this.$emit("input", { file_id: id, image: this.form.file });
     },
 
     onRemove() {
@@ -139,13 +139,13 @@ export default {
         this.$refs.file.$el.value = "";
         this.form.mime_type = null;
         this.form.file = null;
-        this.$emit("input", null);
+        this.$emit("input", { file_id: null, image: null });
         return;
       }
 
       // For existing file.
       this.removeExisting = true;
-      this.$emit("input", false);
+      this.$emit("input", { file_id: false, image: null });
     }
   }
 };

@@ -46,6 +46,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    success: {
+      type: Boolean,
+      required: false,
+      default: false,
     }
   },
   methods: {
@@ -59,7 +64,8 @@ export default {
         expand: this.expand,
         "govuk-button--error": this.error,
         "govuk-button--start": this.start,
-        "ck-button--active": this.active
+        "ck-button--active": this.active,
+        "ck-button--success": this.success,
       };
     }
   }
@@ -81,6 +87,15 @@ export default {
     &:hover,
     &:focus {
       background-color: darken($govuk-error-colour, 5%) !important;
+    }
+  }
+
+  &.ck-button--success {
+    background-color: govuk-colour("green") !important;
+
+    &:hover,
+    &:focus {
+      background-color: darken(govuk-colour("green"), 5%) !important;
     }
   }
 }

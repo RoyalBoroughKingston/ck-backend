@@ -28,7 +28,7 @@
       @input="onInput('description', $event)"
       id="description"
       label="Please provide a one-line summary of organisation"
-      hint="This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page (max 150 characters)."
+      hint="This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page."
       :error="errors.get('description')"
     />
 
@@ -60,7 +60,7 @@
     />
 
     <ck-image-input
-      @input="onInput('logo_file_id', $event)"
+      @input="onInput('logo_file_id', $event.file_id)"
       id="logo"
       label="Organisation logo"
       accept="image/x-png"

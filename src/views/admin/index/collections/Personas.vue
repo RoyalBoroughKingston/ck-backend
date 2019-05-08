@@ -17,7 +17,7 @@
       </gov-grid-column>
 
       <gov-grid-column v-if="auth.isSuperAdmin" width="one-third">
-        <gov-button :to="{ name: 'collections-personas-create' }" expand>Add a new persona</gov-button>
+        <gov-button :to="{ name: 'collections-personas-create' }" success expand>Add a new persona</gov-button>
       </gov-grid-column>
     </gov-grid-row>
 

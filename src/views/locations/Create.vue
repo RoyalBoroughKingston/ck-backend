@@ -21,6 +21,7 @@
             :country.sync="form.country"
             :has_induction_loop.sync="form.has_induction_loop"
             :has_wheelchair_access.sync="form.has_wheelchair_access"
+            @update:image_file_id="form.image_file_id = $event"
             @clear="form.$errors.clear($event)"
           />
 
@@ -52,7 +53,8 @@ export default {
         country: "United Kingdom",
         accessibility_info: "",
         has_wheelchair_access: false,
-        has_induction_loop: false
+        has_induction_loop: false,
+        image_file_id: null
       })
     };
   },

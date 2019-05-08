@@ -63,9 +63,10 @@ export default {
       return JSON.parse(JSON.stringify(this.galleryItems));
     },
 
-    onGalleryItemInput(fileId, index) {
+    onGalleryItemInput(event, index) {
       const galleryItems = this.clone();
-      galleryItems[index].file_id = fileId;
+      galleryItems[index].file_id = event.file_id;
+      galleryItems[index].image = event.iamge;
       this.$emit("input", galleryItems);
     },
 
@@ -73,6 +74,7 @@ export default {
       const galleryItems = this.clone();
       galleryItems.push({
         file_id: null,
+        image: null,
         $index: this.index
       });
       this.$emit("input", galleryItems);

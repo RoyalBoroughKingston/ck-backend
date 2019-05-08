@@ -1,19 +1,10 @@
 <template>
   <div>
-    <gov-heading size="l">Useful information</gov-heading>
+    <gov-heading size="l">Good to know</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
-        <gov-body>
-          This section allows you to add information specifically related to your
-          service. Pick a title from the drop down and add detail below.
-        </gov-body>
-        <gov-body>
-          These tips will standout on your service page, so make sure key
-          information goes in here.
-        </gov-body>
-
-        <gov-section-break size="l" />
+        <gov-body>What do people want to know about your {{ type }}.</gov-body>
 
         <useful-infos-input
           :useful-infos="useful_infos"
@@ -39,6 +30,10 @@ export default {
     errors: {
       required: true,
       type: Object
+    },
+    type: {
+      required: true,
+      type: String
     },
     useful_infos: {
       type: Array,

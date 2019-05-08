@@ -13,9 +13,11 @@
 
             <service-location-form
               :errors="form.$errors"
+              :id="serviceLocation.id"
               :name.sync="form.name"
               :regular_opening_hours.sync="form.regular_opening_hours"
               :holiday_opening_hours.sync="form.holiday_opening_hours"
+              @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
             />
 
@@ -58,7 +60,8 @@ export default {
       this.form = new Form({
         name: this.serviceLocation.name || "",
         regular_opening_hours: this.serviceLocation.regular_opening_hours,
-        holiday_opening_hours: this.serviceLocation.holiday_opening_hours
+        holiday_opening_hours: this.serviceLocation.holiday_opening_hours,
+        image_file_id: null
       });
       this.loading = false;
     },
@@ -81,6 +84,12 @@ export default {
             JSON.stringify(this.serviceLocation.holiday_opening_hours)
           ) {
             delete data.holiday_opening_hours;
+          }
+          // Remove the logo from the request if null, or delete if false.
+          if (data.image_file_id === null) {
+            delete data.image_file_id;
+          } else if (data.image_file_id === false) {
+            data.image_file_id = null;
           }
         }
       );
