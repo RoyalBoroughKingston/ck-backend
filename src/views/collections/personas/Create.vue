@@ -24,8 +24,7 @@
             :subtitle.sync="form.subtitle"
             :intro.sync="form.intro"
             :order.sync="form.order"
-            :sidebox_title.sync="form.sidebox_title"
-            :sidebox_content.sync="form.sidebox_content"
+            :sideboxes.sync="form.sideboxes"
             :category_taxonomies.sync="form.category_taxonomies"
             @update:image_file_id="form.image_file_id = $event"
             @clear="form.$errors.clear($event)"
@@ -60,8 +59,7 @@ export default {
         intro: "",
         subtitle: "",
         order: 1,
-        sidebox_title: "",
-        sidebox_content: "",
+        sideboxes: [],
         category_taxonomies: [],
         image_file_id: null
       })
@@ -69,7 +67,12 @@ export default {
   },
   methods: {
     async onSubmit() {
-      await this.form.post("/collections/personas");
+      await this.form.post("/collections/personas", (config, data) => {
+        // Unset the image field if not provided.
+        if (data.image_file_id === null) {
+          delete data.image_file_id;
+        }
+      });
       this.$router.push({ name: "admin-index-collections-personas" });
     }
   }
