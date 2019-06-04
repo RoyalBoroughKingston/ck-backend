@@ -37,7 +37,7 @@ if (process.env.VUE_APP_BUGSNAG_API_KEY) {
   const bugsnagClient = bugsnag({
     apiKey: process.env.VUE_APP_BUGSNAG_API_KEY,
     releaseStage: process.env.VUE_APP_ENV,
-    notifyReleaseStages: ["local", "staging", "production"],
+    notifyReleaseStages: ["staging", "production"],
     beforeSend(report) {
       const user = Auth.user;
       delete user.roles;
