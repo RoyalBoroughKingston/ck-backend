@@ -331,6 +331,11 @@ let router = new Router({
                 import("@/views/admin/index/search-engine/StopWords")
             }
           ]
+        },
+        {
+          path: "cms",
+          name: "admin-index-cms",
+          component: () => import("@/views/admin/index/Cms")
         }
       ]
     },
