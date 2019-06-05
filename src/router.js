@@ -331,6 +331,62 @@ let router = new Router({
                 import("@/views/admin/index/search-engine/StopWords")
             }
           ]
+        },
+        {
+          path: "cms",
+          component: () => import("@/views/admin/index/Cms"),
+          children: [
+            {
+              path: "",
+              name: "admin-index-cms",
+              component: () => import("@/views/admin/index/cms/frontend/Global")
+            },
+            {
+              path: "frontend/home",
+              name: "admin-index-cms-frontend-home",
+              component: () => import("@/views/admin/index/cms/frontend/Home")
+            },
+            {
+              path: "frontend/terms-and-conditions",
+              name: "admin-index-cms-frontend-terms-and-conditions",
+              component: () =>
+                import("@/views/admin/index/cms/frontend/TermsAndConditions")
+            },
+            {
+              path: "frontend/privacy-policy",
+              name: "admin-index-cms-frontend-privacy-policy",
+              component: () =>
+                import("@/views/admin/index/cms/frontend/PrivacyPolicy")
+            },
+            {
+              path: "frontend/about",
+              name: "admin-index-cms-frontend-about",
+              component: () => import("@/views/admin/index/cms/frontend/About")
+            },
+            {
+              path: "frontend/contact",
+              name: "admin-index-cms-frontend-contact",
+              component: () =>
+                import("@/views/admin/index/cms/frontend/Contact")
+            },
+            {
+              path: "frontend/get-involved",
+              name: "admin-index-cms-frontend-get-involved",
+              component: () =>
+                import("@/views/admin/index/cms/frontend/GetInvolved")
+            },
+            {
+              path: "frontend/favourites",
+              name: "admin-index-cms-frontend-favourites",
+              component: () =>
+                import("@/views/admin/index/cms/frontend/Favourites")
+            }
+          ]
+        },
+        {
+          path: "cms/updated",
+          name: "admin-index-cms-updated",
+          component: () => import("@/views/admin/index/cms/Updated")
         }
       ]
     },

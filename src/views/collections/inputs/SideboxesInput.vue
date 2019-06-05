@@ -15,6 +15,7 @@
         :id="`sideboxes.${index}.content`"
         label="Sidebox Content"
         :error="errors.get(`sideboxes.${index}.content`)"
+        :extensions="extensions"
       />
 
       <gov-button @click="onDelete(index)" error>Delete</gov-button>
@@ -30,6 +31,8 @@
 </template>
 
 <script>
+import { Link } from "tiptap-extensions";
+
 export default {
   name: "SideboxesInput",
 
@@ -52,7 +55,8 @@ export default {
 
   data() {
     return {
-      index: 1
+      index: 1,
+      extensions: [new Link()]
     };
   },
 
