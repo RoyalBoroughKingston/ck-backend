@@ -7,18 +7,54 @@
         Review the content for the get involved page on the frontend.
       </gov-body>
 
-      <gov-body>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, tenetur,
-        reprehenderit doloremque dolorum optio corrupti aliquid rerum nisi
-        repellat, illo consequuntur quos? Praesentium ipsa dolorem doloribus
-        fuga, aliquam officiis dolore?
-      </gov-body>
+      <ck-text-input
+        :value="frontend.get_involved.title"
+        @input="onInput({ field: 'title', value: $event })"
+        label="Title"
+        :error="errors.get('cms.frontend.get_involved.title')"
+        id="cms.frontend.get_involved.title"
+      />
+
+      <ck-wysiwyg-input
+        :value="frontend.get_involved.content"
+        @input="onInput({ field: 'content', value: $event })"
+        label="Content"
+        :error="errors.get('cms.frontend.get_involved.content')"
+        id="cms.frontend.get_involved.content"
+      />
     </gov-grid-column>
   </gov-grid-row>
 </template>
 
 <script>
 export default {
-  name: "CmsFrontendGetInvolved"
+  name: "CmsFrontendGetInvolved",
+
+  model: {
+    prop: "frontend",
+    event: "input"
+  },
+
+  props: {
+    frontend: {
+      type: Object,
+      required: true
+    },
+
+    errors: {
+      type: Object,
+      required: true
+    }
+  },
+
+  methods: {
+    onInput({ field, value }) {
+      const frontend = { ...this.frontend };
+
+      frontend.get_involved[field] = value;
+
+      this.$emit("input", frontend);
+    }
+  }
 };
 </script>

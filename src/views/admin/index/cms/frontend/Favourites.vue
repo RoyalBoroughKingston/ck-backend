@@ -7,18 +7,54 @@
         Review the content for the favourites page on the frontend.
       </gov-body>
 
-      <gov-body>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, tenetur,
-        reprehenderit doloremque dolorum optio corrupti aliquid rerum nisi
-        repellat, illo consequuntur quos? Praesentium ipsa dolorem doloribus
-        fuga, aliquam officiis dolore?
-      </gov-body>
+      <ck-text-input
+        :value="frontend.favourites.title"
+        @input="onInput({ field: 'title', value: $event })"
+        label="Title"
+        :error="errors.get('cms.frontend.favourites.title')"
+        id="cms.frontend.favourites.title"
+      />
+
+      <ck-wysiwyg-input
+        :value="frontend.favourites.content"
+        @input="onInput({ field: 'content', value: $event })"
+        label="Content"
+        :error="errors.get('cms.frontend.favourites.content')"
+        id="cms.frontend.favourites.content"
+      />
     </gov-grid-column>
   </gov-grid-row>
 </template>
 
 <script>
 export default {
-  name: "CmsFrontendFavourites"
+  name: "CmsFrontendFavourites",
+
+  model: {
+    prop: "frontend",
+    event: "input"
+  },
+
+  props: {
+    frontend: {
+      type: Object,
+      required: true
+    },
+
+    errors: {
+      type: Object,
+      required: true
+    }
+  },
+
+  methods: {
+    onInput({ field, value }) {
+      const frontend = { ...this.frontend };
+
+      frontend.favourites[field] = value;
+
+      this.$emit("input", frontend);
+    }
+  }
 };
 </script>

@@ -7,18 +7,54 @@
         Review the content for the privacy policy page on the frontend.
       </gov-body>
 
-      <gov-body>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, tenetur,
-        reprehenderit doloremque dolorum optio corrupti aliquid rerum nisi
-        repellat, illo consequuntur quos? Praesentium ipsa dolorem doloribus
-        fuga, aliquam officiis dolore?
-      </gov-body>
+      <ck-text-input
+        :value="frontend.privacy_policy.title"
+        @input="onInput({ field: 'title', value: $event })"
+        label="Title"
+        :error="errors.get('cms.frontend.privacy_policy.title')"
+        id="cms.frontend.privacy_policy.title"
+      />
+
+      <ck-wysiwyg-input
+        :value="frontend.privacy_policy.content"
+        @input="onInput({ field: 'content', value: $event })"
+        label="Content"
+        :error="errors.get('cms.frontend.privacy_policy.content')"
+        id="cms.frontend.privacy_policy.content"
+      />
     </gov-grid-column>
   </gov-grid-row>
 </template>
 
 <script>
 export default {
-  name: "CmsFrontendPrivacyPolicy"
+  name: "CmsFrontendPrivacyPolicy",
+
+  model: {
+    prop: "frontend",
+    event: "input"
+  },
+
+  props: {
+    frontend: {
+      type: Object,
+      required: true
+    },
+
+    errors: {
+      type: Object,
+      required: true
+    }
+  },
+
+  methods: {
+    onInput({ field, value }) {
+      const frontend = { ...this.frontend };
+
+      frontend.privacy_policy[field] = value;
+
+      this.$emit("input", frontend);
+    }
+  }
 };
 </script>
