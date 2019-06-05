@@ -2,25 +2,55 @@
   <div>
     <vue-headful title="Connected Kingston - Admin: CMS" />
 
-    <gov-heading size="l">CMS</gov-heading>
+    <gov-heading size="l">Frontend</gov-heading>
 
-    <gov-grid-row>
-      <gov-grid-column width="two-thirds">
-        <gov-heading size="m">Frontend</gov-heading>
-
-        <gov-body>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi
-          vitae voluptatem reiciendis quisquam? Tenetur in commodi illo adipisci
-          aspernatur officiis voluptates excepturi harum placeat, deleniti
-          repellat odio. Ullam, repellendus suscipit!
-        </gov-body>
-      </gov-grid-column>
-    </gov-grid-row>
+    <gov-tabs :tabs="tabs">
+      <router-view />
+    </gov-tabs>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Cms"
+  name: "Cms",
+
+  data() {
+    return {
+      tabs: [
+        {
+          heading: "Global",
+          to: { name: "admin-index-cms" }
+        },
+        {
+          heading: "Home",
+          to: { name: "admin-index-cms-frontend-home" }
+        },
+        {
+          heading: "Terms and Conditions",
+          to: { name: "admin-index-cms-frontend-terms-and-conditions" }
+        },
+        {
+          heading: "Privacy Policy",
+          to: { name: "admin-index-cms-frontend-privacy-policy" }
+        },
+        {
+          heading: "About",
+          to: { name: "admin-index-cms-frontend-about" }
+        },
+        {
+          heading: "Contact",
+          to: { name: "admin-index-cms-frontend-contact" }
+        },
+        {
+          heading: "Get Involved",
+          to: { name: "admin-index-cms-frontend-get-involved" }
+        },
+        {
+          heading: "Favourites",
+          to: { name: "admin-index-cms-frontend-favourites" }
+        }
+      ]
+    };
+  }
 };
 </script>
