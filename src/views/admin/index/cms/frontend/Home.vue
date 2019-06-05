@@ -68,6 +68,7 @@ export default {
       frontend.home[field] = value;
 
       this.$emit("input", frontend);
+      this.$emit("clear", `frontend.home.${field}`)
     }
   }
 };

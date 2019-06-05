@@ -382,6 +382,11 @@ let router = new Router({
                 import("@/views/admin/index/cms/frontend/Favourites")
             }
           ]
+        },
+        {
+          path: "cms/updated",
+          name: "admin-index-cms-updated",
+          component: () => import("@/views/admin/index/cms/Updated")
         }
       ]
     },

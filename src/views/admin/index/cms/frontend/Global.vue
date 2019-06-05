@@ -87,6 +87,7 @@ export default {
       frontend.global[field] = value;
 
       this.$emit("input", frontend);
+      this.$emit("clear", `frontend.global.${field}`)
     }
   }
 };

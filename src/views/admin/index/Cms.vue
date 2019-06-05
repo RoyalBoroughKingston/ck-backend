@@ -16,6 +16,7 @@
         <router-view
           v-model="settings.cms.frontend"
           :errors="settings.$errors"
+          @clear="settings.$errors.clear(`cms.${$event}`)"
         />
       </gov-tabs>
 
@@ -90,7 +91,7 @@ export default {
 
     async onSubmit() {
       await this.settings.put("/settings");
-      alert('Settings updated'); // TODO: Remove this
+      this.$router.push({ name: 'admin-index-cms-updated' });
     }
   }
 };

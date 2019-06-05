@@ -54,6 +54,7 @@ export default {
       frontend.terms_and_conditions[field] = value;
 
       this.$emit("input", frontend);
+      this.$emit("clear", `frontend.terms_and_conditions.${field}`)
     }
   }
 };

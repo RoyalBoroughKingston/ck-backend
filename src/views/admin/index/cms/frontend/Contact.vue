@@ -54,6 +54,7 @@ export default {
       frontend.contact[field] = value;
 
       this.$emit("input", frontend);
+      this.$emit("clear", `frontend.contact.${field}`)
     }
   }
 };

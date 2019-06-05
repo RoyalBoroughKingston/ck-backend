@@ -54,6 +54,7 @@ export default {
       frontend.favourites[field] = value;
 
       this.$emit("input", frontend);
+      this.$emit("clear", `frontend.favourites.${field}`)
     }
   }
 };
