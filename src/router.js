@@ -206,6 +206,11 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/services/:service/refresh",
+      name: "services-refresh",
+      component: () => import("@/views/services/Refresh")
+    },
+    {
       path: "/services/:service/service-locations/create",
       name: "service-locations-create",
       component: () => import("@/views/service-locations/Create"),
