@@ -21,22 +21,24 @@
           :error="errors.get('intro')"
         />
 
-        <gov-heading size="m">What you offer</gov-heading>
+        <template v-if="false">
+          <gov-heading size="m">What you offer</gov-heading>
 
-        <gov-body>
-          Include a bullet list of some of the things you do as a {{ type }}.
-        </gov-body>
+          <gov-body>
+            Include a bullet list of some of the things you do as a {{ type }}.
+          </gov-body>
 
-        <gov-body>
-          For example: (Weekly Meetups, Peer Support, Group Therapy)
-        </gov-body>
+          <gov-body>
+            For example: (Weekly Meetups, Peer Support, Group Therapy)
+          </gov-body>
 
-        <ck-offerings-input
-          :offerings="offerings"
-          @input="$emit('update:offerings', $event)"
-          @clear="$emit('clear', $event)"
-          :errors="errors"
-        />
+          <ck-offerings-input
+            :offerings="offerings"
+            @input="$emit('update:offerings', $event)"
+            @clear="$emit('clear', $event)"
+            :errors="errors"
+          />
+        </template>
 
         <ck-wysiwyg-input
           :value="description"

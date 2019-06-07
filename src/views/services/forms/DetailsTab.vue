@@ -19,6 +19,7 @@
           hint="This option changes how your page is described on Connected Kingston"
           :options="typeOptions"
           :error="errors.get('type')"
+          v-if="false"
         />
 
         <ck-text-input
@@ -37,7 +38,7 @@
           label="Unique slug"
           type="text"
           :error="errors.get('slug')"
-          :disabled="!auth.isGlobalAdmin"
+          v-if="auth.isGlobalAdmin"
         >
           <gov-hint slot="hint" for="slug">
             This will be used to access the {{ type }} page.<br>
@@ -96,7 +97,7 @@
           :hint="`Indicates if the ${type} is enabled or disabled (disabled ${$options.filters.plural(type)} will not be shown in search results)`"
           :options="statusOptions"
           :error="errors.get('status')"
-          :disabled="!auth.isGlobalAdmin"
+          v-if="auth.isGlobalAdmin"
         />
 
         <template v-if="false">
