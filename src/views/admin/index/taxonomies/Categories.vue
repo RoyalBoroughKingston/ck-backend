@@ -32,7 +32,7 @@
           <gov-heading size="m">
             {{ taxonomy.name }}&nbsp;
             <gov-link
-              v-if="auth.isSuperAdmin"
+              v-if="auth.isGlobalAdmin"
               :to="{ name: 'taxonomies-categories-edit', params: { taxonomy: taxonomy.id } }"
             >
               Edit
@@ -47,7 +47,7 @@
             <li v-for="taxonomy in taxonomy.children" :key="taxonomy.id">
               {{ taxonomy.name }}&nbsp;
               <gov-link
-                v-if="auth.isSuperAdmin"
+                v-if="auth.isGlobalAdmin"
                 :to="{ name: 'taxonomies-categories-edit', params: { taxonomy: taxonomy.id } }"
               >
                 Edit
@@ -61,7 +61,7 @@
                 <li v-for="taxonomy in taxonomy.children" :key="taxonomy.id">
                   {{ taxonomy.name }}&nbsp;
                   <gov-link
-                    v-if="auth.isSuperAdmin"
+                    v-if="auth.isGlobalAdmin"
                     :to="{ name: 'taxonomies-categories-edit', params: { taxonomy: taxonomy.id } }"
                   >
                     Edit
@@ -75,7 +75,7 @@
                     <li v-for="taxonomy in taxonomy.children" :key="taxonomy.id">
                       {{ taxonomy.name }}&nbsp;
                       <gov-link
-                        v-if="auth.isSuperAdmin"
+                        v-if="auth.isGlobalAdmin"
                         :to="{ name: 'taxonomies-categories-edit', params: { taxonomy: taxonomy.id } }"
                       >
                         Edit
@@ -89,7 +89,7 @@
                         <li v-for="taxonomy in taxonomy.children" :key="taxonomy.id">
                           {{ taxonomy.name }}&nbsp;
                           <gov-link
-                            v-if="auth.isSuperAdmin"
+                            v-if="auth.isGlobalAdmin"
                             :to="{ name: 'taxonomies-categories-edit', params: { taxonomy: taxonomy.id } }"
                           >
                             Edit
@@ -103,7 +103,7 @@
                             <li v-for="taxonomy in taxonomy.children" :key="taxonomy.id">
                               {{ taxonomy.name }}&nbsp;
                               <gov-link
-                                v-if="auth.isSuperAdmin"
+                                v-if="auth.isGlobalAdmin"
                                 :to="{ name: 'taxonomies-categories-edit', params: { taxonomy: taxonomy.id } }"
                               >
                                 Edit
@@ -117,7 +117,7 @@
                                 <li v-for="taxonomy in taxonomy.children" :key="taxonomy.id">
                                   {{ taxonomy.name }}&nbsp;
                                   <gov-link
-                                    v-if="auth.isSuperAdmin"
+                                    v-if="auth.isGlobalAdmin"
                                     :to="{ name: 'taxonomies-categories-edit', params: { taxonomy: taxonomy.id } }"
                                   >
                                     Edit

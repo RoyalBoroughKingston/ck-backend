@@ -27,8 +27,7 @@
               :subtitle.sync="form.subtitle"
               :intro.sync="form.intro"
               :order.sync="form.order"
-              :sidebox_title.sync="form.sidebox_title"
-              :sidebox_content.sync="form.sidebox_content"
+              :sideboxes.sync="form.sideboxes"
               :category_taxonomies.sync="form.category_taxonomies"
               @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
@@ -80,8 +79,7 @@ export default {
         subtitle: this.collection.subtitle,
         intro: this.collection.intro,
         order: this.collection.order,
-        sidebox_title: this.collection.sidebox_title || "",
-        sidebox_content: this.collection.sidebox_content || "",
+        sideboxes: this.collection.sideboxes,
         category_taxonomies: this.collection.category_taxonomies.map(
           taxonomy => taxonomy.id
         ),
@@ -91,17 +89,17 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      await this.form.put(
-        `/collections/personas/${this.collection.id}`,
-        (config, data) => {
-          // Remove the logo from the request if null, or delete if false.
-          if (data.image === null) {
-            delete data.image;
-          } else if (data.image === false) {
-            data.image = null;
-          }
+      await this.form.put(`/collections/personas/${this.collection.id}`, (config, data) => {
+        // Unset the image field if not provided.
+        if (data.image_file_id === null) {
+          delete data.image_file_id;
         }
-      );
+
+        // Set the image to null if explicitly removed.
+        if (data.image_file_id === false) {
+          data.image_file_id = null;
+        }
+      });
       this.$router.push({ name: "admin-index-collections-personas" });
     },
     onDelete() {

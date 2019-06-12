@@ -190,14 +190,32 @@ class Auth {
 
   /**
    * @param {string} roleName
+   * @param {object} service
+   * @param {object} organisation
    * @returns {boolean}
    */
-  hasRole(roleName) {
+  hasRole(roleName, service = null, organisation = null) {
     if (this.user === null) {
       return false;
     }
 
-    return this.user.roles.find(role => role.role === roleName) !== undefined;
+    return (
+      this.user.roles.find(role => {
+        if (role.role !== roleName) {
+          return false;
+        }
+
+        if (service !== null && role.service_id !== service.id) {
+          return false;
+        }
+
+        if (organisation !== null && role.organisation_id !== organisation.id) {
+          return false;
+        }
+
+        return true;
+      }) !== undefined
+    );
   }
 
   /**
@@ -211,28 +229,16 @@ class Auth {
    * @returns {boolean}
    */
   get isGlobalAdmin() {
-    return this.hasRole("Global Admin");
+    return this.hasRole("Global Admin") || this.isSuperAdmin;
   }
 
   /**
    * @returns {boolean}
    */
   isOrganisationAdmin(organisation = null) {
-    if (this.hasRole("Global Admin")) {
-      return true;
-    }
-
-    if (organisation === null) {
-      return this.hasRole("Organisation Admin");
-    }
-
     return (
-      this.user.roles.find(role => {
-        return (
-          role.role === "Organisation Admin" &&
-          role.organisation_id === organisation.id
-        );
-      }) !== undefined
+      this.hasRole("Organisation Admin", null, organisation) ||
+      this.isGlobalAdmin
     );
   }
 
@@ -240,18 +246,9 @@ class Auth {
    * @returns {boolean}
    */
   isServiceAdmin(service = null) {
-    if (this.hasRole("Global Admin")) {
-      return true;
-    }
-
-    if (service === null) {
-      return this.hasRole("Service Admin");
-    }
-
     return (
-      this.user.roles.find(role => {
-        return role.role === "Service Admin" && role.service_id === service.id;
-      }) !== undefined
+      this.hasRole("Service Admin", service) ||
+      this.isOrganisationAdmin(service !== null ? service.organisation : null)
     );
   }
 
@@ -259,18 +256,8 @@ class Auth {
    * @returns {boolean}
    */
   isServiceWorker(service = null) {
-    if (this.hasRole("Global Admin")) {
-      return true;
-    }
-
-    if (service === null) {
-      return this.hasRole("Service Worker");
-    }
-
     return (
-      this.user.roles.find(role => {
-        return role.role === "Service Worker" && role.service_id === service.id;
-      }) !== undefined
+      this.hasRole("Service Worker", service) || this.isServiceAdmin(service)
     );
   }
 }

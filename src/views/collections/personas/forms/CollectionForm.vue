@@ -38,21 +38,17 @@
       :existing-url="id ? apiUrl(`/collections/personas/${id}/image.png?v=${now}`) : undefined"
     />
 
-    <ck-text-input
-      :value="sidebox_title"
-      @input="onInput('sidebox_title', $event)"
-      id="sidebox_title"
-      label="Sidebox Title"
-      type="text"
-      :error="errors.get('sidebox_title')"
-    />
+     <gov-heading size="m">Sideboxes</gov-heading>
 
-    <ck-wysiwyg-input
-      :value="sidebox_content"
-      @input="onInput('sidebox_content', $event)"
-      id="sidebox_content"
-      label="Sidebox Content"
-      :error="errors.get('sidebox_content')"
+    <gov-body>
+      Create up to three sideboxes that will can be used to display information
+      on the persona results page.
+    </gov-body>
+
+    <ck-sideboxes-input
+      :sideboxes="sideboxes"
+      @input="onInput('sideboxes', $event)"
+      :errors="errors"
     />
 
     <gov-label class="govuk-!-font-weight-bold">Taxonomies</gov-label>
@@ -71,10 +67,11 @@
 <script>
 import CkImageInput from "@/components/Ck/CkImageInput";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
+import CkSideboxesInput from "@/views/collections/inputs/SideboxesInput";
 
 export default {
   name: "CollectionForm",
-  components: { CkImageInput, CategoryTaxonomyInput },
+  components: { CkImageInput, CategoryTaxonomyInput, CkSideboxesInput },
   props: {
     errors: {
       required: true,
@@ -92,10 +89,7 @@ export default {
     order: {
       required: true
     },
-    sidebox_title: {
-      required: true
-    },
-    sidebox_content: {
+    sideboxes: {
       required: true
     },
     category_taxonomies: {

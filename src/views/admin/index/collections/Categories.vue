@@ -31,7 +31,7 @@
           <li v-for="collection in collections" :key="collection.id">
             {{ collection.name }}&nbsp;
             <gov-link
-              v-if="auth.isSuperAdmin"
+              v-if="auth.isGlobalAdmin"
               :to="{ name: 'collections-categories-edit', params: { collection: collection.id } }"
             >
               Edit
