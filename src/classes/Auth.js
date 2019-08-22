@@ -79,11 +79,12 @@ class Auth {
       params: { include: "user-roles" },
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
         Authorization: `Bearer ${this.accessToken}`
       }
     });
 
-    console.log(data);
+    console.log(this.accessToken, data);
 
     localStorage.setItem("user", JSON.stringify(data.data));
   }
