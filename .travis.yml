@@ -1,12 +1,12 @@
-language: node_js
-
-node_js:
-  - "10"
-
+if: tag IS blank
 branches:
   only:
     - master
     - develop
+
+language: node_js
+node_js:
+  - "10"
 
 cache:
   directories:
@@ -25,18 +25,9 @@ script:
 
 deploy:
   - provider: script
-    script: bash scripts/DeployProduction.sh
+    script: ./.travis/deploy
     skip_cleanup: true
     on:
-      repo: RoyalBoroughKingston/ck-backend
-      branch: master
-  - provider: script
-    script: bash scripts/DeployStaging.sh
-    skip_cleanup: true
-    on:
-      repo: RoyalBoroughKingston/ck-backend
-      branch: develop
-
-notifications:
-  slack:
-    secure: "UYQa59/m3YMI/8Ycdsh6B6fc11k9Qy0ZJG2VovLwLhZLPZiN+wCvt70cqvGwSDvDLIhU2QgVMe7/oTl2vrHpJNdkTKuy/wbVrJkBK9q2/i/WF8YxCdrfsXFphXF3M90OjblvT3AHRakvoNGN4ChV3VDXWr7hG3+leJSBWXRszvztlGZ2ag6xxDqglY5rj+xVQh2rjAIEVvwr8BahLLpYWYl+tcKzHrK0X1tXHXf0VqdJI29Y4GggyroCSknLmD40c2Bcr4BwHmBkcGBCFIO0cIAEV2qxjejCxCoOVFlucqKcR4BH0lkf8FmRhuhgBD32mCFa7zYXUNmwj5KaIMsvZDI2wAQiIR/zYUeqxRriij20ag7IpaTyJY2VNXbUtb+/tHAg/Zd7MHhdgIjRSbrPnaFKz7920HvPcUXLFr9saBC+DuI9ratqWwhAoi2UtAFgfbx/oA8Ztzp9bpZoYf6D/4XWeKt8p3o1dhbDng1j6uZPSyhxGJ8EuiWu9iiyd9MbZU2A9K3Qi7dHs9m7d5wVHS0yf0N4jbiTbO/5G4/ZS71D50lfeAyjTBlfLhtHengVqbl5JVgXnW/MgSxawJPdYxv4CeiWrjvzn4VtPvKFtZUVQ9EeDcMD7PVPwjgPuMY5AeLNSll43jMU8j/wqrM0GhfzHqvy52JijV0BmPAvS/I="
+      branch:
+        - master
+        - develop
