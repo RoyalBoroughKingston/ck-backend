@@ -2,6 +2,9 @@
 
 # Requires the following environment variables:
 # $TRAVIS_BRANCH = The branch the build is against.
+# $AWS_ACCESS_KEY_ID = The AWS access key ID.
+# $AWS_SECRET_ACCESS_KEY = The AWS secret access key.
+# $AWS_DEFAULT_REGION = The AWS region.
 
 # Bail out on first error.
 set -e
@@ -30,6 +33,10 @@ aws secretsmanager get-secret-value \
 # Build.
 echo "Building..."
 node_modules/.bin/vue-cli-service build --mode ${ENVIRONMENT}
+
+# Create AWS dir for credentials and config.
+echo "Creating AWS config directory..."
+mkdir ~/.aws
 
 # Set AWS CLI credentials.
 echo "Setting AWS credentials..."
