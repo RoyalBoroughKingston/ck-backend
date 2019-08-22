@@ -2,9 +2,6 @@
 
 # Requires the following environment variables:
 # $TRAVIS_BRANCH = The branch the build is against.
-# $AWS_ACCESS_KEY_ID = The AWS access key ID.
-# $AWS_SECRET_ACCESS_KEY = The AWS secret access key.
-# $AWS_DEFAULT_REGION = The AWS region.
 
 # Bail out on first error.
 set -e
@@ -18,26 +15,6 @@ case ${TRAVIS_BRANCH} in
         ENVIRONMENT=staging
         ;;
 esac
-
-# Create AWS dir for credentials and config.
-echo "Creating AWS config directory..."
-mkdir ~/.aws
-
-# Set AWS CLI credentials.
-echo "Setting AWS credentials..."
-cat > ~/.aws/credentials << EOF
-[default]
-aws_access_key_id = $AWS_ACCESS_KEY_ID
-aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
-EOF
-
-# Set AWS CLI config.
-echo "Setting AWS config..."
-cat > ~/.aws/config << EOF
-[default]
-region = $AWS_DEFAULT_REGION
-output = json
-EOF
 
 # Declare the configuration variables for the deployment.
 echo "Setting deployment configuration for ${ENVIRONMENT}..."
