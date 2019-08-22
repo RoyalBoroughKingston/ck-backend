@@ -14,7 +14,7 @@ cache:
     - $HOME/.local
 
 install:
-  - npm install
+  - npm ci
 
 script:
   - echo "No tests ran"
