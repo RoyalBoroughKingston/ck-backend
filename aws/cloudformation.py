@@ -136,10 +136,7 @@ ci_user_resource = template.add_resource(
             {
               'Action': 's3:*',
               'Effect': 'Allow',
-              'Resource': [
-                GetAtt(bucket_resource, 'Arn'),
-                Join('/', [GetAtt(bucket_resource, 'Arn'), '*'])
-              ]
+              'Resource': '*'
             },
             {
               'Action': 'secretsmanager:GetSecretValue',
