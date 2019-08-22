@@ -7,7 +7,7 @@ module.exports = {
   productionSourceMap: true,
   pluginOptions: {
     s3Deploy: {
-      awsProfile: undefined,
+      awsProfile: "default",
       region: "eu-west-1",
       bucket: undefined,
       assetPath: "dist",
