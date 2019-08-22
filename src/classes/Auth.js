@@ -79,12 +79,9 @@ class Auth {
       params: { include: "user-roles" },
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
         Authorization: `Bearer ${this.accessToken}`
       }
     });
-
-    console.log(this.accessToken, data);
 
     localStorage.setItem("user", JSON.stringify(data.data));
   }
@@ -107,7 +104,6 @@ class Auth {
     await this.http.delete("/core/v1/users/user/sessions", {
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
         Authorization: `Bearer ${this.accessToken}`
       }
     });
