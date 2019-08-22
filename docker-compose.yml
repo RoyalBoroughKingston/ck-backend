@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  troposphere:
+    image: royal-borough-kingston/ck-backend/troposphere
+    build:
+      context: ./docker/troposphere
+      dockerfile: Dockerfile
+    volumes:
+      - ./aws:/tmp
+    command: "python ${CFN_TEMPLATE}.py"
