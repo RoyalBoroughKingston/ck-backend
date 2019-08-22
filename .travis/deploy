@@ -31,6 +31,22 @@ aws secretsmanager get-secret-value \
 echo "Building..."
 node_modules/.bin/vue-cli-service build --mode ${ENVIRONMENT}
 
+# Set AWS CLI credentials.
+echo "Setting AWS credentials..."
+cat > ~/.aws/credentials << EOF
+[default]
+aws_access_key_id = ${AWS_ACCESS_KEY_ID}
+aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
+EOF
+
+# Set AWS CLI config.
+echo "Setting AWS config..."
+cat > ~/.aws/config << EOF
+[default]
+region = ${AWS_DEFAULT_REGION}
+output = json
+EOF
+
 # Deploy to S3.
 echo "Deploying..."
 node_modules/.bin/vue-cli-service s3-deploy --mode ${ENVIRONMENT}
