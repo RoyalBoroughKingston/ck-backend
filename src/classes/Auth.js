@@ -107,6 +107,7 @@ class Auth {
     await this.http.delete("/core/v1/users/user/sessions", {
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
         Authorization: `Bearer ${this.accessToken}`
       }
     });
