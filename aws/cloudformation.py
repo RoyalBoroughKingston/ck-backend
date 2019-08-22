@@ -67,14 +67,14 @@ ci_user_name_variable = Join('-', ['ci-backend', Ref(environment_parameter)])
 bucket_resource = template.add_resource(
   s3.Bucket(
     'Bucket',
-    BucketName=Ref(bucket_name_variable),
+    BucketName=bucket_name_variable,
     AccessControl='PublicRead'
   )
 )
 
 distribution_resource = template.add_resource(
   cloudfront.Distribution(
-    'FrontendDistribution',
+    'Distribution',
     DistributionConfig=cloudfront.DistributionConfig(
       Aliases=[
         Ref(cname_parameter)
@@ -126,7 +126,7 @@ distribution_resource = template.add_resource(
 ci_user_resource = template.add_resource(
   iam.User(
     'CiUser',
-    UserName=Ref(ci_user_name_variable),
+    UserName=ci_user_name_variable,
     Policies=[
       iam.Policy(
         PolicyName='CiUserPolicy',
