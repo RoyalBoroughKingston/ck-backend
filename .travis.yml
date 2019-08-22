@@ -13,15 +13,15 @@ cache:
     - node_modules
     - $HOME/.local
 
-before_install:
-  - pip install --local aws-cli
-  - export PATH=$PATH:$HOME/.local/bin
-
 install:
   - npm install
 
 script:
   - echo "No tests ran"
+
+before_deploy:
+  - pip install aws-cli --local
+  - export PATH=$PATH:$HOME/.local/bin
 
 deploy:
   - provider: script
