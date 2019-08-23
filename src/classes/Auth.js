@@ -6,7 +6,7 @@ class Auth {
    */
   constructor() {
     this.http = axios.create({
-      baseURL: process.env.VUE_APP_API_TOKEN_URI
+      baseURL: process.env.VUE_APP_API_URI
     });
   }
 
@@ -75,16 +75,13 @@ class Auth {
   }
 
   async fetchUser() {
-    const { data } = await this.http.get(
-      `${process.env.VUE_APP_API_URI}/core/v1/users/user`,
-      {
-        params: { include: "user-roles" },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.accessToken}`
-        }
+    const { data } = await this.http.get("/core/v1/users/user", {
+      params: { include: "user-roles" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.accessToken}`
       }
-    );
+    });
 
     localStorage.setItem("user", JSON.stringify(data.data));
   }
@@ -104,15 +101,12 @@ class Auth {
    * Clears the user's sessions on the API.
    */
   async clearSessions() {
-    await this.http.delete(
-      `${process.env.VUE_APP_API_URI}/core/v1/users/user/sessions`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.accessToken}`
-        }
+    await this.http.delete("/core/v1/users/user/sessions", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.accessToken}`
       }
-    );
+    });
   }
 
   /**

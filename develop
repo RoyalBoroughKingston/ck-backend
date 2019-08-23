@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Set script scope environment variables for dev or CI.
+export CFN_TEMPLATE=${CFN_TEMPLATE:-cloudformation}
+
+# Pass arguments to docker-compose, or default to docker-compose ps.
+if [[ $# -gt 0  ]]; then
+    case "$1" in
+
+        cfn|cloudformation )
+            docker-compose run --rm troposphere > aws/${CFN_TEMPLATE}.json
+            cat aws/${CFN_TEMPLATE}.json
+            ;;
+
+        * ) docker-compose "$@"; ;;
+
+    esac
+else
+    docker-compose ps
+fi
