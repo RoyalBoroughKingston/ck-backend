@@ -22,24 +22,37 @@
             :requested-at="updateRequest.created_at"
             :organisation="updateRequest.data"
           />
+
+          <organisation-sign-up-form-details
+            v-if="updateRequest.updateable_type === 'organisation_sign_up_form'"
+            :update-request-id="updateRequest.id"
+            :requested-at="updateRequest.created_at"
+            :user="updateRequest.data.user"
+            :organisation="updateRequest.data.organisation"
+            :service="updateRequest.data.service"
+          />
+
           <service-details
             v-else-if="updateRequest.updateable_type === 'services'"
             :update-request-id="updateRequest.id"
             :requested-at="updateRequest.created_at"
             :service="updateRequest.data"
           />
+
           <location-details
             v-else-if="updateRequest.updateable_type === 'locations'"
             :update-request-id="updateRequest.id"
             :requested-at="updateRequest.created_at"
             :location="updateRequest.data"
           />
+
           <service-location-details
             v-else-if="updateRequest.updateable_type === 'service_locations'"
             :update-request-id="updateRequest.id"
             :requested-at="updateRequest.created_at"
             :service-location="updateRequest.data"
           />
+
           <gov-body v-else>Update request is invalid</gov-body>
 
           <gov-section-break size="xl"/>
@@ -77,6 +90,7 @@
 <script>
 import http from "@/http";
 import OrganisationDetails from "@/views/update-requests/show/OrganisationDetails";
+import OrganisationSignUpFormDetails from "@/views/update-requests/show/OrganisationSignUpFormDetails";
 import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
 import LocationDetails from "@/views/update-requests/show/LocationDetails";
 import ServiceLocationDetails from "@/views/update-requests/show/ServiceLocationDetails";
@@ -85,6 +99,7 @@ export default {
   name: "ShowUpdateRequest",
   components: {
     OrganisationDetails,
+    OrganisationSignUpFormDetails,
     ServiceDetails,
     LocationDetails,
     ServiceLocationDetails
