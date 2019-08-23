@@ -10,7 +10,7 @@ import uuid
 # ==================================================
 # Template details.
 # ==================================================
-template = Template('Create the infrastructure needed to run the Connected Kinston Backend')
+template = Template('Create the infrastructure needed to run the Connected Kingston Backend')
 template.add_version('2010-09-09')
 
 # ==================================================
