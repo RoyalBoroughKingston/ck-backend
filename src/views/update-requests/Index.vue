@@ -26,7 +26,7 @@
             :params="params"
             default-sort="-created_at"
             :columns="[
-              { heading: 'User', render: (updateRequest) => `${updateRequest.user.first_name} ${updateRequest.user.last_name}` },
+              { heading: 'User', render: (updateRequest) => updateRequest.user ? `${updateRequest.user.first_name} ${updateRequest.user.last_name}` : 'N/A' },
               { heading: 'Type', render: (updateRequest) => displayType(updateRequest.updateable_type) },
               { heading: 'Entry', sort: 'entry', render: (updateRequest) => updateRequest.entry },
               { heading: 'Date / Time', sort: 'created_at', render: (updateRequest) => formatDateTime(updateRequest.created_at) },
@@ -86,6 +86,8 @@ export default {
           return "Location";
         case "service_locations":
           return "Service location";
+        case "organisation_sign_up_form":
+          return "Organisation sign up form";
         default:
           return "Invalid type";
       }
