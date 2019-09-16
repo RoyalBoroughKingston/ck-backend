@@ -18,6 +18,7 @@
               <li>The {{ form.type }} won't be made active until an admin has reviewed it.</li>
               <li>If there are any issues upon review, an admin will get directly in touch with you.</li>
               <li>You can return to edit this {{ form.type }} at any time.</li>
+              <li>If you would like your service to accept referrals through Connected Kingston, please contact the team at <gov-link href="mailto:info@connectedkingston.uk">info@connectedkingston.uk</gov-link></li>
             </gov-list>
           </template>
 
