@@ -55,7 +55,7 @@
               { heading: 'Service', sort: 'service_name', render: (referral) => referral.service.name },
               { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
               { heading: 'Status', render: (referral) => $options.filters.status(referral.status) },
-              { heading: 'Days remaining', render: (referral) => statusLastUpdated(referral) },
+              { heading: 'Days remaining', sort: 'created_at', render: (referral) => statusLastUpdated(referral) },
               { heading: 'Date submitted', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
             ]"
             :view-route="(referral) => {
@@ -135,7 +135,7 @@ export default {
 
       let businessDays = 0;
       for (var i = 0; i < duration; i++) {
-        const day = start.add(i, "days").isoWeekday();
+        const day = start.clone().add(i, "days").isoWeekday();
 
         if (day < 6) {
           businessDays += 1;
