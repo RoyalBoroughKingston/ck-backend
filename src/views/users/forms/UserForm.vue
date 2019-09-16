@@ -49,6 +49,21 @@
 
     <gov-heading size="m">Permissions</gov-heading>
 
+    <gov-list bullet>
+      <li>
+        <strong>Organisation admins:</strong>
+        Add services, add users, edit services, edit users, manage referrals
+      </li>
+      <li>
+        <strong>Service admins:</strong>
+        Edit services, manage referrals
+      </li>
+      <li>
+        <strong>Service workers:</strong>
+        Manage referrals
+      </li>
+    </gov-list>
+
     <user-roles-input
       :roles="roles"
       @input="$emit('update:roles', $event)"
