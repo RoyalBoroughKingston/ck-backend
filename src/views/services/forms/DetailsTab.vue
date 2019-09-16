@@ -19,7 +19,6 @@
           hint="This option changes how your page is described on Connected Kingston"
           :options="typeOptions"
           :error="errors.get('type')"
-          v-if="false"
         />
 
         <ck-text-input
@@ -100,20 +99,18 @@
           v-if="auth.isGlobalAdmin"
         />
 
-        <template v-if="false">
-          <gov-heading size="m">Gallery items</gov-heading>
+        <gov-heading size="m">Gallery items</gov-heading>
 
-          <gov-body>
-            Upload images of the {{ type }} to the {{ type }}'s gallery.
-          </gov-body>
+        <gov-body>
+          Upload images of the {{ type }} to the {{ type }}'s gallery.
+        </gov-body>
 
-          <ck-gallery-items-input
-            :gallery-items="gallery_items"
-            @input="$emit('update:gallery_items', $event)"
-            @clear="$emit('clear', $event)"
-            :errors="errors"
-          />
-        </template>
+        <ck-gallery-items-input
+          :gallery-items="gallery_items"
+          @input="$emit('update:gallery_items', $event)"
+          @clear="$emit('clear', $event)"
+          :errors="errors"
+        />
 
         <slot />
 
