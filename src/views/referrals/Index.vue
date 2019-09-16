@@ -135,7 +135,7 @@ export default {
 
       let businessDays = 0;
       for (var i = 0; i < duration; i++) {
-        const day = start.add(i, "days").isoWeekday();
+        const day = start.clone().add(i, "days").isoWeekday();
 
         if (day < 6) {
           businessDays += 1;

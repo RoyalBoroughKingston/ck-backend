@@ -120,6 +120,7 @@ export default {
   methods: {
     autoDeleteDate(updated_at) {
       return moment(updated_at, moment.ISO_8601)
+        .clone()
         .add(6, "months")
         .format("Y-MM-DD[T]HH:mm:ssZ");
     },
@@ -130,7 +131,7 @@ export default {
 
       let businessDays = 0;
       for (var i = 0; i < duration; i++) {
-        const day = start.add(i, "days").isoWeekday();
+        const day = start.clone().add(i, "days").isoWeekday();
 
         if (day < 6) {
           businessDays += 1;

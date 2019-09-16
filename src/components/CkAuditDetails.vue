@@ -53,6 +53,7 @@ export default {
   methods: {
     autoDeleteDate(updated_at) {
       return moment(updated_at, moment.ISO_8601)
+        .clone()
         .add(24, "months")
         .format("Y-MM-DD[T]HH:mm:ssZ");
     }
