@@ -176,6 +176,19 @@ export default {
             starts_at: "",
             ends_at: ""
           })
+        },
+        {
+          type: "Historic Update Requests Export",
+          description: `Generate a report of all approved/rejected update requests.`,
+          scheduleForm: new Form({
+            report_type: "Historic Update Requests Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Historic Update Requests Export",
+            starts_at: "",
+            ends_at: ""
+          })
         }
       ],
       repeatTypeOptions: [
@@ -268,6 +281,8 @@ export default {
           return false;
         case "Users Export":
           return false;
+        case "Historic Update Requests Export":
+          return true;
       }
     }
   },
