@@ -55,7 +55,7 @@
               { heading: 'Service', sort: 'service_name', render: (referral) => referral.service.name },
               { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
               { heading: 'Status', render: (referral) => $options.filters.status(referral.status) },
-              { heading: 'Days remaining', render: (referral) => statusLastUpdated(referral) },
+              { heading: 'Days remaining', sort: 'created_at', render: (referral) => statusLastUpdated(referral) },
               { heading: 'Date submitted', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
             ]"
             :view-route="(referral) => {
