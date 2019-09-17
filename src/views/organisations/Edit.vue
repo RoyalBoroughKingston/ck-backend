@@ -67,8 +67,8 @@ export default {
         slug: this.organisation.slug,
         description: this.organisation.description,
         url: this.organisation.url,
-        email: this.organisation.email,
-        phone: this.organisation.phone,
+        email: this.organisation.email || '',
+        phone: this.organisation.phone || '',
         logo_file_id: null
       });
 
@@ -91,10 +91,10 @@ export default {
           if (data.url === this.organisation.url) {
             delete data.url;
           }
-          if (data.email === this.organisation.email) {
+          if (data.email === (this.organisation.email || '-')) {
             delete data.email;
           }
-          if (data.phone === this.organisation.phone) {
+          if (data.phone === (this.organisation.phone || '-')) {
             delete data.phone;
           }
 

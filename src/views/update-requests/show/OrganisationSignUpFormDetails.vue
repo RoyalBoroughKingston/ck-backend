@@ -60,12 +60,12 @@
 
         <gov-table-row>
           <gov-table-header top scope="row">Email</gov-table-header>
-          <gov-table-cell>{{ organisation.email }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.email || '-' }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
           <gov-table-header top scope="row">Phone</gov-table-header>
-          <gov-table-cell>{{ organisation.phone }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.phone || '-' }}</gov-table-cell>
         </gov-table-row>
       </template>
     </gov-table>
@@ -222,12 +222,12 @@
 
         <gov-table-row>
           <gov-table-header top scope="row">Contact email</gov-table-header>
-          <gov-table-cell>{{ service.contact_email }}</gov-table-cell>
+          <gov-table-cell>{{ service.contact_email || '-' }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
           <gov-table-header top scope="row">Contact phone</gov-table-header>
-          <gov-table-cell>{{ service.contact_phone }}</gov-table-cell>
+          <gov-table-cell>{{ service.contact_phone || '-' }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>

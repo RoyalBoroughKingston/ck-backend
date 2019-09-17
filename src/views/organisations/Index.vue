@@ -31,8 +31,8 @@
             :columns="[
               { heading: 'Organisation name', sort: 'name', render: (organisation) => organisation.name },
               { heading: 'Web address URL', render: (organisation) => organisation.url },
-              { heading: 'Phone number', render: (organisation) => organisation.phone },
-              { heading: 'Email', render: (organisation) => organisation.email },
+              { heading: 'Phone number', render: (organisation) => organisation.phone || '-' },
+              { heading: 'Email', render: (organisation) => organisation.email || '-' },
             ]"
             :view-route="(organisation) => {
               return {
