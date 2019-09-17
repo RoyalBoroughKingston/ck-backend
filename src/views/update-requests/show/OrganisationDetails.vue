@@ -34,14 +34,14 @@
 
         <gov-table-row v-if="organisation.hasOwnProperty('email')">
           <gov-table-header top scope="row">Email</gov-table-header>
-          <gov-table-cell>{{ original.email }}</gov-table-cell>
-          <gov-table-cell>{{ organisation.email }}</gov-table-cell>
+          <gov-table-cell>{{ original.email || '-' }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.email || '-' }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row v-if="organisation.hasOwnProperty('phone')">
           <gov-table-header top scope="row">Phone</gov-table-header>
-          <gov-table-cell>{{ original.phone }}</gov-table-cell>
-          <gov-table-cell>{{ organisation.phone }}</gov-table-cell>
+          <gov-table-cell>{{ original.phone || '-' }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.phone || '-' }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row v-if="organisation.hasOwnProperty('description')">
