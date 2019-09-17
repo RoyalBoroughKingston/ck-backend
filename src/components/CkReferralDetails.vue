@@ -28,7 +28,32 @@
 
       <gov-table-row>
         <gov-table-header top scope="row">Signposted To</gov-table-header>
-        <gov-table-cell>{{ referral.service.name }}</gov-table-cell>
+        <gov-table-cell>
+          <gov-link
+            :to="{
+              name: 'services-show',
+              params: { service: referral.service.id }
+            }"
+          >
+            {{ referral.service.name }}
+          </gov-link>
+        </gov-table-cell>
+      </gov-table-row>
+
+      <gov-table-row>
+        <gov-table-header top scope="row">Organisation</gov-table-header>
+        <gov-table-cell>
+          <ck-loader v-if="loadingOrganisation" />
+          <gov-link
+            v-else
+            :to="{
+              name: 'organisations-show',
+              params: { organisation: organisation.id }
+            }"
+          >
+            {{ organisation.name }}
+          </gov-link>
+        </gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>
@@ -92,6 +117,7 @@
 
 <script>
 import moment from "moment";
+import http from "@/http";
 
 export default {
   name: "CkReferralDetails",
@@ -99,6 +125,12 @@ export default {
     referral: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      loadingOrganisation: false,
+      organisation: null
     }
   },
   computed: {
@@ -116,6 +148,9 @@ export default {
     consented() {
       return this.referral.referral_consented_at === null ? "No" : "Yes";
     }
+  },
+  created() {
+    this.fetchOrganisation()
   },
   methods: {
     autoDeleteDate(updated_at) {
@@ -150,6 +185,18 @@ export default {
       );
 
       return workingDays >= 10 ? "Due" : 10 - workingDays;
+    },
+    async fetchOrganisation() {
+      this.loadingOrganisation = true
+
+      const {
+        data: { data: organisation }
+      } = await http.get(
+        `/organisations/${this.referral.service.organisation_id}`
+      )
+      this.organisation = organisation
+
+      this.loadingOrganisation = false
     }
   },
   filters: {
