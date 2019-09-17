@@ -6,8 +6,10 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="one-half">
-          <gov-body size="l" class="govuk-!-font-weight-bold">You are about to access referral information</gov-body>
-          <gov-body>Due to confidentiality you will be tracked</gov-body>
+          <gov-body size="l" class="govuk-!-font-weight-bold">
+            You are about to access confidential referral information
+          </gov-body>
+          <gov-body>Access to referral data is tracked</gov-body>
           <gov-button @click="onContinue">Continue</gov-button>
         </gov-grid-column>
       </gov-grid-row>
