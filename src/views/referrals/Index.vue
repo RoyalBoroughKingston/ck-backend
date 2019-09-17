@@ -62,9 +62,8 @@
                 render: (referral) => referral.service.name
               },
               {
-                heading: 'Organisation',
-                sort: 'organisation_name',
-                render: (referral) => referral.service.organisation.name
+                heading: 'Referred by',
+                render: (referral) => referral.referee_name || '-'
               },
               {
                 heading: 'Status',
