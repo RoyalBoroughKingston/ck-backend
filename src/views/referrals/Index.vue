@@ -51,12 +51,35 @@
             :params="params"
             default-sort="-created_at"
             :columns="[
-              { heading: 'Reference no.', sort: 'reference', render: (referral) => referral.reference },
-              { heading: 'Service', sort: 'service_name', render: (referral) => referral.service.name },
-              { heading: 'Organisation', sort: 'organisation_name', render: (referral) => referral.service.organisation.name },
-              { heading: 'Status', render: (referral) => $options.filters.status(referral.status) },
-              { heading: 'Days remaining', sort: 'created_at', render: (referral) => statusLastUpdated(referral) },
-              { heading: 'Date submitted', sort: 'created_at', render: (referral) => formatDateTime(referral.created_at) },
+              {
+                heading: 'Reference no.',
+                sort: 'reference',
+                render: (referral) => referral.reference
+              },
+              {
+                heading: 'Service',
+                sort: 'service_name',
+                render: (referral) => referral.service.name
+              },
+              {
+                heading: 'Referred by',
+                render: (referral) => referral.referee_name || '-'
+              },
+              {
+                heading: 'Status',
+                render: (referral) => $options.filters.status(referral.status)
+              },
+              {
+                heading: 'Date submitted',
+                sort: 'created_at',
+                render: (referral) => {
+                  return `
+                    ${formatDateTime(referral.created_at)}
+                    <br>
+                    ${statusLastUpdated(referral)} days remaining
+                  `
+                }
+              },
             ]"
             :view-route="(referral) => {
               return {
