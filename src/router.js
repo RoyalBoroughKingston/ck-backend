@@ -474,6 +474,42 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/register",
+      component: () => import("@/views/register/Index"),
+      children: [
+        {
+          path: "",
+          name: "register-index",
+          component: () => import("@/views/register/index/Eligibility"),
+          meta: { auth: false }
+        },
+        {
+          path: "user",
+          name: "register-index-user",
+          component: () => import("@/views/register/index/User"),
+          meta: { auth: false }
+        },
+        {
+          path: "organisation",
+          name: "register-index-organisation",
+          component: () => import("@/views/register/index/Organisation"),
+          meta: { auth: false }
+        },
+        {
+          path: "service",
+          name: "register-index-service",
+          component: () => import("@/views/register/index/Service"),
+          meta: { auth: false }
+        },
+        {
+          path: "success",
+          name: "register-index-success",
+          component: () => import("@/views/register/index/Success"),
+          meta: { auth: false }
+        }
+      ]
+    },
+    {
       path: "*",
       name: "404",
       component: () => import("@/views/errors/404")
