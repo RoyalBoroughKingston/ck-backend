@@ -32,10 +32,9 @@
 
             <useful-info-tab
               v-if="isTabActive('useful-info')"
-              :type="service.type"
-              :useful_infos.sync="service.useful_infos"
+              :service="service"
               :errors="errors"
-              @clear="errors.clear($event); errors = {}"
+              @input="onInput($event.field, $event.value)"
             >
               <gov-button @click="onNext" start>
                 Next

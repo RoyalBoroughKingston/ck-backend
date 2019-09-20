@@ -4,17 +4,17 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
-        <gov-body>What do people want to know about your {{ type }}.</gov-body>
+        <gov-body>
+          What do people want to know about your {{ service.type }}.
+        </gov-body>
 
         <useful-infos-input
-          :useful-infos="useful_infos"
-          @input="$emit('update:useful_infos', $event)"
-          @clear="$emit('clear', $event)"
+          :useful-infos="service.useful_infos"
+          @input="$emit('input', { field: 'useful_infos', value: $event })"
           :errors="errors"
         />
 
         <slot />
-
       </gov-grid-column>
     </gov-grid-row>
   </div>
@@ -24,19 +24,18 @@
 import UsefulInfosInput from "@/views/services/inputs/UsefulInfosInput";
 
 export default {
-  name: "UsefulInfoTab",
-  components: { UsefulInfosInput },
+  components: {
+    UsefulInfosInput
+  },
+
   props: {
+    service: {
+      type: Object,
+      required: true
+    },
+
     errors: {
-      required: true,
-      type: Object
-    },
-    type: {
-      required: true,
-      type: String
-    },
-    useful_infos: {
-      type: Array,
+      type: Object,
       required: true
     }
   }
