@@ -1,41 +1,58 @@
 <template>
   <div>
-    <gov-heading size="l">Who is your {{ type }} for?</gov-heading>
+    <gov-heading size="l">Who is your {{ service.type }} for?</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>
-          Use this section to help indicate who should be using your {{ type }}.
-          If any of these criteria do not apply, please leave them blank.
+          Use this section to help indicate who should be using your
+          {{ service.type }}. If any of these criteria do not apply, please
+          leave them blank.
         </gov-body>
+
         <gov-section-break size="l" />
 
         <!-- Age group -->
         <criteria-input
-          :value="age_group"
-          @input="$emit('update:age_group', $event); $emit('clear', 'criteria.age_group')"
-          :error="errors.get('criteria.age_group')"
+          :value="service.criteria.age_group"
+          @input="
+            $emit('input', {
+              field: 'criteria',
+              value: Object.assign(service.criteria, { age_group: $event })
+            })
+          "
+          :error="errors.get('service.criteria.age_group')"
           id="criteria.age_group"
           label="Age of service user (if applicable)"
-          :hint="`E.g “This ${type} is for people 16+” or “This ${type} is aimed at people nearing retirement”`"
+          :hint="`E.g “This ${service.type} is for people 16+” or “This ${service.type} is aimed at people nearing retirement”`"
         />
         <!-- /Age group -->
 
         <!-- Disability -->
         <criteria-input
-          :value="disability"
-          @input="$emit('update:disability', $event); $emit('clear', 'criteria.disability')"
-          :error="errors.get('criteria.disability')"
+          :value="service.criteria.disability"
+          @input="
+            $emit('input', {
+              field: 'criteria',
+              value: Object.assign(service.criteria, { disability: $event })
+            })
+          "
+          :error="errors.get('service.criteria.disability')"
           id="criteria.disability"
           label="Disability Requirements / Restrictions (if applicable)"
-          :hint='`e.g. "This ${type} is for those with MS and their carers", or "For all people with disabilities and their carers"`'
+          :hint='`e.g. "This ${service.type} is for those with MS and their carers", or "For all people with disabilities and their carers"`'
         />
         <!-- /Disability -->
 
         <!-- Gender -->
         <criteria-input
-          :value="gender"
-          @input="$emit('update:gender', $event); $emit('clear', 'criteria.gender')"
-          :error="errors.get('criteria.gender')"
+          :value="service.criteria.gender"
+          @input="
+            $emit('input', {
+              field: 'criteria',
+              value: Object.assign(service.criteria, { gender: $event })
+            })
+          "
+          :error="errors.get('service.criteria.gender')"
           id="criteria.gender"
           label="Gender Specific (if applicable)"
           hint='e.g. "Women only"'
@@ -44,9 +61,14 @@
 
         <!-- Housing -->
         <criteria-input
-          :value="housing"
-          @input="$emit('update:housing', $event); $emit('clear', 'criteria.housing')"
-          :error="errors.get('criteria.housing')"
+          :value="service.criteria.housing"
+          @input="
+            $emit('input', {
+              field: 'criteria',
+              value: Object.assign(service.criteria, { housing: $event })
+            })
+          "
+          :error="errors.get('service.criteria.housing')"
           id="criteria.housing"
           label="Specific Housing status/needs (if applicable)"
           hint='e.g. "For people who are homeless or at risk of homelessness"'
@@ -55,39 +77,53 @@
 
         <!-- Income -->
         <criteria-input
-          :value="income"
-          @input="$emit('update:income', $event); $emit('clear', 'criteria.income')"
-          :error="errors.get('criteria.income')"
+          :value="service.criteria.income"
+          @input="
+            $emit('input', {
+              field: 'criteria',
+              value: Object.assign(service.criteria, { income: $event })
+            })
+          "
+          :error="errors.get('service.criteria.income')"
           id="criteria.income"
           label="Income level (if applicable)"
-          :hint='`e.g. "This ${type} is aimed at people claiming benefits or with Income support"`'
+          :hint='`e.g. "This ${service.type} is aimed at people claiming benefits or with Income support"`'
         />
         <!-- /Income -->
 
         <!-- Language -->
         <criteria-input
-          :value="language"
-          @input="$emit('update:language', $event); $emit('clear', 'criteria.language')"
-          :error="errors.get('criteria.language')"
+          :value="service.criteria.language"
+          @input="
+            $emit('input', {
+              field: 'criteria',
+              value: Object.assign(service.criteria, { language: $event })
+            })
+          "
+          :error="errors.get('service.criteria.language')"
           id="criteria.language"
           label="Language accessability (if applicable)"
-          :hint="`E.g. “Instructors speak English, but open to all”, or “This ${type} is available in a number of languages - please contact for more information”`"
+          :hint="`E.g. “Instructors speak English, but open to all”, or “This ${service.type} is available in a number of languages - please contact for more information”`"
         />
         <!-- /Language -->
 
         <!-- Other -->
         <criteria-input
-          :value="other"
-          @input="$emit('update:other', $event); $emit('clear', 'criteria.other')"
-          :error="errors.get('criteria.other')"
+          :value="service.criteria.other"
+          @input="
+            $emit('input', {
+              field: 'criteria',
+              value: Object.assign(service.criteria, { other: $event })
+            })
+          "
+          :error="errors.get('service.criteria.other')"
           id="criteria.other"
-          :label="`Any other notes as to who the ${type} is aimed at/not appropriate for?`"
-          :hint="`E.g. “This ${type} is open to all”, or “This ${type} is aimed at people living in Chessington”`"
+          :label="`Any other notes as to who the ${service.type} is aimed at/not appropriate for?`"
+          :hint="`E.g. “This ${service.type} is open to all”, or “This ${service.type} is aimed at people living in Chessington”`"
         />
         <!-- /Other -->
 
         <slot />
-
       </gov-grid-column>
     </gov-grid-row>
   </div>
@@ -97,38 +133,18 @@
 import CriteriaInput from "@/views/services/inputs/CriteriaInput";
 
 export default {
-  name: "WhoForTab",
-  components: { CriteriaInput },
+  components: {
+    CriteriaInput
+  },
+
   props: {
+    service: {
+      type: Object,
+      required: true
+    },
+
     errors: {
-      required: true
-    },
-    type: {
-      required: true,
-      type: String
-    },
-    age_group: {
-      required: true
-    },
-    disability: {
-      required: true
-    },
-    employment: {
-      required: true
-    },
-    gender: {
-      required: true
-    },
-    housing: {
-      required: true
-    },
-    income: {
-      required: true
-    },
-    language: {
-      required: true
-    },
-    other: {
+      type: Object,
       required: true
     }
   }

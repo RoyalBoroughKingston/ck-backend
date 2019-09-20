@@ -43,17 +43,9 @@
 
             <who-for-tab
               v-if="isTabActive('who-for')"
-              :type="service.type"
-              :age_group.sync="service.criteria.age_group"
-              :disability.sync="service.criteria.disability"
-              :employment.sync="service.criteria.employment"
-              :gender.sync="service.criteria.gender"
-              :housing.sync="service.criteria.housing"
-              :income.sync="service.criteria.income"
-              :language.sync="service.criteria.language"
-              :other.sync="service.criteria.other"
+              :service="service"
               :errors="errors"
-              @clear="errors.clear($event); errors = {}"
+              @input="onInput($event.field, $event.value)"
             >
               <gov-button @click="onNext" start>
                 Next
