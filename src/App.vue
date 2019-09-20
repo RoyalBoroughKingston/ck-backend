@@ -8,7 +8,7 @@
 
     <div class="govuk-width-container">
       <main class="govuk-main-wrapper" :class="mainClasses" id="main-content" role="main">
-        <router-view/>
+        <router-view />
       </main>
     </div>
 
@@ -71,7 +71,10 @@ export default {
       ];
     },
     loggedOutItems() {
-      return [{ text: "Login", href: Auth.authorizeUrl }];
+      return [
+        { text: "Register", to: { name: "register-index" } },
+        { text: "Login", href: Auth.authorizeUrl },
+      ];
     }
   },
   methods: {

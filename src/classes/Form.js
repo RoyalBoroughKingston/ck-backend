@@ -7,8 +7,9 @@ export default class Form {
    *
    * @param {object} data
    * @param {object} config
+   * @param {object} httpClient
    */
-  constructor(data, config = {}) {
+  constructor(data, config = {}, httpClient = http) {
     this.$originalData = data;
 
     for (let field in data) {
@@ -18,6 +19,7 @@ export default class Form {
     this.$errors = new Errors();
     this.$submitting = false;
     this.$config = config;
+    this.$http = httpClient;
   }
 
   /**
@@ -93,7 +95,7 @@ export default class Form {
     }
 
     return new Promise((resolve, reject) => {
-      http[requestType](url, data, config)
+      this.$http[requestType](url, data, config)
         .then(response => {
           this.onSuccess(response.data);
 
