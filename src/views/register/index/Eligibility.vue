@@ -30,7 +30,7 @@
 
             <gov-checkboxes>
               <gov-checkbox
-                :value="organisation_types.includes('community')"
+                :value="form.organisation_types.includes('community')"
                 id="organisation_types.community"
                 name="organisation_types"
                 label="1. A community, voluntary or faith based service (not prothletising) eg. a Charity"
@@ -38,7 +38,7 @@
               />
 
               <gov-checkbox
-                :value="organisation_types.includes('council')"
+                :value="form.organisation_types.includes('council')"
                 id="organisation_types.council"
                 name="organisation_types"
                 label="2. A Council or other statutory service, e.g. services delivered by the NHS or Kingston CCG)"
@@ -46,7 +46,7 @@
               />
 
               <gov-checkbox
-                :value="organisation_types.includes('commercial')"
+                :value="form.organisation_types.includes('commercial')"
                 id="organisation_types.commercial"
                 name="organisation_types"
                 label="3. A commercial provider offering services to Kingston residents that support health, wellbeing and/or community for free or a reasonable charge"
@@ -54,7 +54,7 @@
               />
 
               <gov-checkbox
-                :value="organisation_types.includes('commercial_contracted')"
+                :value="form.organisation_types.includes('commercial_contracted')"
                 id="organisation_types.commercial_contracted"
                 name="organisation_types"
                 label="4. A commercial service that is contracted or spot purchased under a commissioning arrangement with Royal Borough of Kingston (RBK) Council, intended to improve the health, wellbeing or independence of Kingston residents"
@@ -66,7 +66,7 @@
           <gov-button
             start
             :to="{ name: 'register-index-user' }"
-            :disabled="organisation_types.length === 0"
+            :disabled="form.organisation_types.length === 0"
           >
             Next
           </gov-button>
@@ -79,8 +79,8 @@
 <script>
 export default {
   props: {
-    organisation_types: {
-      type: Array,
+    form: {
+      type: Object,
       required: true
     },
 
@@ -92,15 +92,20 @@ export default {
 
   methods: {
     onInput(organisationType) {
-      if (this.organisation_types.includes(organisationType)) {
+      if (this.form.organisation_types.includes(organisationType)) {
         this.$emit(
-          'update:organisation_types',
-          this.organisation_types.filter((type) => type !== organisationType)
+          'input',
+          Object.assign(this.form, {
+            organisation_types: this.form.organisation_types
+              .filter((type) => type !== organisationType)
+          })
         );
       } else {
         this.$emit(
-          'update:organisation_types',
-          [...this.organisation_types, organisationType]
+          'input',
+          Object.assign(this.form, {
+            organisation_types: [...this.form.organisation_types, organisationType]
+          })
         );
       }
 

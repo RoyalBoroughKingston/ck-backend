@@ -17,39 +17,39 @@
           </gov-body>
 
           <ck-text-input
-            :value="user.first_name"
+            :value="form.user.first_name"
             @input="onInput('first_name', $event)"
             id="first_name"
             label="First name"
             type="text"
-            :error="errors.get('first_name')"
+            :error="errors.get('user.first_name')"
           />
 
           <ck-text-input
-            :value="user.last_name"
+            :value="form.user.last_name"
             @input="onInput('last_name', $event)"
             id="last_name"
             label="Last name"
             type="text"
-            :error="errors.get('last_name')"
+            :error="errors.get('user.last_name')"
           />
 
           <ck-text-input
-            :value="user.email"
+            :value="form.user.email"
             @input="onInput('email', $event)"
             id="email"
             label="Email"
             type="email"
-            :error="errors.get('email')"
+            :error="errors.get('user.email')"
           />
 
           <ck-text-input
-            :value="user.phone"
+            :value="form.user.phone"
             @input="onInput('phone', $event)"
             id="phone"
             label="Phone"
             type="tel"
-            :error="errors.get('phone')"
+            :error="errors.get('user.phone')"
           />
 
           <gov-button start :to="{ name: 'register-index-organisation' }">
@@ -64,7 +64,7 @@
 <script>
 export default {
   props: {
-    user: {
+    form: {
       type: Object,
       required: true
     },
@@ -77,7 +77,12 @@ export default {
 
   methods: {
     onInput(field, value) {
-      this.$emit('input', Object.assign(this.user, { [field]: value }));
+      this.$emit('input', Object.assign(this.form, {
+        user: {
+          ...this.form.user,
+          [field]: value
+        }
+      }));
       this.$emit('clear', `user.${field}`);
     }
   }

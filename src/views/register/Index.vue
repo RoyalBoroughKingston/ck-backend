@@ -2,19 +2,34 @@
   <gov-width-container>
     <vue-headful title="Connected Kingston - Register" />
 
+    <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
+      <gov-list>
+        <li
+          v-for="(error, field) in form.$errors.all()"
+          :key="field"
+          v-text="error[0]"
+        />
+      </gov-list>
+    </gov-error-summary>
+
     <router-view
-      :organisation_types.sync="form.organisation_types"
-      :user.sync="form.user"
-      :organisation.sync="form.organisation"
-      :service.sync="form.service"
+      :form="form"
       :errors="form.$errors"
-      @clear="form.$errors.clear($event)"
+      @input="onInput($event)"
+      @clear="$delete(form.$errors.errors, $event.replace(/\./g, '_'))"
+      @submit="onSubmit"
     />
   </gov-width-container>
 </template>
 
 <script>
 import Form from "@/classes/Form"
+import axios from "axios";
+
+const http = axios.create({
+  baseURL: `${process.env.VUE_APP_API_URI}/core/v1`
+});
+http.defaults.headers.post["Content-Type"] = "application/json";
 
 export default {
   data() {
@@ -65,7 +80,7 @@ export default {
           offerings: [],
           social_medias: []
         }
-      })
+      }, {}, http)
     }
   },
 
@@ -85,5 +100,23 @@ export default {
       }
     }
   },
+
+  methods: {
+    onInput(data) {
+      for (const field in data) {
+        this.$set(this.form, field, data[field]);
+      }
+    },
+
+    async onSubmit() {
+      try {
+        await this.form.post('/organisation-sign-up-forms');
+        this.$router.push({ name: 'register-index-success' });
+      } catch (exception) {
+        //
+        console.log('error occured bruh');
+      }
+    }
+  }
 }
 </script>

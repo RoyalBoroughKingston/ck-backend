@@ -10,7 +10,7 @@
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
             <details-tab
               v-if="isTabActive('details')"
-              :service="service"
+              :service="form.service"
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
@@ -21,7 +21,7 @@
 
             <additional-info-tab
               v-if="isTabActive('additional-info')"
-              :service="service"
+              :service="form.service"
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
@@ -32,7 +32,7 @@
 
             <useful-info-tab
               v-if="isTabActive('useful-info')"
-              :service="service"
+              :service="form.service"
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
@@ -43,7 +43,7 @@
 
             <who-for-tab
               v-if="isTabActive('who-for')"
-              :service="service"
+              :service="form.service"
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
@@ -54,31 +54,20 @@
 
             <description-tab
               v-if="isTabActive('description')"
-              :service="service"
+              :service="form.service"
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
-              <gov-button @click="onNext" start>
-                Next
-              </gov-button>
-            </description-tab>
-
-            <referral-tab
-              v-if="isTabActive('referral')"
-              :service="service"
-              :errors="errors"
-              @input="onInput($event.field, $event.value)"
-            >
-              <gov-button v-if="service.$submitting" disabled type="submit">
+              <gov-button v-if="form.$submitting" disabled type="submit">
                 Submitting...
               </gov-button>
 
-              <gov-button v-else @click="onSubmit" type="submit">
+              <gov-button v-else @click="$emit('submit')" type="submit">
                 Submit
               </gov-button>
 
               <ck-submit-error v-if="errors.any()" />
-            </referral-tab>
+            </description-tab>
           </gov-tabs>
         </gov-grid-column>
       </gov-grid-row>
@@ -92,7 +81,6 @@ import DescriptionTab from "@/views/register/index/forms/DescriptionTab";
 import AdditionalInfoTab from "@/views/register/index/forms/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/register/index/forms/UsefulInfoTab";
 import WhoForTab from "@/views/register/index/forms/WhoForTab";
-import ReferralTab from "@/views/register/index/forms/ReferralTab";
 
 export default {
   components: {
@@ -100,12 +88,11 @@ export default {
     DescriptionTab,
     AdditionalInfoTab,
     UsefulInfoTab,
-    WhoForTab,
-    ReferralTab
+    WhoForTab
   },
 
   props: {
-    service: {
+    form: {
       type: Object,
       required: true
     },
@@ -123,15 +110,19 @@ export default {
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Good to know", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
-        { id: "description", heading: "Description", active: false },
-        { id: "referral", heading: "Referral", active: false }
+        { id: "description", heading: "Description", active: false }
       ]
     }
   },
 
   methods: {
     onInput(field, value) {
-      this.$emit('input', Object.assign(this.service, { [field]: value }));
+      this.$emit('input', Object.assign(this.form, {
+        service: {
+          ...this.form.service,
+          [field]: value
+        }
+      }));
       this.$emit('clear', `service.${field}`);
     },
 

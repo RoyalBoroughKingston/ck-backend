@@ -17,62 +17,62 @@
           </gov-body>
 
           <ck-text-input
-            :value="organisation.name"
+            :value="form.organisation.name"
             @input="onInput('name', $event)"
             id="name"
             label="Organisation name"
             type="text"
-            :error="errors.get('name')"
+            :error="errors.get('organisation.name')"
           />
 
           <ck-text-input
-            :value="organisation.slug"
+            :value="form.organisation.slug"
             @input="onInput('slug', $event)"
             id="slug"
             label="Unique slug"
             type="text"
-            :error="errors.get('slug')"
+            :error="errors.get('organisation.slug')"
           >
             <gov-hint slot="hint" for="slug">
               This will be used to access the organisation page.<br>
-              e.g. example.com/organisations/{{ organisation.slug }}
+              e.g. example.com/organisations/{{ form.organisation.slug }}
             </gov-hint>
           </ck-text-input>
 
           <ck-wysiwyg-input
-            :value="organisation.description"
+            :value="form.organisation.description"
             @input="onInput('description', $event)"
             id="description"
             label="Please provide a one-line summary of organisation"
             hint="This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page."
-            :error="errors.get('description')"
+            :error="errors.get('organisation.description')"
           />
 
           <ck-text-input
-            :value="organisation.url"
+            :value="form.organisation.url"
             @input="onInput('url', $event)"
             id="url"
             label="Organisation website address"
             type="url"
-            :error="errors.get('url')"
+            :error="errors.get('organisation.url')"
           />
 
           <ck-text-input
-            :value="organisation.phone"
+            :value="form.organisation.phone"
             @input="onInput('phone', $event)"
             id="phone"
             label="Public phone"
             type="tel"
-            :error="errors.get('phone')"
+            :error="errors.get('organisation.phone')"
           />
 
           <ck-text-input
-            :value="organisation.email"
+            :value="form.organisation.email"
             @input="onInput('email', $event)"
             id="email"
             label="Public email address"
             type="email"
-            :error="errors.get('email')"
+            :error="errors.get('organisation.email')"
           />
 
           <gov-button start :to="{ name: 'register-index-service' }">
@@ -87,7 +87,7 @@
 <script>
 export default {
   props: {
-    organisation: {
+    form: {
       type: Object,
       required: true
     },
@@ -100,7 +100,12 @@ export default {
 
   methods: {
     onInput(field, value) {
-      this.$emit('input', Object.assign(this.organisation, { [field]: value }));
+      this.$emit('input', Object.assign(this.form, {
+        organisation: {
+          ...this.form.organisation,
+          [field]: value
+        }
+      }));
       this.$emit('clear', `organisation.${field}`);
     }
   }
