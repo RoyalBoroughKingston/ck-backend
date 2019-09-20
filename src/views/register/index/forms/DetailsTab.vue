@@ -1,58 +1,58 @@
 <template>
   <div>
-    <gov-heading size="l">{{ type | ucfirst }} details</gov-heading>
+    <gov-heading size="l">{{ service.type | ucfirst }} details</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
         <gov-body>
-          General details about the {{ type }}. (We use {{ type }} in the
-          broadcast sense, This could be counciling or weekly yoga classes).
+          General details about the {{ service.type }}. (We use
+          {{ service.type }} in the broadcast sense, This could be counciling or
+          weekly yoga classes).
         </gov-body>
 
         <gov-section-break size="l" />
 
         <ck-select-input
-          :value="type"
-          @input="onInput('type', $event)"
+          :value="service.type"
+          @input="$emit('input', { field: 'type', value: $event })"
           id="type"
           label="What is it?"
           hint="This option changes how your page is described on Connected Kingston"
           :options="typeOptions"
-          :error="errors.get('type')"
+          :error="errors.get('service.type')"
         />
 
         <ck-text-input
-          :value="name"
-          @input="onInput('name', $event)"
+          :value="service.name"
+          @input="$emit('input', { field: 'name', value: $event })"
           id="name"
-          :label="`What is the name of your ${type}?`"
+          :label="`What is the name of your ${service.type}?`"
           type="text"
-          :error="errors.get('name')"
+          :error="errors.get('service.name')"
         />
 
         <ck-text-input
-          :value="slug"
-          @input="onInput('slug', $event)"
+          :value="service.slug"
+          @input="$emit('input', { field: 'slug', value: $event })"
           id="slug"
           label="Unique slug"
           type="text"
-          :error="errors.get('slug')"
-          v-if="auth.isGlobalAdmin"
+          :error="errors.get('service.slug')"
         >
           <gov-hint slot="hint" for="slug">
-            This will be used to access the {{ type }} page.<br>
-            e.g. example.com/services/{{ slug }}
+            This will be used to access the {{ service.type }} page.<br>
+            e.g. example.com/services/{{ service.slug }}
           </gov-hint>
         </ck-text-input>
 
         <ck-text-input
-          :value="url"
-          @input="onInput('url', $event)"
+          :value="service.url"
+          @input="$emit('input', { field: 'url', value: $event })"
           id="url"
-          :label="`What is the web address of your ${type}?`"
-          :hint="`This must start with ‘http://’ or ‘https://’. You can use your organisation’s website address if the ${type} doesn’t have its own.`"
+          :label="`What is the web address of your ${service.type}?`"
+          :hint="`This must start with ‘http://’ or ‘https://’. You can use your organisation’s website address if the ${service.type} doesn’t have its own.`"
           type="url"
-          :error="errors.get('url')"
+          :error="errors.get('service.url')"
         />
 
         <slot />
@@ -64,23 +64,8 @@
 <script>
 export default {
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-
-    slug: {
-      type: String,
-      required: true
-    },
-
-    type: {
-      type: String,
-      required: true
-    },
-
-    url: {
-      type: String,
+    service: {
+      type: Object,
       required: true
     },
 
@@ -99,12 +84,6 @@ export default {
         { text: "It is a Group", value: "group" }
       ]
     };
-  },
-
-  methods: {
-    onInput(field, value) {
-      this.$emit(`update:${field}`, value);
-    }
   }
 };
 </script>

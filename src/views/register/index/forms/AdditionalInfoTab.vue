@@ -1,125 +1,135 @@
 <template>
   <div>
-    <gov-heading size="l">Additional {{ type }} information</gov-heading>
+    <gov-heading size="l">
+      Additional {{ service.type }} information
+    </gov-heading>
+
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
         <gov-body>
-          This section allows you to add more information to your {{ type }} page.
-          The more detail that can be provided, the better.
+          This section allows you to add more information to your
+          {{ service.type }} page. The more detail that can be provided, the
+          better.
         </gov-body>
 
         <gov-section-break size="l" />
 
         <ck-select-input
-          :value="wait_time"
-          @input="$emit('update:wait_time', $event); $emit('clear', 'wait_time')"
+          :value="service.wait_time"
+          @input="$emit('input', { field: 'wait_time', value: $event })"
           id="wait_time"
           label="Usual wait time (if applicable)"
           :options="waitTimeOptions"
-          :error="errors.get('wait_time')"
+          :error="errors.get('service.wait_time')"
         >
           <template slot="hint">
             <gov-hint for="wait_time">
               Provide an indication of how long someone may have to wait to
-              access your {{ type }} after initial contact has been made. You
-              can amend this in future as and when circumstances change.
+              access your {{ service.type }} after initial contact has been
+              made. You can amend this in future as and when circumstances
+              change.
             </gov-hint>
+
             <gov-hint for="wait_time">
-              If this is not relevant to your {{ type }}, please skip this
-              question.
+              If this is not relevant to your {{ service.type }}, please skip
+              this question.
             </gov-hint>
           </template>
         </ck-select-input>
 
         <ck-radio-input
-          :value="is_free"
-          @input="$emit('update:is_free', $event); $emit('clear', 'is_free')"
+          :value="service.is_free"
+          @input="$emit('input', { field: 'is_free', value: $event })"
           id="is_free"
-          :label="`Is the ${type} free?`"
+          :label="`Is the ${service.type} free?`"
           :options="isFreeOptions"
-          :error="errors.get('is_free')"
+          :error="errors.get('service.is_free')"
         >
           <template slot="hint">
             <gov-hint for="is_free">
-              Indicates whether your {{ type }} is completely free, or if some
-              elements of the service must be paid for. Users can filter their
-              searches based on the answer you provide.
+              Indicates whether your {{ service.type }} is completely free, or
+              if some elements of the service must be paid for. Users can filter
+              their searches based on the answer you provide.
             </gov-hint>
+
             <gov-hint for="is_free">
-              If the cost of your {{ type }} varies, you may want to split these
-              into different {{ type }} listings.
+              If the cost of your {{ service.type }} varies, you may want to
+              split these into different {{ service.type }} listings.
             </gov-hint>
           </template>
         </ck-radio-input>
 
         <!-- Extra fee info -->
-        <gov-inset-text v-if="is_free === false">
+        <gov-inset-text v-if="service.is_free === false">
           <ck-text-input
-            :value="fees_text"
-            @input="$emit('update:fees_text', $event); $emit('clear', 'fees_text')"
+            :value="service.fees_text"
+            @input="$emit('input', { field: 'fees_text', value: $event })"
             id="fees_text"
             label="How much does it cost? (if applicable)"
-            :hint='`Please indicate the basic cost of the ${type}. If there are multiple price points, please provide an indicative range (eg. "5-10 per session").`'
+            :hint='`Please indicate the basic cost of the ${service.type}. If there are multiple price points, please provide an indicative range (eg. "5-10 per session").`'
             type="text"
-            :error="errors.get('fees_text')"
+            :error="errors.get('service.fees_text')"
             :maxlength="75"
           />
 
           <ck-text-input
-            :value="fees_url"
-            @input="$emit('update:fees_url', $event); $emit('clear', 'fees_url')"
+            :value="service.fees_url"
+            @input="$emit('input', { field: 'fees_url', value: $event })"
             id="fees_url"
             label="Please provide a link to full pricing table (if applicable)"
             type="url"
-            :error="errors.get('fees_url')"
+            :error="errors.get('service.fees_url')"
           />
         </gov-inset-text>
         <!-- /Extra fee info -->
 
         <ck-textarea-input
-          :value="testimonial"
-          @input="$emit('update:testimonial', $event); $emit('clear', 'testimonial')"
+          :value="service.testimonial"
+          @input="$emit('input', { field: 'testimonial', value: $event })"
           id="testimonial"
           label="Quote from a satisfied user, client, beneficiary or customer"
           :maxlength="150"
-          :error="errors.get('testimonial')"
+          :error="errors.get('service.testimonial')"
         >
           <template slot="hint">
               <gov-hint for="testimonial">
-                Please enter a quote from a service user highlighting a positive outcome to
-                help promote your good work. For example:
+                Please enter a quote from a service user highlighting a positive
+                outcome to help promote your good work. For example:
               </gov-hint>
+
               <gov-hint for="testimonial">
-                This {{ type }} changed my life!
+                This {{ service.type }} changed my life!
               </gov-hint>
           </template>
         </ck-textarea-input>
 
         <ck-text-input
-          :value="video_embed"
-          @input="$emit('update:video_embed', $event); $emit('clear', 'video_embed')"
+          :value="service.video_embed"
+          @input="$emit('input', { field: 'video_embed', value: $event })"
           id="video_embed"
-          :label="`${$options.filters.ucfirst(type)} video`"
+          :label="`${$options.filters.ucfirst(service.type)} video`"
           type="url"
-          :error="errors.get('video_embed')"
+          :error="errors.get('service.video_embed')"
         >
           <template slot="hint">
             <gov-hint for="video_embed">
               If you have a short video (less than 5 minutes) showcasing your
-              {{ type }}, please add a link below to the site that hosts it.
+              {{ service.type }}, please add a link below to the site that hosts
+              it.
             </gov-hint>
+
             <gov-hint for="video_embed">
               Youtube and Vimeo links are accepted.
             </gov-hint>
+
             <gov-hint for="video_embed">
               <gov-link :href="videoEmbedHelpHref">
-                Need help editing or creating a {{ type }} video?
+                Need help editing or creating a {{ service.type }} video?
               </gov-link>
             </gov-hint>
           </template>
         </ck-text-input>
-
       </gov-grid-column>
     </gov-grid-row>
 
@@ -128,38 +138,38 @@
     <gov-heading size="l">Contact details</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
-
         <gov-body>
-          Please provide your {{ type }}’s public-facing contact details. These
-          will be displayed on your {{ type }}’s page on the Connected Kingston
-          website.
+          Please provide your {{ service.type }}’s public-facing contact
+          details. These will be displayed on your {{ service.type }}’s page on
+          the Connected Kingston website.
         </gov-body>
 
         <gov-section-break size="l" />
 
         <ck-text-input
-          :value="contact_name"
-          @input="$emit('update:contact_name', $event); $emit('clear', 'contact_name')"
+          :value="service.contact_name"
+          @input="$emit('input', { field: 'contact_name', value: $event })"
           id="contact_name"
           label="Contact name"
-          :hint="`Provide the contact name (First name & Surname) for this ${type}, or a generic entry if this isn’t applicable e.g. ‘Enquiries’, or ‘Helpdesk’.`"
+          :hint="`Provide the contact name (First name & Surname) for this ${service.type}, or a generic entry if this isn’t applicable e.g. ‘Enquiries’, or ‘Helpdesk’.`"
           type="text"
-          :error="errors.get('contact_name')"
+          :error="errors.get('service.contact_name')"
         />
 
         <ck-text-input
-          :value="contact_phone"
-          @input="$emit('update:contact_phone', $event); $emit('clear', 'contact_phone')"
+          :value="service.contact_phone"
+          @input="$emit('input', { field: 'contact_phone', value: $event })"
           id="contact_phone"
           label="Contact phone number"
           type="tel"
-          :error="errors.get('contact_phone')"
+          :error="errors.get('service.contact_phone')"
         >
           <template slot="hint">
             <gov-hint for="contact_phone">
               Please provide a public facing phone number for people to contact
               you on.
             </gov-hint>
+
             <gov-hint for="contact_phone">
               Please use the following formatting:
               <br>
@@ -169,13 +179,13 @@
         </ck-text-input>
 
         <ck-text-input
-          :value="contact_email"
-          @input="$emit('update:contact_email', $event); $emit('clear', 'contact_email')"
+          :value="service.contact_email"
+          @input="$emit('input', { field: 'contact_email', value: $event })"
           id="contact_email"
-          :label="`Public ${type} email address`"
-          :hint="`Please provide the contact email address for the ${type}.`"
+          :label="`Public ${service.type} email address`"
+          :hint="`Please provide the contact email address for the ${service.type}.`"
           type="email"
-          :error="errors.get('contact_email')"
+          :error="errors.get('service.contact_email')"
         />
 
         <gov-section-break size="l" />
@@ -183,21 +193,20 @@
         <gov-heading size="m">Social media links</gov-heading>
 
         <gov-body>
-          If you have any social media accounts for your {{ type }}, please
-          select the appropriate platform from the dropdown and add the
+          If you have any social media accounts for your {{ service.type }},
+          please select the appropriate platform from the dropdown and add the
           relevant URL.
         </gov-body>
         <gov-body>
-          If you don’t have accounts for the specific {{ type }}, please add
-          the accounts of the overall organisation.
+          If you don’t have accounts for the specific {{ service.type }}, please
+          add the accounts of the overall organisation.
         </gov-body>
 
         <social-medias-input
-          :social-medias="social_medias"
-          @input="$emit('update:social_medias', $event)"
+          :social-medias="service.social_medias"
+          @input="$emit('input', { field: 'social_medias', value: $event })"
           :errors="errors"
         />
-
       </gov-grid-column>
     </gov-grid-row>
 
@@ -209,50 +218,26 @@
 import SocialMediasInput from "@/views/services/inputs/SocialMediasInput";
 
 export default {
-  name: "AdditionalInfoTab",
-  components: { SocialMediasInput },
+  components: {
+    SocialMediasInput
+  },
+
   props: {
+    service: {
+      type: Object,
+      required: true
+    },
+
     errors: {
-      required: true
-    },
-    type: {
-      required: true
-    },
-    wait_time: {
-      required: true
-    },
-    is_free: {
-      required: true
-    },
-    fees_text: {
-      required: true
-    },
-    fees_url: {
-      required: true
-    },
-    testimonial: {
-      required: true
-    },
-    video_embed: {
-      required: true
-    },
-    contact_name: {
-      required: true
-    },
-    contact_phone: {
-      required: true
-    },
-    contact_email: {
-      required: true
-    },
-    social_medias: {
+      type: Object,
       required: true
     }
   },
+
   computed: {
     waitTimeOptions() {
       return [
-        { text: `Not applicable for this ${this.type}`, value: null },
+        { text: `Not applicable for this ${this.service.type}`, value: null },
         { text: "One week", value: "one_week" },
         { text: "Two weeks", value: "two_weeks" },
         { text: "Three weeks", value: "three_weeks" },
@@ -260,6 +245,7 @@ export default {
         { text: "Longer than a month", value: "longer" }
       ]
     },
+
     isFreeOptions() {
       return [
         { value: true, label: `Yes - The ${this.type} is free` },
@@ -269,23 +255,16 @@ export default {
         }
       ];
     },
+
     videoEmbedHelpHref() {
       const to = "info@connectedkingston.uk";
-      const subject = `Make a video for my ${this.type}`;
+      const subject = `Make a video for my ${this.service.type}`;
       const body =
-        `My ${this.type} is: xxx\n\nI am interested in making a video for my ${this.type} page on Connected Kingston.`;
+        `My ${this.type} is: xxx\n\nI am interested in making a video for my ${this.service.type} page on Connected Kingston.`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
-    }
-  },
-  watch: {
-    is_free(newIsFree) {
-      if (newIsFree) {
-        this.$emit("update:fees_text", "");
-        this.$emit("update:fees_url", "");
-      }
     }
   }
 };

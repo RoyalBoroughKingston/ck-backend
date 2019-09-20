@@ -76,6 +76,13 @@ export default {
 
     ['form.service.name'](newName) {
       this.form.service.slug = this.slugify(newName);
+    },
+
+    ['form.service.is_free'](newIsFree) {
+      if (newIsFree) {
+        this.form.service.fees_text = '';
+        this.form.service.fees_url = '';
+      }
     }
   },
 }

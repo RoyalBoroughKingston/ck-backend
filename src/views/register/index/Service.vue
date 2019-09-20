@@ -10,15 +10,9 @@
           <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
             <details-tab
               v-if="isTabActive('details')"
-              :name="service.name"
-              :slug="service.slug"
-              :type="service.type"
-              :url="service.url"
+              :service="service"
               :errors="errors"
-              @update:name="onInput('name', $event)"
-              @update:slug="onInput('slug', $event)"
-              @update:type="onInput('type', $event)"
-              @update:url="onInput('url', $event)"
+              @input="onInput($event.field, $event.value)"
             >
               <gov-button @click="onNext" start>
                 Next
@@ -27,19 +21,9 @@
 
             <additional-info-tab
               v-if="isTabActive('additional-info')"
-              :type="service.type"
-              :wait_time.sync="service.wait_time"
-              :is_free.sync="service.is_free"
-              :fees_text.sync="service.fees_text"
-              :fees_url.sync="service.fees_url"
-              :testimonial.sync="service.testimonial"
-              :video_embed.sync="service.video_embed"
-              :contact_name.sync="service.contact_name"
-              :contact_phone.sync="service.contact_phone"
-              :contact_email.sync="service.contact_email"
-              :social_medias.sync="service.social_medias"
+              :service="service"
               :errors="errors"
-              @clear="errors.clear($event); errors = {}"
+              @input="onInput($event.field, $event.value)"
             >
               <gov-button @click="onNext" start>
                 Next
