@@ -54,12 +54,9 @@
 
             <description-tab
               v-if="isTabActive('description')"
-              :type="service.type"
-              :intro.sync="service.intro"
-              :offerings.sync="service.offerings"
-              :description.sync="service.description"
+              :service="service"
               :errors="errors"
-              @clear="errors.clear($event); errors = {}"
+              @input="onInput($event.field, $event.value)"
             >
               <gov-button @click="onNext" start>
                 Next
@@ -68,23 +65,16 @@
 
             <referral-tab
               v-if="isTabActive('referral')"
-              :is-global-admin="auth.isGlobalAdmin"
-              :is-super-admin="auth.isSuperAdmin"
-              :type="service.type"
-              :show_referral_disclaimer.sync="service.show_referral_disclaimer"
-              :referral_method.sync="service.referral_method"
-              :referral_button_text.sync="service.referral_button_text"
-              :referral_email.sync="service.referral_email"
-              :referral_url.sync="service.referral_url"
+              :service="service"
               :errors="errors"
-              @clear="errors.clear($event); errors = {}"
+              @input="onInput($event.field, $event.value)"
             >
               <gov-button v-if="service.$submitting" disabled type="submit">
-                Creating...
+                Submitting...
               </gov-button>
 
               <gov-button v-else @click="onSubmit" type="submit">
-                Create
+                Submit
               </gov-button>
 
               <ck-submit-error v-if="errors.any()" />
