@@ -114,7 +114,6 @@ export default {
         this.$router.push({ name: 'register-index-success' });
       } catch (exception) {
         //
-        console.log('error occured bruh');
       }
     }
   }

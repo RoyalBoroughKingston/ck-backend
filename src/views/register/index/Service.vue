@@ -66,7 +66,12 @@
                 Submit
               </gov-button>
 
-              <ck-submit-error v-if="errors.any()" />
+              <ck-submit-error v-if="errors.any()">
+                <strong>Check for errors</strong>
+                <br><br>
+                Errors may be on earlier sections of the form. You can navigate
+                to these by clicking ‘Back’
+              </ck-submit-error>
             </description-tab>
           </gov-tabs>
         </gov-grid-column>
