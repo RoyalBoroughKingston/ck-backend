@@ -6,8 +6,8 @@
 
         <gov-body>
           General details about the {{ service.type }}. (We use
-          {{ service.type }} in the broadcast sense, This could be counciling or
-          weekly yoga classes).
+          {{ service.type }} in the broadcast sense, This could be counselling
+          or weekly yoga classes).
         </gov-body>
 
         <gov-section-break size="l" />

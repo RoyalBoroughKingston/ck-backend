@@ -15,7 +15,7 @@
           :value="service.intro"
           @input="$emit('input', { field: 'intro', value: $event })"
           id="intro"
-          :label="`Your ${service.type}, an overview?`"
+          :label="`Your ${service.type}, an overview`"
           :hint="`Write a brief description of what your ${service.type} does.`"
           :maxlength="300"
           :error="errors.get('service.intro')"
