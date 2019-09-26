@@ -53,6 +53,7 @@
             @input="onInput('url', $event)"
             id="url"
             label="Organisation website address"
+            hint="This must start with ‘http://’ or ‘https://’."
             type="url"
             :error="errors.get('organisation.url')"
           />
