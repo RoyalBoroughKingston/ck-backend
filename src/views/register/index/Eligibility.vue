@@ -12,8 +12,8 @@
           </gov-heading>
 
           <gov-body>
-            We have some criteria for services and organisations to be listed on
-            the site.
+            We have some criteria for services and organisations that are listed
+            on the site.
           </gov-body>
 
           <gov-form-group>
