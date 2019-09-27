@@ -248,10 +248,10 @@ export default {
 
     isFreeOptions() {
       return [
-        { value: true, label: `Yes - The ${this.type} is free` },
+        { value: true, label: `Yes - The ${this.service.type} is free` },
         {
           value: false,
-          label: `No - there are elements of this ${this.type} that must be paid for`
+          label: `No - there are elements of this ${this.service.type} that must be paid for`
         }
       ];
     },
@@ -260,7 +260,7 @@ export default {
       const to = "info@connectedkingston.uk";
       const subject = `Make a video for my ${this.service.type}`;
       const body =
-        `My ${this.type} is: xxx\n\nI am interested in making a video for my ${this.service.type} page on Connected Kingston.`;
+        `My ${this.service.type} is: xxx\n\nI am interested in making a video for my ${this.service.type} page on Connected Kingston.`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject

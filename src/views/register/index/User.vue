@@ -52,6 +52,11 @@
             :error="errors.get('user.phone')"
           />
 
+          <gov-body>
+            User account details are held in line with our
+            <gov-link href="https://www.connectedkingston.uk/privacy-policy" target="_blank">privacy policy</gov-link>.
+          </gov-body>
+
           <gov-button start :to="{ name: 'register-index-organisation' }">
             Next
           </gov-button>

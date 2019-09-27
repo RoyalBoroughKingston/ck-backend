@@ -12,8 +12,8 @@
           </gov-heading>
 
           <gov-body>
-            We have some criteria for services and organisations to be listed on
-            the site.
+            We have some criteria for services and organisations that are listed
+            on the site.
           </gov-body>
 
           <gov-form-group>
@@ -33,7 +33,7 @@
                 :value="form.organisation_types.includes('community')"
                 id="organisation_types.community"
                 name="organisation_types"
-                label="1. A community, voluntary or faith based service (not prothletising) eg. a Charity"
+                label="A community, voluntary or faith based service (not prothletising) eg. a Charity"
                 @input="$emit('input', onInput('community'))"
               />
 
@@ -41,7 +41,7 @@
                 :value="form.organisation_types.includes('council')"
                 id="organisation_types.council"
                 name="organisation_types"
-                label="2. A Council or other statutory service, e.g. services delivered by the NHS or Kingston CCG)"
+                label="A Council or other statutory service, e.g. services delivered by the NHS or Kingston CCG)"
                 @input="$emit('input', onInput('council'))"
               />
 
@@ -49,7 +49,7 @@
                 :value="form.organisation_types.includes('commercial')"
                 id="organisation_types.commercial"
                 name="organisation_types"
-                label="3. A commercial provider offering services to Kingston residents that support health, wellbeing and/or community for free or a reasonable charge"
+                label="A commercial provider offering services to Kingston residents that support health, wellbeing and/or community for free or a reasonable charge"
                 @input="$emit('input', onInput('commercial'))"
               />
 
@@ -57,7 +57,7 @@
                 :value="form.organisation_types.includes('commercial_contracted')"
                 id="organisation_types.commercial_contracted"
                 name="organisation_types"
-                label="4. A commercial service that is contracted or spot purchased under a commissioning arrangement with Royal Borough of Kingston (RBK) Council, intended to improve the health, wellbeing or independence of Kingston residents"
+                label="A commercial service that is contracted or spot purchased under a commissioning arrangement with Royal Borough of Kingston (RBK) Council, intended to improve the health, wellbeing or independence of Kingston residents"
                 @input="$emit('input', onInput('commercial_contracted'))"
               />
             </gov-checkboxes>
