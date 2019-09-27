@@ -28,20 +28,12 @@
           id="name"
           :label="`What is the name of your ${service.type}?`"
           type="text"
-          :error="errors.get('service.name')"
-        />
-
-        <ck-text-input
-          :value="service.slug"
-          @input="$emit('input', { field: 'slug', value: $event })"
-          id="slug"
-          label="Unique slug"
-          type="text"
-          :error="errors.get('service.slug')"
+          :error="errors.get(['service.name', 'service.slug'])"
         >
-          <gov-hint slot="hint" for="slug">
-            This will be used to access the {{ service.type }} page.<br>
-            e.g. example.com/services/{{ service.slug }}
+          <gov-hint slot="hint" for="name">
+            The name of your {{ service.type }} must be unique. The URL
+            of your page will be: <br>
+            www.connectedkingston.uk/services/{{ service.slug }}
           </gov-hint>
         </ck-text-input>
 

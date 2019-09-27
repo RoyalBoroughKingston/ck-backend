@@ -22,20 +22,12 @@
             id="name"
             label="Organisation name"
             type="text"
-            :error="errors.get('organisation.name')"
-          />
-
-          <ck-text-input
-            :value="form.organisation.slug"
-            @input="onInput('slug', $event)"
-            id="slug"
-            label="Unique slug"
-            type="text"
-            :error="errors.get('organisation.slug')"
+            :error="errors.get(['organisation.name', 'organisation.slug'])"
           >
-            <gov-hint slot="hint" for="slug">
-              This will be used to access the organisation page.<br>
-              e.g. example.com/organisations/{{ form.organisation.slug }}
+            <gov-hint slot="hint" for="name">
+              The name of your organisation must be unique. The URL of your page
+              will be: <br>
+              www.connectedkingston.uk/organisations/{{ form.organisation.slug }}
             </gov-hint>
           </ck-text-input>
 
