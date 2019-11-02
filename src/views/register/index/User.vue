@@ -52,6 +52,15 @@
             :error="errors.get('user.phone')"
           />
 
+          <ck-text-input
+            :value="form.user.password"
+            @input="onInput('password', $event)"
+            id="password"
+            label="Password"
+            type="password"
+            :error="errors.get('user.password')"
+          />
+
           <gov-body>
             User account details are held in line with our
             <gov-link href="https://www.connectedkingston.uk/privacy-policy" target="_blank">privacy policy</gov-link>.
