@@ -94,7 +94,14 @@ export default {
     },
 
     async onSubmit() {
-      await this.settings.put("/settings");
+      await this.settings.put("/settings", (config, data) => {
+        // Remove the image from the request if null, or delete if false.
+        if (data.cms.frontend.banner.image_file_id === null) {
+          delete data.cms.frontend.banner.image_file_id;
+        } else if (data.cms.frontend.banner.image_file_id === false) {
+          data.cms.frontend.banner.image_file_id = null;
+        }
+      });
       this.$router.push({ name: 'admin-index-cms-updated' });
     }
   }
