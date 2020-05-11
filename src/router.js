@@ -385,6 +385,12 @@ let router = new Router({
               name: "admin-index-cms-frontend-favourites",
               component: () =>
                 import("@/views/admin/index/cms/frontend/Favourites")
+            },
+            {
+              path: "frontend/banner",
+              name: "admin-index-cms-frontend-banner",
+              component: () =>
+                import("@/views/admin/index/cms/frontend/Banner")
             }
           ]
         },
