@@ -16,7 +16,7 @@
       id="intro"
       label="Description of category"
       hint="A short summary detailing what type of services the category contains."
-      :maxlength="150"
+      :maxlength="300"
       :error="errors.get('intro')"
     />
 
