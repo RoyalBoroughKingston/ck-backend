@@ -26,7 +26,7 @@
       id="intro"
       label="Description of category"
       hint="A short summary detailing what type of services the persona includes."
-      :maxlength="150"
+      :maxlength="300"
       :error="errors.get('intro')"
     />
 
