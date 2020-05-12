@@ -46,7 +46,7 @@
           :hint="`This is the largest body of text on your page. Fill it with everything else someone should know about your ${type}. Use headers, bullets and formatting for the maximum effect.`"
           :error="errors.get('description')"
           large
-          :maxlength="1600"
+          :maxlength="3000"
         />
 
         <slot />
