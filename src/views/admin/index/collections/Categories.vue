@@ -90,8 +90,7 @@ export default {
         intro: collection.intro,
         icon: collection.icon,
         order: collection.order,
-        sidebox_title: collection.sidebox_title,
-        sidebox_content: collection.sidebox_content,
+        sideboxes: collection.sideboxes,
         category_taxonomies: collection.category_taxonomies.map(
           taxonomy => taxonomy.id
         )
