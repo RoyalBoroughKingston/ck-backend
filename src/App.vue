@@ -27,7 +27,8 @@ export default {
       themeColor: "#0b0c0c",
       bodyClasses: ["js-enabled"],
       mainClasses: [],
-      headerNav: []
+      headerNav: [],
+      logoutInterval: null
     };
   },
   computed: {
@@ -93,7 +94,18 @@ export default {
       if (Auth.isLoggedIn && !Auth.inactive()) {
         Auth.invokeActivity();
       }
-    }, 1000)
+    }, 1000),
+    startAutoLogoutInterval() {
+      this.logoutInterval = setInterval(() => {
+        if (Auth.isLoggedIn && Auth.inactive()) {
+          this.$router.push({ name: "logout" });
+        }
+      }, 1000);
+    },
+    endAutoLogoutInterval() {
+      clearInterval(this.logoutInterval);
+      this.logoutInterval = null;
+    }
   },
 
   created() {
@@ -101,6 +113,14 @@ export default {
     this.bindActivityTracking();
     this.$root.$on("login", this.setHeaderItems);
     this.$root.$on("logout", this.setHeaderItems);
+  },
+
+  mounted() {
+    this.startAutoLogoutInterval();
+  },
+
+  destroyed() {
+    this.endAutoLogoutInterval();
   }
 };
 </script>
