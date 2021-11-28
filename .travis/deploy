@@ -23,9 +23,7 @@ ENV_SECRET_ID=".env.backend.${ENVIRONMENT}"
 # Get the .env file.
 echo "Downloading .env file..."
 rm -f .env
-aws secretsmanager get-secret-value \
-    --secret-id ${ENV_SECRET_ID} | \
-    python -c "import json,sys;obj=json.load(sys.stdin);print obj['SecretString'];" > .env
+aws secretsmanager get-secret-value --secret-id ${ENV_SECRET_ID} | jq -r '.SecretString' > .env
 
 # Build.
 echo "Building..."
