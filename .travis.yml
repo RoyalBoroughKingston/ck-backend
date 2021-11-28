@@ -4,7 +4,9 @@ branches:
     - master
     - develop
 
-language: node_js
+language: python
+python:
+  - "3.6"
 
 cache:
   directories:
@@ -19,7 +21,7 @@ script:
 before_deploy:
   - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "/tmp/awscli-bundle.zip"
   - unzip /tmp/awscli-bundle.zip -d /tmp
-  - /tmp/awscli-bundle/install -b $HOME/bin/aws
+  - /tmp/awscli-bundle/install -b $HOME/bin
   - export PATH=$PATH:$HOME/bin
 
 deploy:
