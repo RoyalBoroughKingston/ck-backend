@@ -102,7 +102,8 @@ export default {
 
 .govuk-button {
   &.ck-button--active {
-    @extend .govuk-button:hover, .govuk-button:focus;
+    // @extend .govuk-button:hover, .govuk-button:focus;
+    @extend .govuk-button, :hover;
     z-index: 1;
   }
 

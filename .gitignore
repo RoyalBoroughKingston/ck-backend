@@ -10,6 +10,7 @@ selenium-debug.log
 .env.*.local
 .env.staging
 .env.production
+.env
 
 # Log files
 npm-debug.log*
