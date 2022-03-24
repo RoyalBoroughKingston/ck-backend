@@ -1,6 +1,6 @@
 $govuk-error-colour: #d23a49;
 
-@import "node_modules/govuk-frontend/all";
+@import "node_modules/govuk-frontend/govuk/all";
 @import url("https://use.fontawesome.com/releases/v5.3.1/css/solid.css");
 @import url("https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css");
 @import "fonts";
@@ -51,7 +51,7 @@ img {
   padding: govuk-spacing(3);
   overflow: auto;
   border: 1px solid $govuk-border-colour;
-  background-color: govuk-colour("grey-4");
+  background-color: govuk-colour("mid-grey");
   max-width: 38em;
   @include govuk-responsive-margin(5, "bottom");
 }
@@ -112,7 +112,7 @@ img {
 
   p code {
     border: 1px solid $govuk-border-colour;
-    background-color: govuk-colour("grey-4");
+    background-color: govuk-colour("mid-grey");
     padding: 0 govuk-spacing(2);
   }
 
