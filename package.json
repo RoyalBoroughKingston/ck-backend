@@ -44,5 +44,6 @@
     "babel-jest": "^27.4.6",
     "vue-cli-plugin-s3-deploy": "^2.1.1",
     "vue-template-compiler": "^2.5.17"
-  }
+  },
+  "optionalDependencies": { "fsevents": "2.1.2" }
 }
