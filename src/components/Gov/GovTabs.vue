@@ -73,7 +73,7 @@ export default {
   .govuk-tabs__list {
     @media only screen and (min-width: map-get($govuk-breakpoints, tablet)) {
       &--bar {
-        background: govuk-colour("grey-4");
+        background: govuk-colour("mid-grey");
         border: none !important;
       }
     }
@@ -81,7 +81,7 @@ export default {
 
   .govuk-tabs__tab {
     &--active {
-      @extend .govuk-tabs__tab, [aria-selected=true];
+      @extend .govuk-tabs__tab, [aria-selected=true] !optional;
     }
 
     @media only screen and (min-width: map-get($govuk-breakpoints, tablet)) {
@@ -97,7 +97,7 @@ export default {
         border-color: $govuk-link-colour;
         border-width: 0 0 5px;
         border-style: solid;
-        background: govuk-colour("grey-4");
+        background: govuk-colour("mid-grey");
         padding-bottom: 5px !important;
       }
     }
