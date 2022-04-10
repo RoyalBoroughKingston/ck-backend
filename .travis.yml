@@ -29,6 +29,7 @@ before_deploy:
   - sudo ./aws/install
   - node -v
   - npm -v
+
  deploy:
   - provider: script
     script: ./.travis/deploy
