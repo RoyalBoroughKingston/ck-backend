@@ -13,6 +13,8 @@ cache:
     - node_modules
 
 install:
+  - node -v
+  - npm -v
   - npm ci
 
 script:
