@@ -30,7 +30,7 @@ before_deploy:
   - node -v
   - npm -v
 
- deploy:
+deploy:
   - provider: script
     script: ./.travis/deploy
     skip_cleanup: true
