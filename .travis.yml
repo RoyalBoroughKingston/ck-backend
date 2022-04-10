@@ -14,8 +14,8 @@ cache:
 
 install:
   - npm cache clean -f
-  - sudo npm install -g n
-  - sudo n latest
+  - npm install -g n
+  - n latest
   - node -v
   - npm -v
   - npm ci
