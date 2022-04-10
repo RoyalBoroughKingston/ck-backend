@@ -13,9 +13,9 @@ cache:
     - node_modules
 
 install:
-  - curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-  - sudo apt-get install -y nodejs
-  - npm install npm@latest -g
+  - npm cache clean -f
+  - sudo npm install -g n
+  - sudo n latest
   - node -v
   - npm -v
   - npm ci
