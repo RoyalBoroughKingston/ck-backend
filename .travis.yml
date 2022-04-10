@@ -13,6 +13,9 @@ cache:
     - node_modules
 
 install:
+  - curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+  - sudo apt-get install -y nodejs
+  - npm install npm@latest -g
   - node -v
   - npm -v
   - npm ci
@@ -24,11 +27,9 @@ before_deploy:
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   - unzip awscliv2.zip
   - sudo ./aws/install
-  - curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-  - sudo apt-get install -y nodejs
-  - npm install npm@latest -g
-
-deploy:
+  - node -v
+  - npm -v
+ deploy:
   - provider: script
     script: ./.travis/deploy
     skip_cleanup: true
