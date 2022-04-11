@@ -6,7 +6,7 @@ branches:
 
 language: node_js
 node_js:
-  - "node"
+  - 16
 
 cache:
   directories:
