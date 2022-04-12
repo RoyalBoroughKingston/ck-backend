@@ -4,9 +4,9 @@ branches:
     - master
     - develop
 
-language: python
-python:
-  - "3.9"
+language: node_js
+node_js:
+  - 16
 
 cache:
   directories:
