@@ -19,7 +19,7 @@
     "eslint-plugin-vue": "^8.3.0",
     "govuk-frontend": "^4.0.1",
     "lodash": "^4.17.11",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "sass": "^1.49.0",
     "sass-loader": "^7.1.0",
     "showdown": "^1.8.6",
