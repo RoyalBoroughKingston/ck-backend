@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <ck-text-input
       :value="name"
       @input="onInput('name', $event)"
@@ -12,7 +11,10 @@
 
     <ck-textarea-input
       :value="intro"
-      @input="$emit('update:intro', $event); $emit('clear', 'intro')"
+      @input="
+        $emit('update:intro', $event);
+        $emit('clear', 'intro');
+      "
       id="intro"
       label="Description of category"
       hint="A short summary detailing what type of services the category contains."
@@ -29,7 +31,11 @@
       has-icons
     >
       <gov-hint slot="hint" for="icon">
-        If you're having trouble viewing the icons, refer to the <gov-link href="https://fontawesome.com/icons" target="_blank">Font Awesome website</gov-link> (the font library used).
+        If you're having trouble viewing the icons, refer to the
+        <gov-link href="https://fontawesome.com/icons" target="_blank"
+          >Font Awesome website</gov-link
+        >
+        (the font library used).
       </gov-hint>
       <option
         v-for="(option, key) in icons"
@@ -39,6 +45,14 @@
         v-html="option.text"
       />
     </ck-select-input>
+
+    <collection-homepage-input
+      :value="homepage"
+      @input="onInput('homepage', $event)"
+      id="homepage"
+      label="Show the Category on the homepage"
+      :error="errors.get('homepage')"
+    />
 
     <gov-heading size="m">Sideboxes</gov-heading>
 
@@ -62,7 +76,6 @@
       @clear="$emit('clear', 'category_taxonomies')"
       :hierarchy="false"
     />
-
   </div>
 </template>
 
@@ -70,39 +83,47 @@
 import icons from "@/storage/icons";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 import CkSideboxesInput from "@/views/collections/inputs/SideboxesInput";
+import CollectionHomepageInput from "@/views/collections/inputs/CollectionHomepageInput";
 
 export default {
   name: "CollectionForm",
-  components: { CategoryTaxonomyInput, CkSideboxesInput },
+  components: {
+    CategoryTaxonomyInput,
+    CkSideboxesInput,
+    CollectionHomepageInput,
+  },
   props: {
     errors: {
       required: true,
-      type: Object
+      type: Object,
     },
     name: {
-      required: true
+      required: true,
     },
     intro: {
-      required: true
+      required: true,
     },
     icon: {
-      required: true
+      required: true,
     },
     order: {
-      required: true
+      required: true,
+    },
+    homepage: {
+      required: true,
     },
     sideboxes: {
-      required: true
+      required: true,
     },
     category_taxonomies: {
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       icons: [
         { text: "Please select...", value: null, disabled: true },
-        ...icons
+        ...icons,
       ],
     };
   },
@@ -110,7 +131,7 @@ export default {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
-    }
-  }
+    },
+  },
 };
 </script>

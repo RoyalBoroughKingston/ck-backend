@@ -2,7 +2,9 @@
   <gov-width-container>
     <vue-headful title="Connected Kingston - Add Collection Category" />
 
-    <gov-back-link :to="{ name: 'admin-index-collections' }">Back to collection categories</gov-back-link>
+    <gov-back-link :to="{ name: 'admin-index-collections' }"
+      >Back to collection categories</gov-back-link
+    >
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="one-half">
@@ -23,12 +25,15 @@
             :intro.sync="form.intro"
             :icon.sync="form.icon"
             :order.sync="form.order"
+            :homepage.sync="form.homepage"
             :sideboxes.sync="form.sideboxes"
             :category_taxonomies.sync="form.category_taxonomies"
             @clear="form.$errors.clear($event)"
           />
 
-          <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+          <gov-button v-if="form.$submitting" disabled type="submit"
+            >Creating...</gov-button
+          >
           <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
         </gov-grid-column>
@@ -51,16 +56,17 @@ export default {
         intro: "",
         icon: "",
         order: 1,
+        homepage: true,
         sideboxes: [],
-        category_taxonomies: []
-      })
+        category_taxonomies: [],
+      }),
     };
   },
   methods: {
     async onSubmit() {
       await this.form.post("/collections/categories");
       this.$router.push({ name: "admin-index-collections" });
-    }
-  }
+    },
+  },
 };
 </script>
