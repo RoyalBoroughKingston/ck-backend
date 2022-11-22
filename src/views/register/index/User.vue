@@ -1,15 +1,11 @@
 <template>
   <div>
-    <gov-back-link :to="{ name: 'register-index' }">
-      Back
-    </gov-back-link>
+    <gov-back-link :to="{ name: 'register-index' }"> Back </gov-back-link>
 
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="two-thirds">
-          <gov-heading size="l">
-            Create an account
-          </gov-heading>
+          <gov-heading size="l"> Create an account </gov-heading>
 
           <gov-body>
             First, create an account to login to the Connected Kingston
@@ -63,7 +59,11 @@
 
           <gov-body>
             User account details are held in line with our
-            <gov-link href="https://www.connectedkingston.uk/privacy-policy" target="_blank">privacy policy</gov-link>.
+            <gov-link
+              href="https://www.connectedkingston.uk/privacy-policy"
+              target="_blank"
+              >privacy policy</gov-link
+            >.
           </gov-body>
 
           <gov-button start :to="{ name: 'register-index-organisation' }">
@@ -80,25 +80,28 @@ export default {
   props: {
     form: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
     onInput(field, value) {
-      this.$emit('input', Object.assign(this.form, {
-        user: {
-          ...this.form.user,
-          [field]: value
-        }
-      }));
-      this.$emit('clear', `user.${field}`);
-    }
-  }
-}
+      this.$emit(
+        "input",
+        Object.assign(this.form, {
+          user: {
+            ...this.form.user,
+            [field]: value,
+          },
+        })
+      );
+      this.$emit("clear", `user.${field}`);
+    },
+  },
+};
 </script>

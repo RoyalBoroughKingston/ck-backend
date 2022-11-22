@@ -6,7 +6,6 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
-
           <gov-heading size="xl">Update requests</gov-heading>
 
           <gov-grid-row>
@@ -14,7 +13,12 @@
               <ck-table-filters @search="onSearch" hide-extra>
                 <gov-form-group>
                   <gov-label for="filter[entry]">Entry</gov-label>
-                  <gov-input v-model="filters.entry" id="filter[entry]" name="filter[entry]" type="search"/>
+                  <gov-input
+                    v-model="filters.entry"
+                    id="filter[entry]"
+                    name="filter[entry]"
+                    type="search"
+                  />
                 </gov-form-group>
               </ck-table-filters>
             </gov-grid-column>
@@ -26,17 +30,38 @@
             :params="params"
             default-sort="-created_at"
             :columns="[
-              { heading: 'User', render: (updateRequest) => updateRequest.user ? `${updateRequest.user.first_name} ${updateRequest.user.last_name}` : 'N/A' },
-              { heading: 'Type', render: (updateRequest) => displayType(updateRequest.updateable_type) },
-              { heading: 'Entry', sort: 'entry', render: (updateRequest) => updateRequest.entry },
-              { heading: 'Date / Time', sort: 'created_at', render: (updateRequest) => formatDateTime(updateRequest.created_at) },
+              {
+                heading: 'User',
+                render: (updateRequest) =>
+                  updateRequest.user
+                    ? `${updateRequest.user.first_name} ${updateRequest.user.last_name}`
+                    : 'N/A',
+              },
+              {
+                heading: 'Type',
+                render: (updateRequest) =>
+                  displayType(updateRequest.updateable_type),
+              },
+              {
+                heading: 'Entry',
+                sort: 'entry',
+                render: (updateRequest) => updateRequest.entry,
+              },
+              {
+                heading: 'Date / Time',
+                sort: 'created_at',
+                render: (updateRequest) =>
+                  formatDateTime(updateRequest.created_at),
+              },
             ]"
-            :view-route="(updateRequest) => {
-              return {
-                name: 'update-requests-show',
-                params: { updateRequest: updateRequest.id }
+            :view-route="
+              (updateRequest) => {
+                return {
+                  name: 'update-requests-show',
+                  params: { updateRequest: updateRequest.id },
+                };
               }
-            }"
+            "
           />
         </gov-grid-column>
       </gov-grid-row>
@@ -54,14 +79,14 @@ export default {
   data() {
     return {
       filters: {
-        entry: ""
-      }
+        entry: "",
+      },
     };
   },
   computed: {
     params() {
       const params = {
-        include: "user"
+        include: "user",
       };
 
       if (this.filters.entry !== "") {
@@ -69,7 +94,7 @@ export default {
       }
 
       return params;
-    }
+    },
   },
   methods: {
     onSearch() {
@@ -91,7 +116,7 @@ export default {
         default:
           return "Invalid type";
       }
-    }
-  }
+    },
+  },
 };
 </script>

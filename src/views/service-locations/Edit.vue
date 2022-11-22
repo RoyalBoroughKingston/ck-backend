@@ -2,9 +2,19 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Connected Kingston - Edit Service Location: ${serviceLocation.name || '-'}`" />
+      <vue-headful
+        :title="`Connected Kingston - Edit Service Location: ${
+          serviceLocation.name || '-'
+        }`"
+      />
 
-      <gov-back-link :to="{ name: 'service-locations-show', params: { serviceLocation: serviceLocation.id } }">Back to service location</gov-back-link>
+      <gov-back-link
+        :to="{
+          name: 'service-locations-show',
+          params: { serviceLocation: serviceLocation.id },
+        }"
+        >Back to service location</gov-back-link
+      >
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="one-half">
@@ -22,11 +32,16 @@
             />
 
             <gov-warning-text>
-              Please be aware, by submitting these changes, any pending updates may be overwritten.
+              Please be aware, by submitting these changes, any pending updates
+              may be overwritten.
             </gov-warning-text>
 
-            <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
-            <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
+            <gov-button v-if="form.$submitting" disabled type="submit"
+              >Requesting...</gov-button
+            >
+            <gov-button v-else @click="onSubmit" type="submit"
+              >Request update</gov-button
+            >
             <ck-submit-error v-if="form.$errors.any()" />
           </gov-grid-column>
         </gov-grid-row>
@@ -47,7 +62,7 @@ export default {
     return {
       form: null,
       serviceLocation: null,
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -61,7 +76,7 @@ export default {
         name: this.serviceLocation.name || "",
         regular_opening_hours: this.serviceLocation.regular_opening_hours,
         holiday_opening_hours: this.serviceLocation.holiday_opening_hours,
-        image_file_id: null
+        image_file_id: null,
       });
       this.loading = false;
     },
@@ -96,12 +111,12 @@ export default {
 
       this.$router.push({
         name: "service-locations-updated",
-        params: { serviceLocation: this.serviceLocation.id }
+        params: { serviceLocation: this.serviceLocation.id },
       });
-    }
+    },
   },
   created() {
     this.fetchServiceLocation();
-  }
+  },
 };
 </script>

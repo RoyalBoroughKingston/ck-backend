@@ -14,9 +14,7 @@
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
-              <gov-button @click="onNext" start>
-                Next
-              </gov-button>
+              <gov-button @click="onNext" start> Next </gov-button>
             </details-tab>
 
             <additional-info-tab
@@ -25,9 +23,7 @@
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
-              <gov-button @click="onNext" start>
-                Next
-              </gov-button>
+              <gov-button @click="onNext" start> Next </gov-button>
             </additional-info-tab>
 
             <useful-info-tab
@@ -36,9 +32,7 @@
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
-              <gov-button @click="onNext" start>
-                Next
-              </gov-button>
+              <gov-button @click="onNext" start> Next </gov-button>
             </useful-info-tab>
 
             <who-for-tab
@@ -47,9 +41,7 @@
               :errors="errors"
               @input="onInput($event.field, $event.value)"
             >
-              <gov-button @click="onNext" start>
-                Next
-              </gov-button>
+              <gov-button @click="onNext" start> Next </gov-button>
             </who-for-tab>
 
             <description-tab
@@ -68,7 +60,7 @@
 
               <ck-submit-error v-if="errors.any()">
                 <strong>Check for errors</strong>
-                <br><br>
+                <br /><br />
                 Errors may be on earlier sections of the form. You can navigate
                 to these by clicking ‘Back’
               </ck-submit-error>
@@ -93,19 +85,19 @@ export default {
     DescriptionTab,
     AdditionalInfoTab,
     UsefulInfoTab,
-    WhoForTab
+    WhoForTab,
   },
 
   props: {
     form: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -115,33 +107,36 @@ export default {
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Good to know", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
-        { id: "description", heading: "Description", active: false }
-      ]
-    }
+        { id: "description", heading: "Description", active: false },
+      ],
+    };
   },
 
   methods: {
     onInput(field, value) {
-      this.$emit('input', Object.assign(this.form, {
-        service: {
-          ...this.form.service,
-          [field]: value
-        }
-      }));
-      this.$emit('clear', `service.${field}`);
+      this.$emit(
+        "input",
+        Object.assign(this.form, {
+          service: {
+            ...this.form.service,
+            [field]: value,
+          },
+        })
+      );
+      this.$emit("clear", `service.${field}`);
     },
 
     onTabChange({ index }) {
-      this.tabs.forEach(tab => (tab.active = false));
+      this.tabs.forEach((tab) => (tab.active = false));
       const tabId = this.tabs[index].id;
-      this.tabs.find(tab => tab.id === tabId).active = true;
+      this.tabs.find((tab) => tab.id === tabId).active = true;
     },
 
     onNext() {
-      const currentTabIndex = this.tabs.findIndex(tab => tab.active === true);
-      this.tabs.forEach(tab => (tab.active = false));
+      const currentTabIndex = this.tabs.findIndex((tab) => tab.active === true);
+      this.tabs.forEach((tab) => (tab.active = false));
       const newTabId = this.tabs[currentTabIndex + 1].id;
-      this.tabs.find(tab => tab.id === newTabId).active = true;
+      this.tabs.find((tab) => tab.id === newTabId).active = true;
       this.scrollToTop();
     },
 
@@ -150,10 +145,10 @@ export default {
     },
 
     isTabActive(id) {
-      const tab = this.tabs.find(tab => tab.id === id);
+      const tab = this.tabs.find((tab) => tab.id === id);
 
       return tab === undefined ? false : tab.active;
-    }
-  }
+    },
+  },
 };
 </script>

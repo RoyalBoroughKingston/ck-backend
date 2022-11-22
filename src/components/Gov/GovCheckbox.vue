@@ -10,7 +10,7 @@
       type="checkbox"
       :aria-describedby="ariaDescribedBy"
       :disabled="disabled"
-    >
+    />
     <gov-label class="govuk-checkboxes__label" :for="id">{{ label }}</gov-label>
     <slot />
   </div>
@@ -22,31 +22,31 @@ export default {
   props: {
     value: {
       type: Boolean,
-      required: true
+      required: true,
     },
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     disabled: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     ariaDescribedBy() {
       return `${this.name}-hint`;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -10,13 +10,13 @@ export default {
   props: {
     size: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     computedClass() {
       return `govuk-caption-${this.size}`;
-    }
-  }
+    },
+  },
 };
 </script>

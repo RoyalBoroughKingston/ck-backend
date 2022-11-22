@@ -9,7 +9,12 @@
         <ck-table-filters @search="onSearch" hide-extra>
           <gov-form-group>
             <gov-label for="filter[url]">Page URL</gov-label>
-            <gov-input v-model="filters.url" id="filter[url]" name="filter[url]" type="search"/>
+            <gov-input
+              v-model="filters.url"
+              id="filter[url]"
+              name="filter[url]"
+              type="search"
+            />
           </gov-form-group>
         </ck-table-filters>
       </gov-grid-column>
@@ -21,17 +26,34 @@
       :params="params"
       default-sort="-created_at"
       :columns="[
-        { heading: 'Page URL', sort: 'url', render: (pageFeedback) => pageFeedback.url },
-        { heading: 'Contact name', render: (pageFeedback) => pageFeedback.name || '-' },
-        { heading: 'Contact details', render: (pageFeedback) => pageFeedback.email || pageFeedback.phone || '-' },
-        { heading: 'Date / Time', sort: 'created_at', render: (pageFeedback) => formatDateTime(pageFeedback.created_at) },
+        {
+          heading: 'Page URL',
+          sort: 'url',
+          render: (pageFeedback) => pageFeedback.url,
+        },
+        {
+          heading: 'Contact name',
+          render: (pageFeedback) => pageFeedback.name || '-',
+        },
+        {
+          heading: 'Contact details',
+          render: (pageFeedback) =>
+            pageFeedback.email || pageFeedback.phone || '-',
+        },
+        {
+          heading: 'Date / Time',
+          sort: 'created_at',
+          render: (pageFeedback) => formatDateTime(pageFeedback.created_at),
+        },
       ]"
-      :view-route="(pageFeedback) => {
-        return {
-          name: 'page-feedbacks-show',
-          params: { pageFeedback: pageFeedback.id }
+      :view-route="
+        (pageFeedback) => {
+          return {
+            name: 'page-feedbacks-show',
+            params: { pageFeedback: pageFeedback.id },
+          };
         }
-      }"
+      "
     />
   </div>
 </template>
@@ -46,8 +68,8 @@ export default {
   data() {
     return {
       filters: {
-        url: ""
-      }
+        url: "",
+      },
     };
   },
   computed: {
@@ -59,13 +81,13 @@ export default {
       }
 
       return params;
-    }
+    },
   },
   methods: {
     onSearch() {
       this.$refs.pageFeedbacksTable.currentPage = 1;
       this.$refs.pageFeedbacksTable.fetchResources();
-    }
-  }
+    },
+  },
 };
 </script>

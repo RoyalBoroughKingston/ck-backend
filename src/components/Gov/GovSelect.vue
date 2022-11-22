@@ -27,24 +27,24 @@ export default {
   name: "GovSelect",
   props: {
     value: {
-      required: true
+      required: true,
     },
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     options: {
       type: Array,
-      required: false
+      required: false,
     },
     width: {
       type: Number,
-      required: false
-    }
+      required: false,
+    },
   },
   computed: {
     ariaDescribedBy() {
@@ -52,7 +52,7 @@ export default {
     },
     computedClasses() {
       return this.width ? `govuk-input--width-${this.width}` : null;
-    }
-  }
+    },
+  },
 };
 </script>

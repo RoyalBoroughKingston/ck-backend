@@ -1,19 +1,25 @@
 <template>
   <gov-width-container>
-    <gov-back-link :to="{ name: 'organisations-index' }">Back to organisations</gov-back-link>
+    <gov-back-link :to="{ name: 'organisations-index' }"
+      >Back to organisations</gov-back-link
+    >
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <vue-headful :title="`Connected Kingston - Organisation: ${organisation.name}`" />
+        <vue-headful
+          :title="`Connected Kingston - Organisation: ${organisation.name}`"
+        />
 
         <gov-grid-column width="two-thirds">
-
           <gov-heading size="m">View organisation</gov-heading>
 
           <ck-organisation-details :organisation="organisation" />
 
           <template v-if="auth.isSuperAdmin">
-            <gov-body>Please be certain of the action before deleting an organisation</gov-body>
+            <gov-body
+              >Please be certain of the action before deleting an
+              organisation</gov-body
+            >
 
             <gov-section-break size="l" />
 
@@ -23,14 +29,20 @@
               @deleted="onDelete"
             />
           </template>
-
         </gov-grid-column>
-        <gov-grid-column v-if="auth.isOrganisationAdmin(organisation)" width="one-third" class="text-right">
-
-          <gov-button :to="{ name: 'organisations-edit', params: { organisation: organisation.id } }">
+        <gov-grid-column
+          v-if="auth.isOrganisationAdmin(organisation)"
+          width="one-third"
+          class="text-right"
+        >
+          <gov-button
+            :to="{
+              name: 'organisations-edit',
+              params: { organisation: organisation.id },
+            }"
+          >
             Edit organisation
           </gov-button>
-
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -45,7 +57,7 @@ export default {
   data() {
     return {
       loading: false,
-      organisation: null
+      organisation: null,
     };
   },
   methods: {
@@ -60,10 +72,10 @@ export default {
     },
     onDelete() {
       this.$router.push({ name: "organisations-index" });
-    }
+    },
   },
   created() {
     this.fetchOrganisation();
-  }
+  },
 };
 </script>

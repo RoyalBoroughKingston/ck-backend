@@ -2,12 +2,18 @@
   <ck-loader v-if="loading" />
   <div v-else>
     <gov-body>
-      For service location <gov-link :to="{ name: 'service-locations-show', params: { serviceLocation: original.id } }">{{ service.name }} at {{ location.address_line_1 }}</gov-link>.
+      For service location
+      <gov-link
+        :to="{
+          name: 'service-locations-show',
+          params: { serviceLocation: original.id },
+        }"
+        >{{ service.name }} at {{ location.address_line_1 }}</gov-link
+      >.
     </gov-body>
 
     <gov-table>
       <template slot="body">
-
         <gov-table-row>
           <gov-table-header scope="column"></gov-table-header>
           <gov-table-header scope="column">From</gov-table-header>
@@ -20,12 +26,18 @@
           <gov-table-cell>{{ serviceLocation.name }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row v-if="serviceLocation.hasOwnProperty('regular_opening_hours')">
-          <gov-table-header top scope="row">Regular opening hours</gov-table-header>
+        <gov-table-row
+          v-if="serviceLocation.hasOwnProperty('regular_opening_hours')"
+        >
+          <gov-table-header top scope="row"
+            >Regular opening hours</gov-table-header
+          >
           <gov-table-cell>
             <gov-list v-if="original.regular_opening_hours.length > 0">
               <li
-                v-for="(regularOpeningHour, index) in original.regular_opening_hours"
+                v-for="(
+                  regularOpeningHour, index
+                ) in original.regular_opening_hours"
                 :key="index"
                 v-text="formatRegularOpeningHour(regularOpeningHour)"
               />
@@ -35,7 +47,9 @@
           <gov-table-cell>
             <gov-list v-if="serviceLocation.regular_opening_hours.length > 0">
               <li
-                v-for="(regularOpeningHour, index) in serviceLocation.regular_opening_hours"
+                v-for="(
+                  regularOpeningHour, index
+                ) in serviceLocation.regular_opening_hours"
                 :key="index"
                 v-text="formatRegularOpeningHour(regularOpeningHour)"
               />
@@ -44,12 +58,18 @@
           </gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row v-if="serviceLocation.hasOwnProperty('holiday_opening_hours')">
-          <gov-table-header top scope="row">Holiday opening hours</gov-table-header>
+        <gov-table-row
+          v-if="serviceLocation.hasOwnProperty('holiday_opening_hours')"
+        >
+          <gov-table-header top scope="row"
+            >Holiday opening hours</gov-table-header
+          >
           <gov-table-cell>
             <gov-list v-if="original.holiday_opening_hours.length > 0">
               <li
-                v-for="(holidayOpeningHour, index) in original.holiday_opening_hours"
+                v-for="(
+                  holidayOpeningHour, index
+                ) in original.holiday_opening_hours"
                 :key="index"
                 v-text="formatHolidayOpeningHour(holidayOpeningHour)"
               />
@@ -59,7 +79,9 @@
           <gov-table-cell>
             <gov-list v-if="serviceLocation.holiday_opening_hours.length > 0">
               <li
-                v-for="(holidayOpeningHour, index) in serviceLocation.holiday_opening_hours"
+                v-for="(
+                  holidayOpeningHour, index
+                ) in serviceLocation.holiday_opening_hours"
                 :key="index"
                 v-text="formatHolidayOpeningHour(holidayOpeningHour)"
               />
@@ -71,13 +93,28 @@
         <gov-table-row v-if="serviceLocation.hasOwnProperty('image_file_id')">
           <gov-table-header top scope="row">Image</gov-table-header>
           <gov-table-cell>
-            <img :src="apiUrl(`/service-locations/${serviceLocation.id}/image.png?v=${requestedAt}`)" alt="Service location image" class="ck-logo">
+            <img
+              :src="
+                apiUrl(
+                  `/service-locations/${serviceLocation.id}/image.png?v=${requestedAt}`
+                )
+              "
+              alt="Service location image"
+              class="ck-logo"
+            />
           </gov-table-cell>
           <gov-table-cell>
-            <img :src="apiUrl(`/service-locations/${serviceLocation.id}/image.png?update_request_id=${updateRequestId}`)" alt="Service location image" class="ck-logo">
+            <img
+              :src="
+                apiUrl(
+                  `/service-locations/${serviceLocation.id}/image.png?update_request_id=${updateRequestId}`
+                )
+              "
+              alt="Service location image"
+              class="ck-logo"
+            />
           </gov-table-cell>
         </gov-table-row>
-
       </template>
     </gov-table>
   </div>
@@ -92,25 +129,25 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String
+      type: String,
     },
 
     requestedAt: {
       required: true,
-      type: String
+      type: String,
     },
 
     serviceLocation: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
       loading: false,
       original: null,
       service: null,
-      location: null
+      location: null,
     };
   },
   methods: {
@@ -198,10 +235,10 @@ export default {
       const remainingDays = Math.abs(diffInDays % daysInFortnight);
 
       return remainingDays > 6 ? "next calendar week" : "this calendar week";
-    }
+    },
   },
   created() {
     this.fetchAll();
-  }
+  },
 };
 </script>

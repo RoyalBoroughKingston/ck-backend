@@ -1,10 +1,14 @@
 <template>
   <gov-width-container>
-    <gov-back-link :to="{ name: 'referrals-index' }">Back to referrals</gov-back-link>
+    <gov-back-link :to="{ name: 'referrals-index' }"
+      >Back to referrals</gov-back-link
+    >
     <gov-main-wrapper>
       <ck-loader v-if="loadingReferral" />
       <template v-else>
-        <vue-headful :title="`Connected Kingston - Referral: ${referral.name}`" />
+        <vue-headful
+          :title="`Connected Kingston - Referral: ${referral.name}`"
+        />
 
         <gov-grid-row>
           <gov-grid-column width="two-thirds">
@@ -39,8 +43,12 @@
               :error="form.$errors.get('comments')"
             />
 
-            <gov-button v-if="form.$submitting" disabled type="submit">Updating...</gov-button>
-            <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
+            <gov-button v-if="form.$submitting" disabled type="submit"
+              >Updating...</gov-button
+            >
+            <gov-button v-else @click="onSubmit" type="submit"
+              >Update</gov-button
+            >
             <ck-submit-error v-if="form.$errors.any()" />
           </gov-grid-column>
         </gov-grid-row>
@@ -50,12 +58,20 @@
             <gov-heading size="m">Previous comments</gov-heading>
             <ck-loader v-if="loadingStatusUpdates" />
             <template v-else>
-              <gov-grid-row v-for="(statusUpdate, key) in statusUpdates" :key="key">
+              <gov-grid-row
+                v-for="(statusUpdate, key) in statusUpdates"
+                :key="key"
+              >
                 <gov-grid-column width="full">
                   <gov-grid-row>
                     <gov-grid-column width="two-thirds">
-                      <gov-body>{{ statusUpdate.user.first_name }} {{ statusUpdate.user.last_name }}</gov-body>
-                      <gov-body>{{ formatDateTime(statusUpdate.created_at) }}</gov-body>
+                      <gov-body
+                        >{{ statusUpdate.user.first_name }}
+                        {{ statusUpdate.user.last_name }}</gov-body
+                      >
+                      <gov-body>{{
+                        formatDateTime(statusUpdate.created_at)
+                      }}</gov-body>
                     </gov-grid-column>
                     <gov-grid-column width="one-third" class="text-right">
                       <gov-tag>{{ statusUpdate.to | status }}</gov-tag>
@@ -71,8 +87,12 @@
               </gov-grid-row>
               <gov-body>
                 Page {{ currentPage }} of {{ lastPage }}
-                <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
-              --><gov-link v-if="currentPage < lastPage" @click="onNext">Next</gov-link>
+                <gov-link v-if="currentPage > 1" @click="onPrevious"
+                  >Back</gov-link
+                >&nbsp;<!--
+              --><gov-link v-if="currentPage < lastPage" @click="onNext"
+                  >Next</gov-link
+                >
               </gov-body>
             </template>
           </gov-grid-column>
@@ -83,7 +103,10 @@
             <gov-grid-column width="two-thirds">
               <gov-heading size="m">Delete referral</gov-heading>
 
-              <gov-body>Please be certain of the action before deleting a referral</gov-body>
+              <gov-body
+                >Please be certain of the action before deleting a
+                referral</gov-body
+              >
 
               <gov-section-break size="l" />
 
@@ -118,12 +141,12 @@ export default {
         { text: "New", value: "new" },
         { text: "In progress", value: "in_progress" },
         { text: "Completed", value: "completed" },
-        { text: "Incomplete", value: "incompleted" }
+        { text: "Incomplete", value: "incompleted" },
       ],
       form: new Form({
         status: null,
-        comments: ""
-      })
+        comments: "",
+      }),
     };
   },
   methods: {
@@ -133,8 +156,8 @@ export default {
       http
         .get(`/referrals/${this.$route.params.referral}`, {
           params: {
-            include: "service"
-          }
+            include: "service",
+          },
         })
         .then(({ data }) => {
           this.referral = data.data;
@@ -148,8 +171,8 @@ export default {
       const config = {
         params: {
           "filter[referral_id]": this.$route.params.referral,
-          include: "user"
-        }
+          include: "user",
+        },
       };
 
       http.get("/status-updates", config).then(({ data }) => {
@@ -177,7 +200,7 @@ export default {
     },
     onDelete() {
       this.$router.push({ name: "referrals-index" });
-    }
+    },
   },
   filters: {
     status(status) {
@@ -193,11 +216,11 @@ export default {
         default:
           return "Invalid status";
       }
-    }
+    },
   },
   created() {
     this.fetchReferral();
     this.fetchStatusUpdates();
-  }
+  },
 };
 </script>

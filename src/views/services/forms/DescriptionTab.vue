@@ -3,7 +3,6 @@
     <gov-heading size="l">What does your {{ type }} offer</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
-
         <gov-body>
           These sections should describe what your {{ type }} offers and is the
           main body of content on your page on Connected Kingston.
@@ -13,7 +12,10 @@
 
         <ck-textarea-input
           :value="intro"
-          @input="$emit('update:intro', $event); $emit('clear', 'intro')"
+          @input="
+            $emit('update:intro', $event);
+            $emit('clear', 'intro');
+          "
           id="intro"
           :label="`Your ${type}, an overview?`"
           :hint="`Write a brief description of what your ${type} does.`"
@@ -21,7 +23,7 @@
           :error="errors.get('intro')"
         />
 
-          <gov-heading size="m">What you offer</gov-heading>
+        <gov-heading size="m">What you offer</gov-heading>
 
         <gov-body>
           Include a bullet list of some of the things you do as a {{ type }}.
@@ -40,7 +42,10 @@
 
         <ck-wysiwyg-input
           :value="description"
-          @input="$emit('update:description', $event); $emit('clear', 'description')"
+          @input="
+            $emit('update:description', $event);
+            $emit('clear', 'description');
+          "
           id="description"
           label="Long description"
           :hint="`This is the largest body of text on your page. Fill it with everything else someone should know about your ${type}. Use headers, bullets and formatting for the maximum effect.`"
@@ -50,37 +55,36 @@
         />
 
         <slot />
-
       </gov-grid-column>
     </gov-grid-row>
   </div>
 </template>
 
 <script>
-import CkOfferingsInput from '@/views/services/inputs/OfferingsInput.vue';
+import CkOfferingsInput from "@/views/services/inputs/OfferingsInput.vue";
 
 export default {
   name: "DescriptionTab",
   components: {
-    CkOfferingsInput
+    CkOfferingsInput,
   },
   props: {
     errors: {
-      required: true
+      required: true,
     },
     type: {
       required: true,
-      type: String
+      type: String,
     },
     intro: {
-      required: true
+      required: true,
     },
     offerings: {
-      required: true
+      required: true,
     },
     description: {
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>

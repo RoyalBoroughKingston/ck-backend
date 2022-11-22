@@ -3,7 +3,6 @@
     <gov-heading size="l">{{ service.type | ucfirst }} details</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
-
         <gov-body>
           General details about the {{ service.type }}. (We use
           {{ service.type }} in the broadcast sense, This could be counselling
@@ -31,8 +30,8 @@
           :error="errors.get(['service.name', 'service.slug'])"
         >
           <gov-hint slot="hint" for="name">
-            The name of your {{ service.type }} must be unique. The URL
-            of your page will be: <br>
+            The name of your {{ service.type }} must be unique. The URL of your
+            page will be: <br />
             www.connectedkingston.uk/services/{{ service.slug }}
           </gov-hint>
         </ck-text-input>
@@ -58,13 +57,13 @@ export default {
   props: {
     service: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -73,9 +72,9 @@ export default {
         { text: "It is a Service", value: "service" },
         { text: "It is an Activity", value: "activity" },
         { text: "It is a Club", value: "club" },
-        { text: "It is a Group", value: "group" }
-      ]
+        { text: "It is a Group", value: "group" },
+      ],
     };
-  }
+  },
 };
 </script>

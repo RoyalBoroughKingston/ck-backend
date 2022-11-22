@@ -2,9 +2,13 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Connected Kingston - Edit Taxonomy Category: ${taxonomy.name}`" />
+      <vue-headful
+        :title="`Connected Kingston - Edit Taxonomy Category: ${taxonomy.name}`"
+      />
 
-      <gov-back-link :to="{ name: 'admin-index-taxonomies' }">Back to taxonomy categories</gov-back-link>
+      <gov-back-link :to="{ name: 'admin-index-taxonomies' }"
+        >Back to taxonomy categories</gov-back-link
+      >
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="one-half">
@@ -27,8 +31,12 @@
               @clear="form.$errors.clear($event)"
             />
 
-            <gov-button v-if="form.$submitting" disabled type="submit">Updating...</gov-button>
-            <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
+            <gov-button v-if="form.$submitting" disabled type="submit"
+              >Updating...</gov-button
+            >
+            <gov-button v-else @click="onSubmit" type="submit"
+              >Update</gov-button
+            >
             <ck-submit-error v-if="form.$errors.any()" />
 
             <gov-section-break size="l" />
@@ -57,7 +65,7 @@ export default {
     return {
       loading: false,
       taxonomy: null,
-      form: null
+      form: null,
     };
   },
   methods: {
@@ -71,7 +79,7 @@ export default {
       this.form = new Form({
         parent_id: this.taxonomy.parent_id,
         name: this.taxonomy.name,
-        order: this.taxonomy.order
+        order: this.taxonomy.order,
       });
 
       this.loading = false;
@@ -82,10 +90,10 @@ export default {
     },
     onDelete() {
       this.$router.push({ name: "admin-index-taxonomies" });
-    }
+    },
   },
   created() {
     this.fetchTaxonomy();
-  }
+  },
 };
 </script>

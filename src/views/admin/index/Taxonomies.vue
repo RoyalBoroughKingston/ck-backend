@@ -17,10 +17,10 @@ export default {
         { heading: "Categories", to: { name: "admin-index-taxonomies" } },
         {
           heading: "Organisations",
-          to: { name: "admin-index-taxonomies-organisations" }
-        }
-      ]
+          to: { name: "admin-index-taxonomies-organisations" },
+        },
+      ],
     };
-  }
+  },
 };
 </script>

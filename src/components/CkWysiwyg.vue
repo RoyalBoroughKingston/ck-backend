@@ -1,10 +1,10 @@
 <template>
-  <div
-    class="ck-wysiwyg"
-    :class="{ 'ck-wysiwyg--lg': large }"
-  >
+  <div class="ck-wysiwyg" :class="{ 'ck-wysiwyg--lg': large }">
     <editor-menu-bar class="ck-wysiwyg__toolbar" :editor="editor">
-      <div class="ck-wysiwyg__toolbar-buttons-wrapper" slot-scope="{ commands, isActive }">
+      <div
+        class="ck-wysiwyg__toolbar-buttons-wrapper"
+        slot-scope="{ commands, isActive }"
+      >
         <gov-button
           v-if="isActive.bold"
           class="ck-wysiwyg__toolbar-button"
@@ -115,13 +115,13 @@ export default {
     value: {
       type: String,
       required: false,
-      default: ""
+      default: "",
     },
 
     large: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
 
     extensions: {
@@ -138,8 +138,8 @@ export default {
           new Italic(),
           new Link(),
         ];
-      }
-    }
+      },
+    },
   },
 
   data() {
@@ -169,12 +169,12 @@ export default {
     },
 
     promptUrl() {
-      return window.prompt('Please enter a URL');
+      return window.prompt("Please enter a URL");
     },
   },
 
   mounted() {
-    const element = document.createElement('div');
+    const element = document.createElement("div");
     element.innerHTML = this.editor.getHTML();
     this.$emit("count", element.textContent.length);
   },

@@ -29,7 +29,7 @@
       </template>
     </gov-table>
 
-    <gov-section-break size="m"/>
+    <gov-section-break size="m" />
 
     <gov-table>
       <template slot="body">
@@ -60,17 +60,17 @@
 
         <gov-table-row>
           <gov-table-header top scope="row">Email</gov-table-header>
-          <gov-table-cell>{{ organisation.email || '-' }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.email || "-" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
           <gov-table-header top scope="row">Phone</gov-table-header>
-          <gov-table-cell>{{ organisation.phone || '-' }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.phone || "-" }}</gov-table-cell>
         </gov-table-row>
       </template>
     </gov-table>
 
-    <gov-section-break size="m"/>
+    <gov-section-break size="m" />
 
     <gov-table>
       <template slot="body">
@@ -115,35 +115,35 @@
             <gov-list>
               <li>
                 <span class="govuk-!-font-weight-bold">Age group:</span>
-                {{ service.criteria.age_group || 'N/A' }}
+                {{ service.criteria.age_group || "N/A" }}
               </li>
               <li>
                 <span class="govuk-!-font-weight-bold">Disability:</span>
-                {{ service.criteria.disability || 'N/A' }}
+                {{ service.criteria.disability || "N/A" }}
               </li>
               <li>
                 <span class="govuk-!-font-weight-bold">Employment:</span>
-                {{ service.criteria.employment || 'N/A' }}
+                {{ service.criteria.employment || "N/A" }}
               </li>
               <li>
                 <span class="govuk-!-font-weight-bold">Gender:</span>
-                {{ service.criteria.gender || 'N/A' }}
+                {{ service.criteria.gender || "N/A" }}
               </li>
               <li>
                 <span class="govuk-!-font-weight-bold">Housing:</span>
-                {{ service.criteria.housing || 'N/A' }}
+                {{ service.criteria.housing || "N/A" }}
               </li>
               <li>
                 <span class="govuk-!-font-weight-bold">Income:</span>
-                {{ service.criteria.income || 'N/A' }}
+                {{ service.criteria.income || "N/A" }}
               </li>
               <li>
                 <span class="govuk-!-font-weight-bold">Language:</span>
-                {{ service.criteria.language || 'N/A' }}
+                {{ service.criteria.language || "N/A" }}
               </li>
               <li>
                 <span class="govuk-!-font-weight-bold">Other:</span>
-                {{ service.criteria.other || 'N/A' }}
+                {{ service.criteria.other || "N/A" }}
               </li>
             </gov-list>
           </gov-table-cell>
@@ -151,17 +151,17 @@
 
         <gov-table-row>
           <gov-table-header top scope="row">Fees URL</gov-table-header>
-          <gov-table-cell break>{{ service.fees_url || 'N/A' }}</gov-table-cell>
+          <gov-table-cell break>{{ service.fees_url || "N/A" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
           <gov-table-header top scope="row">Fees text</gov-table-header>
-          <gov-table-cell>{{ service.fees_text || 'N/A' }}</gov-table-cell>
+          <gov-table-cell>{{ service.fees_text || "N/A" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
           <gov-table-header top scope="row">Wait time</gov-table-header>
-          <gov-table-cell>{{ service.wait_time || 'N/A' }}</gov-table-cell>
+          <gov-table-cell>{{ service.wait_time || "N/A" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
@@ -171,12 +171,12 @@
 
         <gov-table-row>
           <gov-table-header top scope="row">Testimonial</gov-table-header>
-          <gov-table-cell>{{ service.testimonial || 'N/A' }}</gov-table-cell>
+          <gov-table-cell>{{ service.testimonial || "N/A" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
           <gov-table-header top scope="row">Video embed</gov-table-header>
-          <gov-table-cell>{{ service.video_embed || 'N/A' }}</gov-table-cell>
+          <gov-table-cell>{{ service.video_embed || "N/A" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
@@ -222,12 +222,12 @@
 
         <gov-table-row>
           <gov-table-header top scope="row">Contact email</gov-table-header>
-          <gov-table-cell>{{ service.contact_email || '-' }}</gov-table-cell>
+          <gov-table-cell>{{ service.contact_email || "-" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
           <gov-table-header top scope="row">Contact phone</gov-table-header>
-          <gov-table-cell>{{ service.contact_phone || '-' }}</gov-table-cell>
+          <gov-table-cell>{{ service.contact_phone || "-" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>
@@ -260,28 +260,28 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String
+      type: String,
     },
 
     requestedAt: {
       required: true,
-      type: String
+      type: String,
     },
 
     user: {
       required: true,
-      type: Object
+      type: Object,
     },
 
     organisation: {
       required: true,
-      type: Object
+      type: Object,
     },
 
     service: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
 
   filters: {
@@ -302,7 +302,7 @@ export default {
         case "other":
           return "Other";
       }
-    }
-  }
+    },
+  },
 };
 </script>

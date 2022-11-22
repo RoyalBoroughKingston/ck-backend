@@ -5,17 +5,24 @@
         <gov-heading size="l">Taxonomy: Organisations</gov-heading>
 
         <gov-body>
-          This page shows the list of organisations a user can select from when referring a client to another service.
-          Essentially, these are the organisations a champion can refer 'from'.
+          This page shows the list of organisations a user can select from when
+          referring a client to another service. Essentially, these are the
+          organisations a champion can refer 'from'.
         </gov-body>
 
         <gov-body>
-          From this page, you can edit, delete, and add the organisations that appear on the list.
+          From this page, you can edit, delete, and add the organisations that
+          appear on the list.
         </gov-body>
       </gov-grid-column>
 
       <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
-        <gov-button :to="{ name: 'taxonomies-organisations-create' }" success expand>Add a new organisation</gov-button>
+        <gov-button
+          :to="{ name: 'taxonomies-organisations-create' }"
+          success
+          expand
+          >Add a new organisation</gov-button
+        >
       </gov-grid-column>
     </gov-grid-row>
 
@@ -24,7 +31,6 @@
     <!-- Loop through each organisation -->
     <gov-grid-row>
       <gov-grid-column width="two-thirds">
-
         <ck-loader v-if="loading" />
         <template v-else>
           <gov-list v-if="taxonomies.length > 0" bullet>
@@ -32,7 +38,10 @@
               {{ taxonomy.name }}&nbsp;
               <gov-link
                 v-if="auth.isGlobalAdmin"
-                :to="{ name: 'taxonomies-organisations-edit', params: { taxonomy: taxonomy.id } }"
+                :to="{
+                  name: 'taxonomies-organisations-edit',
+                  params: { taxonomy: taxonomy.id },
+                }"
               >
                 Edit
               </gov-link>
@@ -40,7 +49,6 @@
           </gov-list>
           <gov-body v-else>No taxonomies.</gov-body>
         </template>
-
       </gov-grid-column>
     </gov-grid-row>
   </div>
@@ -54,7 +62,7 @@ export default {
   data() {
     return {
       loading: false,
-      taxonomies: []
+      taxonomies: [],
     };
   },
   methods: {
@@ -65,10 +73,10 @@ export default {
       this.taxonomies = data.data;
 
       this.loading = false;
-    }
+    },
   },
   created() {
     this.fetchTaxonomies();
-  }
+  },
 };
 </script>

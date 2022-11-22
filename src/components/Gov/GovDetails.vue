@@ -17,8 +17,8 @@ export default {
   props: {
     summary: {
       type: String,
-      required: false
-    }
-  }
+      required: false,
+    },
+  },
 };
 </script>

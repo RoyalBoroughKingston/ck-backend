@@ -14,16 +14,16 @@ class MarkdownConverter {
       h2: "govuk-heading-l",
       h3: "govuk-heading-m",
       ul: "govuk-list govuk-list--bullet",
-      ol: "govuk-list govuk-list--number"
+      ol: "govuk-list govuk-list--number",
     };
-    const bindings = Object.keys(classMap).map(key => ({
+    const bindings = Object.keys(classMap).map((key) => ({
       type: "output",
       regex: new RegExp(`<${key}>`, "g"),
-      replace: `<${key} class="${classMap[key]}">`
+      replace: `<${key} class="${classMap[key]}">`,
     }));
     this.showdownConverter = new Showdown.Converter({
       extensions: [...bindings],
-      noHeaderId: true
+      noHeaderId: true,
     });
   }
 

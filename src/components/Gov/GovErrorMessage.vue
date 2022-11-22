@@ -10,13 +10,13 @@ export default {
   props: {
     for: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     id() {
       return [this.for, "error"].join("-");
-    }
-  }
+    },
+  },
 };
 </script>

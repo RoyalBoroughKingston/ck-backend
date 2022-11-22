@@ -1,39 +1,33 @@
 <template>
   <gov-form-group :invalid="error !== null">
+    <gov-label :for="id" class="govuk-!-font-weight-bold">
+      <slot name="label">{{ label }}</slot>
+    </gov-label>
 
-      <gov-label :for="id" class="govuk-!-font-weight-bold">
-        <slot name="label">{{ label }}</slot>
-      </gov-label>
+    <slot name="hint">
+      <gov-hint v-if="hint" :for="id" v-text="hint" />
+    </slot>
 
-      <slot name="hint">
-        <gov-hint v-if="hint" :for="id" v-text="hint" />
-      </slot>
-
-      <ck-character-count-group>
-        <ck-wysiwyg
-          :value="value"
-          @input="$emit('input', $event)"
-          @count="onCount"
-          :id="id"
-          :large="large"
-          :extensions="extensions"
-        />
-        <ck-character-count
-          v-if="maxlength"
-          :count="count"
-          :max-length="maxlength"
-        />
-      </ck-character-count-group>
-
-      <slot name="after-input" />
-
-      <gov-error-message
-        v-if="error !== null"
-        v-text="error"
-        :for="id"
+    <ck-character-count-group>
+      <ck-wysiwyg
+        :value="value"
+        @input="$emit('input', $event)"
+        @count="onCount"
+        :id="id"
+        :large="large"
+        :extensions="extensions"
       />
+      <ck-character-count
+        v-if="maxlength"
+        :count="count"
+        :max-length="maxlength"
+      />
+    </ck-character-count-group>
 
-    </gov-form-group>
+    <slot name="after-input" />
+
+    <gov-error-message v-if="error !== null" v-text="error" :for="id" />
+  </gov-form-group>
 </template>
 
 <script>
@@ -56,31 +50,31 @@ export default {
   props: {
     value: {
       required: true,
-      type: String
+      type: String,
     },
     label: {
       required: true,
-      type: String
+      type: String,
     },
     hint: {
       required: false,
-      type: String
+      type: String,
     },
     error: {
-      required: true
+      required: true,
     },
     id: {
       required: true,
-      type: String
+      type: String,
     },
     large: {
       required: false,
       type: Boolean,
-      deafult: false
+      deafult: false,
     },
     maxlength: {
       required: false,
-      type: Number
+      type: Number,
     },
     extensions: {
       required: false,
@@ -96,18 +90,18 @@ export default {
           new Italic(),
           new Link(),
         ];
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      count: 0
+      count: 0,
     };
   },
   methods: {
     onCount(count) {
       this.count = count;
-    }
-  }
+    },
+  },
 };
 </script>

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "CkCode"
+  name: "CkCode",
 };
 </script>
 

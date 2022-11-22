@@ -32,19 +32,19 @@ export default {
 
   model: {
     prop: "frontend",
-    event: "input"
+    event: "input",
   },
 
   props: {
     frontend: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
@@ -54,8 +54,8 @@ export default {
       frontend.terms_and_conditions[field] = value;
 
       this.$emit("input", frontend);
-      this.$emit("clear", `frontend.terms_and_conditions.${field}`)
-    }
-  }
+      this.$emit("clear", `frontend.terms_and_conditions.${field}`);
+    },
+  },
 };
 </script>

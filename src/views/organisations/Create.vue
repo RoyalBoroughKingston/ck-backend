@@ -2,13 +2,18 @@
   <gov-width-container>
     <vue-headful title="Connected Kingston - Add Organisation" />
 
-    <gov-back-link :to="{ name: 'organisations-index' }">Back to organisations</gov-back-link>
+    <gov-back-link :to="{ name: 'organisations-index' }"
+      >Back to organisations</gov-back-link
+    >
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="one-half">
           <gov-heading size="xl">Organisations</gov-heading>
           <gov-heading size="m">Add organisation</gov-heading>
-          <gov-body>General details about the organisation. To be found when searching or linked from a service page.</gov-body>
+          <gov-body
+            >General details about the organisation. To be found when searching
+            or linked from a service page.</gov-body
+          >
 
           <organisation-form
             :errors="form.$errors"
@@ -24,7 +29,9 @@
 
           <gov-section-break size="l" />
 
-          <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+          <gov-button v-if="form.$submitting" disabled type="submit"
+            >Creating...</gov-button
+          >
           <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
         </gov-grid-column>
@@ -49,14 +56,14 @@ export default {
         url: "",
         email: "",
         phone: "",
-        logo_file_id: null
-      })
+        logo_file_id: null,
+      }),
     };
   },
   watch: {
     ["form.name"](newName) {
       this.form.slug = this.slugify(newName);
-    }
+    },
   },
   methods: {
     async onSubmit() {
@@ -64,9 +71,9 @@ export default {
       const organisationId = response.data.id;
       this.$router.push({
         name: "organisations-show",
-        params: { organisation: organisationId }
+        params: { organisation: organisationId },
       });
-    }
-  }
+    },
+  },
 };
 </script>
