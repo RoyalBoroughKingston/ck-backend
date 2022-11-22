@@ -97,6 +97,7 @@ export default {
     },
     parseCollectionForUpdate(collection) {
       return {
+        slug: collection.slug,
         name: collection.name,
         intro: collection.intro,
         subtitle: collection.subtitle,
