@@ -6,7 +6,6 @@
       :invalid="errors.has('roles')"
     >
       <gov-inset-text>
-
         <gov-error-message
           v-if="errors.has(`roles.${index}`)"
           v-text="errors.get(`roles.${index}`)"
@@ -42,11 +41,15 @@
 
           <template v-if="showServiceSelect(index)">
             <!-- Service -->
-            <gov-form-group v-if="!services.hasOwnProperty(roles[index].organisation_id)">
+            <gov-form-group
+              v-if="!services.hasOwnProperty(roles[index].organisation_id)"
+            >
               Select an organisation
             </gov-form-group>
-            <gov-form-group v-else-if="services[roles[index].organisation_id].loading">
-              <ck-loader  />
+            <gov-form-group
+              v-else-if="services[roles[index].organisation_id].loading"
+            >
+              <ck-loader />
             </gov-form-group>
             <ck-select-input
               v-else
@@ -59,13 +62,11 @@
             />
             <!-- /Service -->
           </template>
-
         </template>
 
         <gov-section-break size="m" />
 
         <gov-button @click="onRemovePermission(index)" error>Remove</gov-button>
-
       </gov-inset-text>
     </gov-form-group>
 
@@ -88,17 +89,17 @@ export default {
   name: "UserRolesInput",
   model: {
     prop: "roles",
-    event: "input"
+    event: "input",
   },
   props: {
     roles: {
       required: true,
-      type: Array
+      type: Array,
     },
     errors: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
@@ -108,24 +109,24 @@ export default {
         { text: "Global admin", value: "Global Admin" },
         { text: "Organisation admin", value: "Organisation Admin" },
         { text: "Service admin", value: "Service Admin" },
-        { text: "Service worker", value: "Service Worker" }
+        { text: "Service worker", value: "Service Worker" },
       ],
       roleIndex: 0,
       loadingOrganisations: false,
       organisations: [],
-      services: {}
+      services: {},
     };
   },
   watch: {
     roles: {
-      handler: function(newRoles, oldRoles) {
+      handler: function (newRoles, oldRoles) {
         if (JSON.stringify(newRoles) === JSON.stringify(oldRoles)) {
           return;
         }
 
-        newRoles = newRoles.map(role => ({ ...role }));
+        newRoles = newRoles.map((role) => ({ ...role }));
 
-        newRoles.forEach(role => {
+        newRoles.forEach((role) => {
           // If the role uses a service, then lazy load the services and cache them.
           if (role.role === "Service Admin" || role.role === "Service Worker") {
             if (role.organisation_id !== null) {
@@ -150,12 +151,12 @@ export default {
           }
         });
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
     cloneRoles() {
-      return this.roles.map(role => ({ ...role }));
+      return this.roles.map((role) => ({ ...role }));
     },
     showOrganisationSelect(index) {
       return ["Organisation Admin", "Service Admin", "Service Worker"].includes(
@@ -195,7 +196,7 @@ export default {
         role: null,
         organisation_id: null,
         service_id: null,
-        index: this.roleIndex
+        index: this.roleIndex,
       });
       this.$emit("input", roles);
       this.$emit("clear", "roles");
@@ -212,14 +213,14 @@ export default {
     async cacheOrganisations() {
       this.loadingOrganisations = true;
       this.organisations = [
-        { value: null, text: "Please select", disabled: true }
+        { value: null, text: "Please select", disabled: true },
       ];
 
       let organisations = await this.fetchAll("/organisations");
-      organisations = organisations.map(organisation => {
+      organisations = organisations.map((organisation) => {
         return {
           value: organisation.id,
-          text: organisation.name
+          text: organisation.name,
         };
       });
       this.organisations = [...this.organisations, ...organisations];
@@ -240,7 +241,7 @@ export default {
         // Set the initial object.
         this.services[organisationId] = {
           items: [{ value: null, text: "Please select", disabled: true }],
-          loading: true
+          loading: true,
         };
       }
 
@@ -254,28 +255,28 @@ export default {
         this.services[organisationId].items = [
           ...this.services[organisationId].items,
           ...services
-            .filter(service => service.organisation_id === organisationId)
-            .map(service => ({ value: service.id, text: service.name }))
+            .filter((service) => service.organisation_id === organisationId)
+            .map((service) => ({ value: service.id, text: service.name })),
         ];
 
         this.services[organisationId].loading = false;
       }
 
       this.$forceUpdate();
-    }
+    },
   },
   created() {
     this.cacheOrganisations();
 
     let organisationIds = {};
 
-    this.roles.forEach(role => {
+    this.roles.forEach((role) => {
       if (role.hasOwnProperty("organisation_id")) {
         organisationIds[role.organisation_id] = null;
       }
     });
 
     this.cacheServices(Object.keys(organisationIds));
-  }
+  },
 };
 </script>

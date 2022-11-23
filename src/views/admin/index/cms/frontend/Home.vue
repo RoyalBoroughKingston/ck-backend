@@ -46,19 +46,19 @@ export default {
 
   model: {
     prop: "frontend",
-    event: "input"
+    event: "input",
   },
 
   props: {
     frontend: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
@@ -68,8 +68,8 @@ export default {
       frontend.home[field] = value;
 
       this.$emit("input", frontend);
-      this.$emit("clear", `frontend.home.${field}`)
-    }
-  }
+      this.$emit("clear", `frontend.home.${field}`);
+    },
+  },
 };
 </script>

@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "GovTabPanel"
+  name: "GovTabPanel",
 };
 </script>

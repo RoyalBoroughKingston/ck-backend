@@ -106,8 +106,8 @@ export default {
 
   data() {
     return {
-      auth: Auth
+      auth: Auth,
     };
-  }
+  },
 };
 </script>

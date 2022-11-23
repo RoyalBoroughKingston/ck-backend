@@ -14,7 +14,9 @@
 
           <gov-body>
             For further information, please contact:
-            <gov-link href="mailto:info@connectedkingston.uk">info@connectedkingston.uk</gov-link>
+            <gov-link href="mailto:info@connectedkingston.uk"
+              >info@connectedkingston.uk</gov-link
+            >
           </gov-body>
 
           <gov-button :to="{ name: 'dashboard' }" start>Home</gov-button>

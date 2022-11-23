@@ -8,7 +8,9 @@
           <gov-table-cell>{{ waitTime }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
-          <gov-table-header scope="row" top>Is this {{ service.type }} free?</gov-table-header>
+          <gov-table-header scope="row" top
+            >Is this {{ service.type }} free?</gov-table-header
+          >
           <gov-table-cell>{{ isFree }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
@@ -17,7 +19,9 @@
         </gov-table-row>
         <gov-table-row>
           <gov-table-header scope="row" top>Video URL</gov-table-header>
-          <gov-table-cell break>{{ service.video_embed || "-" }}</gov-table-cell>
+          <gov-table-cell break>{{
+            service.video_embed || "-"
+          }}</gov-table-cell>
         </gov-table-row>
       </template>
     </gov-table>
@@ -30,8 +34,8 @@ export default {
   props: {
     service: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     waitTime() {
@@ -53,7 +57,7 @@ export default {
     },
     isFree() {
       return this.service.is_free ? "Yes" : "No";
-    }
-  }
+    },
+  },
 };
 </script>

@@ -82,38 +82,38 @@ export default {
   props: {
     errors: {
       required: true,
-      type: Object
+      type: Object,
     },
     first_name: {
       required: true,
-      type: String
+      type: String,
     },
     last_name: {
       required: true,
-      type: String
+      type: String,
     },
     email: {
       required: true,
-      type: String
+      type: String,
     },
     phone: {
       required: true,
-      type: String
+      type: String,
     },
     password: {
       required: true,
-      type: String
+      type: String,
     },
     roles: {
       required: true,
-      type: Array
-    }
+      type: Array,
+    },
   },
   methods: {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
-    }
-  }
+    },
+  },
 };
 </script>

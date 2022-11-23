@@ -8,7 +8,11 @@
     <template v-else>
       <gov-error-summary v-if="settings.$errors.any()" title="Check for errors">
         <gov-list>
-          <li v-for="(error, field) in settings.$errors.all()" :key="field" v-text="error[0]" />
+          <li
+            v-for="(error, field) in settings.$errors.all()"
+            :key="field"
+            v-text="error[0]"
+          />
         </gov-list>
       </gov-error-summary>
 
@@ -20,7 +24,9 @@
         />
       </gov-tabs>
 
-      <gov-button v-if="settings.$submitting" disabled type="submit">Updating...</gov-button>
+      <gov-button v-if="settings.$submitting" disabled type="submit"
+        >Updating...</gov-button
+      >
       <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
       <ck-submit-error v-if="settings.$errors.any()" />
     </template>
@@ -39,43 +45,43 @@ export default {
       tabs: [
         {
           heading: "Global",
-          to: { name: "admin-index-cms" }
+          to: { name: "admin-index-cms" },
         },
         {
           heading: "Home",
-          to: { name: "admin-index-cms-frontend-home" }
+          to: { name: "admin-index-cms-frontend-home" },
         },
         {
           heading: "Terms and Conditions",
-          to: { name: "admin-index-cms-frontend-terms-and-conditions" }
+          to: { name: "admin-index-cms-frontend-terms-and-conditions" },
         },
         {
           heading: "Privacy Policy",
-          to: { name: "admin-index-cms-frontend-privacy-policy" }
+          to: { name: "admin-index-cms-frontend-privacy-policy" },
         },
         {
           heading: "About",
-          to: { name: "admin-index-cms-frontend-about" }
+          to: { name: "admin-index-cms-frontend-about" },
         },
         {
           heading: "Contact",
-          to: { name: "admin-index-cms-frontend-contact" }
+          to: { name: "admin-index-cms-frontend-contact" },
         },
         {
           heading: "Get Involved",
-          to: { name: "admin-index-cms-frontend-get-involved" }
+          to: { name: "admin-index-cms-frontend-get-involved" },
         },
         {
           heading: "Favourites",
-          to: { name: "admin-index-cms-frontend-favourites" }
+          to: { name: "admin-index-cms-frontend-favourites" },
         },
         {
           heading: "Banner",
-          to: { name: "admin-index-cms-frontend-banner" }
-        }
+          to: { name: "admin-index-cms-frontend-banner" },
+        },
       ],
       settings: null,
-      loading: false
+      loading: false,
     };
   },
 
@@ -87,10 +93,13 @@ export default {
     async fetchSettings() {
       this.loading = true;
 
-      const { data: { data: settings } } = await http.get("/settings");
+      const {
+        data: { data: settings },
+      } = await http.get("/settings");
 
       delete settings.cms.frontend.banner.has_image;
-      settings.cms.frontend.banner.enabled = settings.cms.frontend.banner.title !== null;
+      settings.cms.frontend.banner.enabled =
+        settings.cms.frontend.banner.title !== null;
 
       this.settings = new Form(settings);
 
@@ -118,8 +127,8 @@ export default {
         // Remove banner enabled field.
         delete data.cms.frontend.banner.enabled;
       });
-      this.$router.push({ name: 'admin-index-cms-updated' });
-    }
-  }
+      this.$router.push({ name: "admin-index-cms-updated" });
+    },
+  },
 };
 </script>

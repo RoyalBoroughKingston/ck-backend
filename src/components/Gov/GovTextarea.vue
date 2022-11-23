@@ -17,32 +17,32 @@ export default {
   props: {
     value: {
       type: String,
-      required: true
+      required: true,
     },
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     rows: {
       type: Number,
       required: false,
-      default: 5
-    }
+      default: 5,
+    },
   },
   computed: {
     ariaDescribedBy() {
       return `${this.name}-hint`;
-    }
+    },
   },
   methods: {
     onEnter() {
       this.$emit("enter");
-    }
-  }
+    },
+  },
 };
 </script>
 

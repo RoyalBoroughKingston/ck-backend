@@ -2,13 +2,18 @@
   <gov-width-container>
     <vue-headful title="Connected Kingston - Add Location" />
 
-    <gov-back-link :to="{ name: 'locations-index' }">Back to locations</gov-back-link>
+    <gov-back-link :to="{ name: 'locations-index' }"
+      >Back to locations</gov-back-link
+    >
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="one-half">
           <gov-heading size="xl">Locations</gov-heading>
           <gov-heading size="m">Add location</gov-heading>
-          <gov-body>The locations will appear on the service pages which will inform people of where to find your service/organisation</gov-body>
+          <gov-body
+            >The locations will appear on the service pages which will inform
+            people of where to find your service/organisation</gov-body
+          >
 
           <location-form
             :errors="form.$errors"
@@ -25,7 +30,9 @@
             @clear="form.$errors.clear($event)"
           />
 
-          <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+          <gov-button v-if="form.$submitting" disabled type="submit"
+            >Creating...</gov-button
+          >
           <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
         </gov-grid-column>
@@ -54,8 +61,8 @@ export default {
         accessibility_info: "",
         has_wheelchair_access: false,
         has_induction_loop: false,
-        image_file_id: null
-      })
+        image_file_id: null,
+      }),
     };
   },
   methods: {
@@ -63,10 +70,10 @@ export default {
       this.form.post("/locations").then(({ data }) =>
         this.$router.push({
           name: "locations-show",
-          params: { location: data.id }
+          params: { location: data.id },
         })
       );
-    }
-  }
+    },
+  },
 };
 </script>

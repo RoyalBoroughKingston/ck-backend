@@ -1,8 +1,6 @@
 <template>
   <div>
-    <gov-back-link :to="{ name: 'register-index-user' }">
-      Back
-    </gov-back-link>
+    <gov-back-link :to="{ name: 'register-index-user' }"> Back </gov-back-link>
 
     <gov-main-wrapper>
       <gov-grid-row>
@@ -26,8 +24,10 @@
           >
             <gov-hint slot="hint" for="name">
               The name of your organisation must be unique. The URL of your page
-              will be: <br>
-              www.connectedkingston.uk/organisations/{{ form.organisation.slug }}
+              will be: <br />
+              www.connectedkingston.uk/organisations/{{
+                form.organisation.slug
+              }}
             </gov-hint>
           </ck-text-input>
 
@@ -82,25 +82,28 @@ export default {
   props: {
     form: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
     onInput(field, value) {
-      this.$emit('input', Object.assign(this.form, {
-        organisation: {
-          ...this.form.organisation,
-          [field]: value
-        }
-      }));
-      this.$emit('clear', `organisation.${field}`);
-    }
-  }
-}
+      this.$emit(
+        "input",
+        Object.assign(this.form, {
+          organisation: {
+            ...this.form.organisation,
+            [field]: value,
+          },
+        })
+      );
+      this.$emit("clear", `organisation.${field}`);
+    },
+  },
+};
 </script>

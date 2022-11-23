@@ -6,7 +6,6 @@
 
     <gov-grid-row>
       <gov-grid-column width="one-half">
-
         <gov-body>
           This section allows you to add more information to your
           {{ service.type }} page. The more detail that can be provided, the
@@ -67,7 +66,7 @@
             @input="$emit('input', { field: 'fees_text', value: $event })"
             id="fees_text"
             label="How much does it cost? (if applicable)"
-            :hint='`Please indicate the basic cost of the ${service.type}. If there are multiple price points, please provide an indicative range (eg. "5-10 per session").`'
+            :hint="`Please indicate the basic cost of the ${service.type}. If there are multiple price points, please provide an indicative range (eg. &quot;5-10 per session&quot;).`"
             type="text"
             :error="errors.get('service.fees_text')"
             :maxlength="75"
@@ -93,14 +92,14 @@
           :error="errors.get('service.testimonial')"
         >
           <template slot="hint">
-              <gov-hint for="testimonial">
-                Please enter a quote from a service user highlighting a positive
-                outcome to help promote your good work. For example:
-              </gov-hint>
+            <gov-hint for="testimonial">
+              Please enter a quote from a service user highlighting a positive
+              outcome to help promote your good work. For example:
+            </gov-hint>
 
-              <gov-hint for="testimonial">
-                This {{ service.type }} changed my life!
-              </gov-hint>
+            <gov-hint for="testimonial">
+              This {{ service.type }} changed my life!
+            </gov-hint>
           </template>
         </ck-textarea-input>
 
@@ -133,7 +132,7 @@
       </gov-grid-column>
     </gov-grid-row>
 
-    <gov-section-break size="m" visible/>
+    <gov-section-break size="m" visible />
 
     <gov-heading size="l">Contact details</gov-heading>
     <gov-grid-row>
@@ -172,7 +171,7 @@
 
             <gov-hint for="contact_phone">
               Please use the following formatting:
-              <br>
+              <br />
               020 8XXX XXXX for landline or 07XXX XXXXXX for mobile.
             </gov-hint>
           </template>
@@ -219,19 +218,19 @@ import SocialMediasInput from "@/views/services/inputs/SocialMediasInput";
 
 export default {
   components: {
-    SocialMediasInput
+    SocialMediasInput,
   },
 
   props: {
     service: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   computed: {
@@ -242,8 +241,8 @@ export default {
         { text: "Two weeks", value: "two_weeks" },
         { text: "Three weeks", value: "three_weeks" },
         { text: "One month", value: "month" },
-        { text: "Longer than a month", value: "longer" }
-      ]
+        { text: "Longer than a month", value: "longer" },
+      ];
     },
 
     isFreeOptions() {
@@ -251,21 +250,20 @@ export default {
         { value: true, label: `Yes - The ${this.service.type} is free` },
         {
           value: false,
-          label: `No - there are elements of this ${this.service.type} that must be paid for`
-        }
+          label: `No - there are elements of this ${this.service.type} that must be paid for`,
+        },
       ];
     },
 
     videoEmbedHelpHref() {
       const to = "info@connectedkingston.uk";
       const subject = `Make a video for my ${this.service.type}`;
-      const body =
-        `My ${this.service.type} is: xxx\n\nI am interested in making a video for my ${this.service.type} page on Connected Kingston.`;
+      const body = `My ${this.service.type} is: xxx\n\nI am interested in making a video for my ${this.service.type} page on Connected Kingston.`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
-    }
-  }
+    },
+  },
 };
 </script>

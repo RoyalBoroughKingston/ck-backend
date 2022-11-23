@@ -6,15 +6,16 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
-
           <gov-heading size="xl">Reports</gov-heading>
 
-          <gov-body>Access information by recieving updates on data such as site usage.</gov-body>
+          <gov-body
+            >Access information by recieving updates on data such as site
+            usage.</gov-body
+          >
 
           <gov-tabs :tabs="tabs">
             <router-view />
           </gov-tabs>
-
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -29,14 +30,14 @@ export default {
       tabs: [
         {
           heading: "View all",
-          to: { name: "reports-index" }
+          to: { name: "reports-index" },
         },
         {
           heading: "Manage",
-          to: { name: "reports-edit" }
-        }
-      ]
+          to: { name: "reports-edit" },
+        },
+      ],
     };
-  }
+  },
 };
 </script>

@@ -4,16 +4,25 @@
       <gov-table-row>
         <gov-table-header top scope="row">Status</gov-table-header>
         <gov-table-cell>
-          <gov-tag :class="`notification-status notification-status--${formatStatus(notification)}`">{{ formatStatus(notification) }}</gov-tag>
+          <gov-tag
+            :class="`notification-status notification-status--${formatStatus(
+              notification
+            )}`"
+            >{{ formatStatus(notification) }}</gov-tag
+          >
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Channel</gov-table-header>
-        <gov-table-cell>{{ formatChannel(notification.channel) }}</gov-table-cell>
+        <gov-table-cell>{{
+          formatChannel(notification.channel)
+        }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Type</gov-table-header>
-        <gov-table-cell>{{ formatType(notification.notifiable_type) }}</gov-table-cell>
+        <gov-table-cell>{{
+          formatType(notification.notifiable_type)
+        }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Recipient</gov-table-header>
@@ -43,8 +52,8 @@ export default {
   props: {
     notification: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     formatStatus(notification) {
@@ -88,8 +97,8 @@ export default {
       } else {
         return "Sending...";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

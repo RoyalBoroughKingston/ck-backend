@@ -6,7 +6,6 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
-
           <gov-heading size="xl">Users</gov-heading>
 
           <gov-grid-row>
@@ -14,50 +13,93 @@
               <ck-table-filters @search="onSearch">
                 <gov-form-group>
                   <gov-label for="filter[first_name]">First name</gov-label>
-                  <gov-input v-model="filters.first_name" id="filter[first_name]" name="filter[first_name]" type="search"/>
+                  <gov-input
+                    v-model="filters.first_name"
+                    id="filter[first_name]"
+                    name="filter[first_name]"
+                    type="search"
+                  />
                 </gov-form-group>
 
                 <template slot="extra-filters">
                   <gov-form-group>
                     <gov-label for="filter[last_name]">Last name</gov-label>
-                    <gov-input v-model="filters.last_name" id="filter[last_name]" name="filter[last_name]" type="search"/>
+                    <gov-input
+                      v-model="filters.last_name"
+                      id="filter[last_name]"
+                      name="filter[last_name]"
+                      type="search"
+                    />
                   </gov-form-group>
 
                   <gov-form-group>
                     <gov-label for="filter[email]">Email</gov-label>
-                    <gov-input v-model="filters.email" id="filter[email]" name="filter[email]" type="search"/>
+                    <gov-input
+                      v-model="filters.email"
+                      id="filter[email]"
+                      name="filter[email]"
+                      type="search"
+                    />
                   </gov-form-group>
 
                   <gov-form-group>
                     <gov-label for="filter[phone]">Phone number</gov-label>
-                    <gov-input v-model="filters.phone" id="filter[phone]" name="filter[phone]" type="search"/>
+                    <gov-input
+                      v-model="filters.phone"
+                      id="filter[phone]"
+                      name="filter[phone]"
+                      type="search"
+                    />
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[highest_role]">Highest permission level</gov-label>
+                    <gov-label for="filter[highest_role]"
+                      >Highest permission level</gov-label
+                    >
                     <gov-hint id="filter[highest_role]">
                       Please note - you cannot filter by Permission Level and
                       Service/Organisation at the same time.
                     </gov-hint>
-                    <gov-select v-model="filters.highest_role" id="filter[highest_role]" name="filter[highest_role]" :options="roles"/>
+                    <gov-select
+                      v-model="filters.highest_role"
+                      id="filter[highest_role]"
+                      name="filter[highest_role]"
+                      :options="roles"
+                    />
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[at_organisation]">Organisation</gov-label>
+                    <gov-label for="filter[at_organisation]"
+                      >Organisation</gov-label
+                    >
                     <ck-loader v-if="loadingOrganisations" />
-                    <gov-select v-else v-model="filters.at_organisation" id="filter[at_organisation]" name="filter[at_organisation]" :options="organisations"/>
+                    <gov-select
+                      v-else
+                      v-model="filters.at_organisation"
+                      id="filter[at_organisation]"
+                      name="filter[at_organisation]"
+                      :options="organisations"
+                    />
                   </gov-form-group>
 
                   <gov-form-group>
                     <gov-label for="filter[at_service]">Service</gov-label>
                     <ck-loader v-if="loadingServices" />
-                    <gov-select v-else v-model="filters.at_service" id="filter[at_service]" name="filter[at_service]" :options="services"/>
+                    <gov-select
+                      v-else
+                      v-model="filters.at_service"
+                      id="filter[at_service]"
+                      name="filter[at_service]"
+                      :options="services"
+                    />
                   </gov-form-group>
                 </template>
               </ck-table-filters>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third">
-              <gov-button @click="onAddUser" type="submit" success expand>Add user</gov-button>
+              <gov-button @click="onAddUser" type="submit" success expand
+                >Add user</gov-button
+              >
             </gov-grid-column>
           </gov-grid-row>
 
@@ -67,17 +109,31 @@
             :params="params"
             default-sort="first_name"
             :columns="[
-              { heading: 'First name', sort: 'first_name', render: (user) => user.first_name },
-              { heading: 'Last name', sort: 'last_name', render: (user) => user.last_name },
-              { heading: 'Highest permission level', sort: 'highest_role', render: (user) => displayHighestRole(user.roles) },
+              {
+                heading: 'First name',
+                sort: 'first_name',
+                render: (user) => user.first_name,
+              },
+              {
+                heading: 'Last name',
+                sort: 'last_name',
+                render: (user) => user.last_name,
+              },
+              {
+                heading: 'Highest permission level',
+                sort: 'highest_role',
+                render: (user) => displayHighestRole(user.roles),
+              },
               { heading: 'Phone number', render: (user) => user.phone },
             ]"
-            :view-route="(user) => {
-              return {
-                name: 'users-show',
-                params: { user: user.id }
+            :view-route="
+              (user) => {
+                return {
+                  name: 'users-show',
+                  params: { user: user.id },
+                };
               }
-            }"
+            "
           />
         </gov-grid-column>
       </gov-grid-row>
@@ -109,19 +165,19 @@ export default {
         { value: "Global Admin", text: "Global Admin" },
         { value: "Organisation Admin", text: "Organisation Admin" },
         { value: "Service Admin", text: "Service Admin" },
-        { value: "Service Worker", text: "Service Worker" }
+        { value: "Service Worker", text: "Service Worker" },
       ],
       loadingOrganisations: false,
       organisations: [],
       loadingServices: false,
-      services: [{ value: "", text: "First select an organisation..." }]
+      services: [{ value: "", text: "First select an organisation..." }],
     };
   },
   computed: {
     params() {
       const params = {
         include: "user-roles",
-        "filter[has_permission]": true
+        "filter[has_permission]": true,
       };
 
       if (this.filters.first_name !== "") {
@@ -154,18 +210,20 @@ export default {
       }
 
       return params;
-    }
+    },
   },
   watch: {
     "filters.at_organisation"(organisationId) {
       this.filters.at_service = "";
 
       if (organisationId === "") {
-        this.services = [{ value: "", text: "First select an organisation..." }];
+        this.services = [
+          { value: "", text: "First select an organisation..." },
+        ];
       } else {
         this.fetchServices(organisationId);
       }
-    }
+    },
   },
   methods: {
     onSearch() {
@@ -177,31 +235,31 @@ export default {
     },
     displayHighestRole(roles) {
       const isSuperAdmin =
-        roles.find(role => role.role === "Super Admin") !== undefined;
+        roles.find((role) => role.role === "Super Admin") !== undefined;
       if (isSuperAdmin) {
         return "Super Admin";
       }
 
       const isGlobalAdmin =
-        roles.find(role => role.role === "Global Admin") !== undefined;
+        roles.find((role) => role.role === "Global Admin") !== undefined;
       if (isGlobalAdmin) {
         return "Global Admin";
       }
 
       const isOrganisationAdmin =
-        roles.find(role => role.role === "Organisation Admin") !== undefined;
+        roles.find((role) => role.role === "Organisation Admin") !== undefined;
       if (isOrganisationAdmin) {
         return "Organisation Admin";
       }
 
       const isServiceAdmin =
-        roles.find(role => role.role === "Service Admin") !== undefined;
+        roles.find((role) => role.role === "Service Admin") !== undefined;
       if (isServiceAdmin) {
         return "Service Admin";
       }
 
       const isServiceWorker =
-        roles.find(role => role.role === "Service Worker") !== undefined;
+        roles.find((role) => role.role === "Service Worker") !== undefined;
       if (isServiceWorker) {
         return "Service Worker";
       }
@@ -212,10 +270,10 @@ export default {
       this.loadingOrganisations = true;
 
       let organisation = await this.fetchAll("/organisations");
-      organisation = organisation.map(organisation => {
+      organisation = organisation.map((organisation) => {
         return {
           value: organisation.id,
-          text: organisation.name
+          text: organisation.name,
         };
       });
       organisation.unshift({ value: "", text: "All" });
@@ -228,12 +286,12 @@ export default {
       this.loadingServices = true;
 
       let services = await this.fetchAll("/services", {
-        "filter[organisation_id]": organisationId
+        "filter[organisation_id]": organisationId,
       });
-      services = services.map(service => {
+      services = services.map((service) => {
         return {
           value: service.id,
-          text: service.name
+          text: service.name,
         };
       });
       services.unshift({ value: "", text: "All" });
@@ -241,10 +299,10 @@ export default {
       this.services = services;
 
       this.loadingServices = false;
-    }
+    },
   },
   created() {
     this.fetchOrganisations();
-  }
+  },
 };
 </script>

@@ -6,7 +6,6 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="two-thirds">
-
           <gov-heading size="xl">Login</gov-heading>
 
           <template v-if="!validateRequest">
@@ -17,10 +16,10 @@
             <gov-button :href="loginUrl">Login</gov-button>
 
             <gov-body size="s">
-              For security reasons, you will be automatically logged out after 20 minutes.
+              For security reasons, you will be automatically logged out after
+              20 minutes.
             </gov-body>
           </template>
-
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -36,7 +35,7 @@ export default {
     return {
       accessToken:
         Auth.parseQueryString(window.location.href).access_token || null,
-      expiresIn: Auth.parseQueryString(window.location.href).expires_in || null
+      expiresIn: Auth.parseQueryString(window.location.href).expires_in || null,
     };
   },
   computed: {
@@ -53,19 +52,19 @@ export default {
       }
 
       return true;
-    }
+    },
   },
   methods: {
     async login() {
       await Auth.login(this.accessToken, this.expiresIn);
       this.$root.$emit("login");
       this.$router.push({ name: "dashboard" });
-    }
+    },
   },
   created() {
     if (this.validateRequest) {
       this.login();
     }
-  }
+  },
 };
 </script>

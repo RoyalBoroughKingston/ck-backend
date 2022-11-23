@@ -6,7 +6,6 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
-
           <gov-heading size="xl">Organisations</gov-heading>
 
           <gov-grid-row>
@@ -14,12 +13,23 @@
               <ck-table-filters @search="onSearch" hide-extra>
                 <gov-form-group>
                   <gov-label for="filter[name]">Organisation name</gov-label>
-                  <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
+                  <gov-input
+                    v-model="filters.name"
+                    id="filter[name]"
+                    name="filter[name]"
+                    type="search"
+                  />
                 </gov-form-group>
               </ck-table-filters>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
-              <gov-button @click="onAddOrganisation" type="submit" success expand>Add organisation</gov-button>
+              <gov-button
+                @click="onAddOrganisation"
+                type="submit"
+                success
+                expand
+                >Add organisation</gov-button
+              >
             </gov-grid-column>
           </gov-grid-row>
 
@@ -29,17 +39,32 @@
             :params="params"
             default-sort="name"
             :columns="[
-              { heading: 'Organisation name', sort: 'name', render: (organisation) => organisation.name },
-              { heading: 'Web address URL', render: (organisation) => organisation.url },
-              { heading: 'Phone number', render: (organisation) => organisation.phone || '-' },
-              { heading: 'Email', render: (organisation) => organisation.email || '-' },
+              {
+                heading: 'Organisation name',
+                sort: 'name',
+                render: (organisation) => organisation.name,
+              },
+              {
+                heading: 'Web address URL',
+                render: (organisation) => organisation.url,
+              },
+              {
+                heading: 'Phone number',
+                render: (organisation) => organisation.phone || '-',
+              },
+              {
+                heading: 'Email',
+                render: (organisation) => organisation.email || '-',
+              },
             ]"
-            :view-route="(organisation) => {
-              return {
-                name: 'organisations-show',
-                params: { organisation: organisation.id }
+            :view-route="
+              (organisation) => {
+                return {
+                  name: 'organisations-show',
+                  params: { organisation: organisation.id },
+                };
               }
-            }"
+            "
           />
         </gov-grid-column>
       </gov-grid-row>
@@ -57,14 +82,14 @@ export default {
   data() {
     return {
       filters: {
-        name: ""
-      }
+        name: "",
+      },
     };
   },
   computed: {
     params() {
       const params = {
-        "filter[has_permission]": true
+        "filter[has_permission]": true,
       };
 
       if (this.filters.name !== "") {
@@ -72,7 +97,7 @@ export default {
       }
 
       return params;
-    }
+    },
   },
   methods: {
     onSearch() {
@@ -81,7 +106,7 @@ export default {
     },
     onAddOrganisation() {
       this.$router.push({ name: "organisations-create" });
-    }
-  }
+    },
+  },
 };
 </script>

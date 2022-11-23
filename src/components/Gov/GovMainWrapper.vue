@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "GovMainWrapper"
+  name: "GovMainWrapper",
 };
 </script>

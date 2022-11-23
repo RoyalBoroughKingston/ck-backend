@@ -1,6 +1,9 @@
 <template>
   <div>
-    <gov-inset-text v-for="(socialMedia, index) in socialMedias" :key="socialMedia.index">
+    <gov-inset-text
+      v-for="(socialMedia, index) in socialMedias"
+      :key="socialMedia.index"
+    >
       <ck-select-input
         :value="socialMedia.type"
         @input="onTypeInput({ index, value: $event })"
@@ -37,17 +40,17 @@ export default {
   name: "SocialMediasInput",
   model: {
     prop: "socialMedias",
-    event: "input"
+    event: "input",
   },
   props: {
     socialMedias: {
       required: true,
-      type: Array
+      type: Array,
     },
     errors: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
@@ -57,21 +60,21 @@ export default {
         { text: "Facebook", value: "facebook" },
         { text: "Instagram", value: "instagram" },
         { text: "YouTube", value: "youtube" },
-        { text: "Other", value: "other" }
+        { text: "Other", value: "other" },
       ],
-      socialMediasIndex: 1
+      socialMediasIndex: 1,
     };
   },
   methods: {
     cloneSocialMedias() {
-      return this.socialMedias.map(socialMedia => ({ ...socialMedia }));
+      return this.socialMedias.map((socialMedia) => ({ ...socialMedia }));
     },
     onAddSocialMedia() {
       let socialMedias = this.cloneSocialMedias();
       socialMedias.push({
         type: null,
         url: "",
-        index: this.socialMediasIndex
+        index: this.socialMediasIndex,
       });
       this.$emit("input", socialMedias);
 
@@ -93,7 +96,7 @@ export default {
       let socialMedias = this.cloneSocialMedias();
       socialMedias[index].url = value;
       this.$emit("input", socialMedias);
-    }
-  }
+    },
+  },
 };
 </script>
