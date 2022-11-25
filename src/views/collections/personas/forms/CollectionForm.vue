@@ -62,6 +62,14 @@
       "
     />
 
+    <collection-homepage-input
+      :value="homepage"
+      @input="onInput('homepage', $event)"
+      id="homepage"
+      label="Show the Persona on the homepage"
+      :error="errors.get('homepage')"
+    />
+
     <gov-heading size="m">Sideboxes</gov-heading>
 
     <gov-body>
@@ -91,10 +99,16 @@
 import CkImageInput from "@/components/Ck/CkImageInput";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 import CkSideboxesInput from "@/views/collections/inputs/SideboxesInput";
+import CollectionHomepageInput from "@/views/collections/inputs/CollectionHomepageInput";
 
 export default {
   name: "CollectionForm",
-  components: { CkImageInput, CategoryTaxonomyInput, CkSideboxesInput },
+  components: {
+    CkImageInput,
+    CategoryTaxonomyInput,
+    CkSideboxesInput,
+    CollectionHomepageInput,
+  },
   props: {
     errors: {
       required: true,
@@ -118,6 +132,9 @@ export default {
       required: true,
     },
     order: {
+      required: true,
+    },
+    homepage: {
       required: true,
     },
     sideboxes: {

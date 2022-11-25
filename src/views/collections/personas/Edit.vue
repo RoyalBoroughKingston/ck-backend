@@ -31,6 +31,7 @@
               :subtitle.sync="form.subtitle"
               :intro.sync="form.intro"
               :order.sync="form.order"
+              :homepage.sync="form.homepage"
               :sideboxes.sync="form.sideboxes"
               :category_taxonomies.sync="form.category_taxonomies"
               @update:image_file_id="form.image_file_id = $event"
@@ -88,6 +89,7 @@ export default {
         subtitle: this.collection.subtitle,
         intro: this.collection.intro,
         order: this.collection.order,
+        homepage: this.collection.homepage,
         sideboxes: this.collection.sideboxes,
         category_taxonomies: this.collection.category_taxonomies.map(
           (taxonomy) => taxonomy.id

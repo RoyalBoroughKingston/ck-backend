@@ -27,6 +27,7 @@
             :intro.sync="form.intro"
             :icon.sync="form.icon"
             :order.sync="form.order"
+            :homepage.sync="form.homepage"
             :sideboxes.sync="form.sideboxes"
             :category_taxonomies.sync="form.category_taxonomies"
             @clear="form.$errors.clear($event)"
@@ -58,6 +59,7 @@ export default {
         intro: "",
         icon: "",
         order: 1,
+        homepage: true,
         sideboxes: [],
         category_taxonomies: [],
       }),
