@@ -25,14 +25,15 @@
 
             <collection-form
               :errors="form.$errors"
+              :id="collection.id"
               :slug.sync="form.slug"
               :name.sync="form.name"
               :intro.sync="form.intro"
-              :icon.sync="form.icon"
               :order.sync="form.order"
               :homepage.sync="form.homepage"
               :sideboxes.sync="form.sideboxes"
               :category_taxonomies.sync="form.category_taxonomies"
+              @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
             />
 
@@ -85,7 +86,7 @@ export default {
         slug: this.collection.slug,
         name: this.collection.name,
         intro: this.collection.intro,
-        icon: this.collection.icon,
+        image_file_id: this.collection.image_file_id,
         order: this.collection.order,
         homepage: this.collection.homepage,
         sideboxes: this.collection.sideboxes,
