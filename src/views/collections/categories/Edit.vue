@@ -26,9 +26,11 @@
             <collection-form
               :errors="form.$errors"
               :id="collection.id"
+              :slug.sync="form.slug"
               :name.sync="form.name"
               :intro.sync="form.intro"
               :order.sync="form.order"
+              :homepage.sync="form.homepage"
               :sideboxes.sync="form.sideboxes"
               :category_taxonomies.sync="form.category_taxonomies"
               @update:image_file_id="form.image_file_id = $event"
@@ -81,10 +83,12 @@ export default {
       );
       this.collection = response.data.data;
       this.form = new Form({
+        slug: this.collection.slug,
         name: this.collection.name,
         intro: this.collection.intro,
         image_file_id: this.collection.image_file_id,
         order: this.collection.order,
+        homepage: this.collection.homepage,
         sideboxes: this.collection.sideboxes,
         category_taxonomies: this.collection.category_taxonomies.map(
           (taxonomy) => taxonomy.id

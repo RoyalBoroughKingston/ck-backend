@@ -21,10 +21,13 @@
 
           <collection-form
             :errors="form.$errors"
+            :is-new="true"
+            :slug.sync="form.slug"
             :name.sync="form.name"
             :subtitle.sync="form.subtitle"
             :intro.sync="form.intro"
             :order.sync="form.order"
+            :homepage.sync="form.homepage"
             :sideboxes.sync="form.sideboxes"
             :category_taxonomies.sync="form.category_taxonomies"
             @update:image_file_id="form.image_file_id = $event"
@@ -54,10 +57,12 @@ export default {
   data() {
     return {
       form: new Form({
+        slug: "",
         name: "",
         intro: "",
         subtitle: "",
         order: 1,
+        homepage: true,
         sideboxes: [],
         category_taxonomies: [],
         image_file_id: null,

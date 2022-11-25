@@ -1,6 +1,21 @@
 <template>
   <div>
     <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+      v-if="auth.isGlobalAdmin"
+    >
+      <gov-hint slot="hint" for="slug">
+        This will be used to access the category collection.<br />
+        e.g. connectedkingston.uk/results?category={{ slug }}
+      </gov-hint>
+    </ck-text-input>
+
+    <ck-text-input
       :value="name"
       @input="onInput('name', $event)"
       id="name"
@@ -47,6 +62,14 @@
       "
     />
 
+    <collection-homepage-input
+      :value="homepage"
+      @input="onInput('homepage', $event)"
+      id="homepage"
+      label="Show the Persona on the homepage"
+      :error="errors.get('homepage')"
+    />
+
     <gov-heading size="m">Sideboxes</gov-heading>
 
     <gov-body>
@@ -76,14 +99,28 @@
 import CkImageInput from "@/components/Ck/CkImageInput";
 import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 import CkSideboxesInput from "@/views/collections/inputs/SideboxesInput";
+import CollectionHomepageInput from "@/views/collections/inputs/CollectionHomepageInput";
 
 export default {
   name: "CollectionForm",
-  components: { CkImageInput, CategoryTaxonomyInput, CkSideboxesInput },
+  components: {
+    CkImageInput,
+    CategoryTaxonomyInput,
+    CkSideboxesInput,
+    CollectionHomepageInput,
+  },
   props: {
     errors: {
       required: true,
       type: Object,
+    },
+    isNew: {
+      required: false,
+      type: Boolean,
+      default: false,
+    },
+    slug: {
+      required: true,
     },
     name: {
       required: true,
@@ -95,6 +132,9 @@ export default {
       required: true,
     },
     order: {
+      required: true,
+    },
+    homepage: {
       required: true,
     },
     sideboxes: {
@@ -112,6 +152,15 @@ export default {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
+    },
+    onNameInput(name) {
+      this.$emit("update:name", name);
+      this.$emit("clear", "name");
+
+      if (this.auth.isGlobalAdmin || this.isNew) {
+        this.$emit("update:slug", this.slugify(name));
+        this.$emit("clear", "slug");
+      }
     },
   },
 };
