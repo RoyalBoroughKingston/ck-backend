@@ -21,6 +21,8 @@
 
           <collection-form
             :errors="form.$errors"
+            :is-new="true"
+            :slug.sync="form.slug"
             :name.sync="form.name"
             :subtitle.sync="form.subtitle"
             :intro.sync="form.intro"
@@ -55,6 +57,7 @@ export default {
   data() {
     return {
       form: new Form({
+        slug: "",
         name: "",
         intro: "",
         subtitle: "",

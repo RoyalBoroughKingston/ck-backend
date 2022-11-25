@@ -1,8 +1,23 @@
 <template>
   <div>
     <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+      v-if="auth.isGlobalAdmin"
+    >
+      <gov-hint slot="hint" for="slug">
+        This will be used to access the category collection.<br />
+        e.g. connectedkingston.uk/results?category={{ slug }}
+      </gov-hint>
+    </ck-text-input>
+
+    <ck-text-input
       :value="name"
-      @input="onInput('name', $event)"
+      @input="onNameInput"
       id="name"
       label="Name"
       type="text"
@@ -97,6 +112,14 @@ export default {
       required: true,
       type: Object,
     },
+    isNew: {
+      required: false,
+      type: Boolean,
+      default: false,
+    },
+    slug: {
+      required: true,
+    },
     name: {
       required: true,
     },
@@ -131,6 +154,15 @@ export default {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
+    },
+    onNameInput(name) {
+      this.$emit("update:name", name);
+      this.$emit("clear", "name");
+
+      if (this.auth.isGlobalAdmin || this.isNew) {
+        this.$emit("update:slug", this.slugify(name));
+        this.$emit("clear", "slug");
+      }
     },
   },
 };

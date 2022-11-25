@@ -25,6 +25,7 @@
 
             <collection-form
               :errors="form.$errors"
+              :slug.sync="form.slug"
               :name.sync="form.name"
               :intro.sync="form.intro"
               :icon.sync="form.icon"
@@ -81,6 +82,7 @@ export default {
       );
       this.collection = response.data.data;
       this.form = new Form({
+        slug: this.collection.slug,
         name: this.collection.name,
         intro: this.collection.intro,
         icon: this.collection.icon,

@@ -6,7 +6,7 @@
   >
     <slot />
   </ul>
-  <ol v-else-if="type === 'unordered'" class="govuk-list">
+  <ol v-else-if="type === 'ordered'" class="govuk-list">
     <slot />
   </ol>
 </template>

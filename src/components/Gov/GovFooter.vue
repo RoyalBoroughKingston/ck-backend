@@ -13,8 +13,7 @@
             </h2>
             <ul class="govuk-footer__list" :class="listClasses(item)">
               <li
-                v-for="(item, key) in item.items"
-                v-if="item.href && item.text"
+                v-for="(item, key) in linkedItems(item.items)"
                 :key="key"
                 class="govuk-footer__list-item"
               >
@@ -82,6 +81,9 @@ export default {
   methods: {
     listClasses(item) {
       return item.items ? `govuk-footer__list--columns-${item.columns}` : null;
+    },
+    linkedItems(items) {
+      return items.filter((item) => item.href && item.text);
     },
   },
 };
