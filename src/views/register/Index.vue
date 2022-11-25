@@ -23,83 +23,87 @@
 </template>
 
 <script>
-import Form from "@/classes/Form"
+import Form from "@/classes/Form";
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: `${process.env.VUE_APP_API_URI}/core/v1`
+  baseURL: `${process.env.VUE_APP_API_URI}/core/v1`,
 });
 http.defaults.headers.post["Content-Type"] = "application/json";
 
 export default {
   data() {
     return {
-      form: new Form({
-        organisation_types: [],
-        user: {
-          first_name: '',
-          last_name: '',
-          email: '',
-          phone: '',
-          password: ''
-        },
-        organisation: {
-          name: '',
-          slug: '',
-          description: '',
-          url: '',
-          email: '',
-          phone: ''
-        },
-        service: {
-          name: '',
-          slug: '',
-          type: 'service',
-          intro: '',
-          description: '',
-          wait_time: null,
-          is_free: true,
-          fees_text: '',
-          fees_url: '',
-          testimonial: '',
-          video_embed: '',
-          url: '',
-          contact_name: '',
-          contact_phone: '',
-          contact_email: '',
-          criteria: {
-            age_group: '',
-            disability: '',
-            employment: '',
-            gender: '',
-            housing: '',
-            income: '',
-            language: '',
-            other: ''
+      form: new Form(
+        {
+          organisation_types: [],
+          user: {
+            first_name: "",
+            last_name: "",
+            email: "",
+            phone: "",
+            password: "",
           },
-          useful_infos: [],
-          offerings: [],
-          social_medias: []
-        }
-      }, {}, http)
-    }
+          organisation: {
+            name: "",
+            slug: "",
+            description: "",
+            url: "",
+            email: "",
+            phone: "",
+          },
+          service: {
+            name: "",
+            slug: "",
+            type: "service",
+            intro: "",
+            description: "",
+            wait_time: null,
+            is_free: true,
+            fees_text: "",
+            fees_url: "",
+            testimonial: "",
+            video_embed: "",
+            url: "",
+            contact_name: "",
+            contact_phone: "",
+            contact_email: "",
+            criteria: {
+              age_group: "",
+              disability: "",
+              employment: "",
+              gender: "",
+              housing: "",
+              income: "",
+              language: "",
+              other: "",
+            },
+            useful_infos: [],
+            offerings: [],
+            social_medias: [],
+          },
+        },
+        {},
+        http
+      ),
+    };
   },
 
   watch: {
-    ['form.organisation.name'](newName) {
+    ["form.organisation.name"](newName) {
       this.form.organisation.slug = this.slugify(newName);
     },
 
-    ['form.service.name'](newName) {
+    ["form.service.name"](newName) {
       this.form.service.slug = this.slugify(newName);
     },
 
-    ['form.service.is_free'](newIsFree) {
+    ["form.service.is_free"](newIsFree) {
       if (newIsFree) {
-        this.form.service.fees_text = '';
-        this.form.service.fees_url = '';
+        this.form.service.fees_text = "";
+        this.form.service.fees_url = "";
       }
-    }
+    },
   },
 
   methods: {
@@ -111,12 +115,12 @@ export default {
 
     async onSubmit() {
       try {
-        await this.form.post('/organisation-sign-up-forms');
-        this.$router.push({ name: 'register-index-success' });
+        await this.form.post("/organisation-sign-up-forms");
+        this.$router.push({ name: "register-index-success" });
       } catch (exception) {
         //
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

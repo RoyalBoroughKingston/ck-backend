@@ -4,14 +4,17 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <vue-headful :title="`Connected Kingston - Audit: ${audit.description.substr(0, 10)}...`" />
+        <vue-headful
+          :title="`Connected Kingston - Audit: ${audit.description.substr(
+            0,
+            10
+          )}...`"
+        />
 
         <gov-grid-column width="two-thirds">
-
           <gov-heading size="m">View audit</gov-heading>
 
           <ck-audit-details :audit="audit" />
-
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -28,7 +31,7 @@ export default {
   data() {
     return {
       loading: false,
-      audit: null
+      audit: null,
     };
   },
   methods: {
@@ -39,10 +42,10 @@ export default {
       );
       this.audit = data.data;
       this.loading = false;
-    }
+    },
   },
   created() {
     this.fetchAudit();
-  }
+  },
 };
 </script>

@@ -15,16 +15,24 @@
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Phone number</gov-table-header>
-        <gov-table-cell>{{ organisation.phone || '-' }}</gov-table-cell>
+        <gov-table-cell>{{ organisation.phone || "-" }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Email</gov-table-header>
-        <gov-table-cell>{{ organisation.email || '-' }}</gov-table-cell>
+        <gov-table-cell>{{ organisation.email || "-" }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Logo</gov-table-header>
         <gov-table-cell>
-          <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?v=${organisation.updated_at}`)" alt="Organisation logo" class="ck-logo">
+          <img
+            :src="
+              apiUrl(
+                `/organisations/${organisation.id}/logo.png?v=${organisation.updated_at}`
+              )
+            "
+            alt="Organisation logo"
+            class="ck-logo"
+          />
         </gov-table-cell>
       </gov-table-row>
     </template>
@@ -37,8 +45,8 @@ export default {
   props: {
     organisation: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>

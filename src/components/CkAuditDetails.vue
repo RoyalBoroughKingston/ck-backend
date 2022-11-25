@@ -4,7 +4,9 @@
       <gov-table-row>
         <gov-table-header top scope="row">Action</gov-table-header>
         <gov-table-cell>
-          <gov-tag :class="`action action--${audit.action}`">{{ audit.action }}</gov-tag>
+          <gov-tag :class="`action action--${audit.action}`">{{
+            audit.action
+          }}</gov-tag>
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row>
@@ -13,7 +15,11 @@
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Guest / User</gov-table-header>
-        <gov-table-cell>{{ audit.user ? `${audit.user.first_name} ${audit.user.last_name}` : 'Guest' }}</gov-table-cell>
+        <gov-table-cell>{{
+          audit.user
+            ? `${audit.user.first_name} ${audit.user.last_name}`
+            : "Guest"
+        }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Client</gov-table-header>
@@ -32,8 +38,12 @@
         <gov-table-cell>{{ audit.user_agent || "-" }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
-        <gov-table-header top scope="row">Scheduled for deletion</gov-table-header>
-        <gov-table-cell>{{ formatDate(autoDeleteDate(audit.updated_at)) }}</gov-table-cell>
+        <gov-table-header top scope="row"
+          >Scheduled for deletion</gov-table-header
+        >
+        <gov-table-cell>{{
+          formatDate(autoDeleteDate(audit.updated_at))
+        }}</gov-table-cell>
       </gov-table-row>
     </template>
   </gov-table>
@@ -47,8 +57,8 @@ export default {
   props: {
     audit: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     autoDeleteDate(updated_at) {
@@ -56,8 +66,8 @@ export default {
         .clone()
         .add(24, "months")
         .format("Y-MM-DD[T]HH:mm:ssZ");
-    }
-  }
+    },
+  },
 };
 </script>
 

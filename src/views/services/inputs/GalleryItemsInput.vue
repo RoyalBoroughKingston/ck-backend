@@ -1,17 +1,30 @@
 <template>
   <div>
-    <gov-inset-text v-for="(galleryItem, index) in galleryItems" :key="galleryItem.$index">
+    <gov-inset-text
+      v-for="(galleryItem, index) in galleryItems"
+      :key="galleryItem.$index"
+    >
       <ck-image-input
         @input="onGalleryItemInput($event, index)"
         :id="`Ck::GalleryItem::${galleryItem.$index}`"
         label="Upload an item to the gallery"
         accept="image/x-png"
-        :existing-url="galleryItem.hasOwnProperty('url') ? galleryItem.url : undefined"
+        :existing-url="
+          galleryItem.hasOwnProperty('url') ? galleryItem.url : undefined
+        "
       />
 
       <gov-error-message
-        v-if="errors.has(`gallery_items.${index}`) || errors.has(`gallery_items.${index}.file_id`)"
-        v-text="errors.get([`gallery_items.${index}`, `gallery_items.${index}.file_id`])"
+        v-if="
+          errors.has(`gallery_items.${index}`) ||
+          errors.has(`gallery_items.${index}.file_id`)
+        "
+        v-text="
+          errors.get([
+            `gallery_items.${index}`,
+            `gallery_items.${index}.file_id`,
+          ])
+        "
         :for="galleryItem.$index"
       />
 
@@ -37,24 +50,24 @@ export default {
 
   model: {
     prop: "galleryItems",
-    event: "input"
+    event: "input",
   },
 
   props: {
     galleryItems: {
       type: Array,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
-      index: 1
+      index: 1,
     };
   },
 
@@ -75,7 +88,7 @@ export default {
       galleryItems.push({
         file_id: null,
         image: null,
-        $index: this.index
+        $index: this.index,
       });
       this.$emit("input", galleryItems);
 
@@ -89,6 +102,6 @@ export default {
       this.$emit("clear", `gallery_items.${deleteIndex}`);
       this.$emit("clear", `gallery_items.${deleteIndex}.file_id`);
     },
-  }
+  },
 };
 </script>

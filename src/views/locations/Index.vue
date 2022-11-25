@@ -7,32 +7,50 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
-
           <gov-heading size="xl">Locations</gov-heading>
 
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
               <ck-table-filters @search="onSearch">
                 <gov-form-group>
-                  <gov-label for="filter[address_line_1]">Address line 1</gov-label>
-                  <gov-input v-model="filters.address_line_1" id="filter[address_line_1]" name="filter[address_line_1]" type="search"/>
+                  <gov-label for="filter[address_line_1]"
+                    >Address line 1</gov-label
+                  >
+                  <gov-input
+                    v-model="filters.address_line_1"
+                    id="filter[address_line_1]"
+                    name="filter[address_line_1]"
+                    type="search"
+                  />
                 </gov-form-group>
 
                 <template slot="extra-filters">
                   <gov-form-group>
                     <gov-label for="filter[city]">City</gov-label>
-                    <gov-input v-model="filters.city" id="filter[city]" name="filter[city]" type="search"/>
+                    <gov-input
+                      v-model="filters.city"
+                      id="filter[city]"
+                      name="filter[city]"
+                      type="search"
+                    />
                   </gov-form-group>
 
                   <gov-form-group>
                     <gov-label for="filter[postcode]">Postcode</gov-label>
-                    <gov-input v-model="filters.postcode" id="filter[postcode]" name="filter[postcode]" type="search"/>
+                    <gov-input
+                      v-model="filters.postcode"
+                      id="filter[postcode]"
+                      name="filter[postcode]"
+                      type="search"
+                    />
                   </gov-form-group>
                 </template>
               </ck-table-filters>
             </gov-grid-column>
             <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third">
-              <gov-button @click="onAddLocation" type="submit" success expand>Add location</gov-button>
+              <gov-button @click="onAddLocation" type="submit" success expand
+                >Add location</gov-button
+              >
             </gov-grid-column>
           </gov-grid-row>
 
@@ -42,16 +60,30 @@
             :params="params"
             default-sort="address_line_1"
             :columns="[
-              { heading: 'Address line 1', sort: 'address_line_1', render: (location) => location.address_line_1 },
-              { heading: 'City', sort: 'city', render: (location) => location.city },
-              { heading: 'Postcode', sort: 'postcode', render: (location) => location.postcode },
+              {
+                heading: 'Address line 1',
+                sort: 'address_line_1',
+                render: (location) => location.address_line_1,
+              },
+              {
+                heading: 'City',
+                sort: 'city',
+                render: (location) => location.city,
+              },
+              {
+                heading: 'Postcode',
+                sort: 'postcode',
+                render: (location) => location.postcode,
+              },
             ]"
-            :view-route="(location) => {
-              return {
-                name: 'locations-show',
-                params: { location: location.id }
+            :view-route="
+              (location) => {
+                return {
+                  name: 'locations-show',
+                  params: { location: location.id },
+                };
               }
-            }"
+            "
           />
         </gov-grid-column>
       </gov-grid-row>
@@ -71,8 +103,8 @@ export default {
       filters: {
         address_line_1: "",
         city: "",
-        postcode: ""
-      }
+        postcode: "",
+      },
     };
   },
   computed: {
@@ -92,7 +124,7 @@ export default {
       }
 
       return params;
-    }
+    },
   },
   methods: {
     onSearch() {
@@ -101,7 +133,7 @@ export default {
     },
     onAddLocation() {
       this.$router.push({ name: "locations-create" });
-    }
-  }
+    },
+  },
 };
 </script>

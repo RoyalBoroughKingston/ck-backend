@@ -33,15 +33,29 @@
         <gov-table-header scope="row" top>Accessibility</gov-table-header>
         <gov-table-cell>
           <gov-list>
-            <li>Wheelchair access: {{ location.has_wheelchair_access ? 'Yes' : 'No' }}</li>
-            <li>Induction loop system: {{ location.has_induction_loop ? 'Yes' : 'No' }}</li>
+            <li>
+              Wheelchair access:
+              {{ location.has_wheelchair_access ? "Yes" : "No" }}
+            </li>
+            <li>
+              Induction loop system:
+              {{ location.has_induction_loop ? "Yes" : "No" }}
+            </li>
           </gov-list>
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Image</gov-table-header>
         <gov-table-cell>
-          <img :src="apiUrl(`/locations/${location.id}/image.png?v=${location.created_at}`)" alt="Location image" class="ck-logo">
+          <img
+            :src="
+              apiUrl(
+                `/locations/${location.id}/image.png?v=${location.created_at}`
+              )
+            "
+            alt="Location image"
+            class="ck-logo"
+          />
         </gov-table-cell>
       </gov-table-row>
       <gov-table-row>
@@ -71,8 +85,8 @@ export default {
   props: {
     location: {
       required: true,
-      type: Object
-    }
-  }
+      type: Object,
+    },
+  },
 };
 </script>

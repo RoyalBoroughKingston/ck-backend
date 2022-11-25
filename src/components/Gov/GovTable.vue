@@ -11,6 +11,6 @@
 
 <script>
 export default {
-  name: "GovTable"
+  name: "GovTable",
 };
 </script>

@@ -31,7 +31,7 @@ export default [
   { text: "Brazil", value: "Brazil" },
   {
     text: "British Indian Ocean Territory",
-    value: "British Indian Ocean Territory"
+    value: "British Indian Ocean Territory",
   },
   { text: "Brunei Darussalam", value: "Brunei Darussalam" },
   { text: "Bulgaria", value: "Bulgaria" },
@@ -53,7 +53,7 @@ export default [
   { text: "Congo", value: "Congo" },
   {
     text: "Congo, The Democratic Republic of the",
-    value: "Congo, The Democratic Republic of the"
+    value: "Congo, The Democratic Republic of the",
   },
   { text: "Cook Islands", value: "Cook Islands" },
   { text: "Costa Rica", value: "Costa Rica" },
@@ -100,11 +100,11 @@ export default [
   { text: "Haiti", value: "Haiti" },
   {
     text: "Heard Island and Mcdonald Islands",
-    value: "Heard Island and Mcdonald Islands"
+    value: "Heard Island and Mcdonald Islands",
   },
   {
     text: "Holy See (Vatican City State)",
-    value: "Holy See (Vatican City State)"
+    value: "Holy See (Vatican City State)",
   },
   { text: "Honduras", value: "Honduras" },
   { text: "Hong Kong", value: "Hong Kong" },
@@ -127,14 +127,14 @@ export default [
   { text: "Kiribati", value: "Kiribati" },
   {
     text: "Korea, Democratic People's Republic of",
-    value: "Korea, Democratic People's Republic of"
+    value: "Korea, Democratic People's Republic of",
   },
   { text: "Korea, Republic of", value: "Korea, Republic of" },
   { text: "Kuwait", value: "Kuwait" },
   { text: "Kyrgyzstan", value: "Kyrgyzstan" },
   {
     text: "Lao People's Democratic Republic",
-    value: "Lao People's Democratic Republic"
+    value: "Lao People's Democratic Republic",
   },
   { text: "Latvia", value: "Latvia" },
   { text: "Lebanon", value: "Lebanon" },
@@ -147,7 +147,7 @@ export default [
   { text: "Macao", value: "Macao" },
   {
     text: "Macedonia, The Former Yugoslav Republic of",
-    value: "Macedonia, The Former Yugoslav Republic of"
+    value: "Macedonia, The Former Yugoslav Republic of",
   },
   { text: "Madagascar", value: "Madagascar" },
   { text: "Malawi", value: "Malawi" },
@@ -163,7 +163,7 @@ export default [
   { text: "Mexico", value: "Mexico" },
   {
     text: "Micronesia, Federated States of",
-    value: "Micronesia, Federated States of"
+    value: "Micronesia, Federated States of",
   },
   { text: "Moldova, Republic of", value: "Moldova, Republic of" },
   { text: "Monaco", value: "Monaco" },
@@ -192,7 +192,7 @@ export default [
   { text: "Palau", value: "Palau" },
   {
     text: "Palestinian Territory, Occupied",
-    value: "Palestinian Territory, Occupied"
+    value: "Palestinian Territory, Occupied",
   },
   { text: "Panama", value: "Panama" },
   { text: "Papua New Guinea", value: "Papua New Guinea" },
@@ -214,7 +214,7 @@ export default [
   { text: "Saint Pierre and Miquelon", value: "Saint Pierre and Miquelon" },
   {
     text: "Saint Vincent and the Grenadines",
-    value: "Saint Vincent and the Grenadines"
+    value: "Saint Vincent and the Grenadines",
   },
   { text: "Samoa", value: "Samoa" },
   { text: "San Marino", value: "San Marino" },
@@ -232,7 +232,7 @@ export default [
   { text: "South Africa", value: "South Africa" },
   {
     text: "South Georgia and the South Sandwich Islands",
-    value: "South Georgia and the South Sandwich Islands"
+    value: "South Georgia and the South Sandwich Islands",
   },
   { text: "Spain", value: "Spain" },
   { text: "Sri Lanka", value: "Sri Lanka" },
@@ -247,7 +247,7 @@ export default [
   { text: "Tajikistan", value: "Tajikistan" },
   {
     text: "Tanzania, United Republic of",
-    value: "Tanzania, United Republic of"
+    value: "Tanzania, United Republic of",
   },
   { text: "Thailand", value: "Thailand" },
   { text: "Timor-Leste", value: "Timor-Leste" },
@@ -267,7 +267,7 @@ export default [
   { text: "United States", value: "United States" },
   {
     text: "United States Minor Outlying Islands",
-    value: "United States Minor Outlying Islands"
+    value: "United States Minor Outlying Islands",
   },
   { text: "Uruguay", value: "Uruguay" },
   { text: "Uzbekistan", value: "Uzbekistan" },
@@ -280,5 +280,5 @@ export default [
   { text: "Western Sahara", value: "Western Sahara" },
   { text: "Yemen", value: "Yemen" },
   { text: "Zambia", value: "Zambia" },
-  { text: "Zimbabwe", value: "Zimbabwe" }
+  { text: "Zimbabwe", value: "Zimbabwe" },
 ];

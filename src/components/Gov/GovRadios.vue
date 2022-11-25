@@ -11,8 +11,8 @@ export default {
     inline: {
       required: false,
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>

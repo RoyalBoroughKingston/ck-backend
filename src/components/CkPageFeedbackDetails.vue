@@ -7,7 +7,9 @@
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Channel</gov-table-header>
-        <gov-table-cell>{{ formatDateTime(pageFeedback.created_at) }}</gov-table-cell>
+        <gov-table-cell>{{
+          formatDateTime(pageFeedback.created_at)
+        }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Feedback</gov-table-header>
@@ -26,8 +28,12 @@
         <gov-table-cell>{{ pageFeedback.phone }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
-        <gov-table-header top scope="row">Scheduled for deletion</gov-table-header>
-        <gov-table-cell>{{ formatDate(autoDeleteDate(pageFeedback.updated_at)) }}</gov-table-cell>
+        <gov-table-header top scope="row"
+          >Scheduled for deletion</gov-table-header
+        >
+        <gov-table-cell>{{
+          formatDate(autoDeleteDate(pageFeedback.updated_at))
+        }}</gov-table-cell>
       </gov-table-row>
     </template>
   </gov-table>
@@ -41,8 +47,8 @@ export default {
   props: {
     pageFeedback: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     autoDeleteDate(updated_at) {
@@ -50,7 +56,7 @@ export default {
         .clone()
         .add(6, "months")
         .format("Y-MM-DD[T]HH:mm:ssZ");
-    }
-  }
+    },
+  },
 };
 </script>

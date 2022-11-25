@@ -1,11 +1,20 @@
 <template>
   <!-- For links to internal pages -->
-  <router-link v-if="to" :to="to" class="govuk-link govuk-link--no-visited-state">
+  <router-link
+    v-if="to"
+    :to="to"
+    class="govuk-link govuk-link--no-visited-state"
+  >
     <slot />
   </router-link>
 
   <!-- For dummy links that are handled by JavaScript -->
-  <a v-else :href="href || 'javascript:;'" class="govuk-link govuk-link--no-visited-state" @click="onClick">
+  <a
+    v-else
+    :href="href || 'javascript:;'"
+    class="govuk-link govuk-link--no-visited-state"
+    @click="onClick"
+  >
     <slot />
   </a>
 </template>
@@ -15,16 +24,16 @@ export default {
   name: "GovLink",
   props: {
     to: {
-      required: false
+      required: false,
     },
     href: {
-      required: false
-    }
+      required: false,
+    },
   },
   methods: {
     onClick() {
       this.$emit("click");
-    }
-  }
+    },
+  },
 };
 </script>

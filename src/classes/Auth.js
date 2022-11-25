@@ -6,7 +6,7 @@ class Auth {
    */
   constructor() {
     this.http = axios.create({
-      baseURL: process.env.VUE_APP_API_URI
+      baseURL: process.env.VUE_APP_API_URI,
     });
   }
 
@@ -30,7 +30,7 @@ class Auth {
     let e,
       a = /\+/g, // Regex for replacing addition symbol with a space
       r = /([^&;=]+)=?([^&;]*)/g,
-      d = function(s) {
+      d = function (s) {
         return decodeURIComponent(s.replace(a, " "));
       },
       q = query,
@@ -63,7 +63,7 @@ class Auth {
       "oauth",
       JSON.stringify({
         expires_at: expiresIn * 1000 + new Date().setHours(24, 0, 0, 0),
-        access_token: accessToken
+        access_token: accessToken,
       })
     );
 
@@ -79,8 +79,8 @@ class Auth {
       params: { include: "user-roles" },
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.accessToken}`
-      }
+        Authorization: `Bearer ${this.accessToken}`,
+      },
     });
 
     localStorage.setItem("user", JSON.stringify(data.data));
@@ -104,8 +104,8 @@ class Auth {
     await this.http.delete("/core/v1/users/user/sessions", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.accessToken}`
-      }
+        Authorization: `Bearer ${this.accessToken}`,
+      },
     });
   }
 
@@ -194,7 +194,7 @@ class Auth {
     }
 
     return (
-      this.user.roles.find(role => {
+      this.user.roles.find((role) => {
         if (role.role !== roleName) {
           return false;
         }

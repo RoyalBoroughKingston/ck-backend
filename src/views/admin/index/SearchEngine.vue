@@ -16,14 +16,14 @@ export default {
       tabs: [
         {
           heading: "Thesaurus",
-          to: { name: "admin-index-search-engine" }
+          to: { name: "admin-index-search-engine" },
         },
         {
           heading: "Stop words",
-          to: { name: "admin-index-search-engine-stop-words" }
-        }
-      ]
+          to: { name: "admin-index-search-engine-stop-words" },
+        },
+      ],
     };
-  }
+  },
 };
 </script>

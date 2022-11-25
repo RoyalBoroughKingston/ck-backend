@@ -3,26 +3,34 @@
     <gov-heading size="l">Referral</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
-
         <gov-body>
           Your {{ type }} can be set up to accept referrals through Connected
           Kingston. These referrals directly connect your {{ type }} to
           residents.
         </gov-body>
         <gov-body>
-          If you are interested in turning on referrals for your organisation, please
-          <gov-link :href="contactAdminTeamEmail">contact the admin team</gov-link>.
+          If you are interested in turning on referrals for your organisation,
+          please
+          <gov-link :href="contactAdminTeamEmail"
+            >contact the admin team</gov-link
+          >.
         </gov-body>
         <gov-body>
           Further information on referrals can be found on the
-          <gov-link href="https://kva.org.uk/kingston-s-vcs/connected-kingston/how-to-add-your-organisation/">KVA website</gov-link>.
+          <gov-link
+            href="https://kva.org.uk/kingston-s-vcs/connected-kingston/how-to-add-your-organisation/"
+            >KVA website</gov-link
+          >.
         </gov-body>
 
         <gov-section-break size="l" />
 
         <ck-select-input
           :value="referral_method"
-          @input="$emit('update:referral_method', $event); $emit('clear', 'referral_method')"
+          @input="
+            $emit('update:referral_method', $event);
+            $emit('clear', 'referral_method');
+          "
           id="referral_method"
           label="Referral method"
           :hint="`Does this ${type} receive referrals, and if so, how?`"
@@ -34,7 +42,10 @@
         <ck-text-input
           v-if="referralIsInternalOrExternal"
           :value="referral_button_text"
-          @input="$emit('update:referral_button_text', $event); $emit('clear', 'referral_button_text')"
+          @input="
+            $emit('update:referral_button_text', $event);
+            $emit('clear', 'referral_button_text');
+          "
           id="referral_button_text"
           label="What should your button say?"
           type="text"
@@ -45,21 +56,30 @@
             <gov-hint for="referral_button_text">
               E.g ‘Sign Up’, ‘Refer To’, or ‘Join In’
             </gov-hint>
-            <gov-hint for="referral_button_text" v-if="referral_method === 'internal'">
+            <gov-hint
+              for="referral_button_text"
+              v-if="referral_method === 'internal'"
+            >
               By enabling referrals through Connected Kingston, a button will be
               added to your page which will link to the referral form.
             </gov-hint>
-            <gov-hint for="referral_button_text" v-if="referral_method === 'external'">
-              This button will be added to your {{ type }} page, and link users to
-              the URL below.
+            <gov-hint
+              for="referral_button_text"
+              v-if="referral_method === 'external'"
+            >
+              This button will be added to your {{ type }} page, and link users
+              to the URL below.
             </gov-hint>
           </template>
         </ck-text-input>
 
         <ck-text-input
-          v-if="referralIsInternalOrExternal && (referral_method === 'internal')"
+          v-if="referralIsInternalOrExternal && referral_method === 'internal'"
           :value="referral_email"
-          @input="$emit('update:referral_email', $event); $emit('clear', 'referral_email')"
+          @input="
+            $emit('update:referral_email', $event);
+            $emit('clear', 'referral_email');
+          "
           id="referral_email"
           label="Where should we alert you when you receive a referral?"
           hint="This email address should be a group inbox if possible. When a referral is received, someone will need to login to respond."
@@ -69,9 +89,12 @@
         />
 
         <ck-text-input
-          v-if="referralIsInternalOrExternal && (referral_method === 'external')"
+          v-if="referralIsInternalOrExternal && referral_method === 'external'"
           :value="referral_url"
-          @input="$emit('update:referral_url', $event); $emit('clear', 'referral_url')"
+          @input="
+            $emit('update:referral_url', $event);
+            $emit('clear', 'referral_url');
+          "
           id="referral_url"
           label="External referral URL"
           hint="Please add the web address that the user will be directed to in order to make a referral."
@@ -83,16 +106,21 @@
         <ck-radio-input
           v-if="referralIsInternalOrExternal"
           :value="show_referral_disclaimer"
-          @input="$emit('update:show_referral_disclaimer', $event); $emit('clear', 'show_referral_disclaimer')"
+          @input="
+            $emit('update:show_referral_disclaimer', $event);
+            $emit('clear', 'show_referral_disclaimer');
+          "
           id="show_referral_disclaimer"
           label="Show referral disclaimer?"
-          :options="[{ value: true, label: 'Display' }, { value: false, label: 'Don\'t display' }]"
+          :options="[
+            { value: true, label: 'Display' },
+            { value: false, label: 'Don\'t display' },
+          ]"
           :error="errors.get('show_referral_disclaimer')"
           :disabled="!isSuperAdmin"
         />
 
         <slot />
-
       </gov-grid-column>
     </gov-grid-row>
   </div>
@@ -103,39 +131,39 @@ export default {
   name: "ReferralTab",
   props: {
     errors: {
-      required: true
+      required: true,
     },
     isGlobalAdmin: {
       required: true,
-      type: Boolean
+      type: Boolean,
     },
     isSuperAdmin: {
       required: true,
-      type: Boolean
+      type: Boolean,
     },
     originalData: {
       required: false,
-      type: Object
+      type: Object,
     },
     type: {
       required: true,
-      type: String
+      type: String,
     },
     show_referral_disclaimer: {
-      required: true
+      required: true,
     },
     referral_method: {
-      required: true
+      required: true,
     },
     referral_button_text: {
-      required: true
+      required: true,
     },
     referral_email: {
-      required: true
+      required: true,
     },
     referral_url: {
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     referralMethodOptions() {
@@ -143,7 +171,10 @@ export default {
         { text: "Please select", value: null, disabled: true },
         { text: "Yes - Through Connected Kingston", value: "internal" },
         { text: "Yes - Through an external form", value: "external" },
-        { text: `No - This ${this.type} doesn’t accept referrals`, value: "none" }
+        {
+          text: `No - This ${this.type} doesn’t accept referrals`,
+          value: "none",
+        },
       ];
     },
     referralIsInternalOrExternal() {
@@ -152,13 +183,14 @@ export default {
     contactAdminTeamEmail() {
       const to = "info@connectedkingston.uk";
       const subject = `Turn referrals on for my ${this.type}`;
-      const body =
-        `${this.$options.filters.ucfirst(this.type)} Name: XXX\n\nWe are interested in finding out more about accepting referrals through Connected Kingston.`;
+      const body = `${this.$options.filters.ucfirst(
+        this.type
+      )} Name: XXX\n\nWe are interested in finding out more about accepting referrals through Connected Kingston.`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
-    }
+    },
   },
   watch: {
     referral_method(newReferralMethod, oldReferralMethod) {
@@ -188,7 +220,8 @@ export default {
 
       if (
         (oldReferralMethod === null || oldReferralMethod === "none") &&
-        (newReferralMethod !== null && newReferralMethod !== "none")
+        newReferralMethod !== null &&
+        newReferralMethod !== "none"
       ) {
         if (this.originalData === undefined) {
           // Create service.
@@ -207,7 +240,7 @@ export default {
 
         this.$emit("clear", "show_referral_disclaimer");
       }
-    }
-  }
+    },
+  },
 };
 </script>

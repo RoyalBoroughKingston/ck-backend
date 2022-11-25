@@ -2,19 +2,31 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Connected Kingston - Service Location: ${serviceLocation.name || '-'}`" />
+      <vue-headful
+        :title="`Connected Kingston - Service Location: ${
+          serviceLocation.name || '-'
+        }`"
+      />
 
-      <gov-back-link :to="{ name: 'services-show-locations', params: { service: serviceLocation.service_id } }">Back to service</gov-back-link>
+      <gov-back-link
+        :to="{
+          name: 'services-show-locations',
+          params: { service: serviceLocation.service_id },
+        }"
+        >Back to service</gov-back-link
+      >
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="two-thirds">
-
             <gov-heading size="m">View service location</gov-heading>
 
             <service-location-details :service-location="serviceLocation" />
 
             <template v-if="auth.isServiceAdmin(serviceLocation.service)">
-              <gov-body>Please be certain of the action before deleting a service location</gov-body>
+              <gov-body
+                >Please be certain of the action before deleting a service
+                location</gov-body
+              >
 
               <gov-section-break size="l" />
 
@@ -24,14 +36,20 @@
                 @deleted="onDelete"
               />
             </template>
-
           </gov-grid-column>
-          <gov-grid-column v-if="auth.isServiceAdmin(serviceLocation.service)" width="one-third" class="text-right">
-
-            <gov-button :to="{ name: 'service-locations-edit', params: { serviceLocation: serviceLocation.id } }">
+          <gov-grid-column
+            v-if="auth.isServiceAdmin(serviceLocation.service)"
+            width="one-third"
+            class="text-right"
+          >
+            <gov-button
+              :to="{
+                name: 'service-locations-edit',
+                params: { serviceLocation: serviceLocation.id },
+              }"
+            >
               Edit service location
             </gov-button>
-
           </gov-grid-column>
         </gov-grid-row>
       </gov-main-wrapper>
@@ -49,7 +67,7 @@ export default {
   data() {
     return {
       loading: false,
-      serviceLocation: null
+      serviceLocation: null,
     };
   },
   methods: {
@@ -65,12 +83,12 @@ export default {
     onDelete() {
       this.$router.push({
         name: "services-show",
-        params: { service: this.serviceLocation.service_id }
+        params: { service: this.serviceLocation.service_id },
       });
-    }
+    },
   },
   created() {
     this.fetchServiceLocation();
-  }
+  },
 };
 </script>

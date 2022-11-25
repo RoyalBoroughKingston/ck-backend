@@ -18,8 +18,8 @@ export default {
   name: "GovBackLink",
   props: {
     to: {
-      required: false
-    }
-  }
+      required: false,
+    },
+  },
 };
 </script>
