@@ -2,15 +2,23 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Connected Kingston - Edit Location: ${location.address_line_1}`" />
+      <vue-headful
+        :title="`Connected Kingston - Edit Location: ${location.address_line_1}`"
+      />
 
-      <gov-back-link :to="{ name: 'locations-show', params: { location: location.id } }">Back to location</gov-back-link>
+      <gov-back-link
+        :to="{ name: 'locations-show', params: { location: location.id } }"
+        >Back to location</gov-back-link
+      >
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="one-half">
             <gov-heading size="xl">Locations</gov-heading>
             <gov-heading size="m">Edit location</gov-heading>
-            <gov-body>The locations will appear on the service pages which will inform people of where to find your service/organisation</gov-body>
+            <gov-body
+              >The locations will appear on the service pages which will inform
+              people of where to find your service/organisation</gov-body
+            >
 
             <location-form
               :errors="form.$errors"
@@ -29,11 +37,16 @@
             />
 
             <gov-warning-text>
-              Please be aware, by submitting these changes, any pending updates may be overwritten.
+              Please be aware, by submitting these changes, any pending updates
+              may be overwritten.
             </gov-warning-text>
 
-            <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
-            <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
+            <gov-button v-if="form.$submitting" disabled type="submit"
+              >Requesting...</gov-button
+            >
+            <gov-button v-else @click="onSubmit" type="submit"
+              >Request update</gov-button
+            >
             <ck-submit-error v-if="form.$errors.any()" />
           </gov-grid-column>
         </gov-grid-row>
@@ -54,7 +67,7 @@ export default {
     return {
       loading: false,
       location: null,
-      form: null
+      form: null,
     };
   },
   methods: {
@@ -76,7 +89,7 @@ export default {
         accessibility_info: this.location.accessibility_info || "",
         has_wheelchair_access: this.location.has_wheelchair_access,
         has_induction_loop: this.location.has_induction_loop,
-        image_file_id: null
+        image_file_id: null,
       });
 
       this.loading = false;
@@ -128,12 +141,12 @@ export default {
 
       this.$router.push({
         name: "locations-updated",
-        params: { location: this.location.id }
+        params: { location: this.location.id },
       });
-    }
+    },
   },
   created() {
     this.fetchLocation();
-  }
+  },
 };
 </script>

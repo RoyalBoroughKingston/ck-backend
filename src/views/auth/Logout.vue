@@ -5,7 +5,6 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="two-thirds">
-
           <gov-heading size="xl">Log out</gov-heading>
 
           <gov-body size="l">You are currently logged out.</gov-body>
@@ -13,7 +12,6 @@
           <gov-body size="l">Please login to access the system.</gov-body>
 
           <gov-button :href="loginUri">Login</gov-button>
-
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -26,7 +24,7 @@ import Auth from "@/classes/Auth";
 export default {
   data() {
     return {
-      loginUri: Auth.authorizeUrl
+      loginUri: Auth.authorizeUrl,
     };
   },
   created() {
@@ -34,6 +32,6 @@ export default {
     Auth.logout();
 
     this.$root.$emit("logout");
-  }
+  },
 };
 </script>

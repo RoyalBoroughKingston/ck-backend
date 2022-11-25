@@ -1,6 +1,9 @@
 <template>
   <div>
-    <gov-inset-text v-for="(usefulInfo, index) in usefulInfos" :key="usefulInfo.index">
+    <gov-inset-text
+      v-for="(usefulInfo, index) in usefulInfos"
+      :key="usefulInfo.index"
+    >
       <ck-select-input
         :value="usefulInfo.title"
         @input="onTitleInput({ index, value: $event })"
@@ -40,17 +43,17 @@ export default {
   name: "UsefulInfosInput",
   model: {
     prop: "usefulInfos",
-    event: "input"
+    event: "input",
   },
   props: {
     usefulInfos: {
       required: true,
-      type: Array
+      type: Array,
     },
     errors: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
@@ -64,7 +67,7 @@ export default {
         { text: "How to get here", value: "How to get here" },
         { text: "Parking", value: "Parking" },
         { text: "Keeping updated", value: "Keeping updated" },
-        { text: "Additional information", value: "Additional information" }
+        { text: "Additional information", value: "Additional information" },
       ],
       usefulInfosIndex: 1,
       extensions: [new Link()],
@@ -72,7 +75,7 @@ export default {
   },
   methods: {
     cloneUsefulInfos() {
-      return this.usefulInfos.map(usefulInfo => ({ ...usefulInfo }));
+      return this.usefulInfos.map((usefulInfo) => ({ ...usefulInfo }));
     },
     onAddUsefulInfo() {
       let usefulInfos = this.cloneUsefulInfos();
@@ -80,7 +83,7 @@ export default {
         title: "",
         description: "",
         order: this.usefulInfos.length + 1,
-        index: this.usefulInfosIndex
+        index: this.usefulInfosIndex,
       });
 
       this.usefulInfosIndex++;
@@ -115,7 +118,7 @@ export default {
       usefulInfos[index].description = value;
       this.$emit("input", usefulInfos);
       this.$emit("clear", `useful_infos.${index}.description`);
-    }
+    },
   },
   watch: {
     usefulInfos: {
@@ -127,14 +130,14 @@ export default {
 
           const hasBeenUsed =
             usefulInfos.find(
-              usefulInfo => usefulInfo.title === usefulInfoTitleOption.value
+              (usefulInfo) => usefulInfo.title === usefulInfoTitleOption.value
             ) !== undefined;
           const newOption = { ...usefulInfoTitleOption, disabled: hasBeenUsed };
           this.$set(this.usefulInfoTitleOptions, index, newOption);
         });
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+  },
 };
 </script>

@@ -4,12 +4,12 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>
-          These are a list of ‘tags’ that are applied to a {{ type }}. These tags
-          help the {{ type }} be found in categories and keyword searches.
+          These are a list of ‘tags’ that are applied to a {{ type }}. These
+          tags help the {{ type }} be found in categories and keyword searches.
         </gov-body>
         <gov-body>
-          On creation of a new {{ type }}, the admin team will select the tags that
-          they feel represent the {{ type }} offer.
+          On creation of a new {{ type }}, the admin team will select the tags
+          that they feel represent the {{ type }} offer.
         </gov-body>
 
         <gov-section-break size="l" />
@@ -30,7 +30,6 @@
         </gov-form-group>
 
         <slot />
-
       </gov-grid-column>
     </gov-grid-row>
   </div>
@@ -43,31 +42,34 @@ export default {
   components: { CategoryTaxonomyInput },
   props: {
     errors: {
-      required: true
+      required: true,
     },
     isGlobalAdmin: {
-      required: true
+      required: true,
     },
     type: {
       required: true,
-      type: String
+      type: String,
     },
     category_taxonomies: {
       required: true,
-      type: Array
-    }
+      type: Array,
+    },
   },
   computed: {
     contactAdminTeamEmail() {
       const to = "info@connectedkingston.uk";
       const subject = `Incorrect taxonomies applied to ${this.type}`;
-      const body =
-        `${this.$options.filters.ucfirst(this.type)} Name: XXX\n\nI believe that the tags applied to the above ${this.type} are incorrect. The following changes should be made:`;
+      const body = `${this.$options.filters.ucfirst(
+        this.type
+      )} Name: XXX\n\nI believe that the tags applied to the above ${
+        this.type
+      } are incorrect. The following changes should be made:`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
-    }
-  }
+    },
+  },
 };
 </script>

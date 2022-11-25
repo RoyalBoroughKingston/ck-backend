@@ -24,9 +24,7 @@
               </strong>
             </gov-label>
 
-            <gov-hint>
-              Tick all that apply.
-            </gov-hint>
+            <gov-hint> Tick all that apply. </gov-hint>
 
             <gov-checkboxes>
               <gov-checkbox
@@ -54,7 +52,9 @@
               />
 
               <gov-checkbox
-                :value="form.organisation_types.includes('commercial_contracted')"
+                :value="
+                  form.organisation_types.includes('commercial_contracted')
+                "
                 id="organisation_types.commercial_contracted"
                 name="organisation_types"
                 label="A commercial service that is contracted or spot purchased under a commissioning arrangement with Royal Borough of Kingston (RBK) Council, intended to improve the health, wellbeing or independence of Kingston residents"
@@ -81,36 +81,40 @@ export default {
   props: {
     form: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
     onInput(organisationType) {
       if (this.form.organisation_types.includes(organisationType)) {
         this.$emit(
-          'input',
+          "input",
           Object.assign(this.form, {
-            organisation_types: this.form.organisation_types
-              .filter((type) => type !== organisationType)
+            organisation_types: this.form.organisation_types.filter(
+              (type) => type !== organisationType
+            ),
           })
         );
       } else {
         this.$emit(
-          'input',
+          "input",
           Object.assign(this.form, {
-            organisation_types: [...this.form.organisation_types, organisationType]
+            organisation_types: [
+              ...this.form.organisation_types,
+              organisationType,
+            ],
           })
         );
       }
 
-      this.$emit('clear', 'organisation_types');
-    }
-  }
-}
+      this.$emit("clear", "organisation_types");
+    },
+  },
+};
 </script>

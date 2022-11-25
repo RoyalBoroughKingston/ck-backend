@@ -2,12 +2,19 @@
   <div class="govuk-tabs">
     <h2 class="govuk-tabs__title">{{ title }}</h2>
     <ul class="govuk-tabs__list" :class="{ 'govuk-tabs__list--bar': bar }">
-      <li v-for="(tab, index) in tabs" :key="index" class="govuk-tabs__list-item">
+      <li
+        v-for="(tab, index) in tabs"
+        :key="index"
+        class="govuk-tabs__list-item"
+      >
         <a
           @click="onTabClick(tab, index)"
           v-if="noRouter"
           class="govuk-tabs__tab"
-          :class="{ 'govuk-tabs__tab--active': tab.active, 'govuk-tabs__tab--bar': bar }"
+          :class="{
+            'govuk-tabs__tab--active': tab.active,
+            'govuk-tabs__tab--bar': bar,
+          }"
           href="javascript:;"
           v-text="tab.heading"
         />
@@ -35,34 +42,34 @@ export default {
   props: {
     tabs: {
       type: Array,
-      required: true
+      required: true,
     },
     title: {
       type: String,
       required: false,
-      default: "Contents"
+      default: "Contents",
     },
     noRouter: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     bar: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     panel: {
       type: Boolean,
       required: false,
-      default: true
-    }
+      default: true,
+    },
   },
   methods: {
     onTabClick(tab, index) {
       this.$emit("tab-changed", { index, tab });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -81,7 +88,7 @@ export default {
 
   .govuk-tabs__tab {
     &--active {
-      @extend .govuk-tabs__tab, [aria-selected=true] !optional;
+      @extend .govuk-tabs__tab, [aria-selected="true"] !optional;
     }
 
     @media only screen and (min-width: map-get($govuk-breakpoints, tablet)) {

@@ -2,14 +2,21 @@
   <div>
     <gov-heading size="l">Manage reports</gov-heading>
 
-    <ck-loader v-if="loadingReportSchedules"/>
-    <section v-else v-for="(reportType, index) in reportTypes" :key="reportType.type">
+    <ck-loader v-if="loadingReportSchedules" />
+    <section
+      v-else
+      v-for="(reportType, index) in reportTypes"
+      :key="reportType.type"
+    >
       <gov-inset-text>
         <gov-heading size="m">{{ reportType.type }}</gov-heading>
         <gov-body>{{ reportType.description }}</gov-body>
 
         <gov-heading size="s">Scheduled generation</gov-heading>
-        <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
+        <gov-body
+          >This decides the regularity of when reports are sent to
+          you.</gov-body
+        >
         <ck-radio-input
           :id="`repeat_type[${reportType.type}]`"
           v-model="reportType.scheduleForm.repeat_type"
@@ -17,11 +24,19 @@
           @input="reportType.scheduleForm.$errors.clear('repeat_type')"
           :options="repeatTypeOptions"
         />
-        <gov-button v-if="!reportType.scheduleForm.$submitting" type="submit" @click="onSaveReportSchedule(reportType)">Save frequency</gov-button>
+        <gov-button
+          v-if="!reportType.scheduleForm.$submitting"
+          type="submit"
+          @click="onSaveReportSchedule(reportType)"
+          >Save frequency</gov-button
+        >
         <gov-button v-else type="submit" disabled>Saving...</gov-button>
 
         <gov-heading size="s">Generate a report now</gov-heading>
-        <gov-body>This allows you to generate a one off report which will begin downloading immediately.</gov-body>
+        <gov-body
+          >This allows you to generate a one off report which will begin
+          downloading immediately.</gov-body
+        >
         <template v-if="acceptsDateRange(reportType)">
           <ck-date-input
             :id="`starts_at[${reportType.type}]`"
@@ -38,10 +53,19 @@
             label="To date"
           />
         </template>
-        <gov-button v-if="!reportType.generateForm.$submitting" type="submit" @click="onGenerate(reportType)">Generate and download</gov-button>
+        <gov-button
+          v-if="!reportType.generateForm.$submitting"
+          type="submit"
+          @click="onGenerate(reportType)"
+          >Generate and download</gov-button
+        >
         <gov-button v-else type="submit" disabled>Generating...</gov-button>
       </gov-inset-text>
-      <gov-section-break v-if="index < reportTypes.length - 1" size="l" visible/>
+      <gov-section-break
+        v-if="index < reportTypes.length - 1"
+        size="l"
+        visible
+      />
     </section>
   </div>
 </template>
@@ -65,13 +89,13 @@ export default {
             "logs between certain times.",
           scheduleForm: new Form({
             report_type: "Audit Logs Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Audit Logs Export",
             starts_at: "",
-            ends_at: ""
-          })
+            ends_at: "",
+          }),
         },
         {
           type: "Feedback Export",
@@ -80,13 +104,13 @@ export default {
             "the inbuilt feedback feature between certain times. ",
           scheduleForm: new Form({
             report_type: "Feedback Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Feedback Export",
             starts_at: "",
-            ends_at: ""
-          })
+            ends_at: "",
+          }),
         },
         {
           type: "Locations Export",
@@ -95,13 +119,13 @@ export default {
             "Connected Kingston, and the number of services delivered at each.",
           scheduleForm: new Form({
             report_type: "Locations Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Locations Export",
             starts_at: "",
-            ends_at: ""
-          })
+            ends_at: "",
+          }),
         },
         {
           type: "Organisations Export",
@@ -110,13 +134,13 @@ export default {
             "Kingston with the number of services and attributed accounts.",
           scheduleForm: new Form({
             report_type: "Organisations Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Organisations Export",
             starts_at: "",
-            ends_at: ""
-          })
+            ends_at: "",
+          }),
         },
         {
           type: "Referrals Export",
@@ -125,13 +149,13 @@ export default {
             "period. The report contains no personal information.",
           scheduleForm: new Form({
             report_type: "Referrals Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Referrals Export",
             starts_at: "",
-            ends_at: ""
-          })
+            ends_at: "",
+          }),
         },
         {
           type: "Search Histories Export",
@@ -140,13 +164,13 @@ export default {
             "the site, between a certain time period.",
           scheduleForm: new Form({
             report_type: "Search Histories Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Search Histories Export",
             starts_at: "",
-            ends_at: ""
-          })
+            ends_at: "",
+          }),
         },
         {
           type: "Services Export",
@@ -156,46 +180,46 @@ export default {
             "updated, contact details etc.",
           scheduleForm: new Form({
             report_type: "Services Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Services Export",
             starts_at: "",
-            ends_at: ""
-          })
+            ends_at: "",
+          }),
         },
         {
           type: "Users Export",
           description: `Generate a report of all users on the site, contact details, and last login times.`,
           scheduleForm: new Form({
             report_type: "Users Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Users Export",
             starts_at: "",
-            ends_at: ""
-          })
+            ends_at: "",
+          }),
         },
         {
           type: "Historic Update Requests Export",
           description: `Generate a report of all approved/rejected update requests.`,
           scheduleForm: new Form({
             report_type: "Historic Update Requests Export",
-            repeat_type: null
+            repeat_type: null,
           }),
           generateForm: new Form({
             report_type: "Historic Update Requests Export",
             starts_at: "",
-            ends_at: ""
-          })
-        }
+            ends_at: "",
+          }),
+        },
       ],
       repeatTypeOptions: [
         { label: "Not scheduled", value: null },
         { label: "Weekly", value: "weekly" },
-        { label: "Monthly", value: "monthly" }
-      ]
+        { label: "Monthly", value: "monthly" },
+      ],
     };
   },
   methods: {
@@ -203,9 +227,9 @@ export default {
       this.loadingReportSchedules = true;
 
       const reportSchedules = await this.fetchAll("/report-schedules");
-      reportSchedules.forEach(reportSchedule => {
+      reportSchedules.forEach((reportSchedule) => {
         const reportType = this.reportTypes.find(
-          reportType => reportType.type === reportSchedule.report_type
+          (reportType) => reportType.type === reportSchedule.report_type
         );
 
         reportType.scheduleForm = new Form(reportSchedule);
@@ -218,7 +242,8 @@ export default {
       const reportId = data.data.id;
       const file = await http.get(`/reports/${reportId}/download`);
 
-      const regex = /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/;
+      const regex =
+        /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/;
       const filename = regex.exec(
         file.request.getResponseHeader("Content-Disposition")
       )[2];
@@ -240,7 +265,7 @@ export default {
           );
           reportType.scheduleForm = new Form({
             report_type: reportType.scheduleForm.report_type,
-            repeat_type: null
+            repeat_type: null,
           });
 
           return;
@@ -284,10 +309,10 @@ export default {
         case "Historic Update Requests Export":
           return true;
       }
-    }
+    },
   },
   created() {
     this.fetchReportSchedules();
-  }
+  },
 };
 </script>

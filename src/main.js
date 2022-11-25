@@ -20,8 +20,8 @@ import MarkdownConverter from "@/classes/MarkdownConverter";
 import * as VueGoogleMaps from "vue2-google-maps";
 Vue.use(VueGoogleMaps, {
   load: {
-    key: process.env.VUE_APP_GOOGLE_API_KEY
-  }
+    key: process.env.VUE_APP_GOOGLE_API_KEY,
+  },
 });
 
 // Vue
@@ -43,7 +43,7 @@ if (process.env.VUE_APP_BUGSNAG_API_KEY) {
       delete user.roles;
 
       report.user = user;
-    }
+    },
   });
 
   bugsnagClient.use(bugsnagVue(Vue));
@@ -140,13 +140,13 @@ Vue.mixin({
   data() {
     return {
       auth: Auth,
-      moment
+      moment,
     };
   },
   computed: {
     now() {
       return moment().format(moment.HTML5_FMT.DATE_TIME_SECONDS);
-    }
+    },
   },
   methods: {
     apiUrl(path) {
@@ -200,7 +200,7 @@ Vue.mixin({
       } while (!allFetched);
 
       return resources;
-    }
+    },
   },
   filters: {
     ucfirst(string) {
@@ -211,17 +211,17 @@ Vue.mixin({
         service: "services",
         activity: "activities",
         club: "clubs",
-        group: "groups"
+        group: "groups",
       };
 
       return plurals[string];
-    }
-  }
+    },
+  },
 });
 
 Vue.config.productionTip = false;
 
 new Vue({
   router,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

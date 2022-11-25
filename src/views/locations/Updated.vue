@@ -2,19 +2,31 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Connected Kingston - Location Updated: ${location.address_line_1}`" />
+      <vue-headful
+        :title="`Connected Kingston - Location Updated: ${location.address_line_1}`"
+      />
 
-      <gov-back-link :to="{ name: 'locations-show', params: { location: location.id } }">Back to location</gov-back-link>
+      <gov-back-link
+        :to="{ name: 'locations-show', params: { location: location.id } }"
+        >Back to location</gov-back-link
+      >
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="one-half">
             <gov-heading size="xl">Update request submitted</gov-heading>
             <gov-body>
-              Your update request for this location has been received.
-              It will need to be approved by an admin before the changes will be applied.
+              Your update request for this location has been received. It will
+              need to be approved by an admin before the changes will be
+              applied.
             </gov-body>
 
-            <gov-button :to="{ name: 'locations-show', params: { location: this.$route.params.location } }">Back to location</gov-button>
+            <gov-button
+              :to="{
+                name: 'locations-show',
+                params: { location: this.$route.params.location },
+              }"
+              >Back to location</gov-button
+            >
           </gov-grid-column>
         </gov-grid-row>
       </gov-main-wrapper>
@@ -30,7 +42,7 @@ export default {
   data() {
     return {
       loading: false,
-      location: null
+      location: null,
     };
   },
   methods: {
@@ -41,10 +53,10 @@ export default {
       );
       this.location = response.data.data;
       this.loading = false;
-    }
+    },
   },
   created() {
     this.fetchLocation();
-  }
+  },
 };
 </script>

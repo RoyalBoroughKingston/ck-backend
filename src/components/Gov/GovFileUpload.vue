@@ -7,7 +7,7 @@
     type="file"
     ref="file"
     :aria-describedby="ariaDescribedBy"
-  >
+  />
 </template>
 
 <script>
@@ -16,22 +16,22 @@ export default {
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      fileReader: new FileReader()
+      fileReader: new FileReader(),
     };
   },
   computed: {
     ariaDescribedBy() {
       return `${this.name}-hint`;
-    }
+    },
   },
   methods: {
     onChange() {
@@ -47,10 +47,10 @@ export default {
         this.$emit("change", {
           mime_type: file.type,
           bytes: file.size,
-          content: this.fileReader.result
+          content: this.fileReader.result,
         });
       this.fileReader.readAsDataURL(file);
-    }
-  }
+    },
+  },
 };
 </script>

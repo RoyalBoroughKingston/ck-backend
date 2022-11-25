@@ -18,8 +18,8 @@ export default {
     title: {
       required: false,
       type: String,
-      default: ""
-    }
-  }
+      default: "",
+    },
+  },
 };
 </script>

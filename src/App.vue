@@ -1,18 +1,27 @@
 <template>
   <div id="app">
-    <vue-headful title="Connected Kingston" :head="headAttributes" :html="htmlAttributes" />
+    <vue-headful
+      title="Connected Kingston"
+      :head="headAttributes"
+      :html="htmlAttributes"
+    />
 
     <gov-skip-link href="#main-content">Skip to main content</gov-skip-link>
 
     <gov-header service-name="Connected Kingston" :navigation="headerNav" />
 
     <div class="govuk-width-container">
-      <main class="govuk-main-wrapper" :class="mainClasses" id="main-content" role="main">
+      <main
+        class="govuk-main-wrapper"
+        :class="mainClasses"
+        id="main-content"
+        role="main"
+      >
         <router-view />
       </main>
     </div>
 
-    <gov-footer/>
+    <gov-footer />
   </div>
 </template>
 
@@ -28,20 +37,20 @@ export default {
       bodyClasses: ["js-enabled"],
       mainClasses: [],
       headerNav: [],
-      logoutInterval: null
+      logoutInterval: null,
     };
   },
   computed: {
     headAttributes() {
       return {
-        "meta[name=theme-color]": { content: this.themeColor }
+        "meta[name=theme-color]": { content: this.themeColor },
       };
     },
     htmlAttributes() {
       return {
         body: {
-          class: [document.body.className, ...this.bodyClasses].join(" ")
-        }
+          class: [document.body.className, ...this.bodyClasses].join(" "),
+        },
       };
     },
     loggedInItems() {
@@ -52,23 +61,23 @@ export default {
         { text: "Organisations", to: { name: "organisations-index" } },
         {
           text: "Users",
-          to: { name: "users-index" }
+          to: { name: "users-index" },
         },
         {
           text: "Reports",
           to: { name: "reports-index" },
-          hide: !Auth.isGlobalAdmin
+          hide: !Auth.isGlobalAdmin,
         },
         {
           text: "Admin",
           to: { name: "admin-index" },
-          hide: !Auth.isGlobalAdmin
+          hide: !Auth.isGlobalAdmin,
         },
         {
           text: "Update requests",
           to: { name: "update-requests-index" },
-          hide: !Auth.isGlobalAdmin
-        }
+          hide: !Auth.isGlobalAdmin,
+        },
       ];
     },
     loggedOutItems() {
@@ -76,7 +85,7 @@ export default {
         { text: "Register", to: { name: "register-index" } },
         { text: "Login", href: Auth.authorizeUrl },
       ];
-    }
+    },
   },
   methods: {
     setHeaderItems() {
@@ -105,7 +114,7 @@ export default {
     endAutoLogoutInterval() {
       clearInterval(this.logoutInterval);
       this.logoutInterval = null;
-    }
+    },
   },
 
   created() {
@@ -121,6 +130,6 @@ export default {
 
   destroyed() {
     this.endAutoLogoutInterval();
-  }
+  },
 };
 </script>

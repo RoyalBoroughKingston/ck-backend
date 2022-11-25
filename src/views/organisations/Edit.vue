@@ -2,15 +2,26 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Connected Kingston - Edit Organisation: ${organisation.name}`" />
+      <vue-headful
+        :title="`Connected Kingston - Edit Organisation: ${organisation.name}`"
+      />
 
-      <gov-back-link :to="{ name: 'organisations-show', params: { organisation: organisation.id } }">Back to organisation</gov-back-link>
+      <gov-back-link
+        :to="{
+          name: 'organisations-show',
+          params: { organisation: organisation.id },
+        }"
+        >Back to organisation</gov-back-link
+      >
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="one-half">
             <gov-heading size="xl">Organisations</gov-heading>
             <gov-heading size="m">Edit organisation</gov-heading>
-            <gov-body>General details about the organisation. To be found when searching or linked from a service page.</gov-body>
+            <gov-body
+              >General details about the organisation. To be found when
+              searching or linked from a service page.</gov-body
+            >
 
             <organisation-form
               :errors="form.$errors"
@@ -26,11 +37,16 @@
             />
 
             <gov-warning-text>
-              Please be aware, by submitting these changes, any pending updates may be overwritten.
+              Please be aware, by submitting these changes, any pending updates
+              may be overwritten.
             </gov-warning-text>
 
-            <gov-button v-if="form.$submitting" disabled type="submit">Requesting...</gov-button>
-            <gov-button v-else @click="onSubmit" type="submit">Request update</gov-button>
+            <gov-button v-if="form.$submitting" disabled type="submit"
+              >Requesting...</gov-button
+            >
+            <gov-button v-else @click="onSubmit" type="submit"
+              >Request update</gov-button
+            >
             <ck-submit-error v-if="form.$errors.any()" />
           </gov-grid-column>
         </gov-grid-row>
@@ -51,7 +67,7 @@ export default {
     return {
       loading: false,
       organisation: null,
-      form: null
+      form: null,
     };
   },
   methods: {
@@ -67,9 +83,9 @@ export default {
         slug: this.organisation.slug,
         description: this.organisation.description,
         url: this.organisation.url,
-        email: this.organisation.email || '',
-        phone: this.organisation.phone || '',
-        logo_file_id: null
+        email: this.organisation.email || "",
+        phone: this.organisation.phone || "",
+        logo_file_id: null,
       });
 
       this.loading = false;
@@ -91,10 +107,10 @@ export default {
           if (data.url === this.organisation.url) {
             delete data.url;
           }
-          if (data.email === (this.organisation.email || '-')) {
+          if (data.email === (this.organisation.email || "-")) {
             delete data.email;
           }
-          if (data.phone === (this.organisation.phone || '-')) {
+          if (data.phone === (this.organisation.phone || "-")) {
             delete data.phone;
           }
 
@@ -108,12 +124,12 @@ export default {
       );
       this.$router.push({
         name: "organisations-updated",
-        params: { organisation: this.organisation.id }
+        params: { organisation: this.organisation.id },
       });
-    }
+    },
   },
   created() {
     this.fetchOrganisation();
-  }
+  },
 };
 </script>

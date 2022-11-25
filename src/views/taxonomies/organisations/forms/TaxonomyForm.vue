@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <ck-text-input
       :value="name"
       @input="onInput('name', $event)"
@@ -9,7 +8,6 @@
       type="text"
       :error="errors.get('name')"
     />
-
   </div>
 </template>
 
@@ -19,20 +17,20 @@ export default {
   props: {
     errors: {
       required: true,
-      type: Object
+      type: Object,
     },
     name: {
-      required: true
+      required: true,
     },
     order: {
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
-    }
-  }
+    },
+  },
 };
 </script>

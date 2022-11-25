@@ -2,16 +2,16 @@
   <gov-width-container>
     <vue-headful title="Connected Kingston - View Update Request" />
 
-    <gov-back-link :to="{ name: 'update-requests-index' }">Back to update requests</gov-back-link>
+    <gov-back-link :to="{ name: 'update-requests-index' }"
+      >Back to update requests</gov-back-link
+    >
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
         <gov-grid-column width="full">
-
           <gov-error-summary title="Check this page">
-            The update request needs to be confirmed. Check the
-            page for inconsistencies, errors that would be
-            problematic to a user.
+            The update request needs to be confirmed. Check the page for
+            inconsistencies, errors that would be problematic to a user.
           </gov-error-summary>
 
           <gov-heading size="m">View update request</gov-heading>
@@ -55,7 +55,7 @@
 
           <gov-body v-else>Update request is invalid</gov-body>
 
-          <gov-section-break size="xl"/>
+          <gov-section-break size="xl" />
 
           <gov-heading size="m">Do you approve these changes?</gov-heading>
 
@@ -78,9 +78,16 @@
 
           <gov-section-break size="l" />
 
-          <gov-button v-if="submitting" disabled type="submit">Submitting...</gov-button>
-          <gov-button v-else @click="onSubmit" :disabled="approve === null" type="submit">Submit</gov-button>
-
+          <gov-button v-if="submitting" disabled type="submit"
+            >Submitting...</gov-button
+          >
+          <gov-button
+            v-else
+            @click="onSubmit"
+            :disabled="approve === null"
+            type="submit"
+            >Submit</gov-button
+          >
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -102,14 +109,14 @@ export default {
     OrganisationSignUpFormDetails,
     ServiceDetails,
     LocationDetails,
-    ServiceLocationDetails
+    ServiceLocationDetails,
   },
   data() {
     return {
       loading: false,
       updateRequest: null,
       approve: null,
-      submitting: false
+      submitting: false,
     };
   },
   methods: {
@@ -125,10 +132,12 @@ export default {
       // If the update request is for a service, and the organisation has been
       // updated, then eager load the organisation and append to the data.
       if (
-        this.updateRequest.updateable_type === 'services'
-        && this.updateRequest.data.hasOwnProperty('organisation_id')
+        this.updateRequest.updateable_type === "services" &&
+        this.updateRequest.data.hasOwnProperty("organisation_id")
       ) {
-        const { data: { data: organisation } } = await http.get(
+        const {
+          data: { data: organisation },
+        } = await http.get(
           `/organisations/${this.updateRequest.data.organisation_id}`
         );
         this.updateRequest.data.organisation = organisation;
@@ -147,25 +156,25 @@ export default {
             case "services":
               this.$router.push({
                 name: "services-show",
-                params: { service: this.updateRequest.updateable_id }
+                params: { service: this.updateRequest.updateable_id },
               });
               break;
             case "organisations":
               this.$router.push({
                 name: "organisations-show",
-                params: { organisation: this.updateRequest.updateable_id }
+                params: { organisation: this.updateRequest.updateable_id },
               });
               break;
             case "locations":
               this.$router.push({
                 name: "locations-show",
-                params: { location: this.updateRequest.updateable_id }
+                params: { location: this.updateRequest.updateable_id },
               });
               break;
             case "service_locations":
               this.$router.push({
                 name: "service-locations-show",
-                params: { serviceLocation: this.updateRequest.updateable_id }
+                params: { serviceLocation: this.updateRequest.updateable_id },
               });
               break;
             default:
@@ -179,10 +188,10 @@ export default {
       } catch (error) {
         this.submitting = false;
       }
-    }
+    },
   },
   created() {
     this.fetchUpdateRequests();
-  }
+  },
 };
 </script>

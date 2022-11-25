@@ -1,9 +1,23 @@
 <template>
   <div>
+    <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+      v-if="auth.isGlobalAdmin"
+    >
+      <gov-hint slot="hint" for="slug">
+        This will be used to access the category collection.<br />
+        e.g. connectedkingston.uk/results?category={{ slug }}
+      </gov-hint>
+    </ck-text-input>
 
     <ck-text-input
       :value="name"
-      @input="onInput('name', $event)"
+      @input="onNameInput"
       id="name"
       label="Name"
       type="text"
@@ -12,7 +26,10 @@
 
     <ck-textarea-input
       :value="intro"
-      @input="$emit('update:intro', $event); $emit('clear', 'intro')"
+      @input="
+        $emit('update:intro', $event);
+        $emit('clear', 'intro');
+      "
       id="intro"
       label="Description of category"
       hint="A short summary detailing what type of services the category contains."
@@ -29,7 +46,11 @@
       has-icons
     >
       <gov-hint slot="hint" for="icon">
-        If you're having trouble viewing the icons, refer to the <gov-link href="https://fontawesome.com/icons" target="_blank">Font Awesome website</gov-link> (the font library used).
+        If you're having trouble viewing the icons, refer to the
+        <gov-link href="https://fontawesome.com/icons" target="_blank"
+          >Font Awesome website</gov-link
+        >
+        (the font library used).
       </gov-hint>
       <option
         v-for="(option, key) in icons"
@@ -62,7 +83,6 @@
       @clear="$emit('clear', 'category_taxonomies')"
       :hierarchy="false"
     />
-
   </div>
 </template>
 
@@ -77,32 +97,40 @@ export default {
   props: {
     errors: {
       required: true,
-      type: Object
+      type: Object,
+    },
+    isNew: {
+      required: false,
+      type: Boolean,
+      default: false,
+    },
+    slug: {
+      required: true,
     },
     name: {
-      required: true
+      required: true,
     },
     intro: {
-      required: true
+      required: true,
     },
     icon: {
-      required: true
+      required: true,
     },
     order: {
-      required: true
+      required: true,
     },
     sideboxes: {
-      required: true
+      required: true,
     },
     category_taxonomies: {
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       icons: [
         { text: "Please select...", value: null, disabled: true },
-        ...icons
+        ...icons,
       ],
     };
   },
@@ -110,7 +138,16 @@ export default {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
-    }
-  }
+    },
+    onNameInput(name) {
+      this.$emit("update:name", name);
+      this.$emit("clear", "name");
+
+      if (this.auth.isGlobalAdmin || this.isNew) {
+        this.$emit("update:slug", this.slugify(name));
+        this.$emit("clear", "slug");
+      }
+    },
+  },
 };
 </script>

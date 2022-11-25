@@ -38,31 +38,31 @@ export default {
 
   model: {
     prop: "sideboxes",
-    event: "input"
+    event: "input",
   },
 
   props: {
     sideboxes: {
       required: true,
-      type: Array
+      type: Array,
     },
 
     errors: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
 
   data() {
     return {
       index: 1,
-      extensions: [new Link()]
+      extensions: [new Link()],
     };
   },
 
   methods: {
     clone() {
-      return this.sideboxes.map(sidebox => ({ ...sidebox }));
+      return this.sideboxes.map((sidebox) => ({ ...sidebox }));
     },
 
     onAdd() {
@@ -70,7 +70,7 @@ export default {
       sideboxes.push({
         title: "",
         content: "",
-        index: this.index
+        index: this.index,
       });
 
       this.index++;
@@ -102,7 +102,7 @@ export default {
 
       this.$emit("input", sideboxes);
       this.$emit("clear", `sideboxes.${index}.content`);
-    }
-  }
+    },
+  },
 };
 </script>

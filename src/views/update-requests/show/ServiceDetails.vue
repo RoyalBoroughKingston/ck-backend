@@ -1,13 +1,16 @@
 <template>
-  <ck-loader v-if="loading"/>
+  <ck-loader v-if="loading" />
   <div v-else>
     <gov-body>
-      For service <gov-link :to="{ name: 'services-show', params: { service: original.id } }" v-text="original.name"/>.
+      For service
+      <gov-link
+        :to="{ name: 'services-show', params: { service: original.id } }"
+        v-text="original.name"
+      />.
     </gov-body>
 
     <gov-table>
       <template slot="body">
-
         <gov-table-row>
           <gov-table-header scope="column"></gov-table-header>
           <gov-table-header scope="column">From</gov-table-header>
@@ -44,7 +47,7 @@
             <gov-link
               :to="{
                 name: 'organisations-show',
-                params: { organisation: original.organisation_id }
+                params: { organisation: original.organisation_id },
               }"
             >
               {{ original.organisation.name }}
@@ -54,7 +57,7 @@
             <gov-link
               :to="{
                 name: 'organisations-show',
-                params: { organisation: service.organisation_id }
+                params: { organisation: service.organisation_id },
               }"
             >
               {{ service.organisation.name }}
@@ -85,56 +88,72 @@
           <gov-table-cell>
             <gov-list>
               <li v-if="service.criteria.hasOwnProperty('age_group')">
-                <span class="govuk-!-font-weight-bold">Age group:</span> {{ original.criteria.age_group || "-" }}
+                <span class="govuk-!-font-weight-bold">Age group:</span>
+                {{ original.criteria.age_group || "-" }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('disability')">
-                <span class="govuk-!-font-weight-bold">Disability:</span> {{ original.criteria.disability || "-" }}
+                <span class="govuk-!-font-weight-bold">Disability:</span>
+                {{ original.criteria.disability || "-" }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('employment')">
-                <span class="govuk-!-font-weight-bold">Employment:</span> {{ original.criteria.employment || "-" }}
+                <span class="govuk-!-font-weight-bold">Employment:</span>
+                {{ original.criteria.employment || "-" }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('gender')">
-                <span class="govuk-!-font-weight-bold">Gender:</span> {{ original.criteria.gender || "-" }}
+                <span class="govuk-!-font-weight-bold">Gender:</span>
+                {{ original.criteria.gender || "-" }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('housing')">
-                <span class="govuk-!-font-weight-bold">Housing:</span> {{ original.criteria.housing || "-" }}
+                <span class="govuk-!-font-weight-bold">Housing:</span>
+                {{ original.criteria.housing || "-" }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('income')">
-                <span class="govuk-!-font-weight-bold">Income:</span> {{ original.criteria.income || "-" }}
+                <span class="govuk-!-font-weight-bold">Income:</span>
+                {{ original.criteria.income || "-" }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('language')">
-                <span class="govuk-!-font-weight-bold">Language:</span> {{ original.criteria.language || "-" }}
+                <span class="govuk-!-font-weight-bold">Language:</span>
+                {{ original.criteria.language || "-" }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('other')">
-                <span class="govuk-!-font-weight-bold">Other:</span> {{ original.criteria.other || "-" }}
+                <span class="govuk-!-font-weight-bold">Other:</span>
+                {{ original.criteria.other || "-" }}
               </li>
             </gov-list>
           </gov-table-cell>
           <gov-table-cell>
             <gov-list>
               <li v-if="service.criteria.hasOwnProperty('age_group')">
-                <span class="govuk-!-font-weight-bold">Age group:</span> {{ service.criteria.age_group }}
+                <span class="govuk-!-font-weight-bold">Age group:</span>
+                {{ service.criteria.age_group }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('disability')">
-                <span class="govuk-!-font-weight-bold">Disability:</span> {{ service.criteria.disability }}
+                <span class="govuk-!-font-weight-bold">Disability:</span>
+                {{ service.criteria.disability }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('employment')">
-                <span class="govuk-!-font-weight-bold">Employment:</span> {{ service.criteria.employment }}
+                <span class="govuk-!-font-weight-bold">Employment:</span>
+                {{ service.criteria.employment }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('gender')">
-                <span class="govuk-!-font-weight-bold">Gender:</span> {{ service.criteria.gender }}
+                <span class="govuk-!-font-weight-bold">Gender:</span>
+                {{ service.criteria.gender }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('housing')">
-                <span class="govuk-!-font-weight-bold">Housing:</span> {{ service.criteria.housing }}
+                <span class="govuk-!-font-weight-bold">Housing:</span>
+                {{ service.criteria.housing }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('income')">
-                <span class="govuk-!-font-weight-bold">Income:</span> {{ service.criteria.income }}
+                <span class="govuk-!-font-weight-bold">Income:</span>
+                {{ service.criteria.income }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('language')">
-                <span class="govuk-!-font-weight-bold">Language:</span> {{ service.criteria.language }}
+                <span class="govuk-!-font-weight-bold">Language:</span>
+                {{ service.criteria.language }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('other')">
-                <span class="govuk-!-font-weight-bold">Other:</span> {{ service.criteria.other }}
+                <span class="govuk-!-font-weight-bold">Other:</span>
+                {{ service.criteria.other }}
               </li>
             </gov-list>
           </gov-table-cell>
@@ -192,7 +211,10 @@
           <gov-table-header top scope="row">Useful infos</gov-table-header>
           <gov-table-cell>
             <gov-list v-if="original.useful_infos.length > 0">
-              <li v-for="(usefulInfo, index) in original.useful_infos" :key="`useful_info.${index}`">
+              <li
+                v-for="(usefulInfo, index) in original.useful_infos"
+                :key="`useful_info.${index}`"
+              >
                 <gov-heading>{{ usefulInfo.title }}</gov-heading>
                 <div v-html="toHtml(usefulInfo.description)" />
                 <gov-section-break
@@ -206,7 +228,10 @@
           </gov-table-cell>
           <gov-table-cell>
             <gov-list v-if="service.useful_infos.length > 0">
-              <li v-for="(usefulInfo, index) in service.useful_infos" :key="`useful_info.${index}`">
+              <li
+                v-for="(usefulInfo, index) in service.useful_infos"
+                :key="`useful_info.${index}`"
+              >
                 <gov-heading>{{ usefulInfo.title }}</gov-heading>
                 <div v-html="toHtml(usefulInfo.description)" />
                 <gov-section-break
@@ -262,16 +287,28 @@
           <gov-table-header top scope="row">Social medias</gov-table-header>
           <gov-table-cell break>
             <gov-list v-if="original.social_medias.length > 0">
-              <li v-for="(socialMedia, index) in original.social_medias" :key="`social_media.${index}`">
-                <span class="govuk-!-font-weight-bold">{{ socialMedia.type | socialMediaType }}:</span> {{ socialMedia.url }}
+              <li
+                v-for="(socialMedia, index) in original.social_medias"
+                :key="`social_media.${index}`"
+              >
+                <span class="govuk-!-font-weight-bold"
+                  >{{ socialMedia.type | socialMediaType }}:</span
+                >
+                {{ socialMedia.url }}
               </li>
             </gov-list>
             <template v-else>None</template>
           </gov-table-cell>
           <gov-table-cell break>
             <gov-list v-if="service.social_medias.length > 0">
-              <li v-for="(socialMedia, index) in service.social_medias" :key="`social_media.${index}`">
-                <span class="govuk-!-font-weight-bold">{{ socialMedia.type | socialMediaType }}:</span> {{ socialMedia.url }}
+              <li
+                v-for="(socialMedia, index) in service.social_medias"
+                :key="`social_media.${index}`"
+              >
+                <span class="govuk-!-font-weight-bold"
+                  >{{ socialMedia.type | socialMediaType }}:</span
+                >
+                {{ socialMedia.url }}
               </li>
             </gov-list>
             <template v-else>None</template>
@@ -286,15 +323,24 @@
 
         <gov-table-row v-if="service.hasOwnProperty('referral_method')">
           <gov-table-header top scope="row">Referral method</gov-table-header>
-          <gov-table-cell>{{ original.referral_method | referralMethod }}</gov-table-cell>
-          <gov-table-cell>{{ service.referral_method | referralMethod }}</gov-table-cell>
+          <gov-table-cell>{{
+            original.referral_method | referralMethod
+          }}</gov-table-cell>
+          <gov-table-cell>{{
+            service.referral_method | referralMethod
+          }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row v-if="service.hasOwnProperty('category_taxonomies')">
-          <gov-table-header top scope="row">Category taxonomies</gov-table-header>
+          <gov-table-header top scope="row"
+            >Category taxonomies</gov-table-header
+          >
           <gov-table-cell>
             <gov-list bullet v-if="original.category_taxonomies.length > 0">
-              <li v-for="(taxonomy, index) in original.category_taxonomies" :key="`category_taxonomies.${index}`">
+              <li
+                v-for="(taxonomy, index) in original.category_taxonomies"
+                :key="`category_taxonomies.${index}`"
+              >
                 {{ taxonomyName(findTaxonomy(taxonomy.id)) }}
               </li>
             </gov-list>
@@ -302,7 +348,10 @@
           </gov-table-cell>
           <gov-table-cell>
             <gov-list bullet v-if="service.category_taxonomies.length > 0">
-              <li v-for="(taxonomy, index) in service.category_taxonomies" :key="`category_taxonomies.${index}`">
+              <li
+                v-for="(taxonomy, index) in service.category_taxonomies"
+                :key="`category_taxonomies.${index}`"
+              >
                 {{ taxonomyName(findTaxonomy(taxonomy)) }}
               </li>
             </gov-list>
@@ -311,39 +360,67 @@
         </gov-table-row>
 
         <gov-table-row v-if="service.hasOwnProperty('referral_button_text')">
-          <gov-table-header top scope="row">Referral button text</gov-table-header>
+          <gov-table-header top scope="row"
+            >Referral button text</gov-table-header
+          >
           <gov-table-cell>{{ original.referral_button_text }}</gov-table-cell>
           <gov-table-cell>{{ service.referral_button_text }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row v-if="service.hasOwnProperty('show_referral_disclaimer')">
-          <gov-table-header top scope="row">Show referral disclaimer</gov-table-header>
-          <gov-table-cell>{{ original.show_referral_disclaimer | showReferralDisclaimer }}</gov-table-cell>
-          <gov-table-cell>{{ service.show_referral_disclaimer | showReferralDisclaimer }}</gov-table-cell>
+        <gov-table-row
+          v-if="service.hasOwnProperty('show_referral_disclaimer')"
+        >
+          <gov-table-header top scope="row"
+            >Show referral disclaimer</gov-table-header
+          >
+          <gov-table-cell>{{
+            original.show_referral_disclaimer | showReferralDisclaimer
+          }}</gov-table-cell>
+          <gov-table-cell>{{
+            service.show_referral_disclaimer | showReferralDisclaimer
+          }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row v-if="service.hasOwnProperty('logo_file_id')">
           <gov-table-header top scope="row">Logo</gov-table-header>
           <gov-table-cell>
-            <img :src="apiUrl(`/services/${service.id}/logo.png?v=${requestedAt}`)" alt="Service logo" class="ck-logo">
+            <img
+              :src="apiUrl(`/services/${service.id}/logo.png?v=${requestedAt}`)"
+              alt="Service logo"
+              class="ck-logo"
+            />
           </gov-table-cell>
           <gov-table-cell>
-            <img :src="logoDataUri || apiUrl(`/services/${service.id}/logo.png?update_request_id=${updateRequestId}`)" alt="Service logo" class="ck-logo">
+            <img
+              :src="
+                logoDataUri ||
+                apiUrl(
+                  `/services/${service.id}/logo.png?update_request_id=${updateRequestId}`
+                )
+              "
+              alt="Service logo"
+              class="ck-logo"
+            />
           </gov-table-cell>
         </gov-table-row>
 
         <gov-table-row v-if="service.hasOwnProperty('gallery_items')">
           <gov-table-header top scope="row">Gallery items</gov-table-header>
-          <gov-table-cell style="width: 25%;">
-            <ck-carousel v-if="original.gallery_items.length > 0" :image-urls="imageUrls(original)"/>
+          <gov-table-cell style="width: 25%">
+            <ck-carousel
+              v-if="original.gallery_items.length > 0"
+              :image-urls="imageUrls(original)"
+            />
             <gov-body v-else>-</gov-body>
           </gov-table-cell>
-          <gov-table-cell style="width: 25%;">
-            <ck-carousel v-if="service.gallery_items.length > 0" :image-urls="galleryItemsDataUris || imageUrls(service)"/>
+          <gov-table-cell style="width: 25%">
+            <ck-carousel
+              v-if="service.gallery_items.length > 0"
+              :image-urls="galleryItemsDataUris || imageUrls(service)"
+            />
             <gov-body v-else>-</gov-body>
           </gov-table-cell>
         </gov-table-row>
-
       </template>
     </gov-table>
   </div>
@@ -359,28 +436,28 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String
+      type: String,
     },
 
     requestedAt: {
       required: true,
-      type: String
+      type: String,
     },
 
     service: {
       required: true,
-      type: Object
+      type: Object,
     },
 
     logoDataUri: {
       required: false,
-      type: String
+      type: String,
     },
 
     galleryItemsDataUris: {
       required: false,
-      type: Array
-    }
+      type: Array,
+    },
   },
 
   components: { CkCarousel },
@@ -390,7 +467,7 @@ export default {
       loading: false,
       original: null,
       taxonomies: [],
-      flattenedTaxonomies: []
+      flattenedTaxonomies: [],
     };
   },
 
@@ -399,7 +476,7 @@ export default {
       let name = taxonomy.name;
 
       if (taxonomy.parent_id !== null) {
-        const parent = this.flattenedTaxonomies.find(flattenedTaxonomy => {
+        const parent = this.flattenedTaxonomies.find((flattenedTaxonomy) => {
           return flattenedTaxonomy.id === taxonomy.parent_id;
         });
         name = `${this.taxonomyName(parent)} / ${name}`;
@@ -419,16 +496,16 @@ export default {
 
     async fetchOriginal() {
       const {
-        data: { data: original }
+        data: { data: original },
       } = await http.get(`/services/${this.service.id}`, {
-        params: { include: 'organisation' }
+        params: { include: "organisation" },
       });
       this.original = original;
     },
 
     async fetchTaxonomies() {
       const {
-        data: { data: taxonomies }
+        data: { data: taxonomies },
       } = await http.get("/taxonomies/categories");
       this.taxonomies = taxonomies;
       this.setFlattenedTaxonomies();
@@ -440,7 +517,7 @@ export default {
         taxonomies = this.taxonomies;
       }
 
-      taxonomies.forEach(taxonomy => {
+      taxonomies.forEach((taxonomy) => {
         this.flattenedTaxonomies.push(taxonomy);
 
         if (taxonomy.children.length > 0) {
@@ -450,18 +527,20 @@ export default {
     },
 
     findTaxonomy(id) {
-      return this.flattenedTaxonomies.find(taxonomy => taxonomy.id === id);
+      return this.flattenedTaxonomies.find((taxonomy) => taxonomy.id === id);
     },
 
     imageUrls(service) {
       return service.gallery_items.map((galleryItem) => {
-        if (galleryItem.hasOwnProperty('url')) {
+        if (galleryItem.hasOwnProperty("url")) {
           return galleryItem.url;
         }
 
-        return this.apiUrl(`/services/${service.id}/gallery-items/${galleryItem.file_id}?update_request_id=${this.updateRequestId}`);
+        return this.apiUrl(
+          `/services/${service.id}/gallery-items/${galleryItem.file_id}?update_request_id=${this.updateRequestId}`
+        );
       });
-    }
+    },
   },
 
   filters: {
@@ -494,11 +573,11 @@ export default {
 
     showReferralDisclaimer(showReferralDisclaimer) {
       return showReferralDisclaimer ? "Show" : "Hide";
-    }
+    },
   },
 
   created() {
     this.fetchAll();
-  }
+  },
 };
 </script>

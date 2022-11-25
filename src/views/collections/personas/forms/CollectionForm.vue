@@ -1,5 +1,19 @@
 <template>
   <div>
+    <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+      v-if="auth.isGlobalAdmin"
+    >
+      <gov-hint slot="hint" for="slug">
+        This will be used to access the category collection.<br />
+        e.g. connectedkingston.uk/results?category={{ slug }}
+      </gov-hint>
+    </ck-text-input>
 
     <ck-text-input
       :value="name"
@@ -12,7 +26,10 @@
 
     <ck-textarea-input
       :value="subtitle"
-      @input="$emit('update:subtitle', $event); $emit('clear', 'subtitle')"
+      @input="
+        $emit('update:subtitle', $event);
+        $emit('clear', 'subtitle');
+      "
       id="subtitle"
       label="Subtitle"
       hint="A one line summary of the persona."
@@ -22,7 +39,10 @@
 
     <ck-textarea-input
       :value="intro"
-      @input="$emit('update:intro', $event); $emit('clear', 'intro')"
+      @input="
+        $emit('update:intro', $event);
+        $emit('clear', 'intro');
+      "
       id="intro"
       label="Description of category"
       hint="A short summary detailing what type of services the persona includes."
@@ -35,10 +55,14 @@
       id="image"
       label="Persona image"
       accept="image/x-png"
-      :existing-url="id ? apiUrl(`/collections/personas/${id}/image.png?v=${now}`) : undefined"
+      :existing-url="
+        id
+          ? apiUrl(`/collections/personas/${id}/image.png?v=${now}`)
+          : undefined
+      "
     />
 
-     <gov-heading size="m">Sideboxes</gov-heading>
+    <gov-heading size="m">Sideboxes</gov-heading>
 
     <gov-body>
       Create up to three sideboxes that will can be used to display information
@@ -60,7 +84,6 @@
       @clear="$emit('clear', 'category_taxonomies')"
       :hierarchy="false"
     />
-
   </div>
 </template>
 
@@ -75,36 +98,53 @@ export default {
   props: {
     errors: {
       required: true,
-      type: Object
+      type: Object,
+    },
+    isNew: {
+      required: false,
+      type: Boolean,
+      default: false,
+    },
+    slug: {
+      required: true,
     },
     name: {
-      required: true
+      required: true,
     },
     intro: {
-      required: true
+      required: true,
     },
     subtitle: {
-      required: true
+      required: true,
     },
     order: {
-      required: true
+      required: true,
     },
     sideboxes: {
-      required: true
+      required: true,
     },
     category_taxonomies: {
-      required: true
+      required: true,
     },
     id: {
       required: false,
-      type: String
-    }
+      type: String,
+    },
   },
   methods: {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
-    }
-  }
+    },
+    onNameInput(name) {
+      this.$emit("update:name", name);
+      this.$emit("clear", "name");
+
+      if (this.auth.isGlobalAdmin || this.isNew) {
+        this.$emit("update:slug", this.slugify(name));
+        this.$emit("clear", "slug");
+      }
+    },
+  },
 };
 </script>

@@ -1,17 +1,22 @@
 <template>
   <gov-width-container>
-    <gov-back-link :to="{ name: 'admin-index-notifications' }">Back to notifications</gov-back-link>
+    <gov-back-link :to="{ name: 'admin-index-notifications' }"
+      >Back to notifications</gov-back-link
+    >
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <vue-headful :title="`Connected Kingston - Notification: ${notification.message.substr(0, 10)}...`" />
+        <vue-headful
+          :title="`Connected Kingston - Notification: ${notification.message.substr(
+            0,
+            10
+          )}...`"
+        />
 
         <gov-grid-column width="two-thirds">
-
           <gov-heading size="m">View notification</gov-heading>
 
           <ck-notification-details :notification="notification" />
-
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -28,7 +33,7 @@ export default {
   data() {
     return {
       loading: false,
-      notification: null
+      notification: null,
     };
   },
   methods: {
@@ -39,10 +44,10 @@ export default {
       );
       this.notification = data.data;
       this.loading = false;
-    }
+    },
   },
   created() {
     this.fetchNotification();
-  }
+  },
 };
 </script>

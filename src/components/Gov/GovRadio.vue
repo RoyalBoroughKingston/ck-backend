@@ -9,7 +9,7 @@
       type="radio"
       :value="value"
       :disabled="disabled"
-    >
+    />
     <gov-label class="govuk-radios__label" :for="id">{{ label }}</gov-label>
   </div>
 </template>
@@ -19,32 +19,32 @@ export default {
   name: "GovRadioInput",
   model: {
     prop: "bindTo",
-    event: "input"
+    event: "input",
   },
   props: {
     bindTo: {
-      required: true
+      required: true,
     },
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     value: {
-      required: true
+      required: true,
     },
     disabled: {
       required: false,
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>

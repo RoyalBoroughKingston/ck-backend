@@ -16,8 +16,8 @@ export default {
     title: {
       required: false,
       type: String,
-      default: "Warning"
-    }
-  }
+      default: "Warning",
+    },
+  },
 };
 </script>

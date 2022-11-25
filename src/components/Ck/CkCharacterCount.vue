@@ -1,7 +1,5 @@
 <template>
-  <div class="ck-character-count">
-    {{ count }}/{{ maxLength }}
-  </div>
+  <div class="ck-character-count">{{ count }}/{{ maxLength }}</div>
 </template>
 
 <script>
@@ -11,17 +9,16 @@ export default {
   props: {
     count: {
       type: Number,
-      required: true
+      required: true,
     },
 
     maxLength: {
       type: Number,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
-
 
 <style lang="scss">
 @import "../../scss/app.scss";

@@ -9,7 +9,7 @@
     :name="name"
     :type="type"
     :aria-describedby="ariaDescribedBy"
-  >
+  />
 </template>
 
 <script>
@@ -18,25 +18,25 @@ export default {
   props: {
     value: {
       type: String,
-      required: true
+      required: true,
     },
     id: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     type: {
       type: String,
       required: false,
-      default: "text"
+      default: "text",
     },
     width: {
       type: Number,
-      required: false
-    }
+      required: false,
+    },
   },
   computed: {
     computedClass() {
@@ -44,12 +44,12 @@ export default {
     },
     ariaDescribedBy() {
       return `${this.name}-hint`;
-    }
+    },
   },
   methods: {
     onEnter() {
       this.$emit("enter");
-    }
-  }
+    },
+  },
 };
 </script>

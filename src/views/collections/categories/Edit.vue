@@ -2,9 +2,13 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Connected Kingston - Edit Collection Category: ${collection.name}`" />
+      <vue-headful
+        :title="`Connected Kingston - Edit Collection Category: ${collection.name}`"
+      />
 
-      <gov-back-link :to="{ name: 'admin-index-collections' }">Back to collection categories</gov-back-link>
+      <gov-back-link :to="{ name: 'admin-index-collections' }"
+        >Back to collection categories</gov-back-link
+      >
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="one-half">
@@ -14,14 +18,14 @@
             </gov-heading>
             <gov-heading size="m">Edit category</gov-heading>
             <gov-body>
-              From this page, you can edit the categories that appear on
-              the homepage. You can change which taxonomies they refer to, the
-              icon used, and the information provided in the description and
-              sidebox.
+              From this page, you can edit the categories that appear on the
+              homepage. You can change which taxonomies they refer to, the icon
+              used, and the information provided in the description and sidebox.
             </gov-body>
 
             <collection-form
               :errors="form.$errors"
+              :slug.sync="form.slug"
               :name.sync="form.name"
               :intro.sync="form.intro"
               :icon.sync="form.icon"
@@ -31,8 +35,12 @@
               @clear="form.$errors.clear($event)"
             />
 
-            <gov-button v-if="form.$submitting" disabled type="submit">Updating...</gov-button>
-            <gov-button v-else @click="onSubmit" type="submit">Update</gov-button>
+            <gov-button v-if="form.$submitting" disabled type="submit"
+              >Updating...</gov-button
+            >
+            <gov-button v-else @click="onSubmit" type="submit"
+              >Update</gov-button
+            >
             <ck-submit-error v-if="form.$errors.any()" />
 
             <gov-section-break size="l" />
@@ -61,7 +69,7 @@ export default {
     return {
       loading: false,
       collection: null,
-      form: null
+      form: null,
     };
   },
   methods: {
@@ -73,14 +81,15 @@ export default {
       );
       this.collection = response.data.data;
       this.form = new Form({
+        slug: this.collection.slug,
         name: this.collection.name,
         intro: this.collection.intro,
         icon: this.collection.icon,
         order: this.collection.order,
         sideboxes: this.collection.sideboxes,
         category_taxonomies: this.collection.category_taxonomies.map(
-          taxonomy => taxonomy.id
-        )
+          (taxonomy) => taxonomy.id
+        ),
       });
 
       this.loading = false;
@@ -91,10 +100,10 @@ export default {
     },
     onDelete() {
       this.$router.push({ name: "admin-index-collections" });
-    }
+    },
   },
   created() {
     this.fetchCollection();
-  }
+  },
 };
 </script>

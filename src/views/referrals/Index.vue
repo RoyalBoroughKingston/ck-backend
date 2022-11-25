@@ -13,18 +13,37 @@
               <ck-table-filters @search="onSearch">
                 <gov-form-group>
                   <gov-label for="filter[reference]">Reference no.</gov-label>
-                  <gov-input v-model="filters.reference" id="filter[reference]" name="filter[reference]" type="search"/>
+                  <gov-input
+                    v-model="filters.reference"
+                    id="filter[reference]"
+                    name="filter[reference]"
+                    type="search"
+                  />
                 </gov-form-group>
 
                 <template slot="extra-filters">
                   <gov-form-group>
-                    <gov-label for="filter[service_name]">Service name</gov-label>
-                    <gov-input v-model="filters.service_name" id="filter[service_name]" name="filter[service_name]" type="search"/>
+                    <gov-label for="filter[service_name]"
+                      >Service name</gov-label
+                    >
+                    <gov-input
+                      v-model="filters.service_name"
+                      id="filter[service_name]"
+                      name="filter[service_name]"
+                      type="search"
+                    />
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[organisation_name]">Organisation name</gov-label>
-                    <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
+                    <gov-label for="filter[organisation_name]"
+                      >Organisation name</gov-label
+                    >
+                    <gov-input
+                      v-model="filters.organisation_name"
+                      id="filter[organisation_name]"
+                      name="filter[organisation_name]"
+                      type="search"
+                    />
                   </gov-form-group>
 
                   <gov-form-group>
@@ -54,20 +73,20 @@
               {
                 heading: 'Reference no.',
                 sort: 'reference',
-                render: (referral) => referral.reference
+                render: (referral) => referral.reference,
               },
               {
                 heading: 'Service',
                 sort: 'service_name',
-                render: (referral) => referral.service.name
+                render: (referral) => referral.service.name,
               },
               {
                 heading: 'Referred by',
-                render: (referral) => referral.referee_name || '-'
+                render: (referral) => referral.referee_name || '-',
               },
               {
                 heading: 'Status',
-                render: (referral) => $options.filters.status(referral.status)
+                render: (referral) => $options.filters.status(referral.status),
               },
               {
                 heading: 'Date submitted',
@@ -77,16 +96,18 @@
                     ${formatDateTime(referral.created_at)}
                     <br>
                     ${statusLastUpdated(referral)} days remaining
-                  `
-                }
+                  `;
+                },
               },
             ]"
-            :view-route="(referral) => {
-              return {
-                name: 'referrals-confirmation',
-                params: { referral: referral.id }
+            :view-route="
+              (referral) => {
+                return {
+                  name: 'referrals-confirmation',
+                  params: { referral: referral.id },
+                };
               }
-            }"
+            "
           />
         </gov-grid-column>
       </gov-grid-row>
@@ -111,15 +132,15 @@ export default {
           { value: "new", text: "New", enabled: true },
           { value: "in_progress", text: "In progress", enabled: true },
           { value: "completed", text: "Completed", enabled: true },
-          { value: "incompleted", text: "Incomplete", enabled: true }
-        ]
-      }
+          { value: "incompleted", text: "Incomplete", enabled: true },
+        ],
+      },
     };
   },
   computed: {
     params() {
       const params = {
-        include: "service.organisation"
+        include: "service.organisation",
       };
 
       if (this.filters.reference !== "") {
@@ -135,8 +156,8 @@ export default {
       }
 
       const status = this.filters.status
-        .filter(status => status.enabled)
-        .map(status => status.value)
+        .filter((status) => status.enabled)
+        .map((status) => status.value)
         .join(",");
 
       if (status !== "") {
@@ -144,7 +165,7 @@ export default {
       }
 
       return params;
-    }
+    },
   },
   methods: {
     onSearch() {
@@ -172,12 +193,10 @@ export default {
         return "N/A";
       }
 
-      const workingDays = this.diffInBusinessDays(
-        referral.created_at
-      );
+      const workingDays = this.diffInBusinessDays(referral.created_at);
 
       return workingDays >= 10 ? "Due" : 10 - workingDays;
-    }
+    },
   },
   filters: {
     status(status) {
@@ -193,7 +212,7 @@ export default {
         default:
           return "Invalid status";
       }
-    }
-  }
+    },
+  },
 };
 </script>

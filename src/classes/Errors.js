@@ -69,7 +69,7 @@ export default class Errors {
   record(errors) {
     let keys = Object.keys(errors);
 
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (key.includes(".")) {
         let new_key = key.replace(/\./g, "_");
         errors[new_key] = errors[key];

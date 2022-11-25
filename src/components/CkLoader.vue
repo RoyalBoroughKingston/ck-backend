@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       dots: 0,
-      interval: null
+      interval: null,
     };
   },
   mounted() {
@@ -20,6 +20,6 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.interval);
-  }
+  },
 };
 </script>

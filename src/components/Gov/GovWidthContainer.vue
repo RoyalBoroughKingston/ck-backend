@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "GovWidthContainer"
+  name: "GovWidthContainer",
 };
 </script>

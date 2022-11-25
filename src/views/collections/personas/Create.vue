@@ -2,7 +2,9 @@
   <gov-width-container>
     <vue-headful title="Connected Kingston - Add Collection Persona" />
 
-    <gov-back-link :to="{ name: 'admin-index-collections-personas' }">Back to collection personas</gov-back-link>
+    <gov-back-link :to="{ name: 'admin-index-collections-personas' }"
+      >Back to collection personas</gov-back-link
+    >
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="one-half">
@@ -12,14 +14,15 @@
           </gov-heading>
           <gov-heading size="m">Add persona</gov-heading>
           <gov-body>
-            From this page, you can add the persona groups that appear on
-            the homepage. You can specify which taxonomies they refer to, the
-            icon used, and the information provided in the description and
-            sidebox.
+            From this page, you can add the persona groups that appear on the
+            homepage. You can specify which taxonomies they refer to, the icon
+            used, and the information provided in the description and sidebox.
           </gov-body>
 
           <collection-form
             :errors="form.$errors"
+            :is-new="true"
+            :slug.sync="form.slug"
             :name.sync="form.name"
             :subtitle.sync="form.subtitle"
             :intro.sync="form.intro"
@@ -30,12 +33,10 @@
             @clear="form.$errors.clear($event)"
           />
 
-          <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
-          <gov-button
-            v-else
-            @click="onSubmit"
-            type="submit"
+          <gov-button v-if="form.$submitting" disabled type="submit"
+            >Creating...</gov-button
           >
+          <gov-button v-else @click="onSubmit" type="submit">
             Create
           </gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
@@ -55,14 +56,15 @@ export default {
   data() {
     return {
       form: new Form({
+        slug: "",
         name: "",
         intro: "",
         subtitle: "",
         order: 1,
         sideboxes: [],
         category_taxonomies: [],
-        image_file_id: null
-      })
+        image_file_id: null,
+      }),
     };
   },
   methods: {
@@ -74,7 +76,7 @@ export default {
         }
       });
       this.$router.push({ name: "admin-index-collections-personas" });
-    }
-  }
+    },
+  },
 };
 </script>

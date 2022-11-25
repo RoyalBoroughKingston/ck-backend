@@ -1,7 +1,6 @@
 <template>
   <gov-form-group :invalid="error !== null">
     <gov-radios>
-
       <gov-label :for="id" class="govuk-!-font-weight-bold">
         <slot name="label">{{ label }}</slot>
       </gov-label>
@@ -24,12 +23,7 @@
 
       <slot name="after-input" />
 
-      <gov-error-message
-        v-if="error !== null"
-        v-text="error"
-        :for="id"
-      />
-
+      <gov-error-message v-if="error !== null" v-text="error" :for="id" />
     </gov-radios>
   </gov-form-group>
 </template>
@@ -39,32 +33,32 @@ export default {
   name: "CkRadioInput",
   props: {
     value: {
-      required: true
+      required: true,
     },
     label: {
       required: false,
-      type: String
+      type: String,
     },
     hint: {
       required: false,
-      type: String
+      type: String,
     },
     error: {
-      required: true
+      required: true,
     },
     id: {
       required: true,
-      type: String
+      type: String,
     },
     options: {
       required: true,
-      type: Array
+      type: Array,
     },
     disabled: {
       required: false,
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>

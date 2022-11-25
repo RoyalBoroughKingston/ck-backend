@@ -1,8 +1,12 @@
 <template>
-  <ul v-if="type === 'unordered'" class="govuk-list" :class="{ 'govuk-list--bullet': bullet }">
+  <ul
+    v-if="type === 'unordered'"
+    class="govuk-list"
+    :class="{ 'govuk-list--bullet': bullet }"
+  >
     <slot />
   </ul>
-  <ol v-else-if="type === 'unordered'" class="govuk-list">
+  <ol v-else-if="type === 'ordered'" class="govuk-list">
     <slot />
   </ol>
 </template>
@@ -14,13 +18,13 @@ export default {
     type: {
       type: String,
       required: false,
-      default: "unordered"
+      default: "unordered",
     },
     bullet: {
       required: false,
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>

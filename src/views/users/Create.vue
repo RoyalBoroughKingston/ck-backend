@@ -6,12 +6,15 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="one-half">
-
           <gov-heading size="xl">Users</gov-heading>
 
           <gov-heading size="m">Add user</gov-heading>
 
-          <gov-body>Create users to be able to acces the back-end of the Connected Kingston service (deciding their permissions in what they have access to)</gov-body>
+          <gov-body
+            >Create users to be able to acces the back-end of the Connected
+            Kingston service (deciding their permissions in what they have
+            access to)</gov-body
+          >
 
           <user-form
             :errors="form.$errors"
@@ -26,10 +29,11 @@
 
           <gov-section-break size="l" />
 
-          <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+          <gov-button v-if="form.$submitting" disabled type="submit"
+            >Creating...</gov-button
+          >
           <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
-
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -51,17 +55,17 @@ export default {
         email: "",
         phone: "",
         password: "",
-        roles: []
-      })
+        roles: [],
+      }),
     };
   },
   methods: {
     async onSubmit() {
       const data = await this.form.post("/users", (config, data) => {
         // Strip spaces from the phone number.
-        data.phone = data.phone.replace(/\s/g, '')
+        data.phone = data.phone.replace(/\s/g, "");
 
-        data.roles.forEach(role => {
+        data.roles.forEach((role) => {
           switch (role.role) {
             // Delete the organisation and service IDs instead of sending null values.
             case "Super Admin":
@@ -77,7 +81,7 @@ export default {
       });
 
       this.$router.push({ name: "users-show", params: { user: data.data.id } });
-    }
-  }
+    },
+  },
 };
 </script>
