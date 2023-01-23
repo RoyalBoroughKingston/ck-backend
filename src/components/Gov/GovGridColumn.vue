@@ -10,13 +10,13 @@ export default {
   props: {
     width: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     computedClass() {
       return `govuk-grid-column-${this.width}`;
-    }
-  }
+    },
+  },
 };
 </script>

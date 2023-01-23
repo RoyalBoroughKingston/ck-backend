@@ -7,9 +7,20 @@
       uri="/reports"
       :columns="[
         { heading: 'Type', render: (report) => report.report_type },
-        { heading: 'From', render: (report) => report.starts_at ? formatDate(report.starts_at) : 'N/A' },
-        { heading: 'To', render: (report) => report.ends_at ? formatDate(report.ends_at) : 'N/A' },
-        { heading: 'Date / Time', render: (report) => formatDateTime(report.created_at) },
+        {
+          heading: 'From',
+          render: (report) =>
+            report.starts_at ? formatDate(report.starts_at) : 'N/A',
+        },
+        {
+          heading: 'To',
+          render: (report) =>
+            report.ends_at ? formatDate(report.ends_at) : 'N/A',
+        },
+        {
+          heading: 'Date / Time',
+          render: (report) => formatDateTime(report.created_at),
+        },
       ]"
       action-text="Download"
       @action="onDownload"
@@ -28,7 +39,8 @@ export default {
     async onDownload(report) {
       const file = await http.get(`/reports/${report.id}/download`);
 
-      const regex = /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/;
+      const regex =
+        /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/;
       const filename = regex.exec(
         file.request.getResponseHeader("Content-Disposition")
       )[2];
@@ -38,7 +50,7 @@ export default {
       link.setAttribute("download", filename);
       document.body.appendChild(link);
       link.click();
-    }
-  }
+    },
+  },
 };
 </script>

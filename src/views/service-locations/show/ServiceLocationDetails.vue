@@ -1,7 +1,6 @@
 <template>
   <gov-table>
     <template slot="body">
-
       <gov-table-row>
         <gov-table-header scope="row" top>Name</gov-table-header>
         <gov-table-cell>{{ serviceLocation.name || "-" }}</gov-table-cell>
@@ -9,17 +8,23 @@
 
       <gov-table-row>
         <gov-table-header scope="row" top>Address line 1</gov-table-header>
-        <gov-table-cell>{{ serviceLocation.location.address_line_1 }}</gov-table-cell>
+        <gov-table-cell>{{
+          serviceLocation.location.address_line_1
+        }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>
         <gov-table-header scope="row" top>Address line 2</gov-table-header>
-        <gov-table-cell>{{ serviceLocation.location.address_line_2 || "-" }}</gov-table-cell>
+        <gov-table-cell>{{
+          serviceLocation.location.address_line_2 || "-"
+        }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>
         <gov-table-header scope="row" top>Address line 3</gov-table-header>
-        <gov-table-cell>{{ serviceLocation.location.address_line_3 || "-" }}</gov-table-cell>
+        <gov-table-cell>{{
+          serviceLocation.location.address_line_3 || "-"
+        }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>
@@ -46,18 +51,30 @@
         <gov-table-header scope="row" top>Accessibility</gov-table-header>
         <gov-table-cell>
           <gov-list>
-            <li>Wheelchair access: {{ serviceLocation.location.has_wheelchair_access ? 'Yes' : 'No' }}</li>
-            <li>Induction loop system: {{ serviceLocation.location.has_induction_loop ? 'Yes' : 'No' }}</li>
+            <li>
+              Wheelchair access:
+              {{
+                serviceLocation.location.has_wheelchair_access ? "Yes" : "No"
+              }}
+            </li>
+            <li>
+              Induction loop system:
+              {{ serviceLocation.location.has_induction_loop ? "Yes" : "No" }}
+            </li>
           </gov-list>
         </gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>
-        <gov-table-header scope="row" top>Regular opening hours</gov-table-header>
+        <gov-table-header scope="row" top
+          >Regular opening hours</gov-table-header
+        >
         <gov-table-cell>
           <gov-list>
             <li
-              v-for="(regularOpeningHour, index) in serviceLocation.regular_opening_hours"
+              v-for="(
+                regularOpeningHour, index
+              ) in serviceLocation.regular_opening_hours"
               :key="index"
               v-text="formatRegularOpeningHour(regularOpeningHour)"
             />
@@ -69,11 +86,15 @@
       </gov-table-row>
 
       <gov-table-row>
-        <gov-table-header scope="row" top>Holiday opening hours</gov-table-header>
+        <gov-table-header scope="row" top
+          >Holiday opening hours</gov-table-header
+        >
         <gov-table-cell>
           <gov-list>
             <li
-              v-for="(holidayOpeningHour, index) in serviceLocation.holiday_opening_hours"
+              v-for="(
+                holidayOpeningHour, index
+              ) in serviceLocation.holiday_opening_hours"
               :key="index"
               v-text="formatHolidayOpeningHour(holidayOpeningHour)"
             />
@@ -87,7 +108,15 @@
       <gov-table-row>
         <gov-table-header top scope="row">Image</gov-table-header>
         <gov-table-cell>
-          <img :src="apiUrl(`/service-locations/${serviceLocation.id}/image.png?v=${serviceLocation.created_at}`)" alt="Service location image" class="ck-logo">
+          <img
+            :src="
+              apiUrl(
+                `/service-locations/${serviceLocation.id}/image.png?v=${serviceLocation.created_at}`
+              )
+            "
+            alt="Service location image"
+            class="ck-logo"
+          />
         </gov-table-cell>
       </gov-table-row>
 
@@ -95,20 +124,25 @@
         <gov-table-header scope="row" top>Map</gov-table-header>
         <gov-table-cell>
           <gmap-map
-            :center="{ lat: serviceLocation.location.lat, lng: serviceLocation.location.lon }"
+            :center="{
+              lat: serviceLocation.location.lat,
+              lng: serviceLocation.location.lon,
+            }"
             :zoom="13"
             map-type-id="roadmap"
             style="width: 100%; height: 20rem"
           >
             <GmapMarker
-              :position="{ lat: serviceLocation.location.lat, lng: serviceLocation.location.lon }"
+              :position="{
+                lat: serviceLocation.location.lat,
+                lng: serviceLocation.location.lon,
+              }"
               :clickable="false"
               :draggable="false"
             />
           </gmap-map>
         </gov-table-cell>
       </gov-table-row>
-
     </template>
   </gov-table>
 </template>
@@ -121,8 +155,8 @@ export default {
   props: {
     serviceLocation: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
   methods: {
     formatRegularOpeningHour(openingHour) {
@@ -184,7 +218,7 @@ export default {
       const remainingDays = Math.abs(diffInDays % daysInFortnight);
 
       return remainingDays > 6 ? "next calendar week" : "this calendar week";
-    }
-  }
+    },
+  },
 };
 </script>

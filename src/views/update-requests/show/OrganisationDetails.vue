@@ -1,13 +1,19 @@
 <template>
-  <ck-loader v-if="loading"/>
+  <ck-loader v-if="loading" />
   <div v-else>
     <gov-body>
-      For organisation <gov-link :to="{ name: 'organisations-show', params: { organisation: original.id } }" v-text="original.name"/>.
+      For organisation
+      <gov-link
+        :to="{
+          name: 'organisations-show',
+          params: { organisation: original.id },
+        }"
+        v-text="original.name"
+      />.
     </gov-body>
 
     <gov-table>
       <template slot="body">
-
         <gov-table-row>
           <gov-table-header scope="column"></gov-table-header>
           <gov-table-header scope="column">From</gov-table-header>
@@ -34,14 +40,14 @@
 
         <gov-table-row v-if="organisation.hasOwnProperty('email')">
           <gov-table-header top scope="row">Email</gov-table-header>
-          <gov-table-cell>{{ original.email || '-' }}</gov-table-cell>
-          <gov-table-cell>{{ organisation.email || '-' }}</gov-table-cell>
+          <gov-table-cell>{{ original.email || "-" }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.email || "-" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row v-if="organisation.hasOwnProperty('phone')">
           <gov-table-header top scope="row">Phone</gov-table-header>
-          <gov-table-cell>{{ original.phone || '-' }}</gov-table-cell>
-          <gov-table-cell>{{ organisation.phone || '-' }}</gov-table-cell>
+          <gov-table-cell>{{ original.phone || "-" }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.phone || "-" }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row v-if="organisation.hasOwnProperty('description')">
@@ -53,13 +59,28 @@
         <gov-table-row v-if="organisation.hasOwnProperty('logo_file_id')">
           <gov-table-header top scope="row">Logo</gov-table-header>
           <gov-table-cell>
-            <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?v=${requestedAt}`)" alt="Organisation logo" class="ck-logo">
+            <img
+              :src="
+                apiUrl(
+                  `/organisations/${organisation.id}/logo.png?v=${requestedAt}`
+                )
+              "
+              alt="Organisation logo"
+              class="ck-logo"
+            />
           </gov-table-cell>
           <gov-table-cell>
-            <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?update_request_id=${updateRequestId}`)" alt="Organisation logo" class="ck-logo">
+            <img
+              :src="
+                apiUrl(
+                  `/organisations/${organisation.id}/logo.png?update_request_id=${updateRequestId}`
+                )
+              "
+              alt="Organisation logo"
+              class="ck-logo"
+            />
           </gov-table-cell>
         </gov-table-row>
-
       </template>
     </gov-table>
   </div>
@@ -73,37 +94,37 @@ export default {
   props: {
     updateRequestId: {
       required: true,
-      type: String
+      type: String,
     },
 
     requestedAt: {
       required: true,
-      type: String
+      type: String,
     },
 
     organisation: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
       loading: false,
-      original: null
+      original: null,
     };
   },
   methods: {
     async fetchOriginal() {
       this.loading = true;
       const {
-        data: { data: original }
+        data: { data: original },
       } = await http.get(`/organisations/${this.organisation.id}`);
       this.original = original;
       this.loading = false;
-    }
+    },
   },
   created() {
     this.fetchOriginal();
-  }
+  },
 };
 </script>

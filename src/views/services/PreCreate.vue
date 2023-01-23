@@ -36,9 +36,9 @@
             your progress, so please make sure you have enough time.
           </gov-warning-text>
 
-          <gov-button :to="{name: 'services-index'}">
-            Back to services
-          </gov-button><!--
+          <gov-button :to="{ name: 'services-index' }">
+            Back to services </gov-button
+          ><!--
           -->&nbsp;<!--
           --><gov-button :to="{ name: 'services-create' }">
             Continue

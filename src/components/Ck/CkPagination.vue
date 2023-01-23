@@ -16,19 +16,19 @@ export default {
 
   components: {
     GovBody,
-    GovLink
+    GovLink,
   },
 
   props: {
     currentPage: {
       required: true,
-      type: Number
+      type: Number,
     },
 
     totalPages: {
       required: true,
-      type: Number
-    }
+      type: Number,
+    },
   },
 
   methods: {
@@ -38,7 +38,7 @@ export default {
 
     onNext() {
       this.$emit("next");
-    }
-  }
+    },
+  },
 };
 </script>

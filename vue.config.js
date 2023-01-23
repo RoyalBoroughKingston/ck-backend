@@ -22,10 +22,10 @@ module.exports = {
       staticHosting: false,
       assetMatch: "**",
       deployPath: "/",
-      acl: "public-read"
-    }
+      acl: "public-read",
+    },
   },
   configureWebpack: {
-    devtool: "source-map"
-  }
+    devtool: "source-map",
+  },
 };

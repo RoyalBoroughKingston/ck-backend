@@ -1,6 +1,5 @@
 <template>
   <gov-form-group :invalid="form.$errors.any()">
-
     <gov-label :for="id" class="govuk-!-font-weight-bold">
       <slot name="label">{{ label }}</slot>
     </gov-label>
@@ -28,14 +27,14 @@
       :src="existingUrl"
       :key="`ExistingImage::${_uid}`"
       alt="Existing image"
-    >
+    />
     <!-- Uploaded image -->
     <img
       v-else-if="form.file"
       :src="form.file"
       :key="`UploadedImage::${_uid}`"
       alt="Uploaded image"
-    >
+    />
 
     <gov-error-message
       v-if="form.$errors.any()"
@@ -46,12 +45,11 @@
     <slot name="after-error-message" />
 
     <div
-      v-if="(existingUrl && !removeExisting) || (form.file)"
+      v-if="(existingUrl && !removeExisting) || form.file"
       class="govuk-!-margin-top-2"
     >
       <gov-button @click="onRemove" type="button" error>Remove file</gov-button>
     </div>
-
   </gov-form-group>
 </template>
 
@@ -63,29 +61,29 @@ export default {
   props: {
     label: {
       required: true,
-      type: String
+      type: String,
     },
     hint: {
       required: false,
-      type: String
+      type: String,
     },
     accept: {
       required: false,
-      default: null
+      default: null,
     },
     id: {
       required: true,
-      type: String
+      type: String,
     },
     existingUrl: {
       required: false,
-      type: String
+      type: String,
     },
     private: {
       required: false,
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   data() {
@@ -94,8 +92,8 @@ export default {
       form: new Form({
         is_private: this.private,
         mime_type: null,
-        file: null
-      })
+        file: null,
+      }),
     };
   },
 
@@ -126,7 +124,7 @@ export default {
 
       // Upload the file and retrieve the ID.
       const {
-        data: { id }
+        data: { id },
       } = await this.form.post("/files");
 
       // Emit the file ID.
@@ -146,7 +144,7 @@ export default {
       // For existing file.
       this.removeExisting = true;
       this.$emit("input", { file_id: false, image: null });
-    }
-  }
+    },
+  },
 };
 </script>

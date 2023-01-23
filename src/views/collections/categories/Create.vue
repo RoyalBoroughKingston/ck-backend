@@ -2,7 +2,9 @@
   <gov-width-container>
     <vue-headful title="Connected Kingston - Add Collection Category" />
 
-    <gov-back-link :to="{ name: 'admin-index-collections' }">Back to collection categories</gov-back-link>
+    <gov-back-link :to="{ name: 'admin-index-collections' }"
+      >Back to collection categories</gov-back-link
+    >
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="one-half">
@@ -19,16 +21,21 @@
 
           <collection-form
             :errors="form.$errors"
+            :is-new="true"
+            :slug.sync="form.slug"
             :name.sync="form.name"
             :intro.sync="form.intro"
-            :icon.sync="form.icon"
             :order.sync="form.order"
+            :homepage.sync="form.homepage"
             :sideboxes.sync="form.sideboxes"
             :category_taxonomies.sync="form.category_taxonomies"
+            @update:image_file_id="form.image_file_id = $event"
             @clear="form.$errors.clear($event)"
           />
 
-          <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+          <gov-button v-if="form.$submitting" disabled type="submit"
+            >Creating...</gov-button
+          >
           <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
         </gov-grid-column>
@@ -47,20 +54,22 @@ export default {
   data() {
     return {
       form: new Form({
+        slug: "",
         name: "",
         intro: "",
-        icon: "",
+        image_file_id: null,
         order: 1,
+        homepage: true,
         sideboxes: [],
-        category_taxonomies: []
-      })
+        category_taxonomies: [],
+      }),
     };
   },
   methods: {
     async onSubmit() {
       await this.form.post("/collections/categories");
       this.$router.push({ name: "admin-index-collections" });
-    }
-  }
+    },
+  },
 };
 </script>

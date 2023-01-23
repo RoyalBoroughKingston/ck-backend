@@ -11,7 +11,10 @@
         id="cms.frontend.banner.enabled"
         label="Enable/Disable Banner"
         hint="Banner configuration will be shown when enabled"
-        :options="[{ value: false, label: 'Disabled' }, { value: true, label: 'Enabled' }]"
+        :options="[
+          { value: false, label: 'Disabled' },
+          { value: true, label: 'Enabled' },
+        ]"
         :error="null"
       />
 
@@ -40,7 +43,11 @@
           label="Add a logo"
           hint="Click 'Choose file' below to upload a logo to be displayed on the banner"
           accept="image/x-png"
-          :existing-url="frontend.banner.has_image ? apiUrl(`/settings/banner-image.png?v=${now}`) : undefined"
+          :existing-url="
+            frontend.banner.has_image
+              ? apiUrl(`/settings/banner-image.png?v=${now}`)
+              : undefined
+          "
         />
 
         <ck-text-input
@@ -73,24 +80,24 @@ export default {
   name: "CmsFrontendBanner",
 
   components: {
-    CkImageInput
+    CkImageInput,
   },
 
   model: {
     prop: "frontend",
-    event: "input"
+    event: "input",
   },
 
   props: {
     frontend: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
@@ -100,8 +107,8 @@ export default {
       frontend.banner[field] = value;
 
       this.$emit("input", frontend);
-      this.$emit("clear", `frontend.banner.${field}`)
-    }
-  }
+      this.$emit("clear", `frontend.banner.${field}`);
+    },
+  },
 };
 </script>

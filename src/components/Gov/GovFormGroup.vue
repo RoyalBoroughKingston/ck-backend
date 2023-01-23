@@ -11,8 +11,8 @@ export default {
     invalid: {
       type: Boolean,
       required: false,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>

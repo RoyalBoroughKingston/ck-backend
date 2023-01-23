@@ -1,36 +1,36 @@
 <template>
   <gov-form-group :invalid="error !== null">
+    <gov-label :for="id" class="govuk-!-font-weight-bold">
+      <slot name="label">{{ label }}</slot>
+    </gov-label>
+    <slot name="hint">
+      <gov-hint v-if="hint" :for="id" v-text="hint" />
+    </slot>
     <gov-radios>
-      <gov-label :for="id">
-        Is this {{ type }} open or closed during these holiday hours?
-      </gov-label>
-
       <gov-radio
         :bind-to="value"
         @input="$emit('input', $event)"
-        :id="`${id}_open`"
+        :id="`${id}_add_to_homepage`"
         :name="id"
-        label="Open"
-        :value="false"
-      />
-
-      <gov-radio
-        :bind-to="value"
-        @input="$emit('input', $event)"
-        :id="`${id}_closed`"
-        :name="id"
-        label="Closed"
+        label="Show"
         :value="true"
       />
+      <gov-radio
+        :bind-to="value"
+        @input="$emit('input', $event)"
+        :id="`${id}_remove_from_homepage`"
+        :name="id"
+        label="Hide"
+        :value="false"
+      />
     </gov-radios>
-
-    <gov-error-message v-if="error" v-text="error" :for="id" />
   </gov-form-group>
 </template>
 
 <script>
 export default {
-  name: "IsClosedInput",
+  name: "CollectionHomepageInput",
+
   props: {
     value: {
       required: true,
@@ -42,10 +42,16 @@ export default {
       type: String,
       required: true,
     },
-    type: {
-      type: String,
+    label: {
       required: true,
+      type: String,
+    },
+    hint: {
+      required: false,
+      type: String,
     },
   },
 };
 </script>
+
+<style lang="scss" scoped></style>

@@ -3,7 +3,6 @@
     <gov-heading size="l">What does your {{ service.type }} offer</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
-
         <gov-body>
           These sections should describe what your {{ service.type }} offers and
           is the main body of content on your page on Connected Kingston.
@@ -21,7 +20,7 @@
           :error="errors.get('service.intro')"
         />
 
-          <gov-heading size="m">What you offer</gov-heading>
+        <gov-heading size="m">What you offer</gov-heading>
 
         <gov-body>
           Include a bullet list of some of the things you do as a
@@ -56,23 +55,23 @@
 </template>
 
 <script>
-import CkOfferingsInput from '@/views/services/inputs/OfferingsInput.vue';
+import CkOfferingsInput from "@/views/services/inputs/OfferingsInput.vue";
 
 export default {
   components: {
-    CkOfferingsInput
+    CkOfferingsInput,
   },
 
   props: {
     service: {
       type: Object,
-      required: true
+      required: true,
     },
 
     errors: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>

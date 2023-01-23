@@ -16,18 +16,18 @@ export default {
   props: {
     size: {
       type: String,
-      required: false
+      required: false,
     },
     tag: {
       type: String,
       required: false,
-      default: "p"
-    }
+      default: "p",
+    },
   },
   computed: {
     computedClass() {
       return this.size ? ["govuk-body", this.size].join("-") : "govuk-body";
-    }
-  }
+    },
+  },
 };
 </script>

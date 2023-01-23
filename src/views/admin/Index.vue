@@ -7,14 +7,12 @@
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="full">
-
           <gov-heading size="xl">Admin</gov-heading>
 
           <gov-tabs :tabs="tabs" bar :panel="false">
             <gov-section-break size="m" />
             <router-view />
           </gov-tabs>
-
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -33,9 +31,9 @@ export default {
         { heading: "Taxonomies", to: { name: "admin-index-taxonomies" } },
         { heading: "Collections", to: { name: "admin-index-collections" } },
         { heading: "Search engine", to: { name: "admin-index-search-engine" } },
-        { heading: "CMS", to: { name: "admin-index-cms" } }
-      ]
+        { heading: "CMS", to: { name: "admin-index-cms" } },
+      ],
     };
-  }
+  },
 };
 </script>

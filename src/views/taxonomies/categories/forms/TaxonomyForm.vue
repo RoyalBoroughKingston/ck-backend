@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <ck-text-input
       :value="name"
       @input="onInput('name', $event)"
@@ -20,7 +19,6 @@
       :options="taxonomyOptions"
       :error="errors.get('parent_id')"
     />
-
   </div>
 </template>
 
@@ -32,23 +30,23 @@ export default {
   props: {
     errors: {
       required: true,
-      type: Object
+      type: Object,
     },
     parent_id: {
-      required: true
+      required: true,
     },
     name: {
-      required: true
+      required: true,
     },
     order: {
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       loading: false,
       taxonomies: [],
-      taxonomyOptions: []
+      taxonomyOptions: [],
     };
   },
   methods: {
@@ -63,13 +61,13 @@ export default {
       this.taxonomies = data.data;
       this.taxonomyOptions = [
         { text: "No parent (top level)", value: null },
-        ...this.parseTaxonomies(this.taxonomies)
+        ...this.parseTaxonomies(this.taxonomies),
       ];
 
       this.loading = false;
     },
     parseTaxonomies(taxonomies, parsed = [], depth = 0) {
-      taxonomies.forEach(taxonomy => {
+      taxonomies.forEach((taxonomy) => {
         const text = "-".repeat(depth) + " " + taxonomy.name;
         parsed.push({ text, value: taxonomy.id });
 
@@ -79,10 +77,10 @@ export default {
       });
 
       return parsed;
-    }
+    },
   },
   created() {
     this.fetchTaxonomies();
-  }
+  },
 };
 </script>

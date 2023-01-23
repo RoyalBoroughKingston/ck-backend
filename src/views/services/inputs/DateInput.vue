@@ -30,11 +30,7 @@
       placeholder="YYYYY"
     />
 
-    <gov-error-message
-      v-if="error"
-      v-text="error"
-      :for="id"
-    />
+    <gov-error-message v-if="error" v-text="error" :for="id" />
   </gov-form-group>
 </template>
 
@@ -45,25 +41,25 @@ export default {
   name: "StartsAtInput",
   props: {
     value: {
-      required: true
+      required: true,
     },
     error: {
-      required: true
+      required: true,
     },
     id: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       year: "",
       month: "",
-      day: ""
+      day: "",
     };
   },
   methods: {
@@ -91,7 +87,7 @@ export default {
       }
 
       this.$emit("input", date);
-    }
+    },
   },
   watch: {
     value(newValue, oldValue) {
@@ -105,7 +101,7 @@ export default {
         this.month = (date.month() + 1).toString();
         this.day = date.date().toString();
       }
-    }
-  }
+    },
+  },
 };
 </script>

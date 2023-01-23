@@ -2,7 +2,9 @@
   <gov-width-container>
     <vue-headful title="Connected Kingston - Add Taxonomy Organisation" />
 
-    <gov-back-link :to="{ name: 'admin-index-taxonomies-organisations' }">Back to taxonomy organisations</gov-back-link>
+    <gov-back-link :to="{ name: 'admin-index-taxonomies-organisations' }"
+      >Back to taxonomy organisations</gov-back-link
+    >
     <gov-main-wrapper>
       <gov-grid-row>
         <gov-grid-column width="one-half">
@@ -12,8 +14,8 @@
           </gov-heading>
           <gov-heading size="m">Add organisation</gov-heading>
           <gov-body>
-            From this page, you can add the names of the Organisations
-            referrers can select from when completing a referral.
+            From this page, you can add the names of the Organisations referrers
+            can select from when completing a referral.
           </gov-body>
 
           <taxonomy-form
@@ -23,7 +25,9 @@
             @clear="form.$errors.clear($event)"
           />
 
-          <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+          <gov-button v-if="form.$submitting" disabled type="submit"
+            >Creating...</gov-button
+          >
           <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
         </gov-grid-column>
@@ -43,15 +47,15 @@ export default {
     return {
       form: new Form({
         name: "",
-        order: 1
-      })
+        order: 1,
+      }),
     };
   },
   methods: {
     async onSubmit() {
       await this.form.post("/taxonomies/organisations");
       this.$router.push({ name: "admin-index-taxonomies-organisations" });
-    }
-  }
+    },
+  },
 };
 </script>

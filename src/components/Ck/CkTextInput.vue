@@ -1,33 +1,27 @@
 <template>
   <gov-form-group :invalid="error !== null">
+    <gov-label :for="id" class="govuk-!-font-weight-bold">
+      <slot name="label">{{ label }}</slot>
+    </gov-label>
 
-      <gov-label :for="id" class="govuk-!-font-weight-bold">
-        <slot name="label">{{ label }}</slot>
-      </gov-label>
+    <slot name="hint">
+      <gov-hint v-if="hint" :for="id" v-text="hint" />
+    </slot>
 
-      <slot name="hint">
-        <gov-hint v-if="hint" :for="id" v-text="hint" />
-      </slot>
+    <gov-input
+      :value="value"
+      @input="$emit('input', $event)"
+      :id="id"
+      :name="id"
+      :type="type"
+      :maxlength="maxlength"
+      :disabled="disabled"
+    />
 
-      <gov-input
-        :value="value"
-        @input="$emit('input', $event)"
-        :id="id"
-        :name="id"
-        :type="type"
-        :maxlength="maxlength"
-        :disabled="disabled"
-      />
+    <slot name="after-input" />
 
-      <slot name="after-input" />
-
-      <gov-error-message
-        v-if="error !== null"
-        v-text="error"
-        :for="id"
-      />
-
-    </gov-form-group>
+    <gov-error-message v-if="error !== null" v-text="error" :for="id" />
+  </gov-form-group>
 </template>
 
 <script>
@@ -36,37 +30,37 @@ export default {
   props: {
     value: {
       required: true,
-      type: String
+      type: String,
     },
     label: {
       required: true,
-      type: String
+      type: String,
     },
     hint: {
       required: false,
-      type: String
+      type: String,
     },
     error: {
-      required: true
+      required: true,
     },
     type: {
       required: false,
       type: String,
-      default: "text"
+      default: "text",
     },
     id: {
       required: true,
-      type: String
+      type: String,
     },
     maxlength: {
       required: false,
-      type: Number
+      type: Number,
     },
     disabled: {
       required: false,
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>

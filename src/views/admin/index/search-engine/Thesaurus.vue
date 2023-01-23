@@ -4,9 +4,10 @@
       <gov-heading size="l">Thesaurus</gov-heading>
 
       <gov-body>
-        On this page, you can view and edit the thesaurus used when a user makes a
-        keyword search. The thesaurus means that when users enter in a search
-        term - if it appears in the thesaurus, all synonyms will also be searched.
+        On this page, you can view and edit the thesaurus used when a user makes
+        a keyword search. The thesaurus means that when users enter in a search
+        term - if it appears in the thesaurus, all synonyms will also be
+        searched.
       </gov-body>
 
       <ck-loader v-if="loading" />
@@ -19,7 +20,9 @@
     </gov-grid-column>
 
     <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
-      <gov-button :to="{ name: 'thesaurus-edit' }" expand>Edit thesaurus</gov-button>
+      <gov-button :to="{ name: 'thesaurus-edit' }" expand
+        >Edit thesaurus</gov-button
+      >
     </gov-grid-column>
   </gov-grid-row>
 </template>
@@ -38,7 +41,7 @@ export default {
       loading: false,
       synonyms: [],
       currentPage: 1,
-      lastPage: 1
+      lastPage: 1,
     };
   },
 
@@ -55,7 +58,7 @@ export default {
     onExportCsv() {
       let csvContent = "data:text/csv;charset=utf-8,";
 
-      this.synonyms.forEach(rowArray => {
+      this.synonyms.forEach((rowArray) => {
         let row = rowArray.join(",");
         csvContent += row + "\r\n";
       });
@@ -66,11 +69,11 @@ export default {
       link.setAttribute("download", "thesaurus.csv");
       document.body.appendChild(link);
       link.click();
-    }
+    },
   },
 
   created() {
     this.fetchSynonyms();
-  }
+  },
 };
 </script>

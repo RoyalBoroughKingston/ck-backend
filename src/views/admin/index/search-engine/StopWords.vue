@@ -18,12 +18,16 @@
 
       <ck-loader v-if="loading" />
       <gov-list v-else bullet>
-        <li v-for="(stopWord, index) in stopWords" :key="`StopWord-${index}`">{{ stopWord }}</li>
+        <li v-for="(stopWord, index) in stopWords" :key="`StopWord-${index}`">
+          {{ stopWord }}
+        </li>
       </gov-list>
     </gov-grid-column>
 
     <gov-grid-column v-if="auth.isGlobalAdmin" width="one-third">
-      <gov-button :to="{ name: 'stop-words-edit' }" expand>Edit stop words</gov-button>
+      <gov-button :to="{ name: 'stop-words-edit' }" expand
+        >Edit stop words</gov-button
+      >
     </gov-grid-column>
   </gov-grid-row>
 </template>
@@ -39,7 +43,7 @@ export default {
       loading: false,
       stopWords: [],
       currentPage: 1,
-      lastPage: 1
+      lastPage: 1,
     };
   },
 
@@ -56,7 +60,7 @@ export default {
     onExportCsv() {
       let csvContent = "data:text/csv;charset=utf-8,";
 
-      this.stopWords.forEach(stopWord => {
+      this.stopWords.forEach((stopWord) => {
         csvContent += stopWord + "\r\n";
       });
 
@@ -66,11 +70,11 @@ export default {
       link.setAttribute("download", "stop-words.csv");
       document.body.appendChild(link);
       link.click();
-    }
+    },
   },
 
   created() {
     this.fetchStopWords();
-  }
+  },
 };
 </script>

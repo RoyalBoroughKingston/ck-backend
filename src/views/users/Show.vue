@@ -4,16 +4,19 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <vue-headful :title="`Connected Kingston - User: ${user.first_name} ${user.last_name}`" />
+        <vue-headful
+          :title="`Connected Kingston - User: ${user.first_name} ${user.last_name}`"
+        />
 
         <gov-grid-column width="two-thirds">
-
           <gov-heading size="m">View user</gov-heading>
 
           <ck-user-details :user="user" />
 
           <template v-if="auth.isServiceAdmin()">
-            <gov-body>Please be certain of the action before deleting a user</gov-body>
+            <gov-body
+              >Please be certain of the action before deleting a user</gov-body
+            >
 
             <gov-section-break size="l" />
 
@@ -23,12 +26,16 @@
               @deleted="onDelete"
             />
           </template>
-
         </gov-grid-column>
-        <gov-grid-column v-if="auth.isServiceAdmin()" width="one-third" class="text-right">
-
-          <gov-button :to="{ name: 'users-edit', params: { user: $route.params.user } }">Edit user</gov-button>
-
+        <gov-grid-column
+          v-if="auth.isServiceAdmin()"
+          width="one-third"
+          class="text-right"
+        >
+          <gov-button
+            :to="{ name: 'users-edit', params: { user: $route.params.user } }"
+            >Edit user</gov-button
+          >
         </gov-grid-column>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -43,7 +50,7 @@ export default {
   data() {
     return {
       loading: false,
-      user: null
+      user: null,
     };
   },
   methods: {
@@ -52,8 +59,8 @@ export default {
       http
         .get(`/users/${this.$route.params.user}`, {
           params: {
-            include: "user-roles.organisation,user-roles.service"
-          }
+            include: "user-roles.organisation,user-roles.service",
+          },
         })
         .then(({ data }) => {
           this.user = data.data;
@@ -65,10 +72,10 @@ export default {
     },
     onDelete() {
       this.$router.push({ name: "users-index" });
-    }
+    },
   },
   created() {
     this.fetchUser();
-  }
+  },
 };
 </script>

@@ -17,11 +17,7 @@
       :options="hours"
       class="govuk-!-width-one-quarter"
     />
-    <gov-error-message
-      v-if="error"
-      v-text="error"
-      :for="`${id}.opens_at`"
-    />
+    <gov-error-message v-if="error" v-text="error" :for="`${id}.opens_at`" />
   </gov-form-group>
 </template>
 
@@ -31,21 +27,21 @@ export default {
   props: {
     id: {
       required: true,
-      type: String
+      type: String,
     },
     opens_at: {
-      required: true
+      required: true,
     },
     closes_at: {
-      required: true
+      required: true,
     },
     error: {
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      hours: [{ text: "--:--", value: null, disabled: true }]
+      hours: [{ text: "--:--", value: null, disabled: true }],
     };
   },
   created() {
@@ -58,6 +54,6 @@ export default {
       this.hours.push({ text, value });
     }
     this.hours.push({ text: "24:00", value: "23:59:59" });
-  }
+  },
 };
 </script>

@@ -38,28 +38,28 @@ export default {
     type: {
       type: String,
       required: false,
-      default: "submit"
+      default: "submit",
     },
     expand: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     error: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     start: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     to: {
-      required: false
+      required: false,
     },
     href: {
-      required: false
+      required: false,
     },
     active: {
       type: Boolean,
@@ -75,12 +75,12 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-    }
+    },
   },
   methods: {
     onClick() {
       this.$emit("click");
-    }
+    },
   },
   computed: {
     computedClasses() {
@@ -92,8 +92,8 @@ export default {
         "ck-button--success": this.success,
         "ck-button--disabled": this.disabled,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
