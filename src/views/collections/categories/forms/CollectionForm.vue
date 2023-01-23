@@ -11,7 +11,7 @@
     >
       <gov-hint slot="hint" for="slug">
         This will be used to access the category collection.<br />
-        e.g. connectedkingston.uk/results?category={{ slug }}
+        e.g. connectedkingston.uk/collections/{{ slug }}
       </gov-hint>
     </ck-text-input>
 
