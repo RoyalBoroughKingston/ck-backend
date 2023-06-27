@@ -1,8 +1,8 @@
 # ==================================================
 # This stack creates the API infrastructure.
 # ==================================================
-from troposphere import Template, Parameter, Ref, GetAtt, Join, Output
-import troposphere.s3 as s3
+from troposphere import Template, Parameter, Ref, GetAtt, Join, Sub, Output
+from troposphere.s3 import Bucket, BucketPolicy, OwnershipControls, OwnershipControlsRule, PublicAccessBlockConfiguration
 import troposphere.iam as iam
 import troposphere.cloudfront as cloudfront
 import uuid
@@ -11,7 +11,7 @@ import uuid
 # Template details.
 # ==================================================
 template = Template('Create the infrastructure needed to run the Connected Kingston Backend')
-template.add_version('2010-09-09')
+template.set_version('2010-09-09')
 
 # ==================================================
 # Parameters.
@@ -65,94 +65,151 @@ ci_user_name_variable = Join('-', ['ci-backend', Ref(environment_parameter)])
 # Resources.
 # ==================================================
 bucket_resource = template.add_resource(
-  s3.Bucket(
-    'Bucket',
-    BucketName=bucket_name_variable,
-    AccessControl='PublicRead'
-  )
+    Bucket(
+        'Bucket',
+        BucketName=bucket_name_variable,
+        PublicAccessBlockConfiguration=PublicAccessBlockConfiguration(
+            BlockPublicAcls=True,
+            BlockPublicPolicy=True,
+            IgnorePublicAcls=True,
+            RestrictPublicBuckets=True
+        ),
+        OwnershipControls=OwnershipControls(
+            Rules=[
+                OwnershipControlsRule(
+                    ObjectOwnership="BucketOwnerPreferred"
+                )
+            ]
+        ),
+    )
+)
+
+cloudfront_oai = template.add_resource(
+    cloudfront.CloudFrontOriginAccessIdentity(
+        'CloudFrontOAI',
+        CloudFrontOriginAccessIdentityConfig=cloudfront.CloudFrontOriginAccessIdentityConfig(
+            Comment=Sub("Cloudfront OAI for ${Cname}")
+        )
+    )
+)
+
+bucket_policy = template.add_resource(
+    BucketPolicy(
+        'PublicBucketPolicy',
+        Bucket=Ref(bucket_resource),
+        PolicyDocument={
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Action": [
+                        "s3:GetObject"
+                    ],
+                    "Effect": "Allow",
+                    "Resource": [
+                        Join("", [
+                                "arn:aws:s3:::",
+                                Ref(bucket_resource),
+                                "/*"
+                            ]
+                        )
+                    ],
+                    "Principal": {
+                        'CanonicalUser': GetAtt(cloudfront_oai, 'S3CanonicalUserId')
+                    }
+                }
+            ]
+        }
+    )
 )
 
 distribution_resource = template.add_resource(
-  cloudfront.Distribution(
-    'Distribution',
-    DistributionConfig=cloudfront.DistributionConfig(
-      Aliases=[
-        Ref(cname_parameter)
-      ],
-      CacheBehaviors=[
-        cloudfront.CacheBehavior(
-          AllowedMethods=['HEAD', 'GET'],
-          CachedMethods=['HEAD', 'GET'],
-          ForwardedValues=cloudfront.ForwardedValues(
-            QueryString=False
-          ),
-          PathPattern='*',
-          TargetOriginId=Join('-', ['S3', Ref(bucket_resource)]),
-          ViewerProtocolPolicy='redirect-to-https'
+    cloudfront.Distribution(
+        'Distribution',
+        DistributionConfig=cloudfront.DistributionConfig(
+            Aliases=[
+                Ref(cname_parameter)
+            ],
+            CacheBehaviors=[
+                cloudfront.CacheBehavior(
+                    AllowedMethods=['HEAD', 'GET'],
+                    CachedMethods=['HEAD', 'GET'],
+                    ForwardedValues=cloudfront.ForwardedValues(
+                        QueryString=False
+                    ),
+                    PathPattern='*',
+                    TargetOriginId=Join('-', ['S3', Ref(bucket_resource)]),
+                    ViewerProtocolPolicy='redirect-to-https'
+                )
+            ],
+            CustomErrorResponses=[
+                cloudfront.CustomErrorResponse(
+                    ErrorCode=404,
+                    ResponseCode=200,
+                    ResponsePagePath='/index.html'
+                ),
+                cloudfront.CustomErrorResponse(
+                    ErrorCode=403,
+                    ResponseCode=200,
+                    ResponsePagePath='/index.html'
+                )
+            ],
+            DefaultCacheBehavior=cloudfront.DefaultCacheBehavior(
+                ForwardedValues=cloudfront.ForwardedValues(
+                    QueryString=False
+                ),
+                TargetOriginId=Join('-', ['S3', Ref(bucket_resource)]),
+                ViewerProtocolPolicy='redirect-to-https'
+            ),
+            DefaultRootObject='index.html',
+            Enabled=True,
+            IPV6Enabled=True,
+            Origins=[
+                cloudfront.Origin(
+                    DomainName=GetAtt(bucket_resource, 'DomainName'),
+                    Id=Join('-', ['S3', Ref(bucket_resource)]),
+                    S3OriginConfig=cloudfront.S3OriginConfig(
+                        OriginAccessIdentity=Join('', ['origin-access-identity/cloudfront/', Ref(cloudfront_oai)])
+                    )
+                )
+            ],
+            ViewerCertificate=cloudfront.ViewerCertificate(
+                AcmCertificateArn=Ref(certificate_arn_parameter),
+                SslSupportMethod='sni-only'
+            )
         )
-      ],
-      CustomErrorResponses=[
-        cloudfront.CustomErrorResponse(
-          ErrorCode=404,
-          ResponseCode=200,
-          ResponsePagePath='/index.html'
-        )
-      ],
-      DefaultCacheBehavior=cloudfront.DefaultCacheBehavior(
-        ForwardedValues=cloudfront.ForwardedValues(
-          QueryString=False
-        ),
-        TargetOriginId=Join('-', ['S3', Ref(bucket_resource)]),
-        ViewerProtocolPolicy='redirect-to-https'
-      ),
-      DefaultRootObject='index.html',
-      Enabled=True,
-      IPV6Enabled=True,
-      Origins=[
-        cloudfront.Origin(
-          DomainName=GetAtt(bucket_resource, 'DomainName'),
-          Id=Join('-', ['S3', Ref(bucket_resource)]),
-          S3OriginConfig=cloudfront.S3Origin()
-        )
-      ],
-      ViewerCertificate=cloudfront.ViewerCertificate(
-        AcmCertificateArn=Ref(certificate_arn_parameter),
-        SslSupportMethod='sni-only'
-      )
     )
-  )
 )
 
 ci_user_resource = template.add_resource(
-  iam.User(
-    'CiUser',
-    UserName=ci_user_name_variable,
-    Policies=[
-      iam.Policy(
-        PolicyName='CiUserPolicy',
-        PolicyDocument={
-          'Version': '2012-10-17',
-          'Statement': [
-            {
-              'Action': 's3:*',
-              'Effect': 'Allow',
-              'Resource': '*'
-            },
-            {
-              'Action': 'secretsmanager:GetSecretValue',
-              'Effect': 'Allow',
-              'Resource': '*'
-            },
-            {
-              'Action': 'cloudfront:CreateInvalidation',
-              'Effect': 'Allow',
-              'Resource': '*'
-            }
-          ]
-        }
-      )
-    ]
-  )
+    iam.User(
+        'CiUser',
+        UserName=ci_user_name_variable,
+        Policies=[
+            iam.Policy(
+                PolicyName='CiUserPolicy',
+                PolicyDocument={
+                    'Version': '2012-10-17',
+                    'Statement': [
+                        {
+                            'Action': 's3:*',
+                            'Effect': 'Allow',
+                            'Resource': '*'
+                        },
+                        {
+                            'Action': 'secretsmanager:GetSecretValue',
+                            'Effect': 'Allow',
+                            'Resource': '*'
+                        },
+                        {
+                            'Action': 'cloudfront:CreateInvalidation',
+                            'Effect': 'Allow',
+                            'Resource': '*'
+                        }
+                    ]
+                }
+            )
+        ]
+    )
 )
 
 # ==================================================
