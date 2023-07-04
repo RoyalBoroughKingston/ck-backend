@@ -8,7 +8,7 @@ module.exports = {
   pluginOptions: {
     s3Deploy: {
       awsProfile: "default",
-      region: "eu-west-1",
+      region: "eu-west-2",
       bucket: undefined,
       assetPath: "dist",
       pwa: false,
