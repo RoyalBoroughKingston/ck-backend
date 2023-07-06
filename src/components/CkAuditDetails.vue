@@ -18,12 +18,12 @@
         <gov-table-cell>{{
           audit.user
             ? `${audit.user.first_name} ${audit.user.last_name}`
-            : "Guest"
+            : 'Guest'
         }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Client</gov-table-header>
-        <gov-table-cell>{{ audit.oauth_client || "-" }}</gov-table-cell>
+        <gov-table-cell>{{ audit.oauth_client || '-' }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Date / Time</gov-table-header>
@@ -35,7 +35,7 @@
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">User Agent</gov-table-header>
-        <gov-table-cell>{{ audit.user_agent || "-" }}</gov-table-cell>
+        <gov-table-cell>{{ audit.user_agent || '-' }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row"
@@ -50,10 +50,10 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment'
 
 export default {
-  name: "CkAuditDetails",
+  name: 'CkAuditDetails',
   props: {
     audit: {
       type: Object,
@@ -64,25 +64,25 @@ export default {
     autoDeleteDate(updated_at) {
       return moment(updated_at, moment.ISO_8601)
         .clone()
-        .add(24, "months")
-        .format("Y-MM-DD[T]HH:mm:ssZ");
+        .add(24, 'months')
+        .format('Y-MM-DD[T]HH:mm:ssZ')
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "../scss/app.scss";
+@import '../scss/app.scss';
 
 .action {
   text-transform: uppercase;
 
   &--create {
-    background-color: govuk-colour("green") !important;
+    background-color: govuk-colour('green') !important;
   }
 
   &--update {
-    background-color: govuk-colour("orange") !important;
+    background-color: govuk-colour('orange') !important;
   }
 
   &--delete {

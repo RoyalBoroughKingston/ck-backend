@@ -50,32 +50,32 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "ShowOrganisation",
+  name: 'ShowOrganisation',
   data() {
     return {
       loading: false,
       organisation: null,
-    };
+    }
   },
   methods: {
     fetchOrganisation() {
-      this.loading = true;
+      this.loading = true
       http
         .get(`/organisations/${this.$route.params.organisation}`)
         .then(({ data }) => {
-          this.organisation = data.data;
-          this.loading = false;
-        });
+          this.organisation = data.data
+          this.loading = false
+        })
     },
     onDelete() {
-      this.$router.push({ name: "organisations-index" });
+      this.$router.push({ name: 'organisations-index' })
     },
   },
   created() {
-    this.fetchOrganisation();
+    this.fetchOrganisation()
   },
-};
+}
 </script>

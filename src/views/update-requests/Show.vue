@@ -95,15 +95,15 @@
 </template>
 
 <script>
-import http from "@/http";
-import OrganisationDetails from "@/views/update-requests/show/OrganisationDetails";
-import OrganisationSignUpFormDetails from "@/views/update-requests/show/OrganisationSignUpFormDetails";
-import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
-import LocationDetails from "@/views/update-requests/show/LocationDetails";
-import ServiceLocationDetails from "@/views/update-requests/show/ServiceLocationDetails";
+import http from '@/http'
+import OrganisationDetails from '@/views/update-requests/show/OrganisationDetails'
+import OrganisationSignUpFormDetails from '@/views/update-requests/show/OrganisationSignUpFormDetails'
+import ServiceDetails from '@/views/update-requests/show/ServiceDetails'
+import LocationDetails from '@/views/update-requests/show/LocationDetails'
+import ServiceLocationDetails from '@/views/update-requests/show/ServiceLocationDetails'
 
 export default {
-  name: "ShowUpdateRequest",
+  name: 'ShowUpdateRequest',
   components: {
     OrganisationDetails,
     OrganisationSignUpFormDetails,
@@ -117,81 +117,81 @@ export default {
       updateRequest: null,
       approve: null,
       submitting: false,
-    };
+    }
   },
   methods: {
     async fetchUpdateRequests() {
-      this.loading = true;
+      this.loading = true
 
       const { data } = await http.get(
         `/update-requests/${this.$route.params.updateRequest}`
-      );
-      this.updateRequest = data;
-      this.updateRequest.data.id = data.updateable_id;
+      )
+      this.updateRequest = data
+      this.updateRequest.data.id = data.updateable_id
 
       // If the update request is for a service, and the organisation has been
       // updated, then eager load the organisation and append to the data.
       if (
-        this.updateRequest.updateable_type === "services" &&
-        this.updateRequest.data.hasOwnProperty("organisation_id")
+        this.updateRequest.updateable_type === 'services' &&
+        this.updateRequest.data.hasOwnProperty('organisation_id')
       ) {
         const {
           data: { data: organisation },
         } = await http.get(
           `/organisations/${this.updateRequest.data.organisation_id}`
-        );
-        this.updateRequest.data.organisation = organisation;
+        )
+        this.updateRequest.data.organisation = organisation
       }
 
-      this.loading = false;
+      this.loading = false
     },
     async onSubmit() {
       try {
-        this.submitting = true;
+        this.submitting = true
 
         if (this.approve) {
-          await http.put(`/update-requests/${this.updateRequest.id}/approve`);
+          await http.put(`/update-requests/${this.updateRequest.id}/approve`)
 
           switch (this.updateRequest.updateable_type) {
-            case "services":
+            case 'services':
               this.$router.push({
-                name: "services-show",
+                name: 'services-show',
                 params: { service: this.updateRequest.updateable_id },
-              });
-              break;
-            case "organisations":
+              })
+              break
+            case 'organisations':
               this.$router.push({
-                name: "organisations-show",
+                name: 'organisations-show',
                 params: { organisation: this.updateRequest.updateable_id },
-              });
-              break;
-            case "locations":
+              })
+              break
+            case 'locations':
               this.$router.push({
-                name: "locations-show",
+                name: 'locations-show',
                 params: { location: this.updateRequest.updateable_id },
-              });
-              break;
-            case "service_locations":
+              })
+              break
+            case 'service_locations':
               this.$router.push({
-                name: "service-locations-show",
+                name: 'service-locations-show',
                 params: { serviceLocation: this.updateRequest.updateable_id },
-              });
-              break;
+              })
+              break
             default:
-              this.$router.push({ name: "update-requests-index" });
-              break;
+              this.$router.push({ name: 'update-requests-index' })
+              break
           }
         } else {
-          await http.delete(`/update-requests/${this.updateRequest.id}`);
-          this.$router.push({ name: "update-requests-index" });
+          await http.delete(`/update-requests/${this.updateRequest.id}`)
+          this.$router.push({ name: 'update-requests-index' })
         }
       } catch (error) {
-        this.submitting = false;
+        this.submitting = false
       }
     },
   },
   created() {
-    this.fetchUpdateRequests();
+    this.fetchUpdateRequests()
   },
-};
+}
 </script>

@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "ContactInfoTab",
+  name: 'ContactInfoTab',
   props: {
     service: {
       type: Object,
@@ -29,14 +29,14 @@ export default {
   },
   computed: {
     displayDisclaimer() {
-      return this.service.show_referral_disclaimer ? "Yes" : "No";
+      return this.service.show_referral_disclaimer ? 'Yes' : 'No'
     },
     referralMethod() {
       return (
         this.service.referral_method.charAt(0).toUpperCase() +
         this.service.referral_method.substr(1)
-      );
+      )
     },
   },
-};
+}
 </script>

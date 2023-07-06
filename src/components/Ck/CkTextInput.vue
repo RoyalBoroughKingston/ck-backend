@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: "CkTextInput",
+  name: 'CkTextInput',
   props: {
     value: {
       required: true,
@@ -46,7 +46,7 @@ export default {
     type: {
       required: false,
       type: String,
-      default: "text",
+      default: 'text',
     },
     id: {
       required: true,
@@ -62,5 +62,5 @@ export default {
       default: false,
     },
   },
-};
+}
 </script>

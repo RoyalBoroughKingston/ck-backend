@@ -58,37 +58,37 @@
 </template>
 
 <script>
-import http from "@/http";
-import ServiceLocationDetails from "@/views/service-locations/show/ServiceLocationDetails";
+import http from '@/http'
+import ServiceLocationDetails from '@/views/service-locations/show/ServiceLocationDetails'
 
 export default {
-  name: "ShowServiceLocation",
+  name: 'ShowServiceLocation',
   components: { ServiceLocationDetails },
   data() {
     return {
       loading: false,
       serviceLocation: null,
-    };
+    }
   },
   methods: {
     async fetchServiceLocation() {
-      this.loading = true;
+      this.loading = true
       const response = await http.get(
         `/service-locations/${this.$route.params.serviceLocation}`,
-        { params: { include: "location" } }
-      );
-      this.serviceLocation = response.data.data;
-      this.loading = false;
+        { params: { include: 'location' } }
+      )
+      this.serviceLocation = response.data.data
+      this.loading = false
     },
     onDelete() {
       this.$router.push({
-        name: "services-show",
+        name: 'services-show',
         params: { service: this.serviceLocation.service_id },
-      });
+      })
     },
   },
   created() {
-    this.fetchServiceLocation();
+    this.fetchServiceLocation()
   },
-};
+}
 </script>

@@ -37,13 +37,13 @@
 </template>
 
 <script>
-import { Link } from "tiptap-extensions";
+import { Link } from 'tiptap-extensions'
 
 export default {
-  name: "UsefulInfosInput",
+  name: 'UsefulInfosInput',
   model: {
-    prop: "usefulInfos",
-    event: "input",
+    prop: 'usefulInfos',
+    event: 'input',
   },
   props: {
     usefulInfos: {
@@ -58,86 +58,86 @@ export default {
   data() {
     return {
       usefulInfoTitleOptions: [
-        { text: "Please select", value: "", disabled: true },
-        { text: "Getting here", value: "Getting here" },
-        { text: "Signing up", value: "Signing up" },
-        { text: "Meeting up", value: "Meeting up" },
-        { text: "What to wear", value: "What to wear" },
-        { text: "What to bring", value: "What to bring" },
-        { text: "How to get here", value: "How to get here" },
-        { text: "Parking", value: "Parking" },
-        { text: "Keeping updated", value: "Keeping updated" },
-        { text: "Additional information", value: "Additional information" },
+        { text: 'Please select', value: '', disabled: true },
+        { text: 'Getting here', value: 'Getting here' },
+        { text: 'Signing up', value: 'Signing up' },
+        { text: 'Meeting up', value: 'Meeting up' },
+        { text: 'What to wear', value: 'What to wear' },
+        { text: 'What to bring', value: 'What to bring' },
+        { text: 'How to get here', value: 'How to get here' },
+        { text: 'Parking', value: 'Parking' },
+        { text: 'Keeping updated', value: 'Keeping updated' },
+        { text: 'Additional information', value: 'Additional information' },
       ],
       usefulInfosIndex: 1,
       extensions: [new Link()],
-    };
+    }
   },
   methods: {
     cloneUsefulInfos() {
-      return this.usefulInfos.map((usefulInfo) => ({ ...usefulInfo }));
+      return this.usefulInfos.map(usefulInfo => ({ ...usefulInfo }))
     },
     onAddUsefulInfo() {
-      let usefulInfos = this.cloneUsefulInfos();
+      let usefulInfos = this.cloneUsefulInfos()
       usefulInfos.push({
-        title: "",
-        description: "",
+        title: '',
+        description: '',
         order: this.usefulInfos.length + 1,
         index: this.usefulInfosIndex,
-      });
+      })
 
-      this.usefulInfosIndex++;
-      this.$emit("input", usefulInfos);
+      this.usefulInfosIndex++
+      this.$emit('input', usefulInfos)
     },
     onDeleteUsefulInfo(deleteIndex) {
-      this.$emit("clear", `useful_infos.${deleteIndex}.title`);
-      this.$emit("clear", `useful_infos.${deleteIndex}.title`);
-      this.$emit("clear", `useful_infos.${deleteIndex}.description`);
-      this.$emit("clear", `useful_infos.${deleteIndex}.order`);
+      this.$emit('clear', `useful_infos.${deleteIndex}.title`)
+      this.$emit('clear', `useful_infos.${deleteIndex}.title`)
+      this.$emit('clear', `useful_infos.${deleteIndex}.description`)
+      this.$emit('clear', `useful_infos.${deleteIndex}.order`)
 
       // Also decrement the order for the other useful infos.
-      let usefulInfos = this.cloneUsefulInfos();
-      this.$delete(usefulInfos, deleteIndex);
+      let usefulInfos = this.cloneUsefulInfos()
+      this.$delete(usefulInfos, deleteIndex)
       usefulInfos.forEach((usefulInfo, index) => {
         if (index < deleteIndex) {
-          return;
+          return
         }
 
-        usefulInfo.order--;
-      });
-      this.$emit("input", usefulInfos);
+        usefulInfo.order--
+      })
+      this.$emit('input', usefulInfos)
     },
     onTitleInput({ index, value }) {
-      let usefulInfos = this.cloneUsefulInfos();
-      usefulInfos[index].title = value;
-      this.$emit("input", usefulInfos);
-      this.$emit("clear", `useful_infos.${index}.title`);
+      let usefulInfos = this.cloneUsefulInfos()
+      usefulInfos[index].title = value
+      this.$emit('input', usefulInfos)
+      this.$emit('clear', `useful_infos.${index}.title`)
     },
     onDescriptionInput({ index, value }) {
-      let usefulInfos = this.cloneUsefulInfos();
-      usefulInfos[index].description = value;
-      this.$emit("input", usefulInfos);
-      this.$emit("clear", `useful_infos.${index}.description`);
+      let usefulInfos = this.cloneUsefulInfos()
+      usefulInfos[index].description = value
+      this.$emit('input', usefulInfos)
+      this.$emit('clear', `useful_infos.${index}.description`)
     },
   },
   watch: {
     usefulInfos: {
       handler(usefulInfos) {
         this.usefulInfoTitleOptions.forEach((usefulInfoTitleOption, index) => {
-          if (usefulInfoTitleOption.value === "") {
-            return;
+          if (usefulInfoTitleOption.value === '') {
+            return
           }
 
           const hasBeenUsed =
             usefulInfos.find(
-              (usefulInfo) => usefulInfo.title === usefulInfoTitleOption.value
-            ) !== undefined;
-          const newOption = { ...usefulInfoTitleOption, disabled: hasBeenUsed };
-          this.$set(this.usefulInfoTitleOptions, index, newOption);
-        });
+              usefulInfo => usefulInfo.title === usefulInfoTitleOption.value
+            ) !== undefined
+          const newOption = { ...usefulInfoTitleOption, disabled: hasBeenUsed }
+          this.$set(this.usefulInfoTitleOptions, index, newOption)
+        })
       },
       deep: true,
     },
   },
-};
+}
 </script>

@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "GovCheckboxInput",
+  name: 'GovCheckboxInput',
   props: {
     value: {
       type: Boolean,
@@ -44,10 +44,10 @@ export default {
   },
   computed: {
     ariaDescribedBy() {
-      return `${this.name}-hint`;
+      return `${this.name}-hint`
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

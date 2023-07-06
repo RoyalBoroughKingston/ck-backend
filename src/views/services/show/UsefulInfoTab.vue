@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "ServiceUsefulInfoTab",
+  name: 'ServiceUsefulInfoTab',
   props: {
     service: {
       type: Object,
@@ -35,12 +35,12 @@ export default {
   data() {
     return {
       usefulInfos: [],
-    };
+    }
   },
   created() {
     this.usefulInfos = this.service.useful_infos.sort((a, b) => {
-      return a.order - b.order;
-    });
+      return a.order - b.order
+    })
   },
-};
+}
 </script>

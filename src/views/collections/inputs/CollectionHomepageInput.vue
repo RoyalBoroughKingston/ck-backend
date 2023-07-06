@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "CollectionHomepageInput",
+  name: 'CollectionHomepageInput',
 
   props: {
     value: {
@@ -51,7 +51,7 @@ export default {
       type: String,
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

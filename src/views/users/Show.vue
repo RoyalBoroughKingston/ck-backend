@@ -43,39 +43,39 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "ShowUser",
+  name: 'ShowUser',
   data() {
     return {
       loading: false,
       user: null,
-    };
+    }
   },
   methods: {
     fetchUser() {
-      this.loading = true;
+      this.loading = true
       http
         .get(`/users/${this.$route.params.user}`, {
           params: {
-            include: "user-roles.organisation,user-roles.service",
+            include: 'user-roles.organisation,user-roles.service',
           },
         })
         .then(({ data }) => {
-          this.user = data.data;
-          this.loading = false;
-        });
+          this.user = data.data
+          this.loading = false
+        })
     },
     onEdit() {
-      alert("Edit");
+      alert('Edit')
     },
     onDelete() {
-      this.$router.push({ name: "users-index" });
+      this.$router.push({ name: 'users-index' })
     },
   },
   created() {
-    this.fetchUser();
+    this.fetchUser()
   },
-};
+}
 </script>

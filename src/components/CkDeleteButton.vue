@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import Form from "@/classes/Form";
+import Form from '@/classes/Form'
 
 export default {
-  name: "CkDeleteButton",
+  name: 'CkDeleteButton',
   props: {
     resource: {
       required: true,
@@ -44,19 +44,19 @@ export default {
     return {
       form: new Form({}),
       showConfirm: false,
-    };
+    }
   },
   methods: {
     onShowConfirmation() {
-      this.showConfirm = true;
+      this.showConfirm = true
     },
     async onDelete() {
-      await this.form.delete(this.endpoint);
-      this.$emit("deleted");
+      await this.form.delete(this.endpoint)
+      this.$emit('deleted')
     },
     onCancel() {
-      this.showConfirm = false;
+      this.showConfirm = false
     },
   },
-};
+}
 </script>

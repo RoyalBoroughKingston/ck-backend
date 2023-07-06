@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "GovErrorMessage",
+  name: 'GovErrorMessage',
   props: {
     for: {
       type: String,
@@ -15,8 +15,8 @@ export default {
   },
   computed: {
     id() {
-      return [this.for, "error"].join("-");
+      return [this.for, 'error'].join('-')
     },
   },
-};
+}
 </script>

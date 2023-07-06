@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: "CkRadioInput",
+  name: 'CkRadioInput',
   props: {
     value: {
       required: true,
@@ -60,5 +60,5 @@ export default {
       default: false,
     },
   },
-};
+}
 </script>

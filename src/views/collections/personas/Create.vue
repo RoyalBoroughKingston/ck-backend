@@ -48,37 +48,37 @@
 </template>
 
 <script>
-import CollectionForm from "@/views/collections/personas/forms/CollectionForm";
-import Form from "@/classes/Form";
+import CollectionForm from '@/views/collections/personas/forms/CollectionForm'
+import Form from '@/classes/Form'
 
 export default {
-  name: "CreateCollectionPersona",
+  name: 'CreateCollectionPersona',
   components: { CollectionForm },
   data() {
     return {
       form: new Form({
-        slug: "",
-        name: "",
-        intro: "",
-        subtitle: "",
+        slug: '',
+        name: '',
+        intro: '',
+        subtitle: '',
         order: 1,
         homepage: true,
         sideboxes: [],
         category_taxonomies: [],
         image_file_id: null,
       }),
-    };
+    }
   },
   methods: {
     async onSubmit() {
-      await this.form.post("/collections/personas", (config, data) => {
+      await this.form.post('/collections/personas', (config, data) => {
         // Unset the image field if not provided.
         if (data.image_file_id === null) {
-          delete data.image_file_id;
+          delete data.image_file_id
         }
-      });
-      this.$router.push({ name: "admin-index-collections-personas" });
+      })
+      this.$router.push({ name: 'admin-index-collections-personas' })
     },
   },
-};
+}
 </script>

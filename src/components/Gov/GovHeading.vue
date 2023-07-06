@@ -32,23 +32,23 @@
 
 <script>
 export default {
-  name: "GovHeading",
+  name: 'GovHeading',
   props: {
     size: {
       type: String,
       required: false,
-      default: "m",
+      default: 'm',
     },
     tag: {
       type: String,
       required: false,
-      default: "h1",
+      default: 'h1',
     },
   },
   computed: {
     computedClass() {
-      return `govuk-heading-${this.size}`;
+      return `govuk-heading-${this.size}`
     },
   },
-};
+}
 </script>

@@ -24,30 +24,30 @@
 </template>
 
 <script>
-import http from "@/http";
-import CkPageFeedbackDetails from "@/components/CkPageFeedbackDetails";
+import http from '@/http'
+import CkPageFeedbackDetails from '@/components/CkPageFeedbackDetails'
 
 export default {
-  name: "ShowPageFeedback",
+  name: 'ShowPageFeedback',
   components: { CkPageFeedbackDetails },
   data() {
     return {
       loading: false,
       pageFeedback: null,
-    };
+    }
   },
   methods: {
     async fetchPageFeedback() {
-      this.loading = true;
+      this.loading = true
       const { data } = await http.get(
         `/page-feedbacks/${this.$route.params.pageFeedback}`
-      );
-      this.pageFeedback = data.data;
-      this.loading = false;
+      )
+      this.pageFeedback = data.data
+      this.loading = false
     },
   },
   created() {
-    this.fetchPageFeedback();
+    this.fetchPageFeedback()
   },
-};
+}
 </script>

@@ -61,28 +61,28 @@
 </template>
 
 <script>
-import http from "@/http";
-import Form from "@/classes/Form";
-import CollectionForm from "@/views/collections/personas/forms/CollectionForm";
+import http from '@/http'
+import Form from '@/classes/Form'
+import CollectionForm from '@/views/collections/personas/forms/CollectionForm'
 
 export default {
-  name: "EditCollectionPersona",
+  name: 'EditCollectionPersona',
   components: { CollectionForm },
   data() {
     return {
       loading: false,
       collection: null,
       form: null,
-    };
+    }
   },
   methods: {
     async fetchCollection() {
-      this.loading = true;
+      this.loading = true
 
       const response = await http.get(
         `/collections/personas/${this.$route.params.collection}`
-      );
-      this.collection = response.data.data;
+      )
+      this.collection = response.data.data
       this.form = new Form({
         slug: this.collection.slug,
         name: this.collection.name,
@@ -92,12 +92,12 @@ export default {
         homepage: this.collection.homepage,
         sideboxes: this.collection.sideboxes,
         category_taxonomies: this.collection.category_taxonomies.map(
-          (taxonomy) => taxonomy.id
+          taxonomy => taxonomy.id
         ),
         image_file_id: null,
-      });
+      })
 
-      this.loading = false;
+      this.loading = false
     },
     async onSubmit() {
       await this.form.put(
@@ -105,23 +105,23 @@ export default {
         (config, data) => {
           // Unset the image field if not provided.
           if (data.image_file_id === null) {
-            delete data.image_file_id;
+            delete data.image_file_id
           }
 
           // Set the image to null if explicitly removed.
           if (data.image_file_id === false) {
-            data.image_file_id = null;
+            data.image_file_id = null
           }
         }
-      );
-      this.$router.push({ name: "admin-index-collections-personas" });
+      )
+      this.$router.push({ name: 'admin-index-collections-personas' })
     },
     onDelete() {
-      this.$router.push({ name: "admin-index-collections-personas" });
+      this.$router.push({ name: 'admin-index-collections-personas' })
     },
   },
   created() {
-    this.fetchCollection();
+    this.fetchCollection()
   },
-};
+}
 </script>

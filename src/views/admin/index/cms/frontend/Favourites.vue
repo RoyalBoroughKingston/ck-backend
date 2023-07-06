@@ -28,11 +28,11 @@
 
 <script>
 export default {
-  name: "CmsFrontendFavourites",
+  name: 'CmsFrontendFavourites',
 
   model: {
-    prop: "frontend",
-    event: "input",
+    prop: 'frontend',
+    event: 'input',
   },
 
   props: {
@@ -49,13 +49,13 @@ export default {
 
   methods: {
     onInput({ field, value }) {
-      const frontend = { ...this.frontend };
+      const frontend = { ...this.frontend }
 
-      frontend.favourites[field] = value;
+      frontend.favourites[field] = value
 
-      this.$emit("input", frontend);
-      this.$emit("clear", `frontend.favourites.${field}`);
+      this.$emit('input', frontend)
+      this.$emit('clear', `frontend.favourites.${field}`)
     },
   },
-};
+}
 </script>

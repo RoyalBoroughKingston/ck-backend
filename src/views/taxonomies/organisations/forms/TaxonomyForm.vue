@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "TaxonomyForm",
+  name: 'TaxonomyForm',
   props: {
     errors: {
       required: true,
@@ -28,9 +28,9 @@ export default {
   },
   methods: {
     onInput(field, value) {
-      this.$emit(`update:${field}`, value);
-      this.$emit("clear", field);
+      this.$emit(`update:${field}`, value)
+      this.$emit('clear', field)
     },
   },
-};
+}
 </script>

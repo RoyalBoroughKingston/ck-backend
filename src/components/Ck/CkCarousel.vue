@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "CkCarousel",
+  name: 'CkCarousel',
 
   props: {
     imageUrls: {
@@ -39,15 +39,15 @@ export default {
   data() {
     return {
       currentPage: 0,
-    };
+    }
   },
 
   computed: {
     count() {
-      return this.imageUrls.length;
+      return this.imageUrls.length
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

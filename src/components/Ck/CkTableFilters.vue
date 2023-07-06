@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "TableFilters",
+  name: 'TableFilters',
 
   props: {
     hideExtra: {
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       showAll: false,
-    };
+    }
   },
-};
+}
 </script>

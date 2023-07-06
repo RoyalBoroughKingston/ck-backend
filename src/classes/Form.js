@@ -1,5 +1,5 @@
-import Errors from "@/classes/Errors";
-import http from "@/http";
+import Errors from '@/classes/Errors'
+import http from '@/http'
 
 export default class Form {
   /**
@@ -10,29 +10,29 @@ export default class Form {
    * @param {object} httpClient
    */
   constructor(data, config = {}, httpClient = http) {
-    this.$originalData = data;
+    this.$originalData = data
 
     for (let field in data) {
-      this[field] = data[field];
+      this[field] = data[field]
     }
 
-    this.$errors = new Errors();
-    this.$submitting = false;
-    this.$config = config;
-    this.$http = httpClient;
+    this.$errors = new Errors()
+    this.$submitting = false
+    this.$config = config
+    this.$http = httpClient
   }
 
   /**
    * Fetch all relevant data for the form.
    */
   data() {
-    let data = {};
+    let data = {}
 
     for (let property in this.$originalData) {
-      data[property] = this[property];
+      data[property] = this[property]
     }
 
-    return data;
+    return data
   }
 
   /**
@@ -42,7 +42,7 @@ export default class Form {
    * @param {callback|null} callback
    */
   post(url, callback = null) {
-    return this.submit("post", url, callback);
+    return this.submit('post', url, callback)
   }
 
   /**
@@ -52,7 +52,7 @@ export default class Form {
    * @param {callback|null} callback
    */
   put(url, callback = null) {
-    return this.submit("put", url, callback);
+    return this.submit('put', url, callback)
   }
 
   /**
@@ -62,7 +62,7 @@ export default class Form {
    * @param {callback|null} callback
    */
   patch(url, callback = null) {
-    return this.submit("patch", url, callback);
+    return this.submit('patch', url, callback)
   }
 
   /**
@@ -71,7 +71,7 @@ export default class Form {
    * @param {string} url
    */
   delete(url) {
-    return this.submit("delete", url);
+    return this.submit('delete', url)
   }
 
   /**
@@ -82,33 +82,33 @@ export default class Form {
    * @param {callback|null} callback
    */
   submit(requestType, url, callback = null) {
-    this.$submitting = true;
-    let config = { ...this.parseConfig() };
-    let data = { ...this.data() };
+    this.$submitting = true
+    let config = { ...this.parseConfig() }
+    let data = { ...this.data() }
 
     if (callback !== null) {
-      callback(config, data);
+      callback(config, data)
     }
 
     if (this.hasFiles()) {
-      data = this.toFormData(data);
+      data = this.toFormData(data)
     }
 
     return new Promise((resolve, reject) => {
       this.$http[requestType](url, data, config)
-        .then((response) => {
-          this.onSuccess(response.data);
+        .then(response => {
+          this.onSuccess(response.data)
 
-          resolve(response.data);
+          resolve(response.data)
         })
-        .catch((error) => {
-          if (error.response.hasOwnProperty("data")) {
-            this.onFail(error.response.data);
+        .catch(error => {
+          if (error.response.hasOwnProperty('data')) {
+            this.onFail(error.response.data)
           }
 
-          reject(error.response.data);
-        });
-    });
+          reject(error.response.data)
+        })
+    })
   }
 
   /**
@@ -117,7 +117,7 @@ export default class Form {
    * @param {object} data
    */
   onSuccess(/*data*/) {
-    this.$submitting = false;
+    this.$submitting = false
   }
 
   /**
@@ -126,11 +126,11 @@ export default class Form {
    * @param {object} data
    */
   onFail(data) {
-    this.$submitting = false;
+    this.$submitting = false
 
     // Only records errors if there is an error bag returned.
-    if (data.hasOwnProperty("errors")) {
-      this.$errors.record(data.errors);
+    if (data.hasOwnProperty('errors')) {
+      this.$errors.record(data.errors)
     }
   }
 
@@ -141,8 +141,8 @@ export default class Form {
    */
   hasFiles() {
     return (
-      this.$config.hasOwnProperty("hasFiles") && this.$config.hasFiles === true
-    );
+      this.$config.hasOwnProperty('hasFiles') && this.$config.hasFiles === true
+    )
   }
 
   /**
@@ -151,13 +151,13 @@ export default class Form {
    * @returns {object}
    */
   parseConfig() {
-    let parsedConfig = {};
+    let parsedConfig = {}
 
     if (this.hasFiles()) {
-      parsedConfig["headers"] = { "Content-Type": "multipart/form-data" };
+      parsedConfig['headers'] = { 'Content-Type': 'multipart/form-data' }
     }
 
-    return parsedConfig;
+    return parsedConfig
   }
 
   /**
@@ -169,32 +169,32 @@ export default class Form {
    * @returns {*|FormData}
    */
   toFormData(obj, form, namespace) {
-    let fd = form || new FormData();
-    let formKey;
+    let fd = form || new FormData()
+    let formKey
 
     for (let property in obj) {
       if (obj.hasOwnProperty(property) && obj[property]) {
         if (namespace) {
-          formKey = namespace + "[" + property + "]";
+          formKey = namespace + '[' + property + ']'
         } else {
-          formKey = property;
+          formKey = property
         }
 
         // if the property is an object, but not a File, use recursivity.
         if (obj[property] instanceof Date) {
-          fd.append(formKey, obj[property].toISOString());
+          fd.append(formKey, obj[property].toISOString())
         } else if (
-          typeof obj[property] === "object" &&
+          typeof obj[property] === 'object' &&
           !(obj[property] instanceof File)
         ) {
-          this.toFormData(obj[property], fd, formKey);
+          this.toFormData(obj[property], fd, formKey)
         } else {
           // if it's a string or a File object
-          fd.append(formKey, obj[property]);
+          fd.append(formKey, obj[property])
         }
       }
     }
 
-    return fd;
+    return fd
   }
 }

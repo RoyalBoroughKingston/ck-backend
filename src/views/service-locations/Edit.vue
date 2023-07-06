@@ -51,72 +51,72 @@
 </template>
 
 <script>
-import Form from "@/classes/Form";
-import ServiceLocationForm from "@/views/service-locations/forms/ServiceLocationForm";
-import http from "@/http";
+import Form from '@/classes/Form'
+import ServiceLocationForm from '@/views/service-locations/forms/ServiceLocationForm'
+import http from '@/http'
 
 export default {
-  name: "EditServiceLocation",
+  name: 'EditServiceLocation',
   components: { ServiceLocationForm },
   data() {
     return {
       form: null,
       serviceLocation: null,
       loading: false,
-    };
+    }
   },
   methods: {
     async fetchServiceLocation() {
-      this.loading = true;
+      this.loading = true
       const response = await http.get(
         `/service-locations/${this.$route.params.serviceLocation}`
-      );
-      this.serviceLocation = response.data.data;
+      )
+      this.serviceLocation = response.data.data
       this.form = new Form({
-        name: this.serviceLocation.name || "",
+        name: this.serviceLocation.name || '',
         regular_opening_hours: this.serviceLocation.regular_opening_hours,
         holiday_opening_hours: this.serviceLocation.holiday_opening_hours,
         image_file_id: null,
-      });
-      this.loading = false;
+      })
+      this.loading = false
     },
     async onSubmit() {
       await this.form.put(
         `/service-locations/${this.serviceLocation.id}`,
         (config, data) => {
           // Remove any unchanged values.
-          if (data.name === (this.serviceLocation.name || "")) {
-            delete data.name;
+          if (data.name === (this.serviceLocation.name || '')) {
+            delete data.name
           }
           if (
             JSON.stringify(data.regular_opening_hours) ===
             JSON.stringify(this.serviceLocation.regular_opening_hours)
           ) {
-            delete data.regular_opening_hours;
+            delete data.regular_opening_hours
           }
           if (
             JSON.stringify(data.holiday_opening_hours) ===
             JSON.stringify(this.serviceLocation.holiday_opening_hours)
           ) {
-            delete data.holiday_opening_hours;
+            delete data.holiday_opening_hours
           }
           // Remove the logo from the request if null, or delete if false.
           if (data.image_file_id === null) {
-            delete data.image_file_id;
+            delete data.image_file_id
           } else if (data.image_file_id === false) {
-            data.image_file_id = null;
+            data.image_file_id = null
           }
         }
-      );
+      )
 
       this.$router.push({
-        name: "service-locations-updated",
+        name: 'service-locations-updated',
         params: { serviceLocation: this.serviceLocation.id },
-      });
+      })
     },
   },
   created() {
-    this.fetchServiceLocation();
+    this.fetchServiceLocation()
   },
-};
+}
 </script>

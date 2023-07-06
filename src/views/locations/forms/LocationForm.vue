@@ -118,16 +118,16 @@
 </template>
 
 <script>
-import countries from "@/storage/countries";
-import CkImageInput from "@/components/Ck/CkImageInput";
+import countries from '@/storage/countries'
+import CkImageInput from '@/components/Ck/CkImageInput'
 
 export default {
-  name: "CreateLocationForm",
+  name: 'CreateLocationForm',
   components: { CkImageInput },
   data() {
     return {
       countries,
-    };
+    }
   },
   props: {
     errors: {
@@ -177,9 +177,9 @@ export default {
   },
   methods: {
     onInput(field, value) {
-      this.$emit(`update:${field}`, value);
-      this.$emit("clear", field);
+      this.$emit(`update:${field}`, value)
+      this.$emit('clear', field)
     },
   },
-};
+}
 </script>

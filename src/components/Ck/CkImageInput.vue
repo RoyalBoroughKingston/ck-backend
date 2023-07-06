@@ -54,10 +54,10 @@
 </template>
 
 <script>
-import Form from "@/classes/Form";
+import Form from '@/classes/Form'
 
 export default {
-  name: "CkImageInput",
+  name: 'CkImageInput',
   props: {
     label: {
       required: true,
@@ -94,57 +94,57 @@ export default {
         mime_type: null,
         file: null,
       }),
-    };
+    }
   },
 
   methods: {
     async onChange($event) {
       // If null, then simply emit null.
       if ($event === null) {
-        this.form.mime_type = null;
-        this.form.file = null;
+        this.form.mime_type = null
+        this.form.file = null
 
-        this.$emit("input", { file_id: null, image: null });
+        this.$emit('input', { file_id: null, image: null })
 
-        return;
+        return
       }
 
       // Destructure the payload with the variables we need.
-      const { mime_type, content } = $event;
+      const { mime_type, content } = $event
 
       /*
        * Reset remove existing flag to false since the user has interacted with
        * the search input.
        */
-      this.removeExisting = false;
+      this.removeExisting = false
 
       // Set the variables in the form.
-      this.form.mime_type = mime_type;
-      this.form.file = content;
+      this.form.mime_type = mime_type
+      this.form.file = content
 
       // Upload the file and retrieve the ID.
       const {
         data: { id },
-      } = await this.form.post("/files");
+      } = await this.form.post('/files')
 
       // Emit the file ID.
-      this.$emit("input", { file_id: id, image: this.form.file });
+      this.$emit('input', { file_id: id, image: this.form.file })
     },
 
     onRemove() {
       // For uploaded file.
       if (this.form.file) {
-        this.$refs.file.$el.value = "";
-        this.form.mime_type = null;
-        this.form.file = null;
-        this.$emit("input", { file_id: null, image: null });
-        return;
+        this.$refs.file.$el.value = ''
+        this.form.mime_type = null
+        this.form.file = null
+        this.$emit('input', { file_id: null, image: null })
+        return
       }
 
       // For existing file.
-      this.removeExisting = true;
-      this.$emit("input", { file_id: false, image: null });
+      this.removeExisting = true
+      this.$emit('input', { file_id: false, image: null })
     },
   },
-};
+}
 </script>

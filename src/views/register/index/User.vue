@@ -92,16 +92,16 @@ export default {
   methods: {
     onInput(field, value) {
       this.$emit(
-        "input",
+        'input',
         Object.assign(this.form, {
           user: {
             ...this.form.user,
             [field]: value,
           },
         })
-      );
-      this.$emit("clear", `user.${field}`);
+      )
+      this.$emit('clear', `user.${field}`)
     },
   },
-};
+}
 </script>

@@ -54,46 +54,46 @@
 </template>
 
 <script>
-import http from "@/http";
-import Form from "@/classes/Form";
-import TaxonomyForm from "@/views/taxonomies/categories/forms/TaxonomyForm";
+import http from '@/http'
+import Form from '@/classes/Form'
+import TaxonomyForm from '@/views/taxonomies/categories/forms/TaxonomyForm'
 
 export default {
-  name: "EditTaxonomyCategory",
+  name: 'EditTaxonomyCategory',
   components: { TaxonomyForm },
   data() {
     return {
       loading: false,
       taxonomy: null,
       form: null,
-    };
+    }
   },
   methods: {
     async fetchTaxonomy() {
-      this.loading = true;
+      this.loading = true
 
       const response = await http.get(
         `/taxonomies/categories/${this.$route.params.taxonomy}`
-      );
-      this.taxonomy = response.data.data;
+      )
+      this.taxonomy = response.data.data
       this.form = new Form({
         parent_id: this.taxonomy.parent_id,
         name: this.taxonomy.name,
         order: this.taxonomy.order,
-      });
+      })
 
-      this.loading = false;
+      this.loading = false
     },
     async onSubmit() {
-      await this.form.put(`/taxonomies/categories/${this.taxonomy.id}`);
-      this.$router.push({ name: "admin-index-taxonomies" });
+      await this.form.put(`/taxonomies/categories/${this.taxonomy.id}`)
+      this.$router.push({ name: 'admin-index-taxonomies' })
     },
     onDelete() {
-      this.$router.push({ name: "admin-index-taxonomies" });
+      this.$router.push({ name: 'admin-index-taxonomies' })
     },
   },
   created() {
-    this.fetchTaxonomy();
+    this.fetchTaxonomy()
   },
-};
+}
 </script>

@@ -74,10 +74,10 @@
 </template>
 
 <script>
-import UserRolesInput from "@/views/users/inputs/UserRolesInput";
+import UserRolesInput from '@/views/users/inputs/UserRolesInput'
 
 export default {
-  name: "UserForm",
+  name: 'UserForm',
   components: { UserRolesInput },
   props: {
     errors: {
@@ -111,9 +111,9 @@ export default {
   },
   methods: {
     onInput(field, value) {
-      this.$emit(`update:${field}`, value);
-      this.$emit("clear", field);
+      this.$emit(`update:${field}`, value)
+      this.$emit('clear', field)
     },
   },
-};
+}
 </script>

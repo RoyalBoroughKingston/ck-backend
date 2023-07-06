@@ -84,10 +84,10 @@
 </template>
 
 <script>
-import CkCarousel from "@/components/Ck/CkCarousel";
+import CkCarousel from '@/components/Ck/CkCarousel'
 
 export default {
-  name: "DetailsTab",
+  name: 'DetailsTab',
 
   components: { CkCarousel },
 
@@ -100,8 +100,8 @@ export default {
 
   computed: {
     imageUrls() {
-      return this.service.gallery_items.map((galleryItem) => galleryItem.url);
+      return this.service.gallery_items.map(galleryItem => galleryItem.url)
     },
   },
-};
+}
 </script>

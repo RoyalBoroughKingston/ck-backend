@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "GovCheckboxes",
-};
+  name: 'GovCheckboxes',
+}
 </script>

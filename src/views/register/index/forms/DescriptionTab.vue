@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import CkOfferingsInput from "@/views/services/inputs/OfferingsInput.vue";
+import CkOfferingsInput from '@/views/services/inputs/OfferingsInput.vue'
 
 export default {
   components: {
@@ -73,5 +73,5 @@ export default {
       required: true,
     },
   },
-};
+}
 </script>

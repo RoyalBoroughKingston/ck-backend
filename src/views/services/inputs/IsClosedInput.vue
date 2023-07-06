@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: "IsClosedInput",
+  name: 'IsClosedInput',
   props: {
     value: {
       required: true,
@@ -47,5 +47,5 @@ export default {
       required: true,
     },
   },
-};
+}
 </script>

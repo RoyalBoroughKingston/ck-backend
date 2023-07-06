@@ -130,7 +130,7 @@
 </template>
 
 <script>
-import CriteriaInput from "@/views/services/inputs/CriteriaInput";
+import CriteriaInput from '@/views/services/inputs/CriteriaInput'
 
 export default {
   components: {
@@ -148,5 +148,5 @@ export default {
       required: true,
     },
   },
-};
+}
 </script>

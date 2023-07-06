@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "GovLink",
+  name: 'GovLink',
   props: {
     to: {
       required: false,
@@ -32,8 +32,8 @@ export default {
   },
   methods: {
     onClick() {
-      this.$emit("click");
+      this.$emit('click')
     },
   },
-};
+}
 </script>

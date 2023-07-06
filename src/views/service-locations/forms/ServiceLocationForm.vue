@@ -287,16 +287,16 @@
 </template>
 
 <script>
-import moment from "moment";
-import countries from "@/storage/countries";
-import DateInput from "@/views/services/inputs/DateInput";
-import TimePeriodInput from "@/views/services/inputs/TimePeriodInput";
-import IsClosedInput from "@/views/services/inputs/IsClosedInput";
-import LocationForm from "@/views/locations/forms/LocationForm";
-import CkImageInput from "@/components/Ck/CkImageInput";
+import moment from 'moment'
+import countries from '@/storage/countries'
+import DateInput from '@/views/services/inputs/DateInput'
+import TimePeriodInput from '@/views/services/inputs/TimePeriodInput'
+import IsClosedInput from '@/views/services/inputs/IsClosedInput'
+import LocationForm from '@/views/locations/forms/LocationForm'
+import CkImageInput from '@/components/Ck/CkImageInput'
 
 export default {
-  name: "ServiceLocationForm",
+  name: 'ServiceLocationForm',
   components: {
     LocationForm,
     DateInput,
@@ -378,241 +378,241 @@ export default {
       locations: [],
       index: 1,
       countries: [
-        { text: "Please select", value: null, disabled: true },
+        { text: 'Please select', value: null, disabled: true },
         ...countries,
       ],
       locationTypes: [
-        { value: "existing", label: "Existing" },
-        { value: "new", label: "New" },
+        { value: 'existing', label: 'Existing' },
+        { value: 'new', label: 'New' },
       ],
       frequencies: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Weekly", value: "weekly" },
-        { text: "Monthly", value: "monthly" },
-        { text: "Fortnightly", value: "fortnightly" },
-        { text: "Nth occurrence of month", value: "nth_occurrence_of_month" },
+        { text: 'Please select', value: null, disabled: true },
+        { text: 'Weekly', value: 'weekly' },
+        { text: 'Monthly', value: 'monthly' },
+        { text: 'Fortnightly', value: 'fortnightly' },
+        { text: 'Nth occurrence of month', value: 'nth_occurrence_of_month' },
       ],
       weekdays: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Monday", value: 1 },
-        { text: "Tuesday", value: 2 },
-        { text: "Wednesday", value: 3 },
-        { text: "Thursday", value: 4 },
-        { text: "Friday", value: 5 },
-        { text: "Saturday", value: 6 },
-        { text: "Sunday", value: 7 },
+        { text: 'Please select', value: null, disabled: true },
+        { text: 'Monday', value: 1 },
+        { text: 'Tuesday', value: 2 },
+        { text: 'Wednesday', value: 3 },
+        { text: 'Thursday', value: 4 },
+        { text: 'Friday', value: 5 },
+        { text: 'Saturday', value: 6 },
+        { text: 'Sunday', value: 7 },
       ],
-      daysInMonth: [{ text: "Please select", value: null, disabled: true }],
+      daysInMonth: [{ text: 'Please select', value: null, disabled: true }],
       occurrences: [
-        { text: "Please select", value: null, disabled: true },
-        { text: "First", value: 1 },
-        { text: "Second", value: 2 },
-        { text: "Third", value: 3 },
-        { text: "Fourth", value: 4 },
-        { text: "Last", value: 5 },
+        { text: 'Please select', value: null, disabled: true },
+        { text: 'First', value: 1 },
+        { text: 'Second', value: 2 },
+        { text: 'Third', value: 3 },
+        { text: 'Fourth', value: 4 },
+        { text: 'Last', value: 5 },
       ],
-    };
+    }
   },
   computed: {
     isCreateForm() {
-      return this.location_type !== undefined;
+      return this.location_type !== undefined
     },
   },
   methods: {
     setDaysInMonth() {
       for (let day = 1; day <= 31; day++) {
-        let text = moment({ year: 2018, month: 0, day }).format("Do");
-        text = day > 28 ? `${text} (or last day of month)` : text;
+        let text = moment({ year: 2018, month: 0, day }).format('Do')
+        text = day > 28 ? `${text} (or last day of month)` : text
 
-        this.daysInMonth.push({ text, value: day });
+        this.daysInMonth.push({ text, value: day })
       }
     },
     cloneRegularOpeningHours() {
-      return this.regular_opening_hours.map((regularOpeningHour) => ({
+      return this.regular_opening_hours.map(regularOpeningHour => ({
         ...regularOpeningHour,
-      }));
+      }))
     },
     cloneHolidayOpeningHours() {
-      return this.holiday_opening_hours.map((holidayOpeningHour) => ({
+      return this.holiday_opening_hours.map(holidayOpeningHour => ({
         ...holidayOpeningHour,
-      }));
+      }))
     },
     onInput({ field, value }) {
-      this.$emit(`update:${field}`, value);
-      this.$emit("clear", field);
+      this.$emit(`update:${field}`, value)
+      this.$emit('clear', field)
     },
     onLocationInput({ field, value }) {
-      this.$emit(`update:${field}`, value);
-      this.$emit("clear-location", field);
+      this.$emit(`update:${field}`, value)
+      this.$emit('clear-location', field)
     },
     onRegularOpeningHourInput({ index, field, value }) {
-      let regularOpeningHours = this.cloneRegularOpeningHours();
-      regularOpeningHours[index][field] = value;
-      this.$emit("update:regular_opening_hours", regularOpeningHours);
-      this.$emit("clear", `regular_opening_hours.${index}.${field}`);
+      let regularOpeningHours = this.cloneRegularOpeningHours()
+      regularOpeningHours[index][field] = value
+      this.$emit('update:regular_opening_hours', regularOpeningHours)
+      this.$emit('clear', `regular_opening_hours.${index}.${field}`)
     },
     onHolidayOpeningHourInput({ index, field, value }) {
-      let holidayOpeningHours = this.cloneHolidayOpeningHours();
-      holidayOpeningHours[index][field] = value;
-      this.$emit("update:holiday_opening_hours", holidayOpeningHours);
-      this.$emit("clear", `holiday_opening_hours.${index}.${field}`);
+      let holidayOpeningHours = this.cloneHolidayOpeningHours()
+      holidayOpeningHours[index][field] = value
+      this.$emit('update:holiday_opening_hours', holidayOpeningHours)
+      this.$emit('clear', `holiday_opening_hours.${index}.${field}`)
     },
     async fetchLocations() {
-      this.loading = true;
-      this.locations = await this.fetchAll("/locations");
-      this.locations = this.locations.map((location) => {
+      this.loading = true
+      this.locations = await this.fetchAll('/locations')
+      this.locations = this.locations.map(location => {
         return {
           text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
           value: location.id,
-        };
-      });
+        }
+      })
       this.locations.unshift({
-        text: "Please select",
+        text: 'Please select',
         value: null,
         disabled: true,
-      });
-      this.loading = false;
+      })
+      this.loading = false
     },
     appendLocation(location) {
       this.locations.push({
         text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
         value: location.id,
-      });
+      })
     },
     onAddRegularOpeningHour() {
-      let regularOpeningHours = this.cloneRegularOpeningHours();
+      let regularOpeningHours = this.cloneRegularOpeningHours()
       regularOpeningHours.push({
         frequency: null,
         weekday: null,
         day_of_month: null,
         occurrence_of_month: null,
-        starts_at: "",
+        starts_at: '',
         opens_at: null,
         closes_at: null,
         index: this.index,
-      });
-      this.$emit("update:regular_opening_hours", regularOpeningHours);
-      this.index++;
+      })
+      this.$emit('update:regular_opening_hours', regularOpeningHours)
+      this.index++
     },
     onAddWeekdays() {
-      let regularOpeningHours = this.cloneRegularOpeningHours();
+      let regularOpeningHours = this.cloneRegularOpeningHours()
 
       for (let i = 1; i <= 5; i++) {
         regularOpeningHours.push({
-          frequency: "weekly",
+          frequency: 'weekly',
           weekday: i,
           day_of_month: null,
           occurrence_of_month: null,
-          starts_at: "",
+          starts_at: '',
           opens_at: null,
           closes_at: null,
           index: this.index,
-        });
-        this.index++;
+        })
+        this.index++
       }
 
-      this.$emit("update:regular_opening_hours", regularOpeningHours);
+      this.$emit('update:regular_opening_hours', regularOpeningHours)
     },
     onAddHolidayOpeningHour() {
-      let holidayOpeningHours = this.cloneHolidayOpeningHours();
+      let holidayOpeningHours = this.cloneHolidayOpeningHours()
       holidayOpeningHours.push({
         is_closed: false,
-        starts_at: "",
-        ends_at: "",
+        starts_at: '',
+        ends_at: '',
         opens_at: null,
         closes_at: null,
         index: this.index,
-      });
-      this.$emit("update:holiday_opening_hours", holidayOpeningHours);
-      this.index++;
+      })
+      this.$emit('update:holiday_opening_hours', holidayOpeningHours)
+      this.index++
     },
     onDeleteRegularOpeningHour(index) {
-      let regularOpeningHours = this.cloneRegularOpeningHours();
-      regularOpeningHours.splice(index, 1);
-      this.$emit("update:regular_opening_hours", regularOpeningHours);
+      let regularOpeningHours = this.cloneRegularOpeningHours()
+      regularOpeningHours.splice(index, 1)
+      this.$emit('update:regular_opening_hours', regularOpeningHours)
     },
     onDeleteHolidayOpeningHour(index) {
-      let holidayOpeningHours = this.cloneHolidayOpeningHours();
-      holidayOpeningHours.splice(index, 1);
-      this.$emit("update:holiday_opening_hours", holidayOpeningHours);
+      let holidayOpeningHours = this.cloneHolidayOpeningHours()
+      holidayOpeningHours.splice(index, 1)
+      this.$emit('update:holiday_opening_hours', holidayOpeningHours)
     },
   },
   created() {
-    this.setDaysInMonth();
-    this.fetchLocations();
-    this.$root.$on("location-created", this.appendLocation);
+    this.setDaysInMonth()
+    this.fetchLocations()
+    this.$root.$on('location-created', this.appendLocation)
   },
   watch: {
     location_type(newLocationType) {
-      if (newLocationType === "new") {
-        this.$emit("update:location_id", null);
+      if (newLocationType === 'new') {
+        this.$emit('update:location_id', null)
       }
 
-      if (newLocationType === "existing") {
-        this.$emit("update:address_line_1", "");
-        this.$emit("update:address_line_2", "");
-        this.$emit("update:address_line_3", "");
-        this.$emit("update:city", "");
-        this.$emit("update:county", "");
-        this.$emit("update:postcode", "");
-        this.$emit("update:country", "United Kingdom");
-        this.$emit("update:has_wheelchair_access", false);
-        this.$emit("update:has_induction_loop", false);
+      if (newLocationType === 'existing') {
+        this.$emit('update:address_line_1', '')
+        this.$emit('update:address_line_2', '')
+        this.$emit('update:address_line_3', '')
+        this.$emit('update:city', '')
+        this.$emit('update:county', '')
+        this.$emit('update:postcode', '')
+        this.$emit('update:country', 'United Kingdom')
+        this.$emit('update:has_wheelchair_access', false)
+        this.$emit('update:has_induction_loop', false)
       }
     },
     regular_opening_hours(newValue, oldValue) {
       if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
-        return;
+        return
       }
 
-      let regularOpeningHours = newValue.map((regularOpeningHour) => ({
+      let regularOpeningHours = newValue.map(regularOpeningHour => ({
         ...regularOpeningHour,
-      }));
+      }))
 
       for (let regularOpeningHour of regularOpeningHours) {
         switch (regularOpeningHour.frequency) {
-          case "weekly":
-            regularOpeningHour.day_of_month = null;
-            regularOpeningHour.occurrence_of_month = null;
-            regularOpeningHour.starts_at = null;
-            break;
-          case "monthly":
-            regularOpeningHour.weekday = null;
-            regularOpeningHour.occurrence_of_month = null;
-            regularOpeningHour.starts_at = null;
-            break;
-          case "fortnightly":
-            regularOpeningHour.weekday = null;
-            regularOpeningHour.day_of_month = null;
-            regularOpeningHour.occurrence_of_month = null;
-            break;
-          case "nth_occurrence_of_month":
-            regularOpeningHour.day_of_month = null;
-            regularOpeningHour.starts_at = null;
-            break;
+          case 'weekly':
+            regularOpeningHour.day_of_month = null
+            regularOpeningHour.occurrence_of_month = null
+            regularOpeningHour.starts_at = null
+            break
+          case 'monthly':
+            regularOpeningHour.weekday = null
+            regularOpeningHour.occurrence_of_month = null
+            regularOpeningHour.starts_at = null
+            break
+          case 'fortnightly':
+            regularOpeningHour.weekday = null
+            regularOpeningHour.day_of_month = null
+            regularOpeningHour.occurrence_of_month = null
+            break
+          case 'nth_occurrence_of_month':
+            regularOpeningHour.day_of_month = null
+            regularOpeningHour.starts_at = null
+            break
         }
       }
 
-      this.$emit("update:regular_opening_hours", regularOpeningHours);
+      this.$emit('update:regular_opening_hours', regularOpeningHours)
     },
     holiday_opening_hours(newValue, oldValue) {
       if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
-        return;
+        return
       }
 
-      let holidayOpeningHours = newValue.map((holidayOpeningHour) => ({
+      let holidayOpeningHours = newValue.map(holidayOpeningHour => ({
         ...holidayOpeningHour,
-      }));
+      }))
 
       for (let holidayOpeningHour of holidayOpeningHours) {
         if (holidayOpeningHour.is_closed) {
-          holidayOpeningHour.opens_at = "00:00:00";
-          holidayOpeningHour.closes_at = "00:00:00";
+          holidayOpeningHour.opens_at = '00:00:00'
+          holidayOpeningHour.closes_at = '00:00:00'
         }
       }
 
-      this.$emit("update:holiday_opening_hours", holidayOpeningHours);
+      this.$emit('update:holiday_opening_hours', holidayOpeningHours)
     },
   },
-};
+}
 </script>

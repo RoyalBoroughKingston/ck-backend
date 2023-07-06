@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: "GovSelect",
+  name: 'GovSelect',
   props: {
     value: {
       required: true,
@@ -48,11 +48,11 @@ export default {
   },
   computed: {
     ariaDescribedBy() {
-      return `${this.name}-hint`;
+      return `${this.name}-hint`
     },
     computedClasses() {
-      return this.width ? `govuk-input--width-${this.width}` : null;
+      return this.width ? `govuk-input--width-${this.width}` : null
     },
   },
-};
+}
 </script>

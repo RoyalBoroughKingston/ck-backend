@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import Form from "@/classes/Form";
-import StopWordsForm from "@/views/stop-words/forms/StopWordsForm";
+import Form from '@/classes/Form'
+import StopWordsForm from '@/views/stop-words/forms/StopWordsForm'
 
 export default {
-  name: "EditStopWords",
+  name: 'EditStopWords',
 
   components: { StopWordsForm },
 
@@ -57,45 +57,45 @@ export default {
       form: new Form({
         stop_words: null,
       }),
-    };
+    }
   },
 
   methods: {
     async onSubmit() {
-      const content = this.base64Decode(this.file);
-      const stopWords = this.parseCsv(content);
+      const content = this.base64Decode(this.file)
+      const stopWords = this.parseCsv(content)
 
-      this.form.stop_words = stopWords;
+      this.form.stop_words = stopWords
 
-      await this.form.put("/stop-words");
+      await this.form.put('/stop-words')
 
-      this.$router.push({ name: "admin-index-search-engine-stop-words" });
+      this.$router.push({ name: 'admin-index-search-engine-stop-words' })
     },
 
     /**
      * @link https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings/30106551
      */
     base64Decode(string) {
-      string = string.split(",").pop();
+      string = string.split(',').pop()
       string = decodeURIComponent(
         atob(string)
-          .split("")
+          .split('')
           .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
           })
-          .join("")
-      );
+          .join('')
+      )
 
-      return string;
+      return string
     },
 
     parseCsv(content) {
       const stopWords = content
         .split(/\n/)
-        .filter((stopWord) => stopWord.length > 0);
+        .filter(stopWord => stopWord.length > 0)
 
-      return stopWords;
+      return stopWords
     },
   },
-};
+}
 </script>

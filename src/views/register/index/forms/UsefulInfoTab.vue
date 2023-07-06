@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import UsefulInfosInput from "@/views/services/inputs/UsefulInfosInput";
+import UsefulInfosInput from '@/views/services/inputs/UsefulInfosInput'
 
 export default {
   components: {
@@ -38,5 +38,5 @@ export default {
       required: true,
     },
   },
-};
+}
 </script>

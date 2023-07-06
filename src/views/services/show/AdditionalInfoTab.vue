@@ -15,12 +15,12 @@
         </gov-table-row>
         <gov-table-row>
           <gov-table-header scope="row" top>Testimonial</gov-table-header>
-          <gov-table-cell>{{ service.testimonial || "-" }}</gov-table-cell>
+          <gov-table-cell>{{ service.testimonial || '-' }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
           <gov-table-header scope="row" top>Video URL</gov-table-header>
           <gov-table-cell break>{{
-            service.video_embed || "-"
+            service.video_embed || '-'
           }}</gov-table-cell>
         </gov-table-row>
       </template>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: "AdditionalInfoTab",
+  name: 'AdditionalInfoTab',
   props: {
     service: {
       type: Object,
@@ -39,27 +39,27 @@ export default {
   },
   computed: {
     waitTime() {
-      let waitTime = `Not applicable for this ${this.service.type}`;
+      let waitTime = `Not applicable for this ${this.service.type}`
       switch (this.service.wait_time) {
-        case "one_week":
-        case "two_weeks":
-        case "three_weeks":
+        case 'one_week':
+        case 'two_weeks':
+        case 'three_weeks':
           waitTime =
             this.service.wait_time.charAt(0).toUpperCase() +
-            this.service.wait_time.replace("_", " ").substr(1);
-          break;
-        case "month":
-          waitTime = "One month";
-          break;
-        case "longer":
-          waitTime = "Longer than one month";
-          break;
+            this.service.wait_time.replace('_', ' ').substr(1)
+          break
+        case 'month':
+          waitTime = 'One month'
+          break
+        case 'longer':
+          waitTime = 'Longer than one month'
+          break
       }
-      return waitTime;
+      return waitTime
     },
     isFree() {
-      return this.service.is_free ? "Yes" : "No";
+      return this.service.is_free ? 'Yes' : 'No'
     },
   },
-};
+}
 </script>

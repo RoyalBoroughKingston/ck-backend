@@ -3,7 +3,7 @@
     <template slot="body">
       <gov-table-row>
         <gov-table-header scope="row" top>Name</gov-table-header>
-        <gov-table-cell>{{ serviceLocation.name || "-" }}</gov-table-cell>
+        <gov-table-cell>{{ serviceLocation.name || '-' }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>
@@ -16,14 +16,14 @@
       <gov-table-row>
         <gov-table-header scope="row" top>Address line 2</gov-table-header>
         <gov-table-cell>{{
-          serviceLocation.location.address_line_2 || "-"
+          serviceLocation.location.address_line_2 || '-'
         }}</gov-table-cell>
       </gov-table-row>
 
       <gov-table-row>
         <gov-table-header scope="row" top>Address line 3</gov-table-header>
         <gov-table-cell>{{
-          serviceLocation.location.address_line_3 || "-"
+          serviceLocation.location.address_line_3 || '-'
         }}</gov-table-cell>
       </gov-table-row>
 
@@ -54,12 +54,12 @@
             <li>
               Wheelchair access:
               {{
-                serviceLocation.location.has_wheelchair_access ? "Yes" : "No"
+                serviceLocation.location.has_wheelchair_access ? 'Yes' : 'No'
               }}
             </li>
             <li>
               Induction loop system:
-              {{ serviceLocation.location.has_induction_loop ? "Yes" : "No" }}
+              {{ serviceLocation.location.has_induction_loop ? 'Yes' : 'No' }}
             </li>
           </gov-list>
         </gov-table-cell>
@@ -148,10 +148,10 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment'
 
 export default {
-  name: "ServiceLocationDetails",
+  name: 'ServiceLocationDetails',
   props: {
     serviceLocation: {
       required: true,
@@ -161,64 +161,64 @@ export default {
   methods: {
     formatRegularOpeningHour(openingHour) {
       switch (openingHour.frequency) {
-        case "weekly":
+        case 'weekly':
           return `${this.weekday(openingHour.weekday)} - ${this.timePeriod(
             openingHour
-          )}`;
-        case "monthly":
+          )}`
+        case 'monthly':
           return `${this.dayOfMonth(
             openingHour.day_of_month
-          )} of each month - ${this.timePeriod(openingHour)}`;
-        case "fortnightly":
+          )} of each month - ${this.timePeriod(openingHour)}`
+        case 'fortnightly':
           return `Every other ${this.weekdayFromDate(
             openingHour.starts_at
           )} (${this.fortnightWeek(openingHour.starts_at)}) - ${this.timePeriod(
             openingHour
-          )}`;
-        case "nth_occurrence_of_month":
+          )}`
+        case 'nth_occurrence_of_month':
           return `${this.dayOfMonth(
             openingHour.occurrence_of_month
-          )} ${this.weekday(openingHour.weekday)} of each month`;
+          )} ${this.weekday(openingHour.weekday)} of each month`
       }
     },
     formatHolidayOpeningHour(openingHour) {
-      const open = openingHour.is_closed ? "Closed" : "Open";
+      const open = openingHour.is_closed ? 'Closed' : 'Open'
       const dateRange = `${this.formatDate(
         openingHour.starts_at
-      )} to ${this.formatDate(openingHour.ends_at)}`;
-      let string = `${open} from ${dateRange}`;
+      )} to ${this.formatDate(openingHour.ends_at)}`
+      let string = `${open} from ${dateRange}`
 
       if (!openingHour.is_closed) {
-        string += ` - ${this.timePeriod(openingHour)}`;
+        string += ` - ${this.timePeriod(openingHour)}`
       }
 
-      return string;
+      return string
     },
     timePeriod(openingHour) {
       return `${this.formatTime(openingHour.opens_at)} to ${this.formatTime(
         openingHour.closes_at
-      )}`;
+      )}`
     },
     weekday(weekday) {
-      return moment(weekday, "E").format("dddd");
+      return moment(weekday, 'E').format('dddd')
     },
     weekdayFromDate(date) {
-      return moment(date, moment.HTML5_FMT.DATE).format("dddd");
+      return moment(date, moment.HTML5_FMT.DATE).format('dddd')
     },
     dayOfMonth(dayOfMonth) {
-      return moment(dayOfMonth, "D").format("Do");
+      return moment(dayOfMonth, 'D').format('Do')
     },
     fortnightWeek(date) {
-      const daysInFortnight = 14;
-      const thisSunday = moment().day(7);
+      const daysInFortnight = 14
+      const thisSunday = moment().day(7)
       const diffInDays = moment(date, moment.HTML5_FMT.DATE).diff(
         thisSunday,
-        "days"
-      );
-      const remainingDays = Math.abs(diffInDays % daysInFortnight);
+        'days'
+      )
+      const remainingDays = Math.abs(diffInDays % daysInFortnight)
 
-      return remainingDays > 6 ? "next calendar week" : "this calendar week";
+      return remainingDays > 6 ? 'next calendar week' : 'this calendar week'
     },
   },
-};
+}
 </script>

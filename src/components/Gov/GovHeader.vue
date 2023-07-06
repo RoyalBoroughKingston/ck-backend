@@ -84,7 +84,7 @@
 
 <script>
 export default {
-  name: "GovHeader",
+  name: 'GovHeader',
   props: {
     serviceName: {
       type: String,
@@ -94,24 +94,24 @@ export default {
       type: Array,
       required: false,
       default() {
-        return [];
+        return []
       },
     },
   },
   data() {
     return {
       navExpanded: false,
-    };
+    }
   },
   methods: {
     itemActiveClass(item) {
-      return item.active ? "govuk-header__navigation-item--active" : null;
+      return item.active ? 'govuk-header__navigation-item--active' : null
     },
     onToggleMenu() {
-      this.navExpanded = !this.navExpanded;
+      this.navExpanded = !this.navExpanded
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

@@ -69,12 +69,12 @@ export default {
   data() {
     return {
       typeOptions: [
-        { text: "It is a Service", value: "service" },
-        { text: "It is an Activity", value: "activity" },
-        { text: "It is a Club", value: "club" },
-        { text: "It is a Group", value: "group" },
+        { text: 'It is a Service', value: 'service' },
+        { text: 'It is an Activity', value: 'activity' },
+        { text: 'It is a Club', value: 'club' },
+        { text: 'It is a Group', value: 'group' },
       ],
-    };
+    }
   },
-};
+}
 </script>

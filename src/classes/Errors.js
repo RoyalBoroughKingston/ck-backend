@@ -3,7 +3,7 @@ export default class Errors {
    * Create a new Errors instance.
    */
   constructor() {
-    this.errors = {};
+    this.errors = {}
   }
 
   /**
@@ -13,15 +13,15 @@ export default class Errors {
    * @returns {boolean}
    */
   has(field) {
-    field = field.replace(/\./g, "_");
-    return this.errors.hasOwnProperty(field);
+    field = field.replace(/\./g, '_')
+    return this.errors.hasOwnProperty(field)
   }
 
   /**
    * @param {string|null} field
    */
   state(field) {
-    return this.has(field) ? "invalid" : null;
+    return this.has(field) ? 'invalid' : null
   }
 
   /**
@@ -30,7 +30,7 @@ export default class Errors {
    * @returns {boolean}
    */
   any() {
-    return Object.keys(this.errors).length > 0;
+    return Object.keys(this.errors).length > 0
   }
 
   /**
@@ -39,7 +39,7 @@ export default class Errors {
    * @returns {Object}
    */
   all() {
-    return this.errors;
+    return this.errors
   }
 
   /**
@@ -49,16 +49,16 @@ export default class Errors {
    * @returns {string|null}
    */
   get(fields) {
-    fields = Array.isArray(fields) ? fields : [fields];
+    fields = Array.isArray(fields) ? fields : [fields]
 
     for (let field of fields) {
-      field = field.replace(/\./g, "_");
+      field = field.replace(/\./g, '_')
       if (this.errors[field]) {
-        return this.errors[field][0];
+        return this.errors[field][0]
       }
     }
 
-    return null;
+    return null
   }
 
   /**
@@ -67,17 +67,17 @@ export default class Errors {
    * @param {object} errors
    */
   record(errors) {
-    let keys = Object.keys(errors);
+    let keys = Object.keys(errors)
 
-    keys.forEach((key) => {
-      if (key.includes(".")) {
-        let new_key = key.replace(/\./g, "_");
-        errors[new_key] = errors[key];
-        delete errors[key];
+    keys.forEach(key => {
+      if (key.includes('.')) {
+        let new_key = key.replace(/\./g, '_')
+        errors[new_key] = errors[key]
+        delete errors[key]
       }
-    });
+    })
 
-    this.errors = errors;
+    this.errors = errors
   }
 
   /**
@@ -87,12 +87,12 @@ export default class Errors {
    */
   clear(field) {
     if (field) {
-      field = field.replace(/\./g, "_");
-      delete this.errors[field];
+      field = field.replace(/\./g, '_')
+      delete this.errors[field]
 
-      return;
+      return
     }
 
-    this.errors = {};
+    this.errors = {}
   }
 }

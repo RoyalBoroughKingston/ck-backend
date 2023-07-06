@@ -13,13 +13,13 @@
 
 <script>
 export default {
-  name: "GovErrorSummary",
+  name: 'GovErrorSummary',
   props: {
     title: {
       required: false,
       type: String,
-      default: "",
+      default: '',
     },
   },
-};
+}
 </script>

@@ -6,20 +6,20 @@
 
 <script>
 export default {
-  name: "CkLoader",
+  name: 'CkLoader',
   data() {
     return {
       dots: 0,
       interval: null,
-    };
+    }
   },
   mounted() {
     this.interval = setInterval(() => {
-      this.dots === 3 ? (this.dots = 0) : this.dots++;
-    }, 300);
+      this.dots === 3 ? (this.dots = 0) : this.dots++
+    }, 300)
   },
   beforeDestroy() {
-    clearInterval(this.interval);
+    clearInterval(this.interval)
   },
-};
+}
 </script>

@@ -10,17 +10,17 @@
 
 <script>
 export default {
-  name: "ListTaxonomies",
+  name: 'ListTaxonomies',
   data() {
     return {
       tabs: [
-        { heading: "Categories", to: { name: "admin-index-taxonomies" } },
+        { heading: 'Categories', to: { name: 'admin-index-taxonomies' } },
         {
-          heading: "Organisations",
-          to: { name: "admin-index-taxonomies-organisations" },
+          heading: 'Organisations',
+          to: { name: 'admin-index-taxonomies-organisations' },
         },
       ],
-    };
+    }
   },
-};
+}
 </script>

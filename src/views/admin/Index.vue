@@ -21,19 +21,19 @@
 
 <script>
 export default {
-  name: "Admin",
+  name: 'Admin',
   data() {
     return {
       tabs: [
-        { heading: "Audit Logs", to: { name: "admin-index" } },
-        { heading: "Notifications", to: { name: "admin-index-notifications" } },
-        { heading: "Feedback", to: { name: "admin-index-feedback" } },
-        { heading: "Taxonomies", to: { name: "admin-index-taxonomies" } },
-        { heading: "Collections", to: { name: "admin-index-collections" } },
-        { heading: "Search engine", to: { name: "admin-index-search-engine" } },
-        { heading: "CMS", to: { name: "admin-index-cms" } },
+        { heading: 'Audit Logs', to: { name: 'admin-index' } },
+        { heading: 'Notifications', to: { name: 'admin-index-notifications' } },
+        { heading: 'Feedback', to: { name: 'admin-index-feedback' } },
+        { heading: 'Taxonomies', to: { name: 'admin-index-taxonomies' } },
+        { heading: 'Collections', to: { name: 'admin-index-collections' } },
+        { heading: 'Search engine', to: { name: 'admin-index-search-engine' } },
+        { heading: 'CMS', to: { name: 'admin-index-cms' } },
       ],
-    };
+    }
   },
-};
+}
 </script>

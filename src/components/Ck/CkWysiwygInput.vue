@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import CkCharacterCount from "@/components/Ck/CkCharacterCount.vue";
-import CkCharacterCountGroup from "@/components/Ck/CkCharacterCountGroup.vue";
+import CkCharacterCount from '@/components/Ck/CkCharacterCount.vue'
+import CkCharacterCountGroup from '@/components/Ck/CkCharacterCountGroup.vue'
 import {
   Blockquote,
   Heading,
@@ -42,10 +42,10 @@ import {
   Bold,
   Italic,
   Link,
-} from "tiptap-extensions";
+} from 'tiptap-extensions'
 
 export default {
-  name: "CkWysiwygInput",
+  name: 'CkWysiwygInput',
   components: { CkCharacterCount, CkCharacterCountGroup },
   props: {
     value: {
@@ -89,19 +89,19 @@ export default {
           new Bold(),
           new Italic(),
           new Link(),
-        ];
+        ]
       },
     },
   },
   data() {
     return {
       count: 0,
-    };
+    }
   },
   methods: {
     onCount(count) {
-      this.count = count;
+      this.count = count
     },
   },
-};
+}
 </script>

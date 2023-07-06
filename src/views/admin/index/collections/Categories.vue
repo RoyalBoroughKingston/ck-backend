@@ -61,41 +61,41 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "ListCollectionCategories",
+  name: 'ListCollectionCategories',
   data() {
     return {
       loading: false,
       collections: [],
-    };
+    }
   },
   methods: {
     async fetchCollections() {
-      this.loading = true;
-      this.collections = await this.fetchAll("/collections/categories");
-      this.loading = false;
+      this.loading = true
+      this.collections = await this.fetchAll('/collections/categories')
+      this.loading = false
     },
     async onMoveUp(collection) {
-      this.loading = true;
+      this.loading = true
 
       await http.put(`/collections/categories/${collection.id}`, {
         ...this.parseCollectionForUpdate(collection),
         order: collection.order - 1,
-      });
+      })
 
-      this.fetchCollections();
+      this.fetchCollections()
     },
     async onMoveDown(collection) {
-      this.loading = true;
+      this.loading = true
 
       await http.put(`/collections/categories/${collection.id}`, {
         ...this.parseCollectionForUpdate(collection),
         order: collection.order + 1,
-      });
+      })
 
-      this.fetchCollections();
+      this.fetchCollections()
     },
     parseCollectionForUpdate(collection) {
       return {
@@ -107,13 +107,13 @@ export default {
         homepage: collection.homepage,
         sideboxes: collection.sideboxes,
         category_taxonomies: collection.category_taxonomies.map(
-          (taxonomy) => taxonomy.id
+          taxonomy => taxonomy.id
         ),
-      };
+      }
     },
   },
   created() {
-    this.fetchCollections();
+    this.fetchCollections()
   },
-};
+}
 </script>

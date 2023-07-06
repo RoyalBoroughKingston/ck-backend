@@ -73,11 +73,11 @@
 </template>
 
 <script>
-import DetailsTab from "@/views/register/index/forms/DetailsTab";
-import DescriptionTab from "@/views/register/index/forms/DescriptionTab";
-import AdditionalInfoTab from "@/views/register/index/forms/AdditionalInfoTab";
-import UsefulInfoTab from "@/views/register/index/forms/UsefulInfoTab";
-import WhoForTab from "@/views/register/index/forms/WhoForTab";
+import DetailsTab from '@/views/register/index/forms/DetailsTab'
+import DescriptionTab from '@/views/register/index/forms/DescriptionTab'
+import AdditionalInfoTab from '@/views/register/index/forms/AdditionalInfoTab'
+import UsefulInfoTab from '@/views/register/index/forms/UsefulInfoTab'
+import WhoForTab from '@/views/register/index/forms/WhoForTab'
 
 export default {
   components: {
@@ -103,52 +103,52 @@ export default {
   data() {
     return {
       tabs: [
-        { id: "details", heading: "Details", active: true },
-        { id: "additional-info", heading: "Additional info", active: false },
-        { id: "useful-info", heading: "Good to know", active: false },
-        { id: "who-for", heading: "Who is it for?", active: false },
-        { id: "description", heading: "Description", active: false },
+        { id: 'details', heading: 'Details', active: true },
+        { id: 'additional-info', heading: 'Additional info', active: false },
+        { id: 'useful-info', heading: 'Good to know', active: false },
+        { id: 'who-for', heading: 'Who is it for?', active: false },
+        { id: 'description', heading: 'Description', active: false },
       ],
-    };
+    }
   },
 
   methods: {
     onInput(field, value) {
       this.$emit(
-        "input",
+        'input',
         Object.assign(this.form, {
           service: {
             ...this.form.service,
             [field]: value,
           },
         })
-      );
-      this.$emit("clear", `service.${field}`);
+      )
+      this.$emit('clear', `service.${field}`)
     },
 
     onTabChange({ index }) {
-      this.tabs.forEach((tab) => (tab.active = false));
-      const tabId = this.tabs[index].id;
-      this.tabs.find((tab) => tab.id === tabId).active = true;
+      this.tabs.forEach(tab => (tab.active = false))
+      const tabId = this.tabs[index].id
+      this.tabs.find(tab => tab.id === tabId).active = true
     },
 
     onNext() {
-      const currentTabIndex = this.tabs.findIndex((tab) => tab.active === true);
-      this.tabs.forEach((tab) => (tab.active = false));
-      const newTabId = this.tabs[currentTabIndex + 1].id;
-      this.tabs.find((tab) => tab.id === newTabId).active = true;
-      this.scrollToTop();
+      const currentTabIndex = this.tabs.findIndex(tab => tab.active === true)
+      this.tabs.forEach(tab => (tab.active = false))
+      const newTabId = this.tabs[currentTabIndex + 1].id
+      this.tabs.find(tab => tab.id === newTabId).active = true
+      this.scrollToTop()
     },
 
     scrollToTop() {
-      document.getElementById("main-content").scrollIntoView();
+      document.getElementById('main-content').scrollIntoView()
     },
 
     isTabActive(id) {
-      const tab = this.tabs.find((tab) => tab.id === id);
+      const tab = this.tabs.find(tab => tab.id === id)
 
-      return tab === undefined ? false : tab.active;
+      return tab === undefined ? false : tab.active
     },
   },
-};
+}
 </script>

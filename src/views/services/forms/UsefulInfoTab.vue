@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import UsefulInfosInput from "@/views/services/inputs/UsefulInfosInput";
+import UsefulInfosInput from '@/views/services/inputs/UsefulInfosInput'
 
 export default {
-  name: "UsefulInfoTab",
+  name: 'UsefulInfoTab',
   components: { UsefulInfosInput },
   props: {
     errors: {
@@ -38,5 +38,5 @@ export default {
       required: true,
     },
   },
-};
+}
 </script>

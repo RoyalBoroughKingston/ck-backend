@@ -15,11 +15,11 @@
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Phone number</gov-table-header>
-        <gov-table-cell>{{ organisation.phone || "-" }}</gov-table-cell>
+        <gov-table-cell>{{ organisation.phone || '-' }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Email</gov-table-header>
-        <gov-table-cell>{{ organisation.email || "-" }}</gov-table-cell>
+        <gov-table-cell>{{ organisation.email || '-' }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
         <gov-table-header top scope="row">Logo</gov-table-header>
@@ -41,12 +41,12 @@
 
 <script>
 export default {
-  name: "CkOrganisationDetails",
+  name: 'CkOrganisationDetails',
   props: {
     organisation: {
       type: Object,
       required: true,
     },
   },
-};
+}
 </script>

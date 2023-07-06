@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "GovHint",
+  name: 'GovHint',
   props: {
     for: {
       type: String,
@@ -14,8 +14,8 @@ export default {
   },
   computed: {
     id() {
-      return this.for ? [this.for, "hint"].join("-") : null;
+      return this.for ? [this.for, 'hint'].join('-') : null
     },
   },
-};
+}
 </script>

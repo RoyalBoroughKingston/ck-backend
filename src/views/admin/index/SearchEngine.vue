@@ -10,20 +10,20 @@
 
 <script>
 export default {
-  name: "ListSearchEngine",
+  name: 'ListSearchEngine',
   data() {
     return {
       tabs: [
         {
-          heading: "Thesaurus",
-          to: { name: "admin-index-search-engine" },
+          heading: 'Thesaurus',
+          to: { name: 'admin-index-search-engine' },
         },
         {
-          heading: "Stop words",
-          to: { name: "admin-index-search-engine-stop-words" },
+          heading: 'Stop words',
+          to: { name: 'admin-index-search-engine-stop-words' },
         },
       ],
-    };
+    }
   },
-};
+}
 </script>

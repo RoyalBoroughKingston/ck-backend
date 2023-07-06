@@ -31,12 +31,12 @@
 
 <script>
 export default {
-  name: "LocationsTab",
+  name: 'LocationsTab',
   props: {
     service: {
       type: Object,
       required: true,
     },
   },
-};
+}
 </script>

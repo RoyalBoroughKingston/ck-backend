@@ -27,8 +27,8 @@
     <ck-textarea-input
       :value="subtitle"
       @input="
-        $emit('update:subtitle', $event);
-        $emit('clear', 'subtitle');
+        $emit('update:subtitle', $event)
+        $emit('clear', 'subtitle')
       "
       id="subtitle"
       label="Subtitle"
@@ -40,8 +40,8 @@
     <ck-textarea-input
       :value="intro"
       @input="
-        $emit('update:intro', $event);
-        $emit('clear', 'intro');
+        $emit('update:intro', $event)
+        $emit('clear', 'intro')
       "
       id="intro"
       label="Description of category"
@@ -96,13 +96,13 @@
 </template>
 
 <script>
-import CkImageInput from "@/components/Ck/CkImageInput";
-import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
-import CkSideboxesInput from "@/views/collections/inputs/SideboxesInput";
-import CollectionHomepageInput from "@/views/collections/inputs/CollectionHomepageInput";
+import CkImageInput from '@/components/Ck/CkImageInput'
+import CategoryTaxonomyInput from '@/views/services/inputs/CategoryTaxonomyInput'
+import CkSideboxesInput from '@/views/collections/inputs/SideboxesInput'
+import CollectionHomepageInput from '@/views/collections/inputs/CollectionHomepageInput'
 
 export default {
-  name: "CollectionForm",
+  name: 'CollectionForm',
   components: {
     CkImageInput,
     CategoryTaxonomyInput,
@@ -150,18 +150,18 @@ export default {
   },
   methods: {
     onInput(field, value) {
-      this.$emit(`update:${field}`, value);
-      this.$emit("clear", field);
+      this.$emit(`update:${field}`, value)
+      this.$emit('clear', field)
     },
     onNameInput(name) {
-      this.$emit("update:name", name);
-      this.$emit("clear", "name");
+      this.$emit('update:name', name)
+      this.$emit('clear', 'name')
 
       if (this.auth.isGlobalAdmin || this.isNew) {
-        this.$emit("update:slug", this.slugify(name));
-        this.$emit("clear", "slug");
+        this.$emit('update:slug', this.slugify(name))
+        this.$emit('clear', 'slug')
       }
     },
   },
-};
+}
 </script>

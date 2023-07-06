@@ -55,28 +55,28 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "ListTaxonomyOrganisations",
+  name: 'ListTaxonomyOrganisations',
   data() {
     return {
       loading: false,
       taxonomies: [],
-    };
+    }
   },
   methods: {
     async fetchTaxonomies() {
-      this.loading = true;
+      this.loading = true
 
-      const { data } = await http.get("/taxonomies/organisations");
-      this.taxonomies = data.data;
+      const { data } = await http.get('/taxonomies/organisations')
+      this.taxonomies = data.data
 
-      this.loading = false;
+      this.loading = false
     },
   },
   created() {
-    this.fetchTaxonomies();
+    this.fetchTaxonomies()
   },
-};
+}
 </script>

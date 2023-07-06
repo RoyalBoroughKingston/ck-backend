@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: "CkCharacterCountGroup",
-};
+  name: 'CkCharacterCountGroup',
+}
 </script>
 
 <style lang="scss">

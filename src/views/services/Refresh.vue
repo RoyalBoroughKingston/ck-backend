@@ -68,11 +68,11 @@
 </template>
 
 <script>
-import Form from "@/classes/Form";
-import http from "@/http";
+import Form from '@/classes/Form'
+import http from '@/http'
 
 export default {
-  name: "RefreshService",
+  name: 'RefreshService',
 
   data() {
     return {
@@ -80,38 +80,36 @@ export default {
       loading: false,
       form: null,
       refreshed: false,
-    };
+    }
   },
 
   computed: {
     token() {
-      return this.$route.query.token || "";
+      return this.$route.query.token || ''
     },
   },
 
   created() {
-    this.fetchService();
+    this.fetchService()
   },
 
   methods: {
     async fetchService() {
-      this.loading = true;
+      this.loading = true
 
-      const response = await http.get(
-        `/services/${this.$route.params.service}`
-      );
-      this.service = response.data.data;
+      const response = await http.get(`/services/${this.$route.params.service}`)
+      this.service = response.data.data
       this.form = new Form({
         token: this.token,
-      });
+      })
 
-      this.loading = false;
+      this.loading = false
     },
 
     async onRefresh() {
-      await this.form.put(`/services/${this.$route.params.service}/refresh`);
-      this.refreshed = true;
+      await this.form.put(`/services/${this.$route.params.service}/refresh`)
+      this.refreshed = true
     },
   },
-};
+}
 </script>

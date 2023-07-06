@@ -72,10 +72,10 @@
 </template>
 
 <script>
-import CkImageInput from "@/components/Ck/CkImageInput";
+import CkImageInput from '@/components/Ck/CkImageInput'
 
 export default {
-  name: "OrganisationForm",
+  name: 'OrganisationForm',
   components: { CkImageInput },
   props: {
     errors: {
@@ -113,9 +113,9 @@ export default {
   },
   methods: {
     onInput(field, value) {
-      this.$emit(`update:${field}`, value);
-      this.$emit("clear", field);
+      this.$emit(`update:${field}`, value)
+      this.$emit('clear', field)
     },
   },
-};
+}
 </script>

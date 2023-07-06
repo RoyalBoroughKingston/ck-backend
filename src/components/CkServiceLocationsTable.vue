@@ -14,7 +14,7 @@
         v-for="serviceLocation in serviceLocations"
         :key="serviceLocation.id"
       >
-        <gov-table-cell>{{ serviceLocation.name || "-" }}</gov-table-cell>
+        <gov-table-cell>{{ serviceLocation.name || '-' }}</gov-table-cell>
         <gov-table-cell>{{
           serviceLocation.location.address_line_1
         }}</gov-table-cell>
@@ -41,12 +41,12 @@
 
 <script>
 export default {
-  name: "CkServiceLocationsTable",
+  name: 'CkServiceLocationsTable',
   props: {
     serviceLocations: {
       type: Array,
       required: true,
     },
   },
-};
+}
 </script>

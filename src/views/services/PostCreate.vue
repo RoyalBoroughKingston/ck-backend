@@ -46,31 +46,31 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
   data() {
     return {
       service: null,
       loading: false,
-    };
+    }
   },
 
   methods: {
     async fetchService() {
-      this.loading = true;
+      this.loading = true
 
       const {
         data: { data: service },
-      } = await http.get(`/services/${this.$route.params.service}`);
-      this.service = service;
+      } = await http.get(`/services/${this.$route.params.service}`)
+      this.service = service
 
-      this.loading = false;
+      this.loading = false
     },
   },
 
   created() {
-    this.fetchService();
+    this.fetchService()
   },
-};
+}
 </script>

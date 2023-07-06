@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: "CkSelectInput",
+  name: 'CkSelectInput',
   props: {
     value: {
       required: true,
@@ -80,13 +80,13 @@ export default {
       default: false,
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
 .govuk-select {
   &.govuk-select--icons {
-    font-family: "Font Awesome 5 Free", "nta", Arial, sans-serif;
+    font-family: 'Font Awesome 5 Free', 'nta', Arial, sans-serif;
   }
 }
 </style>
