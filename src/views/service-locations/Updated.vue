@@ -38,28 +38,28 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "OrganisationUpdated",
+  name: 'OrganisationUpdated',
   data() {
     return {
       loading: false,
       serviceLocation: null,
-    };
+    }
   },
   methods: {
     async fetchServiceLocation() {
-      this.loading = true;
+      this.loading = true
       const response = await http.get(
         `/service-locations/${this.$route.params.serviceLocation}`
-      );
-      this.serviceLocation = response.data.data;
-      this.loading = false;
+      )
+      this.serviceLocation = response.data.data
+      this.loading = false
     },
   },
   created() {
-    this.fetchServiceLocation();
+    this.fetchServiceLocation()
   },
-};
+}
 </script>

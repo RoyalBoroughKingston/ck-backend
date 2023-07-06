@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "GovFormGroup",
+  name: 'GovFormGroup',
   props: {
     invalid: {
       type: Boolean,
@@ -14,5 +14,5 @@ export default {
       default: false,
     },
   },
-};
+}
 </script>

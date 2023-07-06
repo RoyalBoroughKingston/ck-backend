@@ -28,11 +28,11 @@
 
 <script>
 export default {
-  name: "CmsFrontendContact",
+  name: 'CmsFrontendContact',
 
   model: {
-    prop: "frontend",
-    event: "input",
+    prop: 'frontend',
+    event: 'input',
   },
 
   props: {
@@ -49,13 +49,13 @@ export default {
 
   methods: {
     onInput({ field, value }) {
-      const frontend = { ...this.frontend };
+      const frontend = { ...this.frontend }
 
-      frontend.contact[field] = value;
+      frontend.contact[field] = value
 
-      this.$emit("input", frontend);
-      this.$emit("clear", `frontend.contact.${field}`);
+      this.$emit('input', frontend)
+      this.$emit('clear', `frontend.contact.${field}`)
     },
   },
-};
+}
 </script>

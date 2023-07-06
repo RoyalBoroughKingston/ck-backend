@@ -26,10 +26,10 @@
 
 <script>
 export default {
-  name: "OfferingsInput",
+  name: 'OfferingsInput',
   model: {
-    prop: "offerings",
-    event: "input",
+    prop: 'offerings',
+    event: 'input',
   },
   props: {
     offerings: {
@@ -44,45 +44,45 @@ export default {
   data() {
     return {
       offeringsIndex: 1,
-    };
+    }
   },
   methods: {
     cloneOfferings() {
-      return this.offerings.map((offering) => ({ ...offering }));
+      return this.offerings.map(offering => ({ ...offering }))
     },
     onAddOffering() {
-      let offerings = this.cloneOfferings();
+      let offerings = this.cloneOfferings()
       offerings.push({
-        offering: "",
+        offering: '',
         order: this.offerings.length + 1,
         index: this.offeringsIndex,
-      });
+      })
 
-      this.offeringsIndex++;
-      this.$emit("input", offerings);
+      this.offeringsIndex++
+      this.$emit('input', offerings)
     },
     onDeleteOffering(deleteIndex) {
-      this.$emit("clear", `offerings.${deleteIndex}.offering`);
-      this.$emit("clear", `offerings.${deleteIndex}.order`);
+      this.$emit('clear', `offerings.${deleteIndex}.offering`)
+      this.$emit('clear', `offerings.${deleteIndex}.order`)
 
       // Also decrement the order for the other offerings.
-      let offerings = this.cloneOfferings();
-      this.$delete(offerings, deleteIndex);
+      let offerings = this.cloneOfferings()
+      this.$delete(offerings, deleteIndex)
       offerings.forEach((offering, index) => {
         if (index < deleteIndex) {
-          return;
+          return
         }
 
-        offering.order--;
-      });
-      this.$emit("input", offerings);
+        offering.order--
+      })
+      this.$emit('input', offerings)
     },
     onOfferingInput({ index, value }) {
-      let offerings = this.cloneOfferings();
-      offerings[index].offering = value;
-      this.$emit("input", offerings);
-      this.$emit("clear", `offerings.${index}.offering`);
+      let offerings = this.cloneOfferings()
+      offerings[index].offering = value
+      this.$emit('input', offerings)
+      this.$emit('clear', `offerings.${index}.offering`)
     },
   },
-};
+}
 </script>

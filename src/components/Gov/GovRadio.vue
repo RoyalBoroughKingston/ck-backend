@@ -16,10 +16,10 @@
 
 <script>
 export default {
-  name: "GovRadioInput",
+  name: 'GovRadioInput',
   model: {
-    prop: "bindTo",
-    event: "input",
+    prop: 'bindTo',
+    event: 'input',
   },
   props: {
     bindTo: {
@@ -46,5 +46,5 @@ export default {
       default: false,
     },
   },
-};
+}
 </script>

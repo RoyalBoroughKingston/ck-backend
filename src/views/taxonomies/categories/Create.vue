@@ -39,26 +39,26 @@
 </template>
 
 <script>
-import TaxonomyForm from "@/views/taxonomies/categories/forms/TaxonomyForm";
-import Form from "@/classes/Form";
+import TaxonomyForm from '@/views/taxonomies/categories/forms/TaxonomyForm'
+import Form from '@/classes/Form'
 
 export default {
-  name: "CreateTaxonomyCategory",
+  name: 'CreateTaxonomyCategory',
   components: { TaxonomyForm },
   data() {
     return {
       form: new Form({
         parent_id: null,
-        name: "",
+        name: '',
         order: 1,
       }),
-    };
+    }
   },
   methods: {
     async onSubmit() {
-      await this.form.post("/taxonomies/categories");
-      this.$router.push({ name: "admin-index-taxonomies" });
+      await this.form.post('/taxonomies/categories')
+      this.$router.push({ name: 'admin-index-taxonomies' })
     },
   },
-};
+}
 </script>

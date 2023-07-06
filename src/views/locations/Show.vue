@@ -46,35 +46,35 @@
 </template>
 
 <script>
-import LocationDetails from "@/views/locations/show/LocationDetails";
-import http from "@/http";
+import LocationDetails from '@/views/locations/show/LocationDetails'
+import http from '@/http'
 
 export default {
-  name: "ShowLocation",
+  name: 'ShowLocation',
   components: { LocationDetails },
   data() {
     return {
       loading: false,
       location: null,
-    };
+    }
   },
   methods: {
     async fetchLocation() {
-      this.loading = true;
+      this.loading = true
 
       const response = await http.get(
         `/locations/${this.$route.params.location}`
-      );
-      this.location = response.data.data;
+      )
+      this.location = response.data.data
 
-      this.loading = false;
+      this.loading = false
     },
     onDelete() {
-      this.$router.push({ name: "locations-index" });
+      this.$router.push({ name: 'locations-index' })
     },
   },
   created() {
-    this.fetchLocation();
+    this.fetchLocation()
   },
-};
+}
 </script>

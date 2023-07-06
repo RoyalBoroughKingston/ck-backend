@@ -51,17 +51,17 @@
 </template>
 
 <script>
-import http from "@/http";
-import GovTable from "@/components/Gov/GovTable.vue";
-import GovTableCell from "@/components/Gov/GovTableCell.vue";
-import GovTableHeader from "@/components/Gov/GovTableHeader.vue";
-import GovTableRow from "@/components/Gov/GovTableRow.vue";
-import GovLink from "@/components/Gov/GovLink.vue";
-import CkLoader from "@/components/CkLoader.vue";
-import CkPagination from "@/components/Ck/CkPagination.vue";
+import http from '@/http'
+import GovTable from '@/components/Gov/GovTable.vue'
+import GovTableCell from '@/components/Gov/GovTableCell.vue'
+import GovTableHeader from '@/components/Gov/GovTableHeader.vue'
+import GovTableRow from '@/components/Gov/GovTableRow.vue'
+import GovLink from '@/components/Gov/GovLink.vue'
+import CkLoader from '@/components/CkLoader.vue'
+import CkPagination from '@/components/Ck/CkPagination.vue'
 
 export default {
-  name: "ResourceListingTable",
+  name: 'ResourceListingTable',
 
   components: {
     GovTable,
@@ -98,13 +98,13 @@ export default {
     defaultSort: {
       required: false,
       type: String,
-      default: "",
+      default: '',
     },
 
     actionText: {
       required: false,
       type: String,
-      default: "View",
+      default: 'View',
     },
   },
 
@@ -115,7 +115,7 @@ export default {
       currentPage: 1,
       totalPages: 1,
       sort: this.defaultSort,
-    };
+    }
   },
 
   computed: {
@@ -123,85 +123,85 @@ export default {
       const params = {
         ...this.params,
         page: this.currentPage,
-      };
-
-      if (this.sort !== "") {
-        params.sort = this.sort;
       }
 
-      return params;
+      if (this.sort !== '') {
+        params.sort = this.sort
+      }
+
+      return params
     },
   },
 
   methods: {
     async fetchResources() {
-      this.loading = true;
+      this.loading = true
 
-      const response = await http.get(this.uri, { params: this.allParams });
-      this.resources = response.data.data;
-      this.currentPage = response.data.meta.current_page;
-      this.totalPages = response.data.meta.last_page;
+      const response = await http.get(this.uri, { params: this.allParams })
+      this.resources = response.data.data
+      this.currentPage = response.data.meta.current_page
+      this.totalPages = response.data.meta.last_page
 
-      this.loading = false;
+      this.loading = false
     },
 
     onPrevious() {
-      this.currentPage = this.currentPage - 1;
-      this.fetchResources();
+      this.currentPage = this.currentPage - 1
+      this.fetchResources()
     },
 
     onNext() {
-      this.currentPage = this.currentPage + 1;
-      this.fetchResources();
+      this.currentPage = this.currentPage + 1
+      this.fetchResources()
     },
 
     onSort(column) {
-      const currentSortDirection = this.sort.charAt(0) === "-" ? "desc" : "asc";
+      const currentSortDirection = this.sort.charAt(0) === '-' ? 'desc' : 'asc'
       const currentSortField =
-        this.sort.charAt(0) === "-" ? this.sort.substr(1) : this.sort;
+        this.sort.charAt(0) === '-' ? this.sort.substr(1) : this.sort
 
-      const columnSortField = column.sort;
+      const columnSortField = column.sort
 
       // Do nothing if the field is not sortable.
       if (columnSortField === undefined) {
-        return;
+        return
       }
 
       if (currentSortField !== columnSortField) {
         // If not the current sort.
-        this.sort = columnSortField;
+        this.sort = columnSortField
       } else {
         // If it is the current sort (toggle asc/desc).
-        if (currentSortDirection === "asc") {
-          this.sort = `-${columnSortField}`;
+        if (currentSortDirection === 'asc') {
+          this.sort = `-${columnSortField}`
         } else {
-          this.sort = columnSortField;
+          this.sort = columnSortField
         }
       }
 
       // Refetch the resources.
-      this.fetchResources();
+      this.fetchResources()
     },
 
     sortText(column) {
-      const currentSortDirection = this.sort.charAt(0) === "-" ? "desc" : "asc";
+      const currentSortDirection = this.sort.charAt(0) === '-' ? 'desc' : 'asc'
       const currentSortField =
-        this.sort.charAt(0) === "-" ? this.sort.substr(1) : this.sort;
+        this.sort.charAt(0) === '-' ? this.sort.substr(1) : this.sort
 
       if (currentSortField !== column.sort) {
-        return "";
+        return ''
       }
 
-      return currentSortDirection === "asc" ? "(ASC)" : "(DESC)";
+      return currentSortDirection === 'asc' ? '(ASC)' : '(DESC)'
     },
 
     onAction(resource) {
-      this.$emit("action", resource);
+      this.$emit('action', resource)
     },
   },
 
   created() {
-    this.fetchResources();
+    this.fetchResources()
   },
-};
+}
 </script>

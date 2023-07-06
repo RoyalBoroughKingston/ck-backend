@@ -28,11 +28,11 @@
 
 <script>
 export default {
-  name: "CmsFrontendGetInvolved",
+  name: 'CmsFrontendGetInvolved',
 
   model: {
-    prop: "frontend",
-    event: "input",
+    prop: 'frontend',
+    event: 'input',
   },
 
   props: {
@@ -49,13 +49,13 @@ export default {
 
   methods: {
     onInput({ field, value }) {
-      const frontend = { ...this.frontend };
+      const frontend = { ...this.frontend }
 
-      frontend.get_involved[field] = value;
+      frontend.get_involved[field] = value
 
-      this.$emit("input", frontend);
-      this.$emit("clear", `frontend.get_involved.${field}`);
+      this.$emit('input', frontend)
+      this.$emit('clear', `frontend.get_involved.${field}`)
     },
   },
-};
+}
 </script>

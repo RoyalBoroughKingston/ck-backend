@@ -33,12 +33,12 @@
 
 <script>
 export default {
-  name: "GovButton",
+  name: 'GovButton',
   props: {
     type: {
       type: String,
       required: false,
-      default: "submit",
+      default: 'submit',
     },
     expand: {
       type: Boolean,
@@ -79,26 +79,26 @@ export default {
   },
   methods: {
     onClick() {
-      this.$emit("click");
+      this.$emit('click')
     },
   },
   computed: {
     computedClasses() {
       return {
         expand: this.expand,
-        "govuk-button--error": this.error,
-        "govuk-button--start": this.start,
-        "ck-button--active": this.active,
-        "ck-button--success": this.success,
-        "ck-button--disabled": this.disabled,
-      };
+        'govuk-button--error': this.error,
+        'govuk-button--start': this.start,
+        'ck-button--active': this.active,
+        'ck-button--success': this.success,
+        'ck-button--disabled': this.disabled,
+      }
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "@/scss/app.scss";
+@import '@/scss/app.scss';
 
 .govuk-button {
   &.ck-button--active {
@@ -117,11 +117,11 @@ export default {
   }
 
   &.ck-button--success {
-    background-color: govuk-colour("green") !important;
+    background-color: govuk-colour('green') !important;
 
     &:hover,
     &:focus {
-      background-color: darken(govuk-colour("green"), 5%) !important;
+      background-color: darken(govuk-colour('green'), 5%) !important;
     }
   }
 

@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "GovInput",
+  name: 'GovInput',
   props: {
     value: {
       type: String,
@@ -31,7 +31,7 @@ export default {
     type: {
       type: String,
       required: false,
-      default: "text",
+      default: 'text',
     },
     width: {
       type: Number,
@@ -40,16 +40,16 @@ export default {
   },
   computed: {
     computedClass() {
-      return this.width ? `govuk-input--width-${this.width}` : null;
+      return this.width ? `govuk-input--width-${this.width}` : null
     },
     ariaDescribedBy() {
-      return `${this.name}-hint`;
+      return `${this.name}-hint`
     },
   },
   methods: {
     onEnter() {
-      this.$emit("enter");
+      this.$emit('enter')
     },
   },
-};
+}
 </script>

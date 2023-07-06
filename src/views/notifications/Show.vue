@@ -24,30 +24,30 @@
 </template>
 
 <script>
-import http from "@/http";
-import CkNotificationDetails from "@/components/CkNotificationDetails";
+import http from '@/http'
+import CkNotificationDetails from '@/components/CkNotificationDetails'
 
 export default {
-  name: "ShowNotification",
+  name: 'ShowNotification',
   components: { CkNotificationDetails },
   data() {
     return {
       loading: false,
       notification: null,
-    };
+    }
   },
   methods: {
     async fetchNotification() {
-      this.loading = true;
+      this.loading = true
       const { data } = await http.get(
         `/notifications/${this.$route.params.notification}`
-      );
-      this.notification = data.data;
-      this.loading = false;
+      )
+      this.notification = data.data
+      this.loading = false
     },
   },
   created() {
-    this.fetchNotification();
+    this.fetchNotification()
   },
-};
+}
 </script>

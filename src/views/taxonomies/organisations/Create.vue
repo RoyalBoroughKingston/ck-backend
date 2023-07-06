@@ -37,25 +37,25 @@
 </template>
 
 <script>
-import TaxonomyForm from "@/views/taxonomies/organisations/forms/TaxonomyForm";
-import Form from "@/classes/Form";
+import TaxonomyForm from '@/views/taxonomies/organisations/forms/TaxonomyForm'
+import Form from '@/classes/Form'
 
 export default {
-  name: "CreateTaxonomyOrganisation",
+  name: 'CreateTaxonomyOrganisation',
   components: { TaxonomyForm },
   data() {
     return {
       form: new Form({
-        name: "",
+        name: '',
         order: 1,
       }),
-    };
+    }
   },
   methods: {
     async onSubmit() {
-      await this.form.post("/taxonomies/organisations");
-      this.$router.push({ name: "admin-index-taxonomies-organisations" });
+      await this.form.post('/taxonomies/organisations')
+      this.$router.push({ name: 'admin-index-taxonomies-organisations' })
     },
   },
-};
+}
 </script>

@@ -95,12 +95,12 @@
 </template>
 
 <script>
-import Form from "@/classes/Form";
-import ThesaurusForm from "@/views/thesaurus/forms/ThesaurusForm";
-import CkCode from "@/components/CkCode";
+import Form from '@/classes/Form'
+import ThesaurusForm from '@/views/thesaurus/forms/ThesaurusForm'
+import CkCode from '@/components/CkCode'
 
 export default {
-  name: "EditThesuarus",
+  name: 'EditThesuarus',
 
   components: { ThesaurusForm, CkCode },
 
@@ -111,47 +111,47 @@ export default {
       form: new Form({
         synonyms: null,
       }),
-    };
+    }
   },
 
   methods: {
     async onSubmit() {
-      const content = this.base64Decode(this.file);
-      const synonyms = this.parseCsv(content);
+      const content = this.base64Decode(this.file)
+      const synonyms = this.parseCsv(content)
 
-      this.form.synonyms = synonyms;
+      this.form.synonyms = synonyms
 
-      await this.form.put("/thesaurus");
+      await this.form.put('/thesaurus')
 
-      this.$router.push({ name: "admin-index-search-engine" });
+      this.$router.push({ name: 'admin-index-search-engine' })
     },
 
     /**
      * @link https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings/30106551
      */
     base64Decode(string) {
-      string = string.split(",").pop();
+      string = string.split(',').pop()
       string = decodeURIComponent(
         atob(string)
-          .split("")
+          .split('')
           .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
           })
-          .join("")
-      );
+          .join('')
+      )
 
-      return string;
+      return string
     },
 
     parseCsv(content) {
       const synonyms = content
         .split(/\n/)
-        .map((synonym) => synonym.split(","))
-        .map((synonym) => synonym.filter((word) => word.length > 1))
-        .filter((synonym) => synonym.length > 0);
+        .map(synonym => synonym.split(','))
+        .map(synonym => synonym.filter(word => word.length > 1))
+        .filter(synonym => synonym.length > 0)
 
-      return synonyms;
+      return synonyms
     },
   },
-};
+}
 </script>

@@ -42,11 +42,11 @@
 
 <script>
 export default {
-  name: "CmsFrontendHome",
+  name: 'CmsFrontendHome',
 
   model: {
-    prop: "frontend",
-    event: "input",
+    prop: 'frontend',
+    event: 'input',
   },
 
   props: {
@@ -63,13 +63,13 @@ export default {
 
   methods: {
     onInput({ field, value }) {
-      const frontend = { ...this.frontend };
+      const frontend = { ...this.frontend }
 
-      frontend.home[field] = value;
+      frontend.home[field] = value
 
-      this.$emit("input", frontend);
-      this.$emit("clear", `frontend.home.${field}`);
+      this.$emit('input', frontend)
+      this.$emit('clear', `frontend.home.${field}`)
     },
   },
-};
+}
 </script>

@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "ListStopWords",
+  name: 'ListStopWords',
 
   data() {
     return {
@@ -44,37 +44,37 @@ export default {
       stopWords: [],
       currentPage: 1,
       lastPage: 1,
-    };
+    }
   },
 
   methods: {
     async fetchStopWords() {
-      this.loading = true;
+      this.loading = true
 
-      const { data } = await http.get("/stop-words");
-      this.stopWords = data.data;
+      const { data } = await http.get('/stop-words')
+      this.stopWords = data.data
 
-      this.loading = false;
+      this.loading = false
     },
 
     onExportCsv() {
-      let csvContent = "data:text/csv;charset=utf-8,";
+      let csvContent = 'data:text/csv;charset=utf-8,'
 
-      this.stopWords.forEach((stopWord) => {
-        csvContent += stopWord + "\r\n";
-      });
+      this.stopWords.forEach(stopWord => {
+        csvContent += stopWord + '\r\n'
+      })
 
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "stop-words.csv");
-      document.body.appendChild(link);
-      link.click();
+      const encodedUri = encodeURI(csvContent)
+      const link = document.createElement('a')
+      link.setAttribute('href', encodedUri)
+      link.setAttribute('download', 'stop-words.csv')
+      document.body.appendChild(link)
+      link.click()
     },
   },
 
   created() {
-    this.fetchStopWords();
+    this.fetchStopWords()
   },
-};
+}
 </script>

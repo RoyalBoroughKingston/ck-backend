@@ -89,35 +89,35 @@
             <gov-list>
               <li v-if="service.criteria.hasOwnProperty('age_group')">
                 <span class="govuk-!-font-weight-bold">Age group:</span>
-                {{ original.criteria.age_group || "-" }}
+                {{ original.criteria.age_group || '-' }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('disability')">
                 <span class="govuk-!-font-weight-bold">Disability:</span>
-                {{ original.criteria.disability || "-" }}
+                {{ original.criteria.disability || '-' }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('employment')">
                 <span class="govuk-!-font-weight-bold">Employment:</span>
-                {{ original.criteria.employment || "-" }}
+                {{ original.criteria.employment || '-' }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('gender')">
                 <span class="govuk-!-font-weight-bold">Gender:</span>
-                {{ original.criteria.gender || "-" }}
+                {{ original.criteria.gender || '-' }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('housing')">
                 <span class="govuk-!-font-weight-bold">Housing:</span>
-                {{ original.criteria.housing || "-" }}
+                {{ original.criteria.housing || '-' }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('income')">
                 <span class="govuk-!-font-weight-bold">Income:</span>
-                {{ original.criteria.income || "-" }}
+                {{ original.criteria.income || '-' }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('language')">
                 <span class="govuk-!-font-weight-bold">Language:</span>
-                {{ original.criteria.language || "-" }}
+                {{ original.criteria.language || '-' }}
               </li>
               <li v-if="service.criteria.hasOwnProperty('other')">
                 <span class="govuk-!-font-weight-bold">Other:</span>
-                {{ original.criteria.other || "-" }}
+                {{ original.criteria.other || '-' }}
               </li>
             </gov-list>
           </gov-table-cell>
@@ -427,11 +427,11 @@
 </template>
 
 <script>
-import http from "@/http";
-import CkCarousel from "@/components/Ck/CkCarousel";
+import http from '@/http'
+import CkCarousel from '@/components/Ck/CkCarousel'
 
 export default {
-  name: "ServiceDetails",
+  name: 'ServiceDetails',
 
   props: {
     updateRequestId: {
@@ -468,116 +468,116 @@ export default {
       original: null,
       taxonomies: [],
       flattenedTaxonomies: [],
-    };
+    }
   },
 
   methods: {
     taxonomyName(taxonomy) {
-      let name = taxonomy.name;
+      let name = taxonomy.name
 
       if (taxonomy.parent_id !== null) {
-        const parent = this.flattenedTaxonomies.find((flattenedTaxonomy) => {
-          return flattenedTaxonomy.id === taxonomy.parent_id;
-        });
-        name = `${this.taxonomyName(parent)} / ${name}`;
+        const parent = this.flattenedTaxonomies.find(flattenedTaxonomy => {
+          return flattenedTaxonomy.id === taxonomy.parent_id
+        })
+        name = `${this.taxonomyName(parent)} / ${name}`
       }
 
-      return name;
+      return name
     },
 
     async fetchAll() {
-      this.loading = true;
+      this.loading = true
 
-      await this.fetchOriginal();
-      await this.fetchTaxonomies();
+      await this.fetchOriginal()
+      await this.fetchTaxonomies()
 
-      this.loading = false;
+      this.loading = false
     },
 
     async fetchOriginal() {
       const {
         data: { data: original },
       } = await http.get(`/services/${this.service.id}`, {
-        params: { include: "organisation" },
-      });
-      this.original = original;
+        params: { include: 'organisation' },
+      })
+      this.original = original
     },
 
     async fetchTaxonomies() {
       const {
         data: { data: taxonomies },
-      } = await http.get("/taxonomies/categories");
-      this.taxonomies = taxonomies;
-      this.setFlattenedTaxonomies();
+      } = await http.get('/taxonomies/categories')
+      this.taxonomies = taxonomies
+      this.setFlattenedTaxonomies()
     },
 
     setFlattenedTaxonomies(taxonomies = null) {
       if (taxonomies === null) {
-        this.flattenedTaxonomies = [];
-        taxonomies = this.taxonomies;
+        this.flattenedTaxonomies = []
+        taxonomies = this.taxonomies
       }
 
-      taxonomies.forEach((taxonomy) => {
-        this.flattenedTaxonomies.push(taxonomy);
+      taxonomies.forEach(taxonomy => {
+        this.flattenedTaxonomies.push(taxonomy)
 
         if (taxonomy.children.length > 0) {
-          this.setFlattenedTaxonomies(taxonomy.children);
+          this.setFlattenedTaxonomies(taxonomy.children)
         }
-      });
+      })
     },
 
     findTaxonomy(id) {
-      return this.flattenedTaxonomies.find((taxonomy) => taxonomy.id === id);
+      return this.flattenedTaxonomies.find(taxonomy => taxonomy.id === id)
     },
 
     imageUrls(service) {
-      return service.gallery_items.map((galleryItem) => {
-        if (galleryItem.hasOwnProperty("url")) {
-          return galleryItem.url;
+      return service.gallery_items.map(galleryItem => {
+        if (galleryItem.hasOwnProperty('url')) {
+          return galleryItem.url
         }
 
         return this.apiUrl(
           `/services/${service.id}/gallery-items/${galleryItem.file_id}?update_request_id=${this.updateRequestId}`
-        );
-      });
+        )
+      })
     },
   },
 
   filters: {
     status(status) {
-      return status === "active" ? "Enabled" : "Disabled";
+      return status === 'active' ? 'Enabled' : 'Disabled'
     },
 
     isFree(isFree) {
-      return isFree ? "Yes" : "No";
+      return isFree ? 'Yes' : 'No'
     },
 
     socialMediaType(type) {
       switch (type) {
-        case "twitter":
-          return "Twitter";
-        case "facebook":
-          return "Facebook";
-        case "instagram":
-          return "Instagram";
-        case "youtube":
-          return "YouTube";
-        case "other":
-          return "Other";
+        case 'twitter':
+          return 'Twitter'
+        case 'facebook':
+          return 'Facebook'
+        case 'instagram':
+          return 'Instagram'
+        case 'youtube':
+          return 'YouTube'
+        case 'other':
+          return 'Other'
       }
     },
 
     referralMethod(referralMethod) {
-      return referralMethod.charAt(0).toUpperCase() + referralMethod.slice(1);
+      return referralMethod.charAt(0).toUpperCase() + referralMethod.slice(1)
     },
 
     showReferralDisclaimer(showReferralDisclaimer) {
-      return showReferralDisclaimer ? "Show" : "Hide";
+      return showReferralDisclaimer ? 'Show' : 'Hide'
     },
   },
 
   created() {
-    this.fetchAll();
+    this.fetchAll()
   },
-};
+}
 </script>

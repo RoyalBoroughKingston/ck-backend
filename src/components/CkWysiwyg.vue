@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { Editor, EditorContent, EditorMenuBar } from "tiptap";
+import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Blockquote,
   Heading,
@@ -101,10 +101,10 @@ import {
   Bold,
   Italic,
   Link,
-} from "tiptap-extensions";
+} from 'tiptap-extensions'
 
 export default {
-  name: "CkWysiwyg",
+  name: 'CkWysiwyg',
 
   components: {
     EditorMenuBar,
@@ -115,7 +115,7 @@ export default {
     value: {
       type: String,
       required: false,
-      default: "",
+      default: '',
     },
 
     large: {
@@ -137,7 +137,7 @@ export default {
           new Bold(),
           new Italic(),
           new Link(),
-        ];
+        ]
       },
     },
   },
@@ -145,7 +145,7 @@ export default {
   data() {
     return {
       editor: null,
-    };
+    }
   },
 
   created() {
@@ -153,40 +153,40 @@ export default {
       extensions: this.extensions,
       content: this.toHtml(this.value),
       onUpdate: ({ getHTML }) => {
-        this.onEdit(getHTML());
+        this.onEdit(getHTML())
       },
-    });
+    })
   },
 
   methods: {
     onEdit(html) {
-      const div = document.createElement("div");
-      div.innerHTML = html;
-      this.$emit("count", div.textContent.length);
+      const div = document.createElement('div')
+      div.innerHTML = html
+      this.$emit('count', div.textContent.length)
 
-      const markdown = this.toMarkdown(html);
-      this.$emit("input", markdown);
+      const markdown = this.toMarkdown(html)
+      this.$emit('input', markdown)
     },
 
     promptUrl() {
-      return window.prompt("Please enter a URL");
+      return window.prompt('Please enter a URL')
     },
   },
 
   mounted() {
-    const element = document.createElement("div");
-    element.innerHTML = this.editor.getHTML();
-    this.$emit("count", element.textContent.length);
+    const element = document.createElement('div')
+    element.innerHTML = this.editor.getHTML()
+    this.$emit('count', element.textContent.length)
   },
 
   beforeDestroy() {
-    this.editor.destroy();
+    this.editor.destroy()
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "@/scss/app.scss";
+@import '@/scss/app.scss';
 
 .ck-wysiwyg {
   @extend .govuk-textarea;

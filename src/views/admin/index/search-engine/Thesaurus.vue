@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import http from "@/http";
-import CkThesaurusList from "@/components/CkThesaurusList";
+import http from '@/http'
+import CkThesaurusList from '@/components/CkThesaurusList'
 
 export default {
-  name: "ListThesaurus",
+  name: 'ListThesaurus',
 
   components: { CkThesaurusList },
 
@@ -42,38 +42,38 @@ export default {
       synonyms: [],
       currentPage: 1,
       lastPage: 1,
-    };
+    }
   },
 
   methods: {
     async fetchSynonyms() {
-      this.loading = true;
+      this.loading = true
 
-      const { data } = await http.get("/thesaurus");
-      this.synonyms = data.data;
+      const { data } = await http.get('/thesaurus')
+      this.synonyms = data.data
 
-      this.loading = false;
+      this.loading = false
     },
 
     onExportCsv() {
-      let csvContent = "data:text/csv;charset=utf-8,";
+      let csvContent = 'data:text/csv;charset=utf-8,'
 
-      this.synonyms.forEach((rowArray) => {
-        let row = rowArray.join(",");
-        csvContent += row + "\r\n";
-      });
+      this.synonyms.forEach(rowArray => {
+        let row = rowArray.join(',')
+        csvContent += row + '\r\n'
+      })
 
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "thesaurus.csv");
-      document.body.appendChild(link);
-      link.click();
+      const encodedUri = encodeURI(csvContent)
+      const link = document.createElement('a')
+      link.setAttribute('href', encodedUri)
+      link.setAttribute('download', 'thesaurus.csv')
+      document.body.appendChild(link)
+      link.click()
     },
   },
 
   created() {
-    this.fetchSynonyms();
+    this.fetchSynonyms()
   },
-};
+}
 </script>

@@ -35,28 +35,26 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "ServiceUpdated",
+  name: 'ServiceUpdated',
   data() {
     return {
       loading: false,
       service: null,
-    };
+    }
   },
   methods: {
     async fetchService() {
-      this.loading = true;
-      const response = await http.get(
-        `/services/${this.$route.params.service}`
-      );
-      this.service = response.data.data;
-      this.loading = false;
+      this.loading = true
+      const response = await http.get(`/services/${this.$route.params.service}`)
+      this.service = response.data.data
+      this.loading = false
     },
   },
   created() {
-    this.fetchService();
+    this.fetchService()
   },
-};
+}
 </script>

@@ -11,8 +11,8 @@
     <gov-file-upload
       :value="value"
       @change="
-        $emit('input', $event);
-        removeExisting = false;
+        $emit('input', $event)
+        removeExisting = false
       "
       :id="id"
       :name="id"
@@ -54,7 +54,7 @@
 
 <script>
 export default {
-  name: "CkFileInput",
+  name: 'CkFileInput',
   props: {
     value: {
       required: true,
@@ -92,22 +92,22 @@ export default {
   data() {
     return {
       removeExisting: false,
-    };
+    }
   },
 
   methods: {
     onRemove() {
       // For uploaded file.
       if (this.value) {
-        this.$refs.file.$el.value = "";
-        this.$emit("input", null);
-        return;
+        this.$refs.file.$el.value = ''
+        this.$emit('input', null)
+        return
       }
 
       // For existing file.
-      this.removeExisting = true;
-      this.$emit("input", false);
+      this.removeExisting = true
+      this.$emit('input', false)
     },
   },
-};
+}
 </script>

@@ -214,7 +214,7 @@
 </template>
 
 <script>
-import SocialMediasInput from "@/views/services/inputs/SocialMediasInput";
+import SocialMediasInput from '@/views/services/inputs/SocialMediasInput'
 
 export default {
   components: {
@@ -237,12 +237,12 @@ export default {
     waitTimeOptions() {
       return [
         { text: `Not applicable for this ${this.service.type}`, value: null },
-        { text: "One week", value: "one_week" },
-        { text: "Two weeks", value: "two_weeks" },
-        { text: "Three weeks", value: "three_weeks" },
-        { text: "One month", value: "month" },
-        { text: "Longer than a month", value: "longer" },
-      ];
+        { text: 'One week', value: 'one_week' },
+        { text: 'Two weeks', value: 'two_weeks' },
+        { text: 'Three weeks', value: 'three_weeks' },
+        { text: 'One month', value: 'month' },
+        { text: 'Longer than a month', value: 'longer' },
+      ]
     },
 
     isFreeOptions() {
@@ -252,18 +252,18 @@ export default {
           value: false,
           label: `No - there are elements of this ${this.service.type} that must be paid for`,
         },
-      ];
+      ]
     },
 
     videoEmbedHelpHref() {
-      const to = "info@connectedkingston.uk";
-      const subject = `Make a video for my ${this.service.type}`;
-      const body = `My ${this.service.type} is: xxx\n\nI am interested in making a video for my ${this.service.type} page on Connected Kingston.`;
+      const to = 'info@connectedkingston.uk'
+      const subject = `Make a video for my ${this.service.type}`
+      const body = `My ${this.service.type} is: xxx\n\nI am interested in making a video for my ${this.service.type} page on Connected Kingston.`
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject
-      )}&body=${encodeURIComponent(body)}`;
+      )}&body=${encodeURIComponent(body)}`
     },
   },
-};
+}
 </script>

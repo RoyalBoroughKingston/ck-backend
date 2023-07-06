@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "GovTextarea",
+  name: 'GovTextarea',
   props: {
     value: {
       type: String,
@@ -35,15 +35,15 @@ export default {
   },
   computed: {
     ariaDescribedBy() {
-      return `${this.name}-hint`;
+      return `${this.name}-hint`
     },
   },
   methods: {
     onEnter() {
-      this.$emit("enter");
+      this.$emit('enter')
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

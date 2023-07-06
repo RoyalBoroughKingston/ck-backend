@@ -21,8 +21,8 @@
         <gov-table-header top scope="row">Permissions</gov-table-header>
         <gov-table-cell>
           <gov-list>
-            <li>Super admin: {{ superAdmin ? "Yes" : "No" }}</li>
-            <li>Global admin: {{ globalAdmin ? "Yes" : "No" }}</li>
+            <li>Super admin: {{ superAdmin ? 'Yes' : 'No' }}</li>
+            <li>Global admin: {{ globalAdmin ? 'Yes' : 'No' }}</li>
             <li>
               <template v-if="organisationAdmin.length === 0"
                 >Organisation admin: No</template
@@ -92,7 +92,7 @@
 
 <script>
 export default {
-  name: "CkUserDetails",
+  name: 'CkUserDetails',
   props: {
     user: {
       type: Object,
@@ -106,39 +106,39 @@ export default {
       organisationAdmin: [],
       serviceAdmin: [],
       serviceWorker: [],
-    };
+    }
   },
   methods: {
     sortRoles() {
-      this.superAdmin = false;
-      this.globalAdmin = false;
-      this.organisationAdmin = [];
-      this.serviceAdmin = [];
-      this.serviceWorker = [];
+      this.superAdmin = false
+      this.globalAdmin = false
+      this.organisationAdmin = []
+      this.serviceAdmin = []
+      this.serviceWorker = []
 
-      this.user.roles.forEach((role) => {
-        if (role.role === "Super Admin") {
-          this.superAdmin = true;
-        } else if (role.role === "Global Admin") {
-          this.globalAdmin = true;
-        } else if (role.hasOwnProperty("organisation")) {
-          this.organisationAdmin.push(role);
+      this.user.roles.forEach(role => {
+        if (role.role === 'Super Admin') {
+          this.superAdmin = true
+        } else if (role.role === 'Global Admin') {
+          this.globalAdmin = true
+        } else if (role.hasOwnProperty('organisation')) {
+          this.organisationAdmin.push(role)
         } else if (
-          role.hasOwnProperty("service") &&
-          role.role === "Service Admin"
+          role.hasOwnProperty('service') &&
+          role.role === 'Service Admin'
         ) {
-          this.serviceAdmin.push(role);
+          this.serviceAdmin.push(role)
         } else if (
-          role.hasOwnProperty("service") &&
-          role.role === "Service Worker"
+          role.hasOwnProperty('service') &&
+          role.role === 'Service Worker'
         ) {
-          this.serviceWorker.push(role);
+          this.serviceWorker.push(role)
         }
-      });
+      })
     },
   },
   created() {
-    this.sortRoles();
+    this.sortRoles()
   },
-};
+}
 </script>

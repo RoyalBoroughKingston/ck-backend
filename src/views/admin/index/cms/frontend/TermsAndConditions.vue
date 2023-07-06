@@ -28,11 +28,11 @@
 
 <script>
 export default {
-  name: "CmsFrontendTermsAndConditions",
+  name: 'CmsFrontendTermsAndConditions',
 
   model: {
-    prop: "frontend",
-    event: "input",
+    prop: 'frontend',
+    event: 'input',
   },
 
   props: {
@@ -49,13 +49,13 @@ export default {
 
   methods: {
     onInput({ field, value }) {
-      const frontend = { ...this.frontend };
+      const frontend = { ...this.frontend }
 
-      frontend.terms_and_conditions[field] = value;
+      frontend.terms_and_conditions[field] = value
 
-      this.$emit("input", frontend);
-      this.$emit("clear", `frontend.terms_and_conditions.${field}`);
+      this.$emit('input', frontend)
+      this.$emit('clear', `frontend.terms_and_conditions.${field}`)
     },
   },
-};
+}
 </script>

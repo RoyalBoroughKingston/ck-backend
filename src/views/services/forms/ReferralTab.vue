@@ -28,8 +28,8 @@
         <ck-select-input
           :value="referral_method"
           @input="
-            $emit('update:referral_method', $event);
-            $emit('clear', 'referral_method');
+            $emit('update:referral_method', $event)
+            $emit('clear', 'referral_method')
           "
           id="referral_method"
           label="Referral method"
@@ -43,8 +43,8 @@
           v-if="referralIsInternalOrExternal"
           :value="referral_button_text"
           @input="
-            $emit('update:referral_button_text', $event);
-            $emit('clear', 'referral_button_text');
+            $emit('update:referral_button_text', $event)
+            $emit('clear', 'referral_button_text')
           "
           id="referral_button_text"
           label="What should your button say?"
@@ -77,8 +77,8 @@
           v-if="referralIsInternalOrExternal && referral_method === 'internal'"
           :value="referral_email"
           @input="
-            $emit('update:referral_email', $event);
-            $emit('clear', 'referral_email');
+            $emit('update:referral_email', $event)
+            $emit('clear', 'referral_email')
           "
           id="referral_email"
           label="Where should we alert you when you receive a referral?"
@@ -92,8 +92,8 @@
           v-if="referralIsInternalOrExternal && referral_method === 'external'"
           :value="referral_url"
           @input="
-            $emit('update:referral_url', $event);
-            $emit('clear', 'referral_url');
+            $emit('update:referral_url', $event)
+            $emit('clear', 'referral_url')
           "
           id="referral_url"
           label="External referral URL"
@@ -107,8 +107,8 @@
           v-if="referralIsInternalOrExternal"
           :value="show_referral_disclaimer"
           @input="
-            $emit('update:show_referral_disclaimer', $event);
-            $emit('clear', 'show_referral_disclaimer');
+            $emit('update:show_referral_disclaimer', $event)
+            $emit('clear', 'show_referral_disclaimer')
           "
           id="show_referral_disclaimer"
           label="Show referral disclaimer?"
@@ -128,7 +128,7 @@
 
 <script>
 export default {
-  name: "ReferralTab",
+  name: 'ReferralTab',
   props: {
     errors: {
       required: true,
@@ -168,79 +168,79 @@ export default {
   computed: {
     referralMethodOptions() {
       return [
-        { text: "Please select", value: null, disabled: true },
-        { text: "Yes - Through Connected Kingston", value: "internal" },
-        { text: "Yes - Through an external form", value: "external" },
+        { text: 'Please select', value: null, disabled: true },
+        { text: 'Yes - Through Connected Kingston', value: 'internal' },
+        { text: 'Yes - Through an external form', value: 'external' },
         {
           text: `No - This ${this.type} doesn’t accept referrals`,
-          value: "none",
+          value: 'none',
         },
-      ];
+      ]
     },
     referralIsInternalOrExternal() {
-      return this.referral_method !== null && this.referral_method !== "none";
+      return this.referral_method !== null && this.referral_method !== 'none'
     },
     contactAdminTeamEmail() {
-      const to = "info@connectedkingston.uk";
-      const subject = `Turn referrals on for my ${this.type}`;
+      const to = 'info@connectedkingston.uk'
+      const subject = `Turn referrals on for my ${this.type}`
       const body = `${this.$options.filters.ucfirst(
         this.type
-      )} Name: XXX\n\nWe are interested in finding out more about accepting referrals through Connected Kingston.`;
+      )} Name: XXX\n\nWe are interested in finding out more about accepting referrals through Connected Kingston.`
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject
-      )}&body=${encodeURIComponent(body)}`;
+      )}&body=${encodeURIComponent(body)}`
     },
   },
   watch: {
     referral_method(newReferralMethod, oldReferralMethod) {
-      if (newReferralMethod === null || newReferralMethod === "none") {
-        this.$emit("update:referral_button_text", "");
-        this.$emit("update:referral_email", "");
-        this.$emit("update:referral_url", "");
-        this.$emit("update:show_referral_disclaimer", false);
+      if (newReferralMethod === null || newReferralMethod === 'none') {
+        this.$emit('update:referral_button_text', '')
+        this.$emit('update:referral_email', '')
+        this.$emit('update:referral_url', '')
+        this.$emit('update:show_referral_disclaimer', false)
 
-        this.$emit("clear", "referral_button_text");
-        this.$emit("clear", "referral_email");
-        this.$emit("clear", "referral_url");
-        this.$emit("clear", "show_referral_disclaimer");
+        this.$emit('clear', 'referral_button_text')
+        this.$emit('clear', 'referral_email')
+        this.$emit('clear', 'referral_url')
+        this.$emit('clear', 'show_referral_disclaimer')
       }
 
-      if (newReferralMethod !== "internal") {
-        this.$emit("update:referral_email", "");
+      if (newReferralMethod !== 'internal') {
+        this.$emit('update:referral_email', '')
 
-        this.$emit("clear", "referral_email");
+        this.$emit('clear', 'referral_email')
       }
 
-      if (newReferralMethod !== "external") {
-        this.$emit("update:referral_url", "");
+      if (newReferralMethod !== 'external') {
+        this.$emit('update:referral_url', '')
 
-        this.$emit("clear", "referral_url");
+        this.$emit('clear', 'referral_url')
       }
 
       if (
-        (oldReferralMethod === null || oldReferralMethod === "none") &&
+        (oldReferralMethod === null || oldReferralMethod === 'none') &&
         newReferralMethod !== null &&
-        newReferralMethod !== "none"
+        newReferralMethod !== 'none'
       ) {
         if (this.originalData === undefined) {
           // Create service.
-          this.$emit("update:show_referral_disclaimer", true);
+          this.$emit('update:show_referral_disclaimer', true)
         } else {
           // Edit service.
           if (
-            this.originalData.referral_method !== "none" &&
+            this.originalData.referral_method !== 'none' &&
             this.originalData.show_referral_disclaimer === false
           ) {
-            this.$emit("update:show_referral_disclaimer", false);
+            this.$emit('update:show_referral_disclaimer', false)
           } else {
-            this.$emit("update:show_referral_disclaimer", true);
+            this.$emit('update:show_referral_disclaimer', true)
           }
         }
 
-        this.$emit("clear", "show_referral_disclaimer");
+        this.$emit('clear', 'show_referral_disclaimer')
       }
     },
   },
-};
+}
 </script>

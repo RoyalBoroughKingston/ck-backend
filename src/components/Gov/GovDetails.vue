@@ -13,12 +13,12 @@
 
 <script>
 export default {
-  name: "GovDetails",
+  name: 'GovDetails',
   props: {
     summary: {
       type: String,
       required: false,
     },
   },
-};
+}
 </script>

@@ -10,17 +10,17 @@
 
 <script>
 export default {
-  name: "ListCollections",
+  name: 'ListCollections',
   data() {
     return {
       tabs: [
-        { heading: "Categories", to: { name: "admin-index-collections" } },
+        { heading: 'Categories', to: { name: 'admin-index-collections' } },
         {
-          heading: "Personas",
-          to: { name: "admin-index-collections-personas" },
+          heading: 'Personas',
+          to: { name: 'admin-index-collections-personas' },
         },
       ],
-    };
+    }
   },
-};
+}
 </script>

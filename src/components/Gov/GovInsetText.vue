@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "GovInsetText",
-};
+  name: 'GovInsetText',
+}
 </script>

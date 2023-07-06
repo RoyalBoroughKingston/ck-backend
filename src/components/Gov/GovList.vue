@@ -13,12 +13,12 @@
 
 <script>
 export default {
-  name: "GovList",
+  name: 'GovList',
   props: {
     type: {
       type: String,
       required: false,
-      default: "unordered",
+      default: 'unordered',
     },
     bullet: {
       required: false,
@@ -26,5 +26,5 @@ export default {
       default: false,
     },
   },
-};
+}
 </script>

@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "GovLabel",
-};
+  name: 'GovLabel',
+}
 </script>

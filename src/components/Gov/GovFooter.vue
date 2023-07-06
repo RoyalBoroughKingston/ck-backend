@@ -60,13 +60,13 @@
 
 <script>
 export default {
-  name: "GovFooter",
+  name: 'GovFooter',
   props: {
     containerClasses: {
       type: Array,
       required: false,
       default() {
-        return [];
+        return []
       },
     },
     navigation: {
@@ -80,11 +80,11 @@ export default {
   },
   methods: {
     listClasses(item) {
-      return item.items ? `govuk-footer__list--columns-${item.columns}` : null;
+      return item.items ? `govuk-footer__list--columns-${item.columns}` : null
     },
     linkedItems(items) {
-      return items.filter((item) => item.href && item.text);
+      return items.filter(item => item.href && item.text)
     },
   },
-};
+}
 </script>

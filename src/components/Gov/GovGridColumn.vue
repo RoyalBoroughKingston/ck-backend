@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "GovGridColumn",
+  name: 'GovGridColumn',
   props: {
     width: {
       type: String,
@@ -15,8 +15,8 @@ export default {
   },
   computed: {
     computedClass() {
-      return `govuk-grid-column-${this.width}`;
+      return `govuk-grid-column-${this.width}`
     },
   },
-};
+}
 </script>

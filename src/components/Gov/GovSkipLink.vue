@@ -6,13 +6,13 @@
 
 <script>
 export default {
-  name: "GovSkipLink",
+  name: 'GovSkipLink',
   props: {
     href: {
       type: String,
       required: false,
-      default: "#content",
+      default: '#content',
     },
   },
-};
+}
 </script>

@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "ThesaurusForm",
+  name: 'ThesaurusForm',
 
   props: {
     errors: {
@@ -26,9 +26,9 @@ export default {
 
   methods: {
     onInput(field, value) {
-      this.$emit(`update:${field}`, value);
-      this.$emit("clear", field);
+      this.$emit(`update:${field}`, value)
+      this.$emit('clear', field)
     },
   },
-};
+}
 </script>

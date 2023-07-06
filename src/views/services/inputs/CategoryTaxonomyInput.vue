@@ -92,10 +92,10 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "CategoryTaxonomyInput",
+  name: 'CategoryTaxonomyInput',
   props: {
     value: {
       required: true,
@@ -121,74 +121,72 @@ export default {
       flattenedTaxonomies: [],
       loading: false,
       enabledTaxonomies: [],
-    };
+    }
   },
   methods: {
     async fetchTaxonomies() {
-      this.loading = true;
-      const { data } = await http.get("/taxonomies/categories");
-      this.taxonomies = data.data;
-      this.setFlattenedTaxonomies();
-      this.loading = false;
+      this.loading = true
+      const { data } = await http.get('/taxonomies/categories')
+      this.taxonomies = data.data
+      this.setFlattenedTaxonomies()
+      this.loading = false
     },
     setFlattenedTaxonomies(taxonomies = null) {
       if (taxonomies === null) {
-        this.flattenedTaxonomies = [];
-        taxonomies = this.taxonomies;
+        this.flattenedTaxonomies = []
+        taxonomies = this.taxonomies
       }
 
-      taxonomies.forEach((taxonomy) => {
-        this.flattenedTaxonomies.push(taxonomy);
+      taxonomies.forEach(taxonomy => {
+        this.flattenedTaxonomies.push(taxonomy)
 
         if (taxonomy.children.length > 0) {
-          this.setFlattenedTaxonomies(taxonomy.children);
+          this.setFlattenedTaxonomies(taxonomy.children)
         }
-      });
+      })
     },
     onInput({ taxonomy, enabled }) {
       if (enabled) {
-        this.onChecked(taxonomy);
+        this.onChecked(taxonomy)
       } else {
-        this.onUnchecked(taxonomy);
+        this.onUnchecked(taxonomy)
       }
 
-      this.$emit("input", this.enabledTaxonomies);
-      this.$emit("clear");
+      this.$emit('input', this.enabledTaxonomies)
+      this.$emit('clear')
     },
     onChecked(taxonomy) {
       if (!this.enabledTaxonomies.includes(taxonomy.id)) {
-        this.enabledTaxonomies.push(taxonomy.id);
+        this.enabledTaxonomies.push(taxonomy.id)
 
         if (this.hierarchy) {
           if (taxonomy.parent_id !== null) {
-            const parent = this.flattenedTaxonomies.find(
-              (flattenedTaxonomy) => {
-                return flattenedTaxonomy.id === taxonomy.parent_id;
-              }
-            );
-            this.onInput({ taxonomy: parent, enabled: true });
+            const parent = this.flattenedTaxonomies.find(flattenedTaxonomy => {
+              return flattenedTaxonomy.id === taxonomy.parent_id
+            })
+            this.onInput({ taxonomy: parent, enabled: true })
           }
         }
       }
     },
     onUnchecked(taxonomy) {
       if (this.enabledTaxonomies.includes(taxonomy.id)) {
-        const index = this.enabledTaxonomies.indexOf(taxonomy.id);
-        this.enabledTaxonomies.splice(index, 1);
+        const index = this.enabledTaxonomies.indexOf(taxonomy.id)
+        this.enabledTaxonomies.splice(index, 1)
 
         if (this.hierarchy) {
           if (taxonomy.children.length > 0) {
-            taxonomy.children.forEach((taxonomy) =>
+            taxonomy.children.forEach(taxonomy =>
               this.onInput({ taxonomy, enabled: false })
-            );
+            )
           }
         }
       }
     },
   },
   created() {
-    this.fetchTaxonomies();
-    this.enabledTaxonomies = this.value;
+    this.fetchTaxonomies()
+    this.enabledTaxonomies = this.value
   },
-};
+}
 </script>

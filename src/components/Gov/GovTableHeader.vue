@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "GovTableHeader",
+  name: 'GovTableHeader',
   props: {
     top: {
       type: Boolean,
@@ -36,14 +36,14 @@ export default {
   computed: {
     computedClasses() {
       return {
-        "align-top": this.top,
-        "text-center": this.center,
-        "text-right": this.right,
-        "ck-table__header--clickable": this.clickable,
-      };
+        'align-top': this.top,
+        'text-center': this.center,
+        'text-right': this.right,
+        'ck-table__header--clickable': this.clickable,
+      }
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

@@ -21,14 +21,14 @@
 
 <script>
 export default {
-  name: "ShowReferralConfirmation",
+  name: 'ShowReferralConfirmation',
   methods: {
     onContinue() {
       this.$router.push({
-        name: "referrals-show",
+        name: 'referrals-show',
         params: { referral: this.$route.params.referral },
-      });
+      })
     },
   },
-};
+}
 </script>

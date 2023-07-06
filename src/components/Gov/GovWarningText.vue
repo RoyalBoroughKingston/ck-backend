@@ -10,14 +10,14 @@
 
 <script>
 export default {
-  name: "GovWarningText",
+  name: 'GovWarningText',
 
   props: {
     title: {
       required: false,
       type: String,
-      default: "Warning",
+      default: 'Warning',
     },
   },
-};
+}
 </script>

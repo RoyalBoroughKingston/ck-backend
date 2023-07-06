@@ -45,31 +45,31 @@
 </template>
 
 <script>
-import CollectionForm from "@/views/collections/categories/forms/CollectionForm";
-import Form from "@/classes/Form";
+import CollectionForm from '@/views/collections/categories/forms/CollectionForm'
+import Form from '@/classes/Form'
 
 export default {
-  name: "CreateCollectionCategory",
+  name: 'CreateCollectionCategory',
   components: { CollectionForm },
   data() {
     return {
       form: new Form({
-        slug: "",
-        name: "",
-        intro: "",
+        slug: '',
+        name: '',
+        intro: '',
         image_file_id: null,
         order: 1,
         homepage: true,
         sideboxes: [],
         category_taxonomies: [],
       }),
-    };
+    }
   },
   methods: {
     async onSubmit() {
-      await this.form.post("/collections/categories");
-      this.$router.push({ name: "admin-index-collections" });
+      await this.form.post('/collections/categories')
+      this.$router.push({ name: 'admin-index-collections' })
     },
   },
-};
+}
 </script>

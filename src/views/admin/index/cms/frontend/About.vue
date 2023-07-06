@@ -38,11 +38,11 @@
 
 <script>
 export default {
-  name: "CmsFrontendAbout",
+  name: 'CmsFrontendAbout',
 
   model: {
-    prop: "frontend",
-    event: "input",
+    prop: 'frontend',
+    event: 'input',
   },
 
   props: {
@@ -59,13 +59,13 @@ export default {
 
   methods: {
     onInput({ field, value }) {
-      const frontend = { ...this.frontend };
+      const frontend = { ...this.frontend }
 
-      frontend.about[field] = value;
+      frontend.about[field] = value
 
-      this.$emit("input", frontend);
-      this.$emit("clear", `frontend.about.${field}`);
+      this.$emit('input', frontend)
+      this.$emit('clear', `frontend.about.${field}`)
     },
   },
-};
+}
 </script>

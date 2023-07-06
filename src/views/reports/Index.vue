@@ -24,20 +24,20 @@
 
 <script>
 export default {
-  name: "ReportsPage",
+  name: 'ReportsPage',
   data() {
     return {
       tabs: [
         {
-          heading: "View all",
-          to: { name: "reports-index" },
+          heading: 'View all',
+          to: { name: 'reports-index' },
         },
         {
-          heading: "Manage",
-          to: { name: "reports-edit" },
+          heading: 'Manage',
+          to: { name: 'reports-edit' },
         },
       ],
-    };
+    }
   },
-};
+}
 </script>

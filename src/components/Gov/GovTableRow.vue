@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "GovTableRow",
-};
+  name: 'GovTableRow',
+}
 </script>

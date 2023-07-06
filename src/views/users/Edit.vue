@@ -46,132 +46,132 @@
 </template>
 
 <script>
-import http from "@/http";
-import Form from "@/classes/Form";
-import UserForm from "@/views/users/forms/UserForm";
+import http from '@/http'
+import Form from '@/classes/Form'
+import UserForm from '@/views/users/forms/UserForm'
 
 export default {
-  name: "EditUser",
+  name: 'EditUser',
   components: { UserForm },
   data() {
     return {
       loading: false,
       user: null,
       form: null,
-    };
+    }
   },
   methods: {
     async fetchUser() {
-      this.loading = true;
+      this.loading = true
 
       const response = await http.get(`/users/${this.$route.params.user}`, {
-        params: { include: "user-roles" },
-      });
-      this.user = response.data.data;
+        params: { include: 'user-roles' },
+      })
+      this.user = response.data.data
       this.form = new Form({
         first_name: this.user.first_name,
         last_name: this.user.last_name,
         email: this.user.email,
         phone: this.user.phone,
-        password: "",
+        password: '',
         roles: this.user.roles,
-      });
+      })
 
       // Filter down the roles.
-      if (this.form.roles.find((role) => role.role === "Super Admin")) {
+      if (this.form.roles.find(role => role.role === 'Super Admin')) {
         // If the user is a super admin.
         this.form.roles = this.form.roles.filter(
-          (role) => role.role === "Super Admin"
-        );
-      } else if (this.form.roles.find((role) => role.role === "Global Admin")) {
+          role => role.role === 'Super Admin'
+        )
+      } else if (this.form.roles.find(role => role.role === 'Global Admin')) {
         // Else if, the user is a global admin.
         this.form.roles = this.form.roles.filter(
-          (role) => role.role === "Global Admin"
-        );
+          role => role.role === 'Global Admin'
+        )
       } else {
         // Else, fetch the services for each role and embed them.
-        let serviceIds = [];
-        this.form.roles.forEach((role) => {
-          if (role.hasOwnProperty("service_id")) {
-            serviceIds.push(role.service_id);
+        let serviceIds = []
+        this.form.roles.forEach(role => {
+          if (role.hasOwnProperty('service_id')) {
+            serviceIds.push(role.service_id)
           }
-        });
+        })
         let services = await this.fetchAll(
-          "/services/index",
-          { "filter[id]": serviceIds.join(",") },
-          "POST"
-        );
-        this.form.roles.forEach((role) => {
-          if (role.hasOwnProperty("service_id")) {
+          '/services/index',
+          { 'filter[id]': serviceIds.join(',') },
+          'POST'
+        )
+        this.form.roles.forEach(role => {
+          if (role.hasOwnProperty('service_id')) {
             const service = services.find(
-              (service) => service.id === role.service_id
-            );
-            role.organisation_id = service.organisation_id;
+              service => service.id === role.service_id
+            )
+            role.organisation_id = service.organisation_id
           }
-        });
+        })
 
         // Filter down the roles for organisation admins.
-        const organisationIds = [];
-        this.form.roles.forEach((role) => {
-          if (role.role === "Organisation Admin") {
-            organisationIds.push(role.organisation_id);
+        const organisationIds = []
+        this.form.roles.forEach(role => {
+          if (role.role === 'Organisation Admin') {
+            organisationIds.push(role.organisation_id)
           }
-        });
-        this.form.roles = this.form.roles.filter((role) => {
+        })
+        this.form.roles = this.form.roles.filter(role => {
           return (
-            role.role === "Organisation Admin" ||
+            role.role === 'Organisation Admin' ||
             !organisationIds.includes(role.organisation_id)
-          );
-        });
+          )
+        })
 
         // Filter down the roles for service admins.
-        const serviceAdminIds = [];
-        this.form.roles.forEach((role) => {
-          if (role.role === "Service Admin") {
-            serviceAdminIds.push(role.service_id);
+        const serviceAdminIds = []
+        this.form.roles.forEach(role => {
+          if (role.role === 'Service Admin') {
+            serviceAdminIds.push(role.service_id)
           }
-        });
-        this.form.roles = this.form.roles.filter((role) => {
+        })
+        this.form.roles = this.form.roles.filter(role => {
           return (
-            role.role === "Service Admin" ||
+            role.role === 'Service Admin' ||
             !serviceAdminIds.includes(role.service_id)
-          );
-        });
+          )
+        })
       }
 
-      this.loading = false;
+      this.loading = false
     },
     async onSubmit() {
       await this.form.put(`/users/${this.user.id}`, (config, data) => {
         // Strip spaces from the phone number.
-        data.phone = data.phone.replace(/\s/g, "");
+        data.phone = data.phone.replace(/\s/g, '')
 
         if (data.password.length === 0) {
-          delete data.password;
+          delete data.password
         }
 
-        data.roles.forEach((role) => {
+        data.roles.forEach(role => {
           switch (role.role) {
             // Delete the organisation and service IDs instead of sending null values.
-            case "Super Admin":
-            case "Global Admin":
-              delete role.organisation_id;
-              delete role.service_id;
-              break;
-            case "Organisation Admin":
-              delete role.service_id;
-              break;
+            case 'Super Admin':
+            case 'Global Admin':
+              delete role.organisation_id
+              delete role.service_id
+              break
+            case 'Organisation Admin':
+              delete role.service_id
+              break
           }
-        });
-      });
+        })
+      })
       this.$router.push({
-        name: "users-show",
+        name: 'users-show',
         params: { user: this.user.id },
-      });
+      })
     },
   },
   created() {
-    this.fetchUser();
+    this.fetchUser()
   },
-};
+}
 </script>

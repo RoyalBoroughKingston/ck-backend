@@ -60,12 +60,12 @@
 </template>
 
 <script>
-import Form from "@/classes/Form";
-import ServiceLocationForm from "@/views/service-locations/forms/ServiceLocationForm";
-import http from "@/http";
+import Form from '@/classes/Form'
+import ServiceLocationForm from '@/views/service-locations/forms/ServiceLocationForm'
+import http from '@/http'
 
 export default {
-  name: "CreateServiceLocation",
+  name: 'CreateServiceLocation',
   components: { ServiceLocationForm },
   data() {
     return {
@@ -73,62 +73,60 @@ export default {
       form: new Form({
         service_id: null,
         location_id: null,
-        name: "",
+        name: '',
         regular_opening_hours: [],
         holiday_opening_hours: [],
         image_file_id: null,
       }),
       locationForm: new Form({
-        address_line_1: "",
-        address_line_2: "",
-        address_line_3: "",
-        city: "",
-        county: "",
-        postcode: "",
-        country: "United Kingdom",
-        accessibility_info: "",
+        address_line_1: '',
+        address_line_2: '',
+        address_line_3: '',
+        city: '',
+        county: '',
+        postcode: '',
+        country: 'United Kingdom',
+        accessibility_info: '',
         has_wheelchair_access: false,
         has_induction_loop: false,
       }),
       service: null,
       loading: false,
       submitting: false,
-    };
+    }
   },
   methods: {
     async fetchService() {
-      this.loading = true;
-      const response = await http.get(
-        `/services/${this.$route.params.service}`
-      );
-      this.service = response.data.data;
-      this.form.service_id = this.service.id;
-      this.loading = false;
+      this.loading = true
+      const response = await http.get(`/services/${this.$route.params.service}`)
+      this.service = response.data.data
+      this.form.service_id = this.service.id
+      this.loading = false
     },
     async onSubmit() {
       try {
-        this.submitting = true;
+        this.submitting = true
 
         // Post the location if new.
-        if (this.location_type === "new") {
-          const { data: location } = await this.locationForm.post("/locations");
-          this.location_type = "existing";
-          this.form.location_id = location.id;
+        if (this.location_type === 'new') {
+          const { data: location } = await this.locationForm.post('/locations')
+          this.location_type = 'existing'
+          this.form.location_id = location.id
         }
 
         // Post the service location.
-        const { data: service } = await this.form.post("/service-locations");
+        const { data: service } = await this.form.post('/service-locations')
         this.$router.push({
-          name: "service-locations-show",
+          name: 'service-locations-show',
           params: { serviceLocation: service.id },
-        });
+        })
       } catch (error) {
-        this.submitting = false;
+        this.submitting = false
       }
     },
   },
   created() {
-    this.fetchService();
+    this.fetchService()
   },
-};
+}
 </script>

@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "CriteriaInput",
+  name: 'CriteriaInput',
   props: {
     value: {
       type: String,
@@ -52,16 +52,16 @@ export default {
   },
   data() {
     return {
-      enabled: this.value !== "",
+      enabled: this.value !== '',
       maxLength: 150,
-    };
+    }
   },
   watch: {
     enabled(enabled) {
       if (!enabled) {
-        this.$emit("input", "");
+        this.$emit('input', '')
       }
     },
   },
-};
+}
 </script>

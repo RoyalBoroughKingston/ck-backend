@@ -17,6 +17,6 @@
 
 <script>
 export default {
-  name: "CmsUpdated",
-};
+  name: 'CmsUpdated',
+}
 </script>

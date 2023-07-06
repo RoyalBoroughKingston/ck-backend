@@ -74,18 +74,18 @@
 </template>
 
 <script>
-import CkImageInput from "@/components/Ck/CkImageInput";
+import CkImageInput from '@/components/Ck/CkImageInput'
 
 export default {
-  name: "CmsFrontendBanner",
+  name: 'CmsFrontendBanner',
 
   components: {
     CkImageInput,
   },
 
   model: {
-    prop: "frontend",
-    event: "input",
+    prop: 'frontend',
+    event: 'input',
   },
 
   props: {
@@ -102,13 +102,13 @@ export default {
 
   methods: {
     onInput({ field, value }) {
-      const frontend = { ...this.frontend };
+      const frontend = { ...this.frontend }
 
-      frontend.banner[field] = value;
+      frontend.banner[field] = value
 
-      this.$emit("input", frontend);
-      this.$emit("clear", `frontend.banner.${field}`);
+      this.$emit('input', frontend)
+      this.$emit('clear', `frontend.banner.${field}`)
     },
   },
-};
+}
 </script>

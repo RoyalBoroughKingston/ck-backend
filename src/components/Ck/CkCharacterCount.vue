@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "CkCharacterCount",
+  name: 'CkCharacterCount',
 
   props: {
     count: {
@@ -17,11 +17,11 @@ export default {
       required: true,
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "../../scss/app.scss";
+@import '../../scss/app.scss';
 
 .ck-character-count {
   @extend .govuk-body;

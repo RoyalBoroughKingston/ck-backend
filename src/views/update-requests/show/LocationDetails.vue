@@ -72,10 +72,10 @@
             >Has induction loop</gov-table-header
           >
           <gov-table-cell>{{
-            original.has_induction_loop ? "Yes" : "No"
+            original.has_induction_loop ? 'Yes' : 'No'
           }}</gov-table-cell>
           <gov-table-cell>{{
-            location.has_induction_loop ? "Yes" : "No"
+            location.has_induction_loop ? 'Yes' : 'No'
           }}</gov-table-cell>
         </gov-table-row>
 
@@ -84,10 +84,10 @@
             >Has wheelchair access</gov-table-header
           >
           <gov-table-cell>{{
-            original.has_wheelchair_access ? "Yes" : "No"
+            original.has_wheelchair_access ? 'Yes' : 'No'
           }}</gov-table-cell>
           <gov-table-cell>{{
-            location.has_wheelchair_access ? "Yes" : "No"
+            location.has_wheelchair_access ? 'Yes' : 'No'
           }}</gov-table-cell>
         </gov-table-row>
 
@@ -120,10 +120,10 @@
 </template>
 
 <script>
-import http from "@/http";
+import http from '@/http'
 
 export default {
-  name: "LocationDetails",
+  name: 'LocationDetails',
   props: {
     updateRequestId: {
       required: true,
@@ -144,20 +144,20 @@ export default {
     return {
       loading: false,
       original: null,
-    };
+    }
   },
   methods: {
     async fetchOriginal() {
-      this.loading = true;
+      this.loading = true
       const {
         data: { data: original },
-      } = await http.get(`/locations/${this.location.id}`);
-      this.original = original;
-      this.loading = false;
+      } = await http.get(`/locations/${this.location.id}`)
+      this.original = original
+      this.loading = false
     },
   },
   created() {
-    this.fetchOriginal();
+    this.fetchOriginal()
   },
-};
+}
 </script>

@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "CkThesaurusList",
+  name: 'CkThesaurusList',
 
   props: {
     synonyms: {
@@ -18,5 +18,5 @@ export default {
       type: Array,
     },
   },
-};
+}
 </script>

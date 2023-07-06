@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: "ContactInfoTab",
+  name: 'ContactInfoTab',
   props: {
     service: {
       type: Object,
@@ -51,18 +51,18 @@ export default {
   methods: {
     humanReadableSocialMedia(type) {
       switch (type) {
-        case "twitter":
-          return "Twitter";
-        case "facebook":
-          return "Facebook";
-        case "instagram":
-          return "Instagram";
-        case "youtube":
-          return "YouTube";
-        case "other":
-          return "Other";
+        case 'twitter':
+          return 'Twitter'
+        case 'facebook':
+          return 'Facebook'
+        case 'instagram':
+          return 'Instagram'
+        case 'youtube':
+          return 'YouTube'
+        case 'other':
+          return 'Other'
       }
     },
   },
-};
+}
 </script>

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "GovRadios",
+  name: 'GovRadios',
   props: {
     inline: {
       required: false,
@@ -14,5 +14,5 @@ export default {
       default: false,
     },
   },
-};
+}
 </script>

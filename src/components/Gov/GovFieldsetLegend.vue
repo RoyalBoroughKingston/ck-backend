@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "GovFieldsetLegend",
+  name: 'GovFieldsetLegend',
   props: {
     size: {
       type: String,
@@ -15,8 +15,8 @@ export default {
   },
   computed: {
     computedClass() {
-      return `govuk-fieldset__legend--${this.size}`;
+      return `govuk-fieldset__legend--${this.size}`
     },
   },
-};
+}
 </script>

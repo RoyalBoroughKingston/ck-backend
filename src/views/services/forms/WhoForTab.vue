@@ -13,8 +13,8 @@
         <criteria-input
           :value="age_group"
           @input="
-            $emit('update:age_group', $event);
-            $emit('clear', 'criteria.age_group');
+            $emit('update:age_group', $event)
+            $emit('clear', 'criteria.age_group')
           "
           :error="errors.get('criteria.age_group')"
           id="criteria.age_group"
@@ -27,8 +27,8 @@
         <criteria-input
           :value="disability"
           @input="
-            $emit('update:disability', $event);
-            $emit('clear', 'criteria.disability');
+            $emit('update:disability', $event)
+            $emit('clear', 'criteria.disability')
           "
           :error="errors.get('criteria.disability')"
           id="criteria.disability"
@@ -41,8 +41,8 @@
         <criteria-input
           :value="gender"
           @input="
-            $emit('update:gender', $event);
-            $emit('clear', 'criteria.gender');
+            $emit('update:gender', $event)
+            $emit('clear', 'criteria.gender')
           "
           :error="errors.get('criteria.gender')"
           id="criteria.gender"
@@ -55,8 +55,8 @@
         <criteria-input
           :value="housing"
           @input="
-            $emit('update:housing', $event);
-            $emit('clear', 'criteria.housing');
+            $emit('update:housing', $event)
+            $emit('clear', 'criteria.housing')
           "
           :error="errors.get('criteria.housing')"
           id="criteria.housing"
@@ -69,8 +69,8 @@
         <criteria-input
           :value="income"
           @input="
-            $emit('update:income', $event);
-            $emit('clear', 'criteria.income');
+            $emit('update:income', $event)
+            $emit('clear', 'criteria.income')
           "
           :error="errors.get('criteria.income')"
           id="criteria.income"
@@ -83,8 +83,8 @@
         <criteria-input
           :value="language"
           @input="
-            $emit('update:language', $event);
-            $emit('clear', 'criteria.language');
+            $emit('update:language', $event)
+            $emit('clear', 'criteria.language')
           "
           :error="errors.get('criteria.language')"
           id="criteria.language"
@@ -97,8 +97,8 @@
         <criteria-input
           :value="other"
           @input="
-            $emit('update:other', $event);
-            $emit('clear', 'criteria.other');
+            $emit('update:other', $event)
+            $emit('clear', 'criteria.other')
           "
           :error="errors.get('criteria.other')"
           id="criteria.other"
@@ -114,10 +114,10 @@
 </template>
 
 <script>
-import CriteriaInput from "@/views/services/inputs/CriteriaInput";
+import CriteriaInput from '@/views/services/inputs/CriteriaInput'
 
 export default {
-  name: "WhoForTab",
+  name: 'WhoForTab',
   components: { CriteriaInput },
   props: {
     errors: {
@@ -152,5 +152,5 @@ export default {
       required: true,
     },
   },
-};
+}
 </script>

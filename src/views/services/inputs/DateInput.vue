@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import moment from "moment";
+import moment from 'moment'
 
 export default {
-  name: "StartsAtInput",
+  name: 'StartsAtInput',
   props: {
     value: {
       required: true,
@@ -57,51 +57,51 @@ export default {
   },
   data() {
     return {
-      year: "",
-      month: "",
-      day: "",
-    };
+      year: '',
+      month: '',
+      day: '',
+    }
   },
   methods: {
     onInput() {
-      let year = parseInt(this.year);
-      let month = parseInt(this.month);
-      let day = parseInt(this.day);
+      let year = parseInt(this.year)
+      let month = parseInt(this.month)
+      let day = parseInt(this.day)
 
       // Only parse the date if the inputs are all valid.
       for (let value of [year, month, day]) {
         if (isNaN(value)) {
-          this.$emit("input", "");
-          return;
+          this.$emit('input', '')
+          return
         }
       }
 
       let date = moment({ year, month: month - 1, day }).format(
         moment.HTML5_FMT.DATE
-      );
+      )
 
       // Only return the date if it's vaild.
-      if (date === "Invalid date") {
-        this.$emit("input", "");
-        return;
+      if (date === 'Invalid date') {
+        this.$emit('input', '')
+        return
       }
 
-      this.$emit("input", date);
+      this.$emit('input', date)
     },
   },
   watch: {
     value(newValue, oldValue) {
       if (newValue === oldValue) {
-        return;
+        return
       }
 
-      if (newValue !== "") {
-        const date = moment(newValue, moment.HTML5_FMT.DATE);
-        this.year = date.year().toString();
-        this.month = (date.month() + 1).toString();
-        this.day = date.date().toString();
+      if (newValue !== '') {
+        const date = moment(newValue, moment.HTML5_FMT.DATE)
+        this.year = date.year().toString()
+        this.month = (date.month() + 1).toString()
+        this.day = date.date().toString()
       }
     },
   },
-};
+}
 </script>

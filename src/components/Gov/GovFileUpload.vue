@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "GovInput",
+  name: 'GovInput',
   props: {
     id: {
       type: String,
@@ -26,31 +26,31 @@ export default {
   data() {
     return {
       fileReader: new FileReader(),
-    };
+    }
   },
   computed: {
     ariaDescribedBy() {
-      return `${this.name}-hint`;
+      return `${this.name}-hint`
     },
   },
   methods: {
     onChange() {
-      const files = this.$refs.file.files;
+      const files = this.$refs.file.files
 
       if (!files.length) {
-        this.$emit("change", null);
-        return;
+        this.$emit('change', null)
+        return
       }
 
-      const file = files[0];
+      const file = files[0]
       this.fileReader.onloadend = () =>
-        this.$emit("change", {
+        this.$emit('change', {
           mime_type: file.type,
           bytes: file.size,
           content: this.fileReader.result,
-        });
-      this.fileReader.readAsDataURL(file);
+        })
+      this.fileReader.readAsDataURL(file)
     },
   },
-};
+}
 </script>

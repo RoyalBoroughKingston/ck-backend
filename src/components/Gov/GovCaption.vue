@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "GovCaption",
+  name: 'GovCaption',
   props: {
     size: {
       type: String,
@@ -15,8 +15,8 @@ export default {
   },
   computed: {
     computedClass() {
-      return `govuk-caption-${this.size}`;
+      return `govuk-caption-${this.size}`
     },
   },
-};
+}
 </script>

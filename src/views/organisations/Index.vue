@@ -42,27 +42,27 @@
               {
                 heading: 'Organisation name',
                 sort: 'name',
-                render: (organisation) => organisation.name,
+                render: organisation => organisation.name,
               },
               {
                 heading: 'Web address URL',
-                render: (organisation) => organisation.url,
+                render: organisation => organisation.url,
               },
               {
                 heading: 'Phone number',
-                render: (organisation) => organisation.phone || '-',
+                render: organisation => organisation.phone || '-',
               },
               {
                 heading: 'Email',
-                render: (organisation) => organisation.email || '-',
+                render: organisation => organisation.email || '-',
               },
             ]"
             :view-route="
-              (organisation) => {
+              organisation => {
                 return {
                   name: 'organisations-show',
                   params: { organisation: organisation.id },
-                };
+                }
               }
             "
           />
@@ -73,40 +73,40 @@
 </template>
 
 <script>
-import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
-import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
+import CkResourceListingTable from '@/components/Ck/CkResourceListingTable.vue'
+import CkTableFilters from '@/components/Ck/CkTableFilters.vue'
 
 export default {
-  name: "ListOrganisations",
+  name: 'ListOrganisations',
   components: { CkResourceListingTable, CkTableFilters },
   data() {
     return {
       filters: {
-        name: "",
+        name: '',
       },
-    };
+    }
   },
   computed: {
     params() {
       const params = {
-        "filter[has_permission]": true,
-      };
-
-      if (this.filters.name !== "") {
-        params["filter[name]"] = this.filters.name;
+        'filter[has_permission]': true,
       }
 
-      return params;
+      if (this.filters.name !== '') {
+        params['filter[name]'] = this.filters.name
+      }
+
+      return params
     },
   },
   methods: {
     onSearch() {
-      this.$refs.organisationsTable.currentPage = 1;
-      this.$refs.organisationsTable.fetchResources();
+      this.$refs.organisationsTable.currentPage = 1
+      this.$refs.organisationsTable.fetchResources()
     },
     onAddOrganisation() {
-      this.$router.push({ name: "organisations-create" });
+      this.$router.push({ name: 'organisations-create' })
     },
   },
-};
+}
 </script>

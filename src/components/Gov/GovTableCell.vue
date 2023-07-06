@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "GovTableCell",
+  name: 'GovTableCell',
   props: {
     center: {
       type: Boolean,
@@ -27,13 +27,13 @@ export default {
   computed: {
     computedClasses() {
       return {
-        "text-center": this.center,
-        "text-right": this.right,
-        "govuk-table__cell--break-word": this.break,
-      };
+        'text-center': this.center,
+        'text-right': this.right,
+        'govuk-table__cell--break-word': this.break,
+      }
     },
   },
-};
+}
 </script>
 
 <style lang="scss">

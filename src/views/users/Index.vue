@@ -112,26 +112,26 @@
               {
                 heading: 'First name',
                 sort: 'first_name',
-                render: (user) => user.first_name,
+                render: user => user.first_name,
               },
               {
                 heading: 'Last name',
                 sort: 'last_name',
-                render: (user) => user.last_name,
+                render: user => user.last_name,
               },
               {
                 heading: 'Highest permission level',
                 sort: 'highest_role',
-                render: (user) => displayHighestRole(user.roles),
+                render: user => displayHighestRole(user.roles),
               },
-              { heading: 'Phone number', render: (user) => user.phone },
+              { heading: 'Phone number', render: user => user.phone },
             ]"
             :view-route="
-              (user) => {
+              user => {
                 return {
                   name: 'users-show',
                   params: { user: user.id },
-                };
+                }
               }
             "
           />
@@ -142,167 +142,165 @@
 </template>
 
 <script>
-import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
-import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
+import CkResourceListingTable from '@/components/Ck/CkResourceListingTable.vue'
+import CkTableFilters from '@/components/Ck/CkTableFilters.vue'
 
 export default {
-  name: "ListUsers",
+  name: 'ListUsers',
   components: { CkResourceListingTable, CkTableFilters },
   data() {
     return {
       filters: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        phone: "",
-        highest_role: "",
-        at_organisation: "",
-        at_service: "",
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        highest_role: '',
+        at_organisation: '',
+        at_service: '',
       },
       roles: [
-        { value: "", text: "All" },
-        { value: "Super Admin", text: "Super Admin" },
-        { value: "Global Admin", text: "Global Admin" },
-        { value: "Organisation Admin", text: "Organisation Admin" },
-        { value: "Service Admin", text: "Service Admin" },
-        { value: "Service Worker", text: "Service Worker" },
+        { value: '', text: 'All' },
+        { value: 'Super Admin', text: 'Super Admin' },
+        { value: 'Global Admin', text: 'Global Admin' },
+        { value: 'Organisation Admin', text: 'Organisation Admin' },
+        { value: 'Service Admin', text: 'Service Admin' },
+        { value: 'Service Worker', text: 'Service Worker' },
       ],
       loadingOrganisations: false,
       organisations: [],
       loadingServices: false,
-      services: [{ value: "", text: "First select an organisation..." }],
-    };
+      services: [{ value: '', text: 'First select an organisation...' }],
+    }
   },
   computed: {
     params() {
       const params = {
-        include: "user-roles",
-        "filter[has_permission]": true,
-      };
-
-      if (this.filters.first_name !== "") {
-        params["filter[first_name]"] = this.filters.first_name;
+        include: 'user-roles',
+        'filter[has_permission]': true,
       }
 
-      if (this.filters.last_name !== "") {
-        params["filter[last_name]"] = this.filters.last_name;
+      if (this.filters.first_name !== '') {
+        params['filter[first_name]'] = this.filters.first_name
       }
 
-      if (this.filters.email !== "") {
-        params["filter[email]"] = this.filters.email;
+      if (this.filters.last_name !== '') {
+        params['filter[last_name]'] = this.filters.last_name
       }
 
-      if (this.filters.phone !== "") {
-        params["filter[phone]"] = this.filters.phone;
+      if (this.filters.email !== '') {
+        params['filter[email]'] = this.filters.email
       }
 
-      if (this.filters.highest_role !== "") {
-        params["filter[highest_role]"] = this.filters.highest_role;
+      if (this.filters.phone !== '') {
+        params['filter[phone]'] = this.filters.phone
       }
 
-      if (this.filters.at_organisation !== "") {
-        params["filter[at_organisation]"] = this.filters.at_organisation;
+      if (this.filters.highest_role !== '') {
+        params['filter[highest_role]'] = this.filters.highest_role
       }
 
-      if (this.filters.at_service !== "") {
-        params["filter[at_service]"] = this.filters.at_service;
-        delete params["filter[at_organisation]"];
+      if (this.filters.at_organisation !== '') {
+        params['filter[at_organisation]'] = this.filters.at_organisation
       }
 
-      return params;
+      if (this.filters.at_service !== '') {
+        params['filter[at_service]'] = this.filters.at_service
+        delete params['filter[at_organisation]']
+      }
+
+      return params
     },
   },
   watch: {
-    "filters.at_organisation"(organisationId) {
-      this.filters.at_service = "";
+    'filters.at_organisation'(organisationId) {
+      this.filters.at_service = ''
 
-      if (organisationId === "") {
-        this.services = [
-          { value: "", text: "First select an organisation..." },
-        ];
+      if (organisationId === '') {
+        this.services = [{ value: '', text: 'First select an organisation...' }]
       } else {
-        this.fetchServices(organisationId);
+        this.fetchServices(organisationId)
       }
     },
   },
   methods: {
     onSearch() {
-      this.$refs.usersTable.currentPage = 1;
-      this.$refs.usersTable.fetchResources();
+      this.$refs.usersTable.currentPage = 1
+      this.$refs.usersTable.fetchResources()
     },
     onAddUser() {
-      this.$router.push({ name: "users-create" });
+      this.$router.push({ name: 'users-create' })
     },
     displayHighestRole(roles) {
       const isSuperAdmin =
-        roles.find((role) => role.role === "Super Admin") !== undefined;
+        roles.find(role => role.role === 'Super Admin') !== undefined
       if (isSuperAdmin) {
-        return "Super Admin";
+        return 'Super Admin'
       }
 
       const isGlobalAdmin =
-        roles.find((role) => role.role === "Global Admin") !== undefined;
+        roles.find(role => role.role === 'Global Admin') !== undefined
       if (isGlobalAdmin) {
-        return "Global Admin";
+        return 'Global Admin'
       }
 
       const isOrganisationAdmin =
-        roles.find((role) => role.role === "Organisation Admin") !== undefined;
+        roles.find(role => role.role === 'Organisation Admin') !== undefined
       if (isOrganisationAdmin) {
-        return "Organisation Admin";
+        return 'Organisation Admin'
       }
 
       const isServiceAdmin =
-        roles.find((role) => role.role === "Service Admin") !== undefined;
+        roles.find(role => role.role === 'Service Admin') !== undefined
       if (isServiceAdmin) {
-        return "Service Admin";
+        return 'Service Admin'
       }
 
       const isServiceWorker =
-        roles.find((role) => role.role === "Service Worker") !== undefined;
+        roles.find(role => role.role === 'Service Worker') !== undefined
       if (isServiceWorker) {
-        return "Service Worker";
+        return 'Service Worker'
       }
 
-      return "None";
+      return 'None'
     },
     async fetchOrganisations() {
-      this.loadingOrganisations = true;
+      this.loadingOrganisations = true
 
-      let organisation = await this.fetchAll("/organisations");
-      organisation = organisation.map((organisation) => {
+      let organisation = await this.fetchAll('/organisations')
+      organisation = organisation.map(organisation => {
         return {
           value: organisation.id,
           text: organisation.name,
-        };
-      });
-      organisation.unshift({ value: "", text: "All" });
+        }
+      })
+      organisation.unshift({ value: '', text: 'All' })
 
-      this.organisations = organisation;
+      this.organisations = organisation
 
-      this.loadingOrganisations = false;
+      this.loadingOrganisations = false
     },
     async fetchServices(organisationId) {
-      this.loadingServices = true;
+      this.loadingServices = true
 
-      let services = await this.fetchAll("/services", {
-        "filter[organisation_id]": organisationId,
-      });
-      services = services.map((service) => {
+      let services = await this.fetchAll('/services', {
+        'filter[organisation_id]': organisationId,
+      })
+      services = services.map(service => {
         return {
           value: service.id,
           text: service.name,
-        };
-      });
-      services.unshift({ value: "", text: "All" });
+        }
+      })
+      services.unshift({ value: '', text: 'All' })
 
-      this.services = services;
+      this.services = services
 
-      this.loadingServices = false;
+      this.loadingServices = false
     },
   },
   created() {
-    this.fetchOrganisations();
+    this.fetchOrganisations()
   },
-};
+}
 </script>

@@ -19,19 +19,19 @@
 </template>
 
 <script>
-import Auth from "@/classes/Auth";
+import Auth from '@/classes/Auth'
 
 export default {
   data() {
     return {
       loginUri: Auth.authorizeUrl,
-    };
+    }
   },
   created() {
-    Auth.clearSessions();
-    Auth.logout();
+    Auth.clearSessions()
+    Auth.logout()
 
-    this.$root.$emit("logout");
+    this.$root.$emit('logout')
   },
-};
+}
 </script>

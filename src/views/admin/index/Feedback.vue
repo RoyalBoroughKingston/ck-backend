@@ -29,29 +29,29 @@
         {
           heading: 'Page URL',
           sort: 'url',
-          render: (pageFeedback) => pageFeedback.url,
+          render: pageFeedback => pageFeedback.url,
         },
         {
           heading: 'Contact name',
-          render: (pageFeedback) => pageFeedback.name || '-',
+          render: pageFeedback => pageFeedback.name || '-',
         },
         {
           heading: 'Contact details',
-          render: (pageFeedback) =>
+          render: pageFeedback =>
             pageFeedback.email || pageFeedback.phone || '-',
         },
         {
           heading: 'Date / Time',
           sort: 'created_at',
-          render: (pageFeedback) => formatDateTime(pageFeedback.created_at),
+          render: pageFeedback => formatDateTime(pageFeedback.created_at),
         },
       ]"
       :view-route="
-        (pageFeedback) => {
+        pageFeedback => {
           return {
             name: 'page-feedbacks-show',
             params: { pageFeedback: pageFeedback.id },
-          };
+          }
         }
       "
     />
@@ -59,35 +59,35 @@
 </template>
 
 <script>
-import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
-import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
+import CkResourceListingTable from '@/components/Ck/CkResourceListingTable.vue'
+import CkTableFilters from '@/components/Ck/CkTableFilters.vue'
 
 export default {
-  name: "ListNotification",
+  name: 'ListNotification',
   components: { CkResourceListingTable, CkTableFilters },
   data() {
     return {
       filters: {
-        url: "",
+        url: '',
       },
-    };
+    }
   },
   computed: {
     params() {
-      const params = {};
+      const params = {}
 
-      if (this.filters.url !== "") {
-        params["filter[url]"] = this.filters.url;
+      if (this.filters.url !== '') {
+        params['filter[url]'] = this.filters.url
       }
 
-      return params;
+      return params
     },
   },
   methods: {
     onSearch() {
-      this.$refs.pageFeedbacksTable.currentPage = 1;
-      this.$refs.pageFeedbacksTable.fetchResources();
+      this.$refs.pageFeedbacksTable.currentPage = 1
+      this.$refs.pageFeedbacksTable.fetchResources()
     },
   },
-};
+}
 </script>
